@@ -1,4 +1,4 @@
-package com.gl.planesAndAirfileds.com.gl.planesAndAirfileds.domain;
+package com.gl.planesAndAirfileds.domain;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +12,6 @@ public class Plane {
     private String name;
     @Column(columnDefinition = "TEXT")
     private String description;
-
     @Temporal(TemporalType.TIMESTAMP)
     private Date addDate;
 }

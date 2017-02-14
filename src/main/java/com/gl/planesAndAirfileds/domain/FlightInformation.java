@@ -1,4 +1,4 @@
-package com.gl.planesAndAirfileds.com.gl.planesAndAirfileds.domain;
+package com.gl.planesAndAirfileds.domain;
 
 import javax.persistence.*;
 import java.util.Date;
