@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class FlightInformation {
+public class FlightDetails {
     @Id
     @GeneratedValue
     private Long id;
