@@ -14,4 +14,9 @@ public class ViewController {
     public String displayMap() {
         return "index";
     }
+
+    @RequestMapping("/plane")
+    public String displayPlane() {
+        return "plane";
+    }
 }

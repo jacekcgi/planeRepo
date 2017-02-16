@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Planes</title>
+</head>
+<body ng-app="planes">
+<h1>Add Planes</h1>
+<div ng-controller="savePlane">
+     <form ng-submit="submitForm()">
+         <table>
+             <tr>
+                 <td th:text="#{plane.name}">Name</td>
+                 <td><input ng-model="plane.name" type="text"/></td>
+             </tr>
+             <tr>
+                 <td th:text="#{plane.registration_number}">Registration</td>
+                 <td><input ng-model="plane.registration" type="text"/></td>
+             </tr>
+             <tr>
+                 <td th:text="#{plane.description}">Registration</td>
+                 <td><textarea rows="3" cols="20" ng-model="plane.description"/></td>
+             </tr>
+         </table>
+
+        <input type="submit" th:attr="value=#{button.save}" />
+    </form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js" type="text/javascript"></script>
+<script src="/js/planes_service.js"></script>
+</body>
+</html>
