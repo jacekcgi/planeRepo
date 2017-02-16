@@ -27,6 +27,8 @@ public class PlaneDAOService {
             plane = planeRepository.save(plane);
         } catch (Exception e) {
             e.printStackTrace();
+            logger.error(e.getMessage());
+            return null;
         }
         return plane;
     }
