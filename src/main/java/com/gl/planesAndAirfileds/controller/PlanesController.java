@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Created by marcin.majka on 15/2/2017.
- */
 @RestController
 public class PlanesController {
 
@@ -32,5 +29,10 @@ public class PlanesController {
         } else {
             return  new ResponseEntity<Plane>(savedPlane,HttpStatus.OK);
         }
+    }
+
+    @RequestMapping(value = "/planeList")
+    public Iterable<Plane> getPlaneList(){
+       return planeDaoService.getAllPlanes();
     }
 }

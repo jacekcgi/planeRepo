@@ -1,0 +1,1 @@
+var planes = angular.module('planes', []);

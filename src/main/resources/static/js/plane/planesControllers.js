@@ -1,4 +1,11 @@
-var planes = angular.module('planes', []);
+planes.controller('listPlanes', ['$scope', '$http', function ($scope, $http) {
+
+    $http.get('/planeList').then(function( planeInformation ){
+       $scope.planeList = planeInformation.data;
+    });
+
+}]);
+
 planes.controller('savePlane', ['$scope','$http', function($scope,$http) {
 
      $scope.master = {};

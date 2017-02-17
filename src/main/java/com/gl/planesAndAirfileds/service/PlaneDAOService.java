@@ -7,9 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by marcin.majka on 15/2/2017.
- */
 @Service
 public class PlaneDAOService {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

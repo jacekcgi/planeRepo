@@ -42,12 +42,39 @@
     </form>
 
 </div>
+
+    <div ng-controller="listPlanes">
+        <table class="table table-striped">
+            <thead>
+             <tr>
+                <th th:text="#{plane.planeName}">plane name</th>
+                <th th:text="#{plane.registrationNumber}">registration number</th>
+                <th th:text="#{plane.createDate}">create date</th>
+                <th th:text="#{plane.updateDate}">update date</th>
+                <th th:text="#{plane.descriptionText}">description</th>
+             </tr>
+            </thead>
+            <tbody>
+             <tr ng-repeat="plane in planeList">
+                <td>{{plane.name}}</td>
+                <td>{{plane.registration}}</td>
+                <td>{{plane.create_date | date : "medium" }}</td>
+                <td>{{plane.update_date | date : "medium" }}</td>
+                <td>{{plane.description}}</td>
+             </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 <footer th:replace="fragments/footer :: footer">
     <p>Default Copyright statement</p>
 </footer>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js" type="text/javascript"></script>
-<script src="/js/planes_service.js"></script>
+<script src="/js/plane/planesApp.js"></script>
+<script src="/js/plane/planesControllers.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 </body>
