@@ -3,41 +3,52 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Planes</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/main.css" rel="stylesheet"/>
+    <link href="/css/bootstrap-theme.min.css" rel="stylesheet"/>
+
 </head>
 <body ng-app="planes">
-<h1>Add Planes</h1>
+<nav  th:replace="fragments/header :: navbar (plane)">
+</nav>
+<div class="container">
+    <h2><p class="label label-primary" th:text="#{label.plane.editor}">Add Planes</p></h2>
 <div ng-controller="savePlane">
+    <h3 ng-show="planeModified != null">
+        <span ng-show="planeModified" class="label label-success" th:text="#{message.save.success}">Success</span>
+        <span ng-hide="planeModified" class="label label-danger" th:text="#{message.save.error}">Error</span>
+    </h3>
      <form name="form" ng-submit="submitForm(form.$valid)" novalidate="novalidate">
-         <table>
-             <tr>
-                 <td th:text="#{plane.name}" >Name</td>
-                 <td><input ng-model="plane.name" type="text" name="pName" required=""/>
-                     <div ng-show="form.$submitted || form.pName.$touched">
-                         <div ng-show="form.pName.$error.required" th:text="#{error.required.plane.name}">Field required</div>
-                     </div>
-                 </td>
-             </tr>
-
-             <tr>
-                 <td th:text="#{plane.registration_number}">Registration</td>
-                 <td><input ng-model="plane.registration" name="pRegistration" type="text" required=""/>
-                     <div ng-show="form.$submitted || form.pRegistration.$touched">
-                         <div ng-show="form.pRegistration.$error.required" th:text="#{error.required.plane.registration}">Field required</div>
-                     </div>
-                 </td>
-             </tr>
-             <tr>
-                 <td th:text="#{plane.description}">Registration</td>
-                 <td><textarea rows="3" cols="20" ng-model="plane.description"/></td>
-             </tr>
-         </table>
-        <input type="button" ng-click="reset(form)" value="Reset" />
-        <input type="submit" th:attr="value=#{button.save}" />
+         <div class="form-group">
+             <label for="pName" th:text="#{plane.name}">Name:</label>
+             <input ng-model="plane.name" class="form-control" type="text" name="pName" id="pName" required="" th:attr="placeholder=#{placeholder.plane.enterName}"/>
+             <div ng-show="form.$submitted || form.pName.$touched" >
+                 <div ng-show="form.pName.$error.required" th:text="#{error.required.plane.name}" class="alert alert-danger" role="alert">Field required</div>
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="pRegistration" th:text="#{plane.registration_number}">Registration:</label>
+             <input ng-model="plane.registration" class="form-control" type="text" name="pRegistration" id="pRegistration" required="" th:attr="placeholder=#{placeholder.plane.enterRegistration}"/>
+             <div ng-show="form.$submitted || form.pRegistration.$touched" >
+                 <div ng-show="form.pRegistration.$error.required" th:text="#{error.required.plane.registration}" class="alert alert-danger" role="alert">Field required</div>
+             </div>
+         </div>
+         <div class="form-group">
+             <label for="pDescription" th:text="#{plane.description}">Decription:</label>
+             <textarea class="form-control" ng-model="plane.description" id="pDescription" th:attr="placeholder=#{placeholder.plane.enterDescription}"/>
+         </div>
+        <button type="reset" ng-click="reset(form)" th:text="#{button.reset}" class="btn btn-default">Submit</button>
+        <button type="submit" th:text="#{button.save}" class="btn btn-default">Submit</button>
     </form>
-    <p>{{success}}</p>
-    <p>{{error}}</p>
+
 </div>
+</div>
+<footer th:replace="fragments/footer :: footer">
+    <p>Default Copyright statement</p>
+</footer>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js" type="text/javascript"></script>
 <script src="/js/planes_service.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>

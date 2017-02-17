@@ -14,11 +14,11 @@ planes.controller('savePlane', ['$scope','$http', function($scope,$http) {
       if(isValid) {
             $http.post("/plane",$scope.plane)
             .then(function successCallback(response) {
-                $scope.success="Plane was saved";
+                $scope.planeModified=true;
                 $scope.reset($scope.form);
             }, function errorCallback(response) {
-               $scope.success="ERROR. Plane was not saved "
-       });
+                $scope.planeModified=false;
+            });
 
        }
     }

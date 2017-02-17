@@ -4,6 +4,8 @@
      <title th:text="#{title}">Flight Radar</title>
     <meta name="viewport" content="initial-scale=1.0"/>
     <meta charset="utf-8"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/main.css" rel="stylesheet"/>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -19,12 +21,12 @@
     </style>
 </head>
 <body >
-<header>
-    <h1 th:text="#{title}">Flight Radar</h1>
-</header>
-<div id="map"></div>
-<footer>
-    <p th:text="#{copyright}">Default Copyright statement</p>
+<nav  th:replace="fragments/header :: navbar (main)">
+</nav>
+
+    <div id="map"></div>
+<footer th:replace="fragments/footer :: footer">
+    <p >Default Copyright statement</p>
 </footer>
 <script>
       var map;
@@ -38,5 +40,7 @@
 </script>
 <script async="async" defer="defer" th:src="@{https://maps.googleapis.com/maps/api/js(key=AIzaSyBMM5SVaQN_uhe5GVZj41g5s0db1OBNtFE,callback=initMap)}">
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 </body>
 </html>
