@@ -36,7 +36,8 @@ public class PlanesController {
     public Iterable<Plane> getPlaneList() {
         return planeDaoService.getAllPlanes();
     }
-    @RequestMapping( value = "/plane/location", method = RequestMethod.GET )
+
+    @RequestMapping( value = "/planeLocation", method = RequestMethod.GET )
     public ResponseEntity<List<FlightDetails>> getCurrentPositionOfAllPlanes() {
         List<FlightDetails> currentPositionOfAllPlanes = planeDaoService.getCurrentPositionOfAllPlanes();
         if(currentPositionOfAllPlanes == null) {
