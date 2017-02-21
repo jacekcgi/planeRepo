@@ -5,7 +5,8 @@ map.directive('googleMap',['$rootScope','$interval','lazyLoadApi','locationServi
     scope: {
       lat: '@', // latitude
       long: '@', // longitude
-      zoom: '@'
+      zoom: '@',
+      plane: '@'
     },
     link: function(scope, element, attrs) {
       var location = null;
@@ -32,7 +33,7 @@ map.directive('googleMap',['$rootScope','$interval','lazyLoadApi','locationServi
        var counter = 0.0;
        var markers = [];
        var positions = function() {
-           locationService.currentPosition(function(data){
+           locationService.currentPosition(scope.plane,function(data){
                   for (var i = 0; i < markers.length; i++) {
                           markers[i].setMap(null);
                   }
@@ -49,7 +50,7 @@ map.directive('googleMap',['$rootScope','$interval','lazyLoadApi','locationServi
                                         		path: plane,
                                         		fillOpacity: 1,
                                         		fillColor: '#ffda44',
-                                        		rotation : 0,
+                                        		rotation : value.course,
                                         		strokeWeight: 1,
                                         		scale: 0.05
                                          },

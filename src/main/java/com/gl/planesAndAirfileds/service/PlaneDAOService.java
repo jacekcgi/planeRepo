@@ -23,6 +23,10 @@ public class PlaneDAOService {
         this.planeRepository = planeRepository;
     }
 
+    public Plane getPlane(Long id) {
+        return planeRepository.findOne(id);
+    }
+
     public Plane save(Plane plane) {
 
         try {
@@ -35,16 +39,22 @@ public class PlaneDAOService {
         return plane;
     }
 
-    public List<FlightDetails> getCurrentPositionOfAllPlanes(){
+    public List<FlightDetails> getCurrentPositionOfPlanes(Long planeId){
        List<FlightDetails> result = null;
         try {
-            result = planeRepository.getCurrentPositionOfAllPlanes();
+            if(planeId == null) {
+                result = planeRepository.getCurrentPositionOfAllPlanes();
+            }else {
+                result = planeRepository.getCurrentPositionOfPlane(planeId);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
         return result;
     }
+
+
     public Iterable<Plane> getAllPlanes() {
         return planeRepository.findAll();
     }

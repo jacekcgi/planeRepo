@@ -6,10 +6,8 @@ import com.gl.planesAndAirfileds.service.PlaneDAOService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -37,13 +35,33 @@ public class PlanesController {
         return planeDaoService.getAllPlanes();
     }
 
+    /**
+     * Get from database position of all planes
+     * @return
+     */
     @RequestMapping( value = "/planeLocation", method = RequestMethod.GET )
     public ResponseEntity<List<FlightDetails>> getCurrentPositionOfAllPlanes() {
-        List<FlightDetails> currentPositionOfAllPlanes = planeDaoService.getCurrentPositionOfAllPlanes();
+        List<FlightDetails> currentPositionOfAllPlanes = planeDaoService.getCurrentPositionOfPlanes(null);
         if(currentPositionOfAllPlanes == null) {
             return  new ResponseEntity<List<FlightDetails>>(HttpStatus.BAD_REQUEST);
         } else {
             return  new ResponseEntity<List<FlightDetails>>(currentPositionOfAllPlanes,HttpStatus.OK);
         }
     }
+
+    /**
+     * Get from database position of selected plane
+     * @return list of FligtDetails
+     */
+    @RequestMapping( value = "/planeLocation/{id}", method = RequestMethod.GET )
+    public ResponseEntity<List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable(value="id") Long planeId) {
+        List<FlightDetails> currentPositionOfAllPlanes = planeDaoService.getCurrentPositionOfPlanes(planeId);
+        if(currentPositionOfAllPlanes == null) {
+            return  new ResponseEntity<List<FlightDetails>>(HttpStatus.BAD_REQUEST);
+        } else {
+            return  new ResponseEntity<List<FlightDetails>>(currentPositionOfAllPlanes,HttpStatus.OK);
+        }
+    }
+
+
 }

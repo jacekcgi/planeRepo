@@ -10,6 +10,8 @@ public class FlightDetails {
     private Long id;
     private String gpsLatitude;
     private String gpsLongitude;
+    private Long course;
+    private Float velocity;
     private boolean isActualPosition;
     private Integer averageFuelConsumption;
     @Temporal(TemporalType.TIMESTAMP)
@@ -71,5 +73,21 @@ public class FlightDetails {
 
     public void setPlane(Plane plane) {
         this.plane = plane;
+    }
+
+    public Long getCourse() {
+        return course;
+    }
+
+    public void setCourse(Long course) {
+        this.course = course;
+    }
+
+    public Float getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Float velocity) {
+        this.velocity = velocity;
     }
 }
