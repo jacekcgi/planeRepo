@@ -9,10 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Created by marcin.majka on 15/2/2017.
- */
-
 @Controller
 public class ViewController {
 

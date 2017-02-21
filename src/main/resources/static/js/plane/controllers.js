@@ -1,12 +1,20 @@
-planes.controller('listPlanes', ['$scope', '$http', function ($scope, $http) {
+planes.controller('listPlanes', ['$scope', 'getAllPlanesDataService', function ($scope, getAllPlanesDataService) {
 
-    $http.get('/planeList').then(function( planeInformation ){
-       $scope.planeList = planeInformation.data;
+    getAllPlanesDataService.allPlanes(function (data) {
+        $scope.planeList = data;
     });
+
+    $scope.$on('planesDataPassed', function () {
+
+            var isNotEmpty = getAllPlanesDataService.values;
+            if (isNotEmpty) {
+                $scope.planeList = getAllPlanesDataService.values;
+            };
+        });
 
 }]);
 
-planes.controller('savePlane', ['$scope','$http', function($scope,$http) {
+planes.controller('savePlane', ['$scope','$http','getAllPlanesDataService', function($scope, $http, getAllPlanesDataService) {
 
      $scope.master = {};
      $scope.reset = function(form) {
@@ -23,6 +31,9 @@ planes.controller('savePlane', ['$scope','$http', function($scope,$http) {
             .then(function successCallback(response) {
                 $scope.planeModified=true;
                 $scope.reset($scope.form);
+                getAllPlanesDataService.allPlanes(function (data) {
+                        getAllPlanesDataService.values = data;
+                    });
             }, function errorCallback(response) {
                 $scope.planeModified=false;
             });
