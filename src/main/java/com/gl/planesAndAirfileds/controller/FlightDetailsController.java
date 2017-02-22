@@ -2,6 +2,7 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.service.FlightDetailsDAOService;
+import com.gl.planesAndAirfileds.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class FlightDetailsController {
@@ -22,17 +25,24 @@ public class FlightDetailsController {
         this.flightDetailsRepository = flightDetailsRepository;
     }
 
+    @RequestMapping( value = "/getCurrentTime", method = RequestMethod.GET )
+    public Long getCurrentTime() {
+        return TimeUtil.getCurrentTimeInMillisecondsUTC();
+    }
+
     /**
      * Get from database position of all planes
      * @return
      */
     @RequestMapping( value = "/planeLocation", method = RequestMethod.GET )
-    public ResponseEntity<List<FlightDetails>> getCurrentPositionOfAllPlanes() {
+    public ResponseEntity<Map<Long,List<FlightDetails>>> getCurrentPositionOfAllPlanes() {
         List<FlightDetails> currentPositionOfAllPlanes = flightDetailsRepository.getLatestFlightDetailsForPlanes(null);
+        Map<Long,List<FlightDetails>> planePositions = new HashMap<>();
+        planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(),currentPositionOfAllPlanes);
         if(currentPositionOfAllPlanes == null) {
-            return  new ResponseEntity<List<FlightDetails>>(HttpStatus.BAD_REQUEST);
+            return  new ResponseEntity<Map<Long,List<FlightDetails>>>(HttpStatus.BAD_REQUEST);
         } else {
-            return  new ResponseEntity<List<FlightDetails>>(currentPositionOfAllPlanes,HttpStatus.OK);
+            return  new ResponseEntity<Map<Long,List<FlightDetails>>>(planePositions,HttpStatus.OK);
         }
     }
 

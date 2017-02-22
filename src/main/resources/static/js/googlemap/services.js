@@ -19,19 +19,41 @@ map.service('lazyLoadApi', ['$window', '$q',function lazyLoadApi($window, $q) {
   return deferred.promise
 }]);
 
-map.service('locationService',['$http', function ($http) {
+map.service('locationService',['$http',function ($http) {
     this.currentPosition = getCurrentPosition;
-    function getCurrentPosition(planeId,callback) {
+    function getCurrentPosition(planeId,lastUpdate,callback) {
     var url = '/planeLocation';
     if(planeId){
         url=url+'/'+planeId
     }
-       $http.get(url).
-            then(function successCallback(response) {
-              callback(response.data);
-            }, function errorCallback(response) {
-//             callback(response.data);
-            });
+    $http.get("/getCurrentTime").then(function successCallback(response) {
+            var currentTime = response.data;
+            var loadFromServer = true;
+            if(lastUpdate) {
+                if(currentTime-lastUpdate < 30000) {
+                    loadFromServer = false;
+                }
+            }
+
+            if(loadFromServer ) {
+              $http.get(url).
+                      then(function successCallback(response) {
+                      var data;
+                      angular.forEach(response.data, function(value, key){
+                            data = value;
+                            lastUpdate = key;
+                      });
+
+                      callback(lastUpdate,data);
+                       }, function errorCallback(response) {
+                       });
+             } else {
+                callback(currentTime,"");
+             }
+     },function errorCallback(response) {
+       //             callback(response.data);
+     });
+
      }
 
 }]);

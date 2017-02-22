@@ -1,4 +1,4 @@
-map.directive('googleMap',['$rootScope','$interval','lazyLoadApi','locationService', function($rootScope,$interval, lazyLoadApi,locationService) {
+map.directive('googleMap',['$interval','lazyLoadApi','locationService', function($interval,lazyLoadApi,locationService) {
 
   return {
     restrict: 'CA', // restrict by class name
@@ -18,6 +18,13 @@ map.directive('googleMap',['$rootScope','$interval','lazyLoadApi','locationServi
         lazyLoadApi.then( initializeMap )
       }
 
+       function toRadians(degree) {
+            return degrees * (Math.PI/180);
+       }
+
+       function toDegrees(radian) {
+                   return radian * (180/Math.PI);
+              }
       // Initialize the map
       function initializeMap() {
         location = new google.maps.LatLng(scope.lat, scope.long);
@@ -32,20 +39,27 @@ map.directive('googleMap',['$rootScope','$interval','lazyLoadApi','locationServi
 
        var counter = 0.0;
        var markers = [];
+       var lastUpdate;
+       var storedLocationData;
        var positions = function() {
-           locationService.currentPosition(scope.plane,function(data){
+           locationService.currentPosition(scope.plane,lastUpdate,function(serverTime,data){
                   for (var i = 0; i < markers.length; i++) {
                           markers[i].setMap(null);
                   }
 
-                 angular.forEach(data, function(value, key){
-
-
-                            var logtitude = parseInt(value.gpsLongitude)+counter;
+                  if(data) {
+                    lastUpdate = serverTime
+                    storedLocationData = data;
+                  } else {
+                    data = storedLocationData;
+                  }
+                   angular.forEach(data, function(value, key){
+                           
+                            var longitude = parseInt(value.gpsLongitude)+counter;
                             var latitude = parseInt(value.gpsLatitude)+counter;
-                             counter = counter + 0.02;
+                             counter = counter + 0.001;
                                var marker =  new google.maps.Marker({
-                                        position: new google.maps.LatLng(logtitude.toString(),latitude.toString()),
+                                        position: new google.maps.LatLng(latitude.toString(),longitude.toString()),
                                         icon: {
                                         		path: plane,
                                         		fillOpacity: 1,
@@ -58,10 +72,11 @@ map.directive('googleMap',['$rootScope','$interval','lazyLoadApi','locationServi
                                       });
                                 markers.push(marker);
                         });
+
                })
        };
        positions();
-       $interval(positions,3000);
+       $interval(positions,1000);
 
 
 
