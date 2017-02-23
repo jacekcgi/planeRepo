@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FlightDetailsApp" ng-cloak="" ng-controller="flightDetailsController">
+<head>
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/main.css" rel="stylesheet" />
+    <title>{{flightDetails.plane.name}}</title>
+</head>
+<body>
+<div>
+    <table class="table-condensed table-striped table-hover">
+        <th>Flight details : {{flightDetails.plane.name}}</th>
+        <tr>
+            <td>Gps Latitude</td>
+            <td>{{flightDetails.gpsLatitude}}</td>
+        </tr>
+        <tr>
+            <td>Gps Longitude</td>
+            <td>{{flightDetails.gpsLongitude}}</td>
+        </tr>
+        <tr>
+            <td>Fuel Consumption</td>
+            <td>{{flightDetails.averageFuelConsumption}}</td>
+        </tr>
+        <tr>
+            <td>Course</td>
+            <td>{{flightDetails.course}}</td>
+        </tr>
+        <tr>
+            <td>Incoming time</td>
+            <td>{{flightDetails.incomingTime}}</td>
+        </tr>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/flightDetails/flightDetailsWindowApp.js"></script>
+</body>
+</html>

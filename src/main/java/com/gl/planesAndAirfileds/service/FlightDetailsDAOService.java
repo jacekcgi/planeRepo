@@ -35,4 +35,10 @@ public class FlightDetailsDAOService {
         return result;
     }
 
+    public FlightDetails getLatestFlightDetailsForPlane(Long planeId){
+        List<FlightDetails> latestFlightDetailForPlane = flightDetailsRepository.getLatestFlightDetailForPlane(planeId);
+
+        return latestFlightDetailForPlane.get(0);
+    }
+
 }

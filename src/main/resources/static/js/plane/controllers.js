@@ -1,20 +1,30 @@
-planes.controller('listPlanes', ['$scope', 'getAllPlanesDataService', function ($scope, getAllPlanesDataService) {
+planes.controller('listPlanes', ['$scope', 'PlanesDataService','DetailsPlaneFlightService','$window', function ($scope, PlanesDataService, DetailsPlaneFlightService, $window) {
 
-    getAllPlanesDataService.allPlanes(function (data) {
+    PlanesDataService.allPlanes(function (data) {
         $scope.planeList = data;
     });
 
     $scope.$on('planesDataPassed', function () {
 
-            var isNotEmpty = getAllPlanesDataService.values;
+            var isNotEmpty = PlanesDataService.values;
             if (isNotEmpty) {
-                $scope.planeList = getAllPlanesDataService.values;
+                $scope.planeList = PlanesDataService.values;
             };
         });
 
+    $scope.showFlightDetails = function (item) {
+        var id_plane = item.currentTarget.getAttribute("id_plane");
+            DetailsPlaneFlightService.flightDetails(id_plane, function (data) {
+//            $scope.flightDetails = data;
+            flightDetailsWIndow = $window.open('/flightDetailsView', '', 'width=250,height=250');
+            flightDetailsWIndow.flightDetails = data;
+        });
+
+    };
+
 }]);
 
-planes.controller('savePlane', ['$scope','$http','getAllPlanesDataService', function($scope, $http, getAllPlanesDataService) {
+planes.controller('savePlane', ['$scope','$http','PlanesDataService', function($scope, $http, PlanesDataService) {
 
      $scope.master = {};
      $scope.reset = function(form) {
@@ -31,8 +41,8 @@ planes.controller('savePlane', ['$scope','$http','getAllPlanesDataService', func
             .then(function successCallback(response) {
                 $scope.planeModified=true;
                 $scope.reset($scope.form);
-                getAllPlanesDataService.allPlanes(function (data) {
-                        getAllPlanesDataService.values = data;
+                PlanesDataService.allPlanes(function (data) {
+                        PlanesDataService.values = data;
                     });
             }, function errorCallback(response) {
                 $scope.planeModified=false;
@@ -41,3 +51,4 @@ planes.controller('savePlane', ['$scope','$http','getAllPlanesDataService', func
        }
     }
 }]);
+
