@@ -14,11 +14,11 @@
 <div class="container">
     <h2><p class="label label-primary" th:text="#{label.plane.editor}">Add Planes</p></h2>
 <div ng-controller="savePlane">
-    <h3 ng-show="planeModified != null">
+    <h3 ng-cloak="" ng-show="planeModified != null">
         <span ng-show="planeModified" class="label label-success" th:text="#{message.save.success}">Success</span>
         <span ng-hide="planeModified" class="label label-danger" th:text="#{message.save.error}">Error</span>
     </h3>
-     <form name="form" ng-submit="submitForm(form.$valid)" novalidate="novalidate">
+     <form ng-cloak="" name="form" ng-submit="submitForm(form.$valid)" novalidate="novalidate">
          <div class="form-group">
              <label for="pName" th:text="#{plane.name}">Name:</label>
              <input ng-model="plane.name" class="form-control" type="text" name="pName" id="pName" required="" th:attr="placeholder=#{placeholder.plane.enterName}"/>
@@ -43,7 +43,7 @@
 
 </div>
 
-    <div ng-controller="listPlanes">
+    <div ng-controller="listPlanes" ng-cloak="">
         <table class="table table-striped">
             <thead>
              <tr>
