@@ -10,24 +10,24 @@
     <table class="table-condensed table-striped table-hover">
         <th>Flight details : {{flightDetails.plane.name}}</th>
         <tr>
-            <td>Gps Latitude</td>
+            <td th:text="#{flightDetails.gpsLatitude}" >Gps Latitude</td>
             <td>{{flightDetails.gpsLatitude}}</td>
         </tr>
         <tr>
-            <td>Gps Longitude</td>
+            <td th:text="#{flightDetails.gpsLongitude}" >Gps Longitude</td>
             <td>{{flightDetails.gpsLongitude}}</td>
         </tr>
         <tr>
-            <td>Fuel Consumption</td>
+            <td th:text="#{flightDetails.averageFuelConsumption}">Average Fuel Consumption</td>
             <td>{{flightDetails.averageFuelConsumption}}</td>
         </tr>
         <tr>
-            <td>Course</td>
+            <td th:text="#{flightDetails.course}">Course</td>
             <td>{{flightDetails.course}}</td>
         </tr>
         <tr>
-            <td>Incoming time</td>
-            <td>{{flightDetails.incomingTime}}</td>
+            <td th:text="#{flightDetails.incomingTime}" >Incoming time</td>
+            <td>{{flightDetails.incomingTime | date : "medium"}}</td>
         </tr>
     </table>
 </div>

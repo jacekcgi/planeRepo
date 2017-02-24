@@ -15,7 +15,6 @@ planes.controller('listPlanes', ['$scope', 'PlanesDataService','DetailsPlaneFlig
     $scope.showFlightDetails = function (item) {
         var id_plane = item.currentTarget.getAttribute("id_plane");
             DetailsPlaneFlightService.flightDetails(id_plane, function (data) {
-//            $scope.flightDetails = data;
             flightDetailsWIndow = $window.open('/flightDetailsView', '', 'width=250,height=250');
             flightDetailsWIndow.flightDetails = data;
         });
