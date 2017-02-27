@@ -37,11 +37,11 @@ public class FlightDetailsController {
     @RequestMapping( value = "/planeLocation", method = RequestMethod.GET )
     public ResponseEntity<Map<Long,List<FlightDetails>>> getCurrentPositionOfAllPlanes() {
         List<FlightDetails> currentPositionOfAllPlanes = flightDetailsRepository.getLatestFlightDetailsForPlanes(null);
-        Map<Long,List<FlightDetails>> planePositions = new HashMap<>();
-        planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(),currentPositionOfAllPlanes);
         if(currentPositionOfAllPlanes == null) {
             return  new ResponseEntity<Map<Long,List<FlightDetails>>>(HttpStatus.BAD_REQUEST);
         } else {
+            Map<Long,List<FlightDetails>> planePositions = new HashMap<>();
+            planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(),currentPositionOfAllPlanes);
             return  new ResponseEntity<Map<Long,List<FlightDetails>>>(planePositions,HttpStatus.OK);
         }
     }
@@ -51,12 +51,14 @@ public class FlightDetailsController {
      * @return list of FligtDetails
      */
     @RequestMapping( value = "/planeLocation/{id}", method = RequestMethod.GET )
-    public ResponseEntity<List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable(value="id") Long planeId) {
-        List<FlightDetails> currentPositionOfAllPlanes = flightDetailsRepository.getLatestFlightDetailsForPlanes(planeId);
-        if(currentPositionOfAllPlanes == null) {
-            return  new ResponseEntity<List<FlightDetails>>(HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Map<Long,List<FlightDetails>>> getCurrentPositionOfPlane(@PathVariable(value="id") Long planeId) {
+        List<FlightDetails> currentPositionOfOnePlane = flightDetailsRepository.getLatestFlightDetailsForPlanes(planeId);
+       if(currentPositionOfOnePlane == null) {
+            return  new ResponseEntity<Map<Long,List<FlightDetails>>>(HttpStatus.BAD_REQUEST);
         } else {
-            return  new ResponseEntity<List<FlightDetails>>(currentPositionOfAllPlanes,HttpStatus.OK);
+           Map<Long,List<FlightDetails>> planePositions = new HashMap<>();
+           planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(),currentPositionOfOnePlane);
+            return  new ResponseEntity<Map<Long,List<FlightDetails>>>(planePositions,HttpStatus.OK);
         }
     }
 
