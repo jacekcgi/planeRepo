@@ -65,7 +65,6 @@ map.service('locationService',['$http',function ($http) {
 
      function calculateDestinationPoint(latitude,longitude,bearing,distance){
         var earthRadius = 6371;
-        console.log(latitude + " "+longitude+ " "+bearing+ " "+distance);
         latitude = toRadians(latitude);
         longitude = toRadians(longitude);
         bearing = toRadians(bearing);
@@ -79,7 +78,6 @@ map.service('locationService',['$http',function ($http) {
         var finalBearing = getFinalBearing(latitudeEnd, longitudeEnd, latitude,longitude);
         var point = {latitude:toDegrees(latitudeEnd),longitude:toDegrees(longitudeEnd),course:finalBearing};
 
-        console.log(point.latitude + " "+point.longitude+ " "+bearing+" "+point.course);
         return point;
      }
 
