@@ -48,6 +48,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                     data = storedLocationData;
                   }
                    angular.forEach(data, function(value, key){
+                   console.log("value "+value)
                             var distance=locationService.distance(serverTime,value.incomingTime,value.velocity);
                             var destPoint = locationService.destinationPoint(value.gpsLatitude,value.gpsLongitude,value.course,distance);
                             var planeId = value.plane.id;
