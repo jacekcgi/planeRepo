@@ -9,18 +9,6 @@ import java.util.Date;
 
 @Entity
 public class Plane {
-
-    public Plane() {
-
-    }
-
-    public Plane(Long id, String name, String registration, String description) {
-        this.id = id;
-        this.name = name;
-        this.registration = registration;
-        this.description = description;
-    }
-
     @Id
     @GeneratedValue
     private Long id;
