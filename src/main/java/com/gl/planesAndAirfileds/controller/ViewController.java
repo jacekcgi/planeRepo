@@ -26,9 +26,9 @@ public class ViewController {
 
 
     @RequestMapping("/showPlane/{id}")
-    public String displayOnePlaneMap(@PathVariable(value="id") Long planeId, HttpSession session) {
+    public String displayOnePlaneMap(@PathVariable(value = "id") Long planeId, HttpSession session) {
         Plane plane = planeDaoService.getPlane(planeId);
-        if(plane != null) {
+        if (plane != null) {
             session.setAttribute("plane", plane);
         }
         return "redirect:/";
@@ -43,6 +43,11 @@ public class ViewController {
     @RequestMapping("/plane")
     public String displayPlane() {
         return "plane";
+    }
+
+    @RequestMapping("/flightDetailsView")
+    public String displayFlightDetails() {
+        return "flightDetails";
     }
 
 }

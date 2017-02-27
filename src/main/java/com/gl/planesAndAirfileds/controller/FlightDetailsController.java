@@ -25,17 +25,18 @@ public class FlightDetailsController {
         this.flightDetailsRepository = flightDetailsRepository;
     }
 
-    @RequestMapping( value = "/getCurrentTime", method = RequestMethod.GET )
+    @RequestMapping(value = "/getCurrentTime", method = RequestMethod.GET)
     public Long getCurrentTime() {
         return TimeUtil.getCurrentTimeInMillisecondsUTC();
     }
 
     /**
      * Get from database position of all planes
+     *
      * @return
      */
-    @RequestMapping( value = "/planeLocation", method = RequestMethod.GET )
-    public ResponseEntity<Map<Long,List<FlightDetails>>> getCurrentPositionOfAllPlanes() {
+    @RequestMapping(value = "/planeLocation", method = RequestMethod.GET)
+    public ResponseEntity<Map<Long, List<FlightDetails>>> getCurrentPositionOfAllPlanes() {
         List<FlightDetails> currentPositionOfAllPlanes = flightDetailsRepository.getLatestFlightDetailsForPlanes(null);
         if(currentPositionOfAllPlanes == null) {
             return  new ResponseEntity<Map<Long,List<FlightDetails>>>(HttpStatus.BAD_REQUEST);
@@ -48,6 +49,7 @@ public class FlightDetailsController {
 
     /**
      * Get from database position of selected plane
+     *
      * @return list of FligtDetails
      */
     @RequestMapping( value = "/planeLocation/{id}", method = RequestMethod.GET )
@@ -60,6 +62,12 @@ public class FlightDetailsController {
            planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(),currentPositionOfOnePlane);
             return  new ResponseEntity<Map<Long,List<FlightDetails>>>(planePositions,HttpStatus.OK);
         }
+    }
+
+    @RequestMapping(value = "/flightDetails/{plane_id}", method = RequestMethod.GET)
+    public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_id") Long planeId) {
+
+        return flightDetailsRepository.getLatestFlightDetailsForPlane(planeId);
     }
 
 }

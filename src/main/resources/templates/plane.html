@@ -43,7 +43,8 @@
 
 </div>
 
-    <div ng-controller="listPlanes" ng-cloak="">
+    <div id="container" ng-controller="listPlanes" ng-cloak="">
+        <div id="left">
         <table class="table table-striped">
             <thead>
              <tr>
@@ -61,11 +62,12 @@
                 <td>{{plane.create_date | date : "medium" }}</td>
                 <td>{{plane.update_date | date : "medium" }}</td>
                 <td>{{plane.description}}</td>
+                <td><button id_plane="{{plane.id}}" ng-click="showFlightDetails($event)" >more info</button></td>
              </tr>
             </tbody>
         </table>
+        </div>
     </div>
-
 </div>
 <footer th:replace="fragments/footer :: footer">
     <p>Default Copyright statement</p>
