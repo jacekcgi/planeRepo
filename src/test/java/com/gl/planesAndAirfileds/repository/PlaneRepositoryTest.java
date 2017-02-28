@@ -31,18 +31,9 @@ public class PlaneRepositoryTest {
     private PlaneRepository planeRepository;
 
     @Test
-    public void testSavePlane() {
-        Long key = 1l;
-        Plane plane = new Plane(key,"plane 1","123","firs plain test");
-        planeRepository.save(plane);
-        Plane returnedPlane = entityManager.find(Plane.class,key);
-        assertThat(returnedPlane).isNotNull();
-        assertThat(returnedPlane.getId()).isEqualTo(key);
-    }
-    @Test
     public void testGetPlanesId() {
-        Plane plane = new Plane(null,"plane 1","123","firs plain test");
-        Plane plane2 = new Plane(null,"plane 1","123","firs plain test");
+        Plane plane = new Plane(null,"plane 1","123","first plain test");
+        Plane plane2 = new Plane(null,"plane 1","123","second plain test");
         entityManager.persist(plane);
         entityManager.persist(plane2);
         List<PlaneId> planesIdList = planeRepository.getPlanesId();
