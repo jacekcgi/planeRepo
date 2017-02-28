@@ -5,6 +5,19 @@ import java.util.Date;
 
 @Entity
 public class FlightDetails {
+    public FlightDetails(Long id, String gpsLatitude, String gpsLongitude, Long course, Float velocity, boolean isActualPosition, Plane plane) {
+        this.id = id;
+        this.gpsLatitude = gpsLatitude;
+        this.gpsLongitude = gpsLongitude;
+        this.course = course;
+        this.velocity = velocity;
+        this.isActualPosition = isActualPosition;
+        this.plane = plane;
+    }
+    public FlightDetails() {
+
+    }
+
     @Id
     @GeneratedValue
     private Long id;
