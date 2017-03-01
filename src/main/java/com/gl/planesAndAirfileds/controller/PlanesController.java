@@ -28,7 +28,7 @@ public class PlanesController {
         Plane savedPlane = planeDaoService.save(plane);
 
         if(savedPlane == null) {
-            return  new ResponseEntity<Plane>(plane,HttpStatus.BAD_REQUEST);
+            return  new ResponseEntity<Plane>(plane,HttpStatus.SERVICE_UNAVAILABLE);
         } else {
             return  new ResponseEntity<Plane>(savedPlane,HttpStatus.OK);
         }
@@ -37,7 +37,7 @@ public class PlanesController {
     public ResponseEntity<Iterable<Plane>> getPlaneList() {
         Iterable<Plane> planes = planeDaoService.getAllPlanes();
         if(planes == null) {
-            return  new ResponseEntity<Iterable<Plane>>(HttpStatus.BAD_REQUEST);
+            return  new ResponseEntity<Iterable<Plane>>(HttpStatus.SERVICE_UNAVAILABLE);
         } else {
             return  new ResponseEntity<Iterable<Plane>>(planes,HttpStatus.OK);
         }

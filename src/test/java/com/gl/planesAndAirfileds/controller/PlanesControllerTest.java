@@ -20,11 +20,6 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-
-/**
- * Created by marcin.majka on 24/2/2017.
- */
-
 @RunWith(SpringRunner.class)
 @WebMvcTest(PlanesController.class)
 public class PlanesControllerTest {
@@ -66,7 +61,7 @@ public class PlanesControllerTest {
     public void testGetPlaneListNull() throws Exception {
         given(this.planeDaoService.getAllPlanes()).willReturn(null);
         this.mvc.perform(get("/planeList"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isServiceUnavailable());
     }
 
 }

@@ -15,9 +15,6 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Created by marcin.majka on 28/2/2017.
- */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
