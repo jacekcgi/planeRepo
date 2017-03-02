@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 public class FlightDetails {
-    public FlightDetails(Long id, Double gpsLatitude, Double gpsLongitude, Long course, Float velocity, boolean isActualPosition, Plane plane) {
+    public FlightDetails(Long id, Double gpsLatitude, Double gpsLongitude, Double course, Float velocity, boolean isActualPosition, Plane plane) {
         this.id = id;
         this.gpsLatitude = gpsLatitude;
         this.gpsLongitude = gpsLongitude;
@@ -23,7 +23,7 @@ public class FlightDetails {
     private Long id;
     private Double gpsLatitude;
     private Double gpsLongitude;
-    private Long course;
+    private Double course;
     private Float velocity;
     private boolean isActualPosition;
     private Integer averageFuelConsumption;
@@ -88,11 +88,11 @@ public class FlightDetails {
         this.plane = plane;
     }
 
-    public Long getCourse() {
+    public Double getCourse() {
         return course;
     }
 
-    public void setCourse(Long course) {
+    public void setCourse(Double course) {
         this.course = course;
     }
 

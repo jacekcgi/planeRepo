@@ -41,10 +41,10 @@ public class FlightDetailsRepositoryTest {
         p2 = entityManager.merge(p2);
         p3 = entityManager.merge(p3);
 
-        FlightDetails fd = new FlightDetails(1l,21d,17d,30l,500f,true,p1);
-        FlightDetails fd2 = new FlightDetails(2l,22d,18d,45l,800f,true,p2);
-        FlightDetails fd3 = new FlightDetails(3l,23d,19d,130l,300f,false,p2);
-        FlightDetails fd4 = new FlightDetails(4l,23d,19d,130l,300f,false,p3);
+        FlightDetails fd = new FlightDetails(1l,21d,17d,30d,500f,true,p1);
+        FlightDetails fd2 = new FlightDetails(2l,22d,18d,45d,800f,true,p2);
+        FlightDetails fd3 = new FlightDetails(3l,23d,19d,130d,300f,false,p2);
+        FlightDetails fd4 = new FlightDetails(4l,23d,19d,130d,300f,false,p3);
 
         entityManager.merge(fd);
         entityManager.merge(fd2);
