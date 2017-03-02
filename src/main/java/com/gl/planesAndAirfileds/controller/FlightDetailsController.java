@@ -39,7 +39,7 @@ public class FlightDetailsController {
     public ResponseEntity<Map<Long, List<FlightDetails>>> getCurrentPositionOfAllPlanes() {
         List<FlightDetails> currentPositionOfAllPlanes = flightDetailsDAOService.getLatestFlightDetailsForPlanes(null);
         if (currentPositionOfAllPlanes == null) {
-            return new ResponseEntity<Map<Long, List<FlightDetails>>>(HttpStatus.SERVICE_UNAVAILABLE);
+            return new ResponseEntity<Map<Long, List<FlightDetails>>>(HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
             Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
             planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfAllPlanes);
@@ -57,7 +57,7 @@ public class FlightDetailsController {
     public ResponseEntity<Map<Long, List<FlightDetails>>> getCurrentPositionOfPlane(@PathVariable(value = "id") Long planeId) {
         List<FlightDetails> currentPositionOfOnePlane = flightDetailsDAOService.getLatestFlightDetailsForPlanes(planeId);
         if (currentPositionOfOnePlane == null) {
-            return new ResponseEntity<Map<Long, List<FlightDetails>>>(HttpStatus.SERVICE_UNAVAILABLE);
+            return new ResponseEntity<Map<Long, List<FlightDetails>>>(HttpStatus.INTERNAL_SERVER_ERROR);
         } else {
             Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
             planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
@@ -67,8 +67,6 @@ public class FlightDetailsController {
 
     @RequestMapping(value = "/flightDetails/{plane_id}", method = RequestMethod.GET)
     public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_id") Long planeId) {
-
         return flightDetailsDAOService.getLatestFlightDetailsForPlane(planeId);
-    }
-
+       }
 }

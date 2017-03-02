@@ -30,15 +30,23 @@ public class PlaneDAOService {
         try {
             plane = planeRepository.save(plane);
         } catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error("Database Exception",e);
             return null;
         }
         return plane;
     }
 
     public List<PlaneId> getAllPlanesId () {
-        return planeRepository.getPlanesId();
+
+        List<PlaneId> planes = null;
+        try {
+            planes = planeRepository.getPlanesId();
+        }
+        catch (Exception e) {
+            logger.error("Database Exception",e);
+            return null;
+        }
+        return planes;
     }
 
     public Iterable<Plane> getAllPlanes() {
@@ -46,8 +54,7 @@ public class PlaneDAOService {
         try {
             planes = planeRepository.findAll();
         } catch (Exception e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error("Database Exception",e);
             return null;
         }
         return planes;

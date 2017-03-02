@@ -45,7 +45,7 @@ map.service('locationService',['$http',function ($http) {
                             data = value;
                             lastUpdate = key;
                       });
-                        console.log("data "+data)
+
                       callback(lastUpdate,data);
                        }, function errorCallback(response) {
                        });

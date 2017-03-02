@@ -30,7 +30,7 @@ public class FlightDetailsDAOService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error("Database Exception",e);
         }
         return result;
     }

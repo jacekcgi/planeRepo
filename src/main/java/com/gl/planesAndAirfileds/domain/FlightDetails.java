@@ -5,7 +5,7 @@ import java.util.Date;
 
 @Entity
 public class FlightDetails {
-    public FlightDetails(Long id, String gpsLatitude, String gpsLongitude, Long course, Float velocity, boolean isActualPosition, Plane plane) {
+    public FlightDetails(Long id, Double gpsLatitude, Double gpsLongitude, Long course, Float velocity, boolean isActualPosition, Plane plane) {
         this.id = id;
         this.gpsLatitude = gpsLatitude;
         this.gpsLongitude = gpsLongitude;
@@ -21,8 +21,8 @@ public class FlightDetails {
     @Id
     @GeneratedValue
     private Long id;
-    private String gpsLatitude;
-    private String gpsLongitude;
+    private Double gpsLatitude;
+    private Double gpsLongitude;
     private Long course;
     private Float velocity;
     private boolean isActualPosition;
@@ -40,19 +40,19 @@ public class FlightDetails {
         this.id = id;
     }
 
-    public String getGpsLatitude() {
+    public Double getGpsLatitude() {
         return gpsLatitude;
     }
 
-    public void setGpsLatitude(String gpsLatitude) {
+    public void setGpsLatitude(Double gpsLatitude) {
         this.gpsLatitude = gpsLatitude;
     }
 
-    public String getGpsLongitude() {
+    public Double getGpsLongitude() {
         return gpsLongitude;
     }
 
-    public void setGpsLongitude(String gpsLongitude) {
+    public void setGpsLongitude(Double gpsLongitude) {
         this.gpsLongitude = gpsLongitude;
     }
 

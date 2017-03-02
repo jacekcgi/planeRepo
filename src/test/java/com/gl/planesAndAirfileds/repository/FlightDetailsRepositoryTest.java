@@ -41,10 +41,10 @@ public class FlightDetailsRepositoryTest {
         p2 = entityManager.merge(p2);
         p3 = entityManager.merge(p3);
 
-        FlightDetails fd = new FlightDetails(1l,"21","17",30l,500f,true,p1);
-        FlightDetails fd2 = new FlightDetails(2l,"22","18",45l,800f,true,p2);
-        FlightDetails fd3 = new FlightDetails(3l,"23","19",130l,300f,false,p2);
-        FlightDetails fd4 = new FlightDetails(4l,"23","19",130l,300f,false,p3);
+        FlightDetails fd = new FlightDetails(1l,21d,17d,30l,500f,true,p1);
+        FlightDetails fd2 = new FlightDetails(2l,22d,18d,45l,800f,true,p2);
+        FlightDetails fd3 = new FlightDetails(3l,23d,19d,130l,300f,false,p2);
+        FlightDetails fd4 = new FlightDetails(4l,23d,19d,130l,300f,false,p3);
 
         entityManager.merge(fd);
         entityManager.merge(fd2);
@@ -57,8 +57,8 @@ public class FlightDetailsRepositoryTest {
         List<FlightDetails> flightDetailsList = flightDetailsRepository.getLatestFlightDetailsForAllPlanes();
         assertThat(flightDetailsList).hasSize(2);
         for(FlightDetails fd:flightDetailsList) {
-            assertThat(fd.getGpsLatitude()).isNotEmpty();
-            assertThat(fd.getGpsLongitude()).isNotEmpty();
+            assertThat(fd.getGpsLatitude()).isNotNull();
+            assertThat(fd.getGpsLongitude()).isNotNull();
             assertThat(fd.getCourse()).isNotNull();
             assertThat(fd.getId()).isNotEqualTo(3l);
             assertThat(fd.isActualPosition()).isTrue();
@@ -72,8 +72,8 @@ public class FlightDetailsRepositoryTest {
         assertThat(flightDetailsList).hasSize(1);
         if(!flightDetailsList.isEmpty()) {
             FlightDetails fd = flightDetailsList.get(0);
-            assertThat(fd.getGpsLatitude()).isEqualTo("22");
-            assertThat(fd.getGpsLongitude()).isEqualTo("18");
+            assertThat(fd.getGpsLatitude()).isEqualTo(22);
+            assertThat(fd.getGpsLongitude()).isEqualTo(18);
             assertThat(fd.getCourse()).isEqualTo(45);
             assertThat(fd.isActualPosition()).isTrue();
         }

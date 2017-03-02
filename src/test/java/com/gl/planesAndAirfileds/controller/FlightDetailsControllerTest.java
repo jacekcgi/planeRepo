@@ -52,7 +52,7 @@ public class FlightDetailsControllerTest {
                 .thenReturn(null);
 
         mockMvc.perform(get("/planeLocation"))
-                .andExpect(status().isServiceUnavailable());
+                .andExpect(status().isInternalServerError());
 
     }
 
@@ -72,7 +72,7 @@ public class FlightDetailsControllerTest {
                 .thenReturn(null);
 
         mockMvc.perform(get("/planeLocation/2"))
-                .andExpect(status().isServiceUnavailable());
+                .andExpect(status().isInternalServerError());
 
     }
 

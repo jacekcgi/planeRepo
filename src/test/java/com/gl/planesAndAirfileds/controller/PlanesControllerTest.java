@@ -4,6 +4,7 @@ import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.service.PlaneDAOService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -15,9 +16,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.hamcrest.Matchers.*;
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -41,7 +42,8 @@ public class PlanesControllerTest {
         Plane p2 = new Plane(2l,"plane 2","ATZ342","plane description 2");
         planes.add(p1);
         planes.add(p2);
-        given(this.planeDaoService.getAllPlanes()).willReturn(planes);
+        Mockito.when(this.planeDaoService.getAllPlanes()).thenReturn(planes);
+        //given(this.planeDaoService.getAllPlanes()).willReturn(planes);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -59,9 +61,10 @@ public class PlanesControllerTest {
 
     @Test
     public void testGetPlaneListNull() throws Exception {
-        given(this.planeDaoService.getAllPlanes()).willReturn(null);
+        Mockito.when(this.planeDaoService.getAllPlanes()).thenReturn(null);
+        //given(this.planeDaoService.getAllPlanes()).willReturn(null);
         this.mvc.perform(get("/planeList"))
-                .andExpect(status().isServiceUnavailable());
+                .andExpect(status().isInternalServerError());
     }
 
 }
