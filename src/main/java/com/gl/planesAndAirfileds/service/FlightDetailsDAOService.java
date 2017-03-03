@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -39,6 +40,17 @@ public class FlightDetailsDAOService {
         List<FlightDetails> latestFlightDetailForPlane = flightDetailsRepository.getLatestFlightDetailForPlane(planeId);
 
         return latestFlightDetailForPlane.get(0);
+    }
+
+    @Transactional
+    public void insertNewFlightDetails(FlightDetails flightDetails) {
+        List<FlightDetails> latestFlightDetails = flightDetailsRepository.getLatestFlightDetailForPlane(flightDetails.getPlane().getId());
+        for(FlightDetails fd :latestFlightDetails){
+            fd.setActualPosition(false);
+            flightDetailsRepository.save(fd);
+        }
+        flightDetails.setActualPosition(true);
+        flightDetailsRepository.save(flightDetails);
     }
 
 }

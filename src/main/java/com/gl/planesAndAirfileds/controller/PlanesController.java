@@ -35,6 +35,7 @@ public class PlanesController {
     }
     @RequestMapping(value = "/planeList")
     public ResponseEntity<Iterable<Plane>> getPlaneList() {
+        planeDaoService.save();
         Iterable<Plane> planes = planeDaoService.getAllPlanes();
         if(planes == null) {
             return  new ResponseEntity<Iterable<Plane>>(HttpStatus.INTERNAL_SERVER_ERROR);

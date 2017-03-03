@@ -103,4 +103,10 @@ public class FlightDetails {
     public void setVelocity(Float velocity) {
         this.velocity = velocity;
     }
+
+    @Override
+    public String toString() {
+        return "Latitude: " +gpsLatitude+ "   longitude: "+gpsLongitude+" course:"+course;
+
+    }
 }
