@@ -2,6 +2,7 @@ package com.gl.planesAndAirfileds.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -24,17 +25,25 @@ public class Plane extends AbstractIdentifiableEntity {
         this.description = description;
     }
 
-
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "registration", unique = true)
+    @NotEmpty
     private String registration;
-    @Column(columnDefinition = "TEXT")
+
+    @Column(name = "description", columnDefinition = "TEXT")
     private String description;
+
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date create_date;
+    @Column(name = "create_date")
+    private Date createDate;
+
     @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
-    private Date update_date;
+    @Column(name = "updateDate")
+    private Date updateDate;
 
     public Long getId() {
         return id;
@@ -60,20 +69,20 @@ public class Plane extends AbstractIdentifiableEntity {
         this.description = description;
     }
 
-    public Date getCreate_date() {
-        return create_date;
+    public Date getCreateDate() {
+        return createDate;
     }
 
-    public void setCreate_date(Date create_date) {
-        this.create_date = create_date;
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
-    public Date getUpdate_date() {
-        return update_date;
+    public Date getUpdateDate() {
+        return updateDate;
     }
 
-    public void setUpdate_date(Date update_date) {
-        this.update_date = update_date;
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
     }
 
     public String getRegistration() {
