@@ -1,7 +1,10 @@
 package com.gl.planesAndAirfileds.repository;
 
+import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.PlaneId;
+import com.gl.planesAndAirfileds.domain.util.SidUtils;
+import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +40,24 @@ public class PlaneRepositoryTest {
         for(PlaneId id :planesIdList) {
             assertThat(id.getId()).isNotNull();
         }
-
-
     }
+
+    @Test
+    public void testGetBySid(){
+        String sid = SidUtils.generate();
+        String otherSid = SidUtils.generate();
+
+        Plane plane = TestDomainObjectFactory.getPlane();
+        plane.setSid(sid);
+        Plane otherPlane = TestDomainObjectFactory.getPlane();
+        otherPlane.setSid(otherSid);
+
+        entityManager.persist(plane);
+        entityManager.persist(otherPlane);
+
+        Plane result = planeRepository.getBySid(sid);
+        TestCase.assertEquals(plane, result);
+    }
+
 
 }

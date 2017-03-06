@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class FlightDetails {
+@Table(name = "flight_details")
+public class FlightDetails extends AbstractEntity {
     public FlightDetails(Long id, Double gpsLatitude, Double gpsLongitude, Double course, Float velocity, boolean isActualPosition, Plane plane) {
         this.id = id;
         this.gpsLatitude = gpsLatitude;
@@ -18,9 +19,6 @@ public class FlightDetails {
 
     }
 
-    @Id
-    @GeneratedValue
-    private Long id;
     private Long flightTime;
     private Double flightDistance;
     private Double gpsLatitude;
@@ -33,7 +31,7 @@ public class FlightDetails {
     private Double distanceTraveled;
     @Temporal(TemporalType.TIMESTAMP)
     private Date incomingTime;
-    @ManyToOne()
+    @ManyToOne
     private Plane plane;
 
     public Long getId() {
