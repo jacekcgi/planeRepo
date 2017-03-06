@@ -39,7 +39,7 @@ public class FlightDetailsController {
     @RequestMapping(value = Mappings.FIND_CURRENT_POSITIONS, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
     public Map<Long, List<FlightDetails>> getCurrentPositionOfAllPlanes() {
-        List<FlightDetails> currentPositionOfAllPlanes = flightDetailsDAOService.getLatestFlightDetailsForPlanes(null);
+        List<FlightDetails> currentPositionOfAllPlanes = flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(null);
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
         planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfAllPlanes);
         return planePositions;
@@ -53,7 +53,7 @@ public class FlightDetailsController {
     @RequestMapping(value = Mappings.GET_CURRENT_POSITION, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
     public Map<Long, List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable(value = "id") Long planeId) {
-        List<FlightDetails> currentPositionOfOnePlane = flightDetailsDAOService.getLatestFlightDetailsForPlanes(planeId);
+        List<FlightDetails> currentPositionOfOnePlane = flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(planeId);
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
         planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
         return planePositions;
@@ -61,7 +61,7 @@ public class FlightDetailsController {
 
     @RequestMapping(value = Mappings.GET_FLIGHT_DETAILS, method = RequestMethod.GET)
     public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_id") Long planeId) {
-        return flightDetailsDAOService.getLatestFlightDetailsForPlane(planeId);
+        return flightDetailsServiceImpl.getLatestFlightDetailsForPlane(planeId);
     }
 
     @RequestMapping( value = "/flightDetails", method = RequestMethod.POST )

@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.PlaneDAOService;
+import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,7 +29,7 @@ public class ViewControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    PlaneDAOService planeDaoService;
+    PlaneServiceImpl planeServiceImpl;
 
     @Test
     public void dispalyMapTest() throws Exception {
@@ -77,7 +77,7 @@ public class ViewControllerTest {
     @Test
     public void displayOnePlaneMapTest() throws Exception {
 
-        when(planeDaoService.getPlane(anyLong()))
+        when(planeServiceImpl.getPlane(anyLong()))
                 .thenReturn(new Plane());
 
         MockHttpSession mockHttpSession = new MockHttpSession();

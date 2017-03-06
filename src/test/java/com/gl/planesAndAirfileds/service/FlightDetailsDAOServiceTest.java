@@ -2,6 +2,7 @@ package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
+import com.gl.planesAndAirfileds.service.impl.FlightDetailsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +18,14 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(FlightDetailsDAOService.class)
+@WebMvcTest(FlightDetailsServiceImpl.class)
 public class FlightDetailsDAOServiceTest {
 
     @MockBean
     private FlightDetailsRepository flightDetailsRepository;
 
     @Autowired
-    private FlightDetailsDAOService flightDetailsDAOService;
+    private FlightDetailsServiceImpl flightDetailsServiceImpl;
 
 
     @Test
@@ -36,7 +37,7 @@ public class FlightDetailsDAOServiceTest {
         when(flightDetailsRepository.getLatestFlightDetailForPlane(anyLong()))
                 .thenReturn(flightDetailsTestList);
 
-        flightDetailsDAOService.getLatestFlightDetailsForPlane(anyLong());
+        flightDetailsServiceImpl.getLatestFlightDetailsForPlane(anyLong());
 
         verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyLong());
 
@@ -45,7 +46,7 @@ public class FlightDetailsDAOServiceTest {
     @Test
     public void ifMethodGetNullAsParameterThenFlightDetailsForAllPlanesIsReturn() {
 
-        flightDetailsDAOService.getLatestFlightDetailsForPlanes(null);
+        flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(null);
 
         verify(flightDetailsRepository).getLatestFlightDetailsForAllPlanes();
 
@@ -54,7 +55,7 @@ public class FlightDetailsDAOServiceTest {
   @Test
     public void ifMethodGetPlaneIdAsParameterThenFlightDetailFroThisPlaneIsReturn() {
 
-        flightDetailsDAOService.getLatestFlightDetailsForPlanes(anyLong());
+        flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(anyLong());
 
         verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyLong());
 

@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.PlaneDAOService;
+import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PlanesControllerTest {
 
     @MockBean
-    private PlaneDAOService planeDaoService;
+    private PlaneServiceImpl planeServiceImpl;
 
     @Autowired
     private MockMvc mvc;
@@ -42,8 +42,8 @@ public class PlanesControllerTest {
         Plane p2 = new Plane(2l,"plane 2","ATZ342","plane description 2");
         planes.add(p1);
         planes.add(p2);
-        Mockito.when(this.planeDaoService.getAllPlanes()).thenReturn(planes);
-        //given(this.planeDaoService.getAllPlanes()).willReturn(planes);
+        Mockito.when(this.planeServiceImpl.getAllPlanes()).thenReturn(planes);
+        //given(this.planeServiceImpl.getAllPlanes()).willReturn(planes);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
@@ -61,8 +61,8 @@ public class PlanesControllerTest {
 
     @Test
     public void testGetPlaneListNull() throws Exception {
-        Mockito.when(this.planeDaoService.getAllPlanes()).thenReturn(null);
-        //given(this.planeDaoService.getAllPlanes()).willReturn(null);
+        Mockito.when(this.planeServiceImpl.getAllPlanes()).thenReturn(null);
+        //given(this.planeServiceImpl.getAllPlanes()).willReturn(null);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isInternalServerError());
     }
