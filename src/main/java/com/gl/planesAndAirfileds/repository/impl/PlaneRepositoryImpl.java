@@ -3,7 +3,6 @@ package com.gl.planesAndAirfileds.repository.impl;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.repository.CustomPlaneRepository;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -22,7 +21,6 @@ public class PlaneRepositoryImpl implements CustomPlaneRepository {
     private EntityManager entityManager;
 
     @Override
-    @Transactional(readOnly = true)
     public List<Plane> findAllContainsDescription(String description)
     {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();

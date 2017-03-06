@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -21,17 +22,37 @@ public class FlightDetails extends AbstractEntity {
 
     private Long flightTime;
     private Double flightDistance;
+    @Column(name = "gps_latitude")
     private Double gpsLatitude;
+
+    @Column(name = "gps_longitude")
     private Double gpsLongitude;
+
+    @Column(name = "course")
     private Double course;
+
+    @Column(name = "velocity")
     private Float velocity;
+
+    @Column(name = "remaining_fuel")
     private Double remainingFuel;
+
+    @Column(name = "is_actual_position")
     private boolean isActualPosition;
+
+    @Column(name = "average_fuel_consumption")
     private Integer averageFuelConsumption;
+
+    @Column(name = "distance_traveled")
     private Double distanceTraveled;
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "incoming_time")
     private Date incomingTime;
+
     @ManyToOne
+    @JoinColumn(name = "plane_id", nullable = false)
+    @NotNull
     private Plane plane;
 
     public Long getId() {
