@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.PlaneDAOService;
+import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ViewController {
 
-    private PlaneDAOService planeDaoService;
+    private PlaneServiceImpl planeServiceImpl;
 
     @Autowired
-    public ViewController(PlaneDAOService planeDaoService) {
-        this.planeDaoService = planeDaoService;
+    public ViewController(PlaneServiceImpl planeServiceImpl) {
+        this.planeServiceImpl = planeServiceImpl;
     }
 
     @RequestMapping("/")
@@ -27,7 +27,7 @@ public class ViewController {
 
     @RequestMapping("/showPlane/{id}")
     public String displayOnePlaneMap(@PathVariable(value = "id") Long planeId, HttpSession session) {
-        Plane plane = planeDaoService.getPlane(planeId);
+        Plane plane = planeServiceImpl.getPlane(planeId);
         if (plane != null) {
             session.setAttribute("plane", plane);
         }

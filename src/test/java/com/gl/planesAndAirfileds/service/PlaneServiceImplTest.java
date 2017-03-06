@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.repository.PlaneRepository;
-import org.junit.Assert;
+import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +17,19 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(PlaneDAOService.class)
-public class PlaneDAOServiceTest {
+@WebMvcTest(PlaneServiceImpl.class)
+public class PlaneServiceImplTest {
 
     @MockBean
     private PlaneRepository planeRepository;
 
     @Autowired
-    private PlaneDAOService planeDAOService;
+    private PlaneServiceImpl planeServiceImpl;
 
     @Test
     public void shouldInvokeFindOneInRepository() {
 
-        planeDAOService.getPlane(anyLong());
+        planeServiceImpl.getPlane(anyLong());
 
         verify(planeRepository).findOne(anyLong());
 
@@ -38,7 +38,7 @@ public class PlaneDAOServiceTest {
     @Test
     public void shouldInvokeFindAllInRepository() {
 
-        planeDAOService.getAllPlanes();
+        planeServiceImpl.getAllPlanes();
 
         verify(planeRepository).findAll();
     }
@@ -46,7 +46,7 @@ public class PlaneDAOServiceTest {
     @Test
     public void shouldInvokeSaveMethodInRepository() {
 
-        planeDAOService.save(any(Plane.class));
+        planeServiceImpl.save(any(Plane.class));
 
         verify(planeRepository).save(any(Plane.class));
     }
@@ -59,7 +59,7 @@ public class PlaneDAOServiceTest {
         when(planeRepository.save(plane))
                 .thenThrow(Exception.class);
 
-        assertNull(planeDAOService.save(plane));
+        assertNull(planeServiceImpl.save(plane));
 
     }
 
