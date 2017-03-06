@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class PlaneDAOService {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private PlaneRepository planeRepository;
 
@@ -26,39 +25,14 @@ public class PlaneDAOService {
     }
 
     public Plane save(Plane plane) {
-
-        try {
-            plane = planeRepository.save(plane);
-        } catch (Exception e) {
-            logger.error("Database Exception",e);
-            return null;
-        }
-        return plane;
+        return planeRepository.save(plane);
     }
 
     public List<PlaneId> getAllPlanesId () {
-
-        List<PlaneId> planes = null;
-        try {
-            planes = planeRepository.getPlanesId();
-        }
-        catch (Exception e) {
-            logger.error("Database Exception",e);
-            return null;
-        }
-        return planes;
+        return planeRepository.getPlanesId();
     }
 
     public Iterable<Plane> getAllPlanes() {
-        Iterable<Plane> planes = null;
-        try {
-            planes = planeRepository.findAll();
-        } catch (Exception e) {
-            logger.error("Database Exception",e);
-            return null;
-        }
-        return planes;
+        return planeRepository.findAll();
     }
-
-
 }

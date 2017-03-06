@@ -2,54 +2,51 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.PlaneId;
+import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.service.PlaneDAOService;
+import com.gl.planesAndAirfileds.validators.PlaneTestValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-public class PlanesController {
+public class PlanesController extends AbstractController {
 
     private PlaneDAOService planeDaoService;
 
+    private PlaneTestValidator planeTestValidator;
+
     @Autowired
-    public PlanesController(PlaneDAOService planeDaoService) {
+    public PlanesController(PlaneDAOService planeDaoService, PlaneTestValidator planeTestValidator) {
         this.planeDaoService = planeDaoService;
+        this.planeTestValidator = planeTestValidator;
     }
 
-    @RequestMapping( value = "/plane", method = RequestMethod.POST )
-    public ResponseEntity<Plane> save(@RequestBody Plane plane) {
-        Plane savedPlane = planeDaoService.save(plane);
-
-        if(savedPlane == null) {
-            return  new ResponseEntity<Plane>(plane,HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-            return  new ResponseEntity<Plane>(savedPlane,HttpStatus.OK);
-        }
-    }
-    @RequestMapping(value = "/planeList")
-    public ResponseEntity<Iterable<Plane>> getPlaneList() {
-        Iterable<Plane> planes = planeDaoService.getAllPlanes();
-        if(planes == null) {
-            return  new ResponseEntity<Iterable<Plane>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-            return  new ResponseEntity<Iterable<Plane>>(planes,HttpStatus.OK);
-        }
+    @InitBinder
+    protected void initBinder(WebDataBinder binder)
+    {
+        addValidator(binder, Plane.class, planeTestValidator);
     }
 
-    @RequestMapping(value = "/planeIdList")
-    public ResponseEntity<List<PlaneId>> getPlanesId() {
-        List<PlaneId> planes = planeDaoService.getAllPlanesId();
-        if(planes == null) {
-            return  new ResponseEntity<List<PlaneId>>(HttpStatus.INTERNAL_SERVER_ERROR);
-        } else {
-            return  new ResponseEntity<List<PlaneId>>(planes,HttpStatus.OK);
-        }
+    @RequestMapping( value = Mappings.CREATE_PLANE, method = RequestMethod.POST )
+    @ResponseStatus(value = HttpStatus.OK)
+    public Plane save(@RequestBody @Valid Plane plane) {
+        return planeDaoService.save(plane);
+    }
+
+    @RequestMapping(value = Mappings.FIND_PLANES)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Iterable<Plane> getPlaneList() {
+        return planeDaoService.getAllPlanes();
+    }
+
+    @RequestMapping(value = Mappings.FIND_PLANE_IDS)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<PlaneId> getPlanesId() {
+        return planeDaoService.getAllPlanesId();
     }
 }

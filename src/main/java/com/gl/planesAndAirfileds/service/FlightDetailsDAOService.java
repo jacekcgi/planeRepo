@@ -12,7 +12,6 @@ import java.util.List;
 
 @Service
 public class FlightDetailsDAOService {
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private FlightDetailsRepository flightDetailsRepository;
 
@@ -22,18 +21,11 @@ public class FlightDetailsDAOService {
     }
 
     public List<FlightDetails> getLatestFlightDetailsForPlanes(Long planeId){
-        List<FlightDetails> result = null;
-        try {
-            if(planeId == null) {
-                result = flightDetailsRepository.getLatestFlightDetailsForAllPlanes();
-            }else {
-                result = flightDetailsRepository.getLatestFlightDetailForPlane(planeId);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            logger.error("Database Exception",e);
+        if (planeId == null) {
+            return flightDetailsRepository.getLatestFlightDetailsForAllPlanes();
+        } else {
+            return flightDetailsRepository.getLatestFlightDetailForPlane(planeId);
         }
-        return result;
     }
 
     public FlightDetails getLatestFlightDetailsForPlane(Long planeId){
