@@ -8,7 +8,10 @@ import java.util.Date;
 
 
 @Entity
-public class Plane {
+@Table(name = "plane")
+public class Plane extends AbstractIdentifiableEntity {
+
+    public static final String FIELD_DESCRIPTION = "description";
 
     public Plane() {
 
@@ -21,9 +24,7 @@ public class Plane {
         this.description = description;
     }
 
-    @Id
-    @GeneratedValue
-    private Long id;
+
     private String name;
     private String registration;
     @Column(columnDefinition = "TEXT")
