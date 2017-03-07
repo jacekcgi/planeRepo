@@ -55,18 +55,15 @@ public class PlaneRepositoryImpl extends AbstractEntityRepositoryImpl<Plane> imp
     }
 
     @Override
-    public long countByRegistration(String registration, String ignoreSid)
-    {
+    public long countByRegistration(String registration, String ignoreSid) {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
         Root root = criteriaQuery.from(Plane.class);
         criteriaQuery.select(builder.count(root));
 
         Predicate where = builder.equal(builder.lower(root.get(Plane.FIELD_REGISTRATION)), StringUtils.lowerCase(registration));
-        if (!StringUtils.isBlank(ignoreSid))
-        {
+        if (!StringUtils.isBlank(ignoreSid)) {
             where = builder.and(where, builder.notEqual(root.get(Plane.FIELD_SID), ignoreSid));
-
         }
         criteriaQuery.where(where);
 
