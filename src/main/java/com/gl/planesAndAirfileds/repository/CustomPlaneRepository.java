@@ -10,4 +10,6 @@ import java.util.List;
 public interface CustomPlaneRepository {
 
     List<Plane> findAllContainsDescription(String description);
+
+    long countByRegistration(String name, String ignoreSid);
 }

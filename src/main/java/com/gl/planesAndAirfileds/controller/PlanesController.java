@@ -4,7 +4,7 @@ import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.PlaneId;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
-import com.gl.planesAndAirfileds.validators.PlaneTestValidator;
+import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.WebDataBinder;
@@ -18,18 +18,18 @@ public class PlanesController extends AbstractController {
 
     private PlaneServiceImpl planeServiceImpl;
 
-    private PlaneTestValidator planeTestValidator;
+    private PlaneValidator planeValidator;
 
     @Autowired
-    public PlanesController(PlaneServiceImpl planeServiceImpl, PlaneTestValidator planeTestValidator) {
+    public PlanesController(PlaneServiceImpl planeServiceImpl, PlaneValidator planeValidator) {
         this.planeServiceImpl = planeServiceImpl;
-        this.planeTestValidator = planeTestValidator;
+        this.planeValidator = planeValidator;
     }
 
     @InitBinder
     protected void initBinder(WebDataBinder binder)
     {
-        addValidator(binder, Plane.class, planeTestValidator);
+        addValidator(binder, Plane.class, planeValidator);
     }
 
     @RequestMapping( value = Mappings.CREATE_PLANE, method = RequestMethod.POST )
