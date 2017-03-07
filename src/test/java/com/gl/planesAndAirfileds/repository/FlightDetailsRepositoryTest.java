@@ -1,5 +1,6 @@
 package com.gl.planesAndAirfileds.repository;
 
+import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.Plane;
 import org.junit.Before;
@@ -30,9 +31,9 @@ public class FlightDetailsRepositoryTest {
 
     @Before
     public void initialize() {
-        Plane p1 = new Plane();
-        Plane p2 = new Plane();
-        Plane p3 = new Plane();
+        Plane p1 = TestDomainObjectFactory.getPlane();
+        Plane p2 = TestDomainObjectFactory.getPlane();
+        Plane p3 = TestDomainObjectFactory.getPlane();
         p1.setId(1l);
         p2.setId(2l);
         p3.setId(3l);
