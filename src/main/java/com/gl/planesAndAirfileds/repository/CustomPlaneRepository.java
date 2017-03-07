@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by krzysztof.gonia on 3/6/2017.
  */
-public interface CustomPlaneRepository {
+public interface CustomPlaneRepository extends CustomAbstractEntityRepository<Plane> {
 
     List<Plane> findAllContainsDescription(String description);
 

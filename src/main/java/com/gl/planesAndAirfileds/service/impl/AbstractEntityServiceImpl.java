@@ -1,11 +1,14 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.AbstractEntity;
+import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.service.AbstractEntityService;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -75,4 +78,9 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity, ID ext
     public void deleteAll() {
         getRepository().deleteAll();
     }
+
+    abstract  public List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
+
+    abstract public long countBySearchParams(Filter filter);
+
 }

@@ -1,8 +1,11 @@
 package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.AbstractEntity;
+import com.gl.planesAndAirfileds.domain.filter.Filter;
+import org.springframework.data.domain.PageRequest;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by marek.sroga on 2017-03-06.
@@ -30,4 +33,8 @@ public interface AbstractEntityService<T extends AbstractEntity, ID extends Seri
     void delete(Iterable<? extends T> entities);
 
     void deleteAll();
+
+    List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
+
+    long countBySearchParams(Filter filter);
 }
