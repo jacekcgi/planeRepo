@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.components;
 
-import com.gl.planesAndAirfileds.domain.Airports;
-import com.gl.planesAndAirfileds.service.AirportDAOService;
+import com.gl.planesAndAirfileds.domain.Airport;
+import com.gl.planesAndAirfileds.service.AirportsDAOService;
 import com.gl.planesAndAirfileds.service.AirportsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +33,7 @@ public class AirPortsStorageWriterTest {
     ApplicationArguments applicationArguments;
 
     @MockBean
-    AirportDAOService airportDAOService;
+    AirportsDAOService airportsDAOService;
 
     @MockBean
     AirportsService airportsService;
@@ -41,10 +41,10 @@ public class AirPortsStorageWriterTest {
     @Test
     public void ShouldSaveToStorageIfListOfAirportsHaveData() throws Exception {
 
-        Airports airportOne= new Airports();
-        Airports airportTwo = new Airports();
+        Airport airportOne= new Airport();
+        Airport airportTwo = new Airport();
 
-        List<Airports> airportsList = new ArrayList<>();
+        List<Airport> airportsList = new ArrayList<>();
         airportsList.add(airportOne);
         airportsList.add(airportTwo);
 
@@ -53,7 +53,7 @@ public class AirPortsStorageWriterTest {
 
         airPortsStorageWriter.run(applicationArguments);
 
-        verify(airportDAOService).saveAirports(airportsList);
+        verify(airportsDAOService).saveAirports(airportsList);
 
     }
 
@@ -65,7 +65,7 @@ public class AirPortsStorageWriterTest {
 
         airPortsStorageWriter.run(applicationArguments);
 
-        verify(airportDAOService,times(0)).saveAirports(anyListOf(Airports.class));
+        verify(airportsDAOService,times(0)).saveAirports(anyListOf(Airport.class));
 
 
     }

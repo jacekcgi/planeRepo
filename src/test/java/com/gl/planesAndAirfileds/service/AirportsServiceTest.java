@@ -1,6 +1,6 @@
 package com.gl.planesAndAirfileds.service;
 
-import com.gl.planesAndAirfileds.domain.Airports;
+import com.gl.planesAndAirfileds.domain.Airport;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +25,18 @@ public class AirportsServiceTest {
     @Test
     public void checkIfFileIsParseCorrectly() {
 
-        List<Airports> expectedAirportList = getTesData();
-        List<Airports> actualAirportList = airportsService.getListOfAirports();
+        List<Airport> expectedAirportList = getTesData();
+        List<Airport> actualAirportList = airportsService.getListOfAirports();
 
         assertThat(actualAirportList, is(expectedAirportList));
 
     }
 
-    private List<Airports> getTesData() {
+    private List<Airport> getTesData() {
 
-        List<Airports> flightDetailsTestList = new ArrayList<>();
+        List<Airport> flightDetailsTestList = new ArrayList<>();
 
-        Airports airportOne = new Airports();
+        Airport airportOne = new Airport();
         airportOne.setId(1l);
         airportOne.setName("Goroka Airport");
         airportOne.setCity("Goroka");

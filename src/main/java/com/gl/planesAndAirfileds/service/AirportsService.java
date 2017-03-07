@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.components.AirPortsStorageWriter;
-import com.gl.planesAndAirfileds.domain.Airports;
+import com.gl.planesAndAirfileds.domain.Airport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,12 +26,12 @@ public class AirportsService {
     @Value("${airport.file.list}")
     private ClassPathResource classPathResource;
 
-    public  List<Airports> getListOfAirports() {
+    public  List<Airport> getListOfAirports() {
 
             return parseAirportFile();
     }
 
-    private  List<Airports> parseAirportFile() {
+    private  List<Airport> parseAirportFile() {
 
         try (Stream<String> stream = Files.lines(Paths.get(classPathResource.getURL().getFile()))) {
 
@@ -52,9 +52,9 @@ public class AirportsService {
         return lineText.replaceAll("\"", "");
     }
 
-    private Airports createAirportData(ArrayList<String> lineList) {
+    private Airport createAirportData(ArrayList<String> lineList) {
 
-        Airports airportData = new Airports();
+        Airport airportData = new Airport();
         airportData.setId(Long.parseLong(lineList.get(0)));
         airportData.setName(lineList.get(1));
         airportData.setCity(lineList.get(2));

@@ -41,7 +41,7 @@ public class FlightDetailsControllerTest {
 
         mockMvc.perform(get("/planeLocation"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType((MediaType.APPLICATION_JSON_UTF8)));
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 
     }
 

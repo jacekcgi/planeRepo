@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Airports {
+public class Airport {
 
     @Id
     @NotNull
@@ -142,26 +142,26 @@ public class Airports {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Airports)) return false;
+        if (!(o instanceof Airport)) return false;
 
-        Airports airports = (Airports) o;
+        Airport airport = (Airport) o;
 
-        if (!id.equals(airports.id)) return false;
-        if (name != null ? !name.equals(airports.name) : airports.name != null) return false;
-        if (city != null ? !city.equals(airports.city) : airports.city != null) return false;
-        if (country != null ? !country.equals(airports.country) : airports.country != null) return false;
-        if (iataCode != null ? !iataCode.equals(airports.iataCode) : airports.iataCode != null) return false;
-        if (icaoCode != null ? !icaoCode.equals(airports.icaoCode) : airports.icaoCode != null) return false;
-        if (latitude != null ? !latitude.equals(airports.latitude) : airports.latitude != null) return false;
-        if (longitude != null ? !longitude.equals(airports.longitude) : airports.longitude != null) return false;
-        if (altitude != null ? !altitude.equals(airports.altitude) : airports.altitude != null) return false;
-        if (timezone != null ? !timezone.equals(airports.timezone) : airports.timezone != null) return false;
-        if (daylightSavingTime != null ? !daylightSavingTime.equals(airports.daylightSavingTime) : airports.daylightSavingTime != null)
+        if (!id.equals(airport.id)) return false;
+        if (name != null ? !name.equals(airport.name) : airport.name != null) return false;
+        if (city != null ? !city.equals(airport.city) : airport.city != null) return false;
+        if (country != null ? !country.equals(airport.country) : airport.country != null) return false;
+        if (iataCode != null ? !iataCode.equals(airport.iataCode) : airport.iataCode != null) return false;
+        if (icaoCode != null ? !icaoCode.equals(airport.icaoCode) : airport.icaoCode != null) return false;
+        if (latitude != null ? !latitude.equals(airport.latitude) : airport.latitude != null) return false;
+        if (longitude != null ? !longitude.equals(airport.longitude) : airport.longitude != null) return false;
+        if (altitude != null ? !altitude.equals(airport.altitude) : airport.altitude != null) return false;
+        if (timezone != null ? !timezone.equals(airport.timezone) : airport.timezone != null) return false;
+        if (daylightSavingTime != null ? !daylightSavingTime.equals(airport.daylightSavingTime) : airport.daylightSavingTime != null)
             return false;
-        if (tzDatabaseTimeZone != null ? !tzDatabaseTimeZone.equals(airports.tzDatabaseTimeZone) : airports.tzDatabaseTimeZone != null)
+        if (tzDatabaseTimeZone != null ? !tzDatabaseTimeZone.equals(airport.tzDatabaseTimeZone) : airport.tzDatabaseTimeZone != null)
             return false;
-        if (type != null ? !type.equals(airports.type) : airports.type != null) return false;
-        return source != null ? source.equals(airports.source) : airports.source == null;
+        if (type != null ? !type.equals(airport.type) : airport.type != null) return false;
+        return source != null ? source.equals(airport.source) : airport.source == null;
     }
 
     @Override
@@ -185,7 +185,7 @@ public class Airports {
 
     @Override
     public String toString() {
-        return "Airports{" +
+        return "Airport{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", city='" + city + '\'' +

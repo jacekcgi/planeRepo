@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.components;
 
-import com.gl.planesAndAirfileds.domain.Airports;
-import com.gl.planesAndAirfileds.service.AirportDAOService;
+import com.gl.planesAndAirfileds.domain.Airport;
+import com.gl.planesAndAirfileds.service.AirportsDAOService;
 import com.gl.planesAndAirfileds.service.AirportsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -13,17 +13,17 @@ import java.util.List;
 @Component
 public class AirPortsStorageWriter implements ApplicationRunner {
 
-    private AirportDAOService airportDAOService;
+    private AirportsDAOService airportsDAOService;
 
     private AirportsService airportsService;
 
-    public AirportDAOService getAirportDAOService() {
-        return airportDAOService;
+    public AirportsDAOService getAirportsDAOService() {
+        return airportsDAOService;
     }
 
     @Autowired
-    public void setAirportDAOService(AirportDAOService airportDAOService) {
-        this.airportDAOService = airportDAOService;
+    public void setAirportsDAOService(AirportsDAOService airportsDAOService) {
+        this.airportsDAOService = airportsDAOService;
     }
 
     public AirportsService getAirportsService() {
@@ -38,9 +38,9 @@ public class AirPortsStorageWriter implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments applicationArguments) {
 
-        List<Airports> listOfAirports = airportsService.getListOfAirports();
+        List<Airport> listOfAirports = airportsService.getListOfAirports();
         if(!listOfAirports.isEmpty()) {
-            airportDAOService.saveAirports(listOfAirports);
+            airportsDAOService.saveAirports(listOfAirports);
         }
 
     }
