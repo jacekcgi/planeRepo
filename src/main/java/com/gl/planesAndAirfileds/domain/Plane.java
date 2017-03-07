@@ -16,6 +16,8 @@ public class Plane extends AbstractIdentifiableEntity {
 
     public static final String FIELD_REGISTRATION = "registration";
 
+    public static final String FIELD_NAME = "name";
+
     public Plane() {
 
     }

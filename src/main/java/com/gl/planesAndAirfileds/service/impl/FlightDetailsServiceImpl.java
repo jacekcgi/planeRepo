@@ -1,13 +1,12 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
-import com.gl.planesAndAirfileds.service.AbstractEntityService;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +25,16 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
     @Override
     protected AbstractEntityRepository<FlightDetails, Long> getRepository() {
         return flightDetailsRepository;
+    }
+
+    @Override
+    public List<FlightDetails> findBySearchParams(Filter filter, PageRequest pageRequest) {
+        return flightDetailsRepository.findBySearchParams(filter, pageRequest);
+    }
+
+    @Override
+    public long countBySearchParams(Filter filter) {
+        return flightDetailsRepository.countBySearchParams(filter);
     }
 
     @Override
