@@ -17,4 +17,6 @@ public interface PlaneService extends AbstractEntityService<Plane, Long>
     List<PlaneId> getAllPlanesId();
 
     Iterable<Plane> getAllPlanes();
+
+    boolean existRegistration(String name, String ignoreSid);
 }

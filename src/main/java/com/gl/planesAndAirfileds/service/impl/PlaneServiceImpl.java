@@ -50,4 +50,10 @@ public class PlaneServiceImpl extends AbstractEntityServiceImpl<Plane, Long> imp
     public Iterable<Plane> getAllPlanes() {
         return planeRepository.findAll();
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existRegistration(String registration, String ignoreSid) {
+        return planeRepository.countByRegistration(registration, ignoreSid) > 0;
+    }
 }
