@@ -30,7 +30,6 @@ public class AirportsService {
 
             return parseAirportFile();
     }
-
     private  List<Airport> parseAirportFile() {
 
         try (Stream<String> stream = Files.lines(Paths.get(classPathResource.getURI()))) {
