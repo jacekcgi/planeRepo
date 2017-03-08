@@ -2,19 +2,17 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
+var path = require('path');
+
+var aliases = require('../aliases');
+
+var node_modules = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
-
-  entry: {
-    'polyfills': './src/polyfills.ts',
-    'vendor': './src/vendor.ts',
-    'app': ['webpack-dev-server/client?http://localhost:' + '3000' + '/',
-            'webpack/hot/only-dev-server',
-            './src/main.ts']
-  },
-
   resolve: {
-    extensions: ['.ts', '.js']
+    modules: [helpers.root('src'), "node_modules"],
+    extensions: ['.ts', '.js'],
+    alias: aliases
   },
 
   module: {
@@ -50,7 +48,14 @@ module.exports = {
   },
 
   plugins: [
-    // Workaround for angular/angular#11580
+    new webpack.DefinePlugin({
+          'process.env': {
+            'ENV': JSON.stringify(process.env.ENV),
+            'SERVER_CONTEXT': JSON.stringify(process.env.SERVER_CONTEXT),
+            'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
+            'DEV_PORT': JSON.stringify(process.env.DEV_PORT)
+          }
+        }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
