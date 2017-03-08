@@ -18,17 +18,6 @@ public class Plane extends AbstractIdentifiableEntity {
 
     public static final String FIELD_NAME = "name";
 
-    public Plane() {
-
-    }
-
-    public Plane(Long id, String name, String registration, String description) {
-        this.id = id;
-        this.name = name;
-        this.registration = registration;
-        this.description = description;
-    }
-
     @Column(name = "name")
     private String name;
 

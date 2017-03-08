@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.repository;
 
 import com.gl.planesAndAirfileds.domain.AbstractEntity;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface CustomAbstractEntityRepository<T extends AbstractEntity> {
 
-    List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
+    List<T> findBySearchParams(Filter filter, Pageable pageRequest);
 
     long countBySearchParams(Filter filter);
 }
