@@ -20,8 +20,12 @@ public class FlightDetails extends AbstractEntity {
 
     }
 
+    @Column(name = "flight_time")
     private Long flightTime;
+
+    @Column(name = "flight_distance")
     private Double flightDistance;
+
     @Column(name = "gps_latitude")
     private Double gpsLatitude;
 
