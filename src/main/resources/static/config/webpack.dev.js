@@ -14,7 +14,12 @@ module.exports = {
               'webpack/hot/only-dev-server',
               './src/main.ts']
     },
-
+  output: {
+      path: helpers.root('built'),
+      publicPath: 'http://localhost:3000/built/',
+      filename: '[name].js',
+      chunkFilename: '[id].chunk.js'
+  },
   resolve: {
       modules: [helpers.root('src'), "node_modules"],
       extensions: ['.ts', '.js'],
@@ -53,25 +58,25 @@ module.exports = {
       ]
   },
 
-  output: {
-    path: helpers.root('built'),
-    publicPath: 'http://localhost:3000/built/',
-    filename: '[name].js',
-    chunkFilename: '[id].chunk.js'
-  },
-
   plugins: [
     new ExtractTextPlugin('[name].css'),
     new webpack.HotModuleReplacementPlugin(),
     // Workaround for angular/angular#11580
-        new webpack.ContextReplacementPlugin(
-          // The (\\|\/) piece accounts for path separators in *nix and Windows
-          /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-          helpers.root('./src'), // location of your src
-          {} // a map of your routes
-        ),
-        new webpack.optimize.CommonsChunkPlugin({
-          name: ['app', 'vendor', 'polyfills']
-        })
+    new webpack.ContextReplacementPlugin(
+      // The (\\|\/) piece accounts for path separators in *nix and Windows
+      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+      helpers.root('./src'), // location of your src
+      {} // a map of your routes
+    ),
+    new webpack.DefinePlugin({
+                      'process.env': {
+                        'SERVER_CONTEXT': JSON.stringify(process.env.SERVER_CONTEXT),
+                        'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
+                        'DEV_PORT': JSON.stringify(process.env.DEV_PORT)
+                      }
+                  }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['app', 'vendor', 'polyfills']
+    })
   ]
 };
