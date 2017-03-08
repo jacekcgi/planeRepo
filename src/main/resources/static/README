@@ -1,0 +1,10 @@
+Production:
+1. go to project directory
+2. run: mvn install -DserverContext=/server -DserverPort=8081
+
+Development:
+1. go to src\main\resources\static
+2. run: .\node\npm run build
+3. run: .\node\npm run start
+
+If you want to rebuild gui files, run: .\node\npm run build

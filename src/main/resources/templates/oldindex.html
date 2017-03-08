@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+     <title th:text="#{title}">Flight Radar</title>
+    <meta name="viewport" content="initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/css/main.css" rel="stylesheet"/>
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+</head>
+<body  ng-app="map">
+<nav  th:replace="fragments/header :: navbar (main)">
+</nav>
+
+    <div class="google-map" th:if="not ${session.plane}" lat="53" long="17" zoom="6" ></div>
+    <div class="google-map" th:if="${session.plane}" lat="53" long="17" zoom="6"  th:attr="plane=${session.plane.id}"></div>
+<footer th:replace="fragments/footer :: footer">
+    <p >Default Copyright statement</p>
+</footer>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js" type="text/javascript"></script>
+<script src="/js/googlemap/app.js"></script>
+<script src="/js/googlemap/directives.js"></script>
+<script src="/js/googlemap/services.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>

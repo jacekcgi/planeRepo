@@ -42,7 +42,7 @@ public class FlightDetails extends AbstractEntity {
     @Column(name = "incoming_time")
     private Date incomingTime;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "plane_id", nullable = false)
     @NotNull
     private Plane plane;
