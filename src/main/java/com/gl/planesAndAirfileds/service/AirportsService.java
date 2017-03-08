@@ -21,29 +21,33 @@ import java.util.stream.Stream;
 @Service
 public class AirportsService {
 
+    public static final int ELEMENTS_NUMBER_IN_LIST = 14;
     private static final Logger logger = LoggerFactory.getLogger(AirPortsStorageWriter.class);
 
     @Value("${airport.file.list}")
     private ClassPathResource classPathResource;
 
-    public  List<Airport> getListOfAirports() {
+    public List<Airport> getListOfAirports() {
 
-            return parseAirportFile();
+        return parseAirportFile();
     }
-    private  List<Airport> parseAirportFile() {
+
+    private List<Airport> parseAirportFile() {
 
         try (Stream<String> stream = Files.lines(Paths.get(classPathResource.getURI()))) {
-                    return stream.map(lineText -> removeQuotationMarks(lineText))
+            return stream.filter(lineText -> !lineText.isEmpty())
+                    .map(lineText -> removeQuotationMarks(lineText))
                     .map(lineText -> new ArrayList<String>(Arrays.asList(lineText.split(","))))
+                    .filter(lineList -> lineList.size() == ELEMENTS_NUMBER_IN_LIST)
                     .map(lineList -> createAirportData(lineList))
                     .collect(Collectors.toList());
 
-        }  catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             logger.error(e.getMessage());
         }
 
-      return  Collections.emptyList();
+        return Collections.emptyList();
     }
 
     private String removeQuotationMarks(String lineText) {
