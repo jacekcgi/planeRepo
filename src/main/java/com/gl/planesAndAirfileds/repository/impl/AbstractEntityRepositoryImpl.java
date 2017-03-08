@@ -4,7 +4,7 @@ import com.gl.planesAndAirfileds.domain.AbstractEntity;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.CustomAbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.util.JpaUtils;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
@@ -14,11 +14,12 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Path;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by krzysztof.gonia on 3/7/2017.
@@ -45,7 +46,7 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> imp
     }
 
     @Override
-    public List<T> findBySearchParams(Filter filter, PageRequest pageRequest) {
+    public List<T> findBySearchParams(Filter filter, Pageable pageRequest) {
         CriteriaQuery criteria = createCriteriaFromSearchParams(filter);
         addOrder(criteria, pageRequest.getSort());
         return applyPaging(criteria, pageRequest.getOffset(), pageRequest.getPageSize()).getResultList();
@@ -53,7 +54,6 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> imp
 
     /**
      * Method add order to criteria.
-     * <b>TODO CURRENT IMPLEMENTATION DON'T WORK WITH NESTED ENTITY</b>
      *
      * @param criteria Criteria on which we apply sort
      * @param sort sort
@@ -69,6 +69,20 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> imp
         }
     }
 
+    private Order getOrder(CriteriaQuery criteria, Sort.Order order) {
+        Path path = JpaUtils.findOrCreateRoot(criteria, getDomainClass());
+
+        StringTokenizer stringTokenizer = new StringTokenizer(order.getProperty(), ".");
+        while (stringTokenizer.hasMoreTokens())
+        {
+            path = path.get(stringTokenizer.nextToken());
+        }
+
+        return order.isAscending() ?
+                getEntityManager().getCriteriaBuilder().asc(path) :
+                getEntityManager().getCriteriaBuilder().desc(path);
+    }
+
     @Override
     public long countBySearchParams(Filter filter)
     {
@@ -78,13 +92,6 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> imp
             criteria.from(getDomainClass());
         }
         return JpaUtils.count(getEntityManager(), criteria);
-    }
-
-    private Order getOrder(CriteriaQuery criteria, Sort.Order order) {
-        Root root = JpaUtils.findOrCreateRoot(criteria, getDomainClass());
-        return order.isAscending() ?
-                getEntityManager().getCriteriaBuilder().asc(root.get(order.getProperty())) :
-                getEntityManager().getCriteriaBuilder().desc(root.get(order.getProperty()));
     }
 
     protected TypedQuery applyPaging(CriteriaQuery criteria, int offset, int limit) {
