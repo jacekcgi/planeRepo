@@ -17,8 +17,14 @@ target/
 
 ### NetBeans ###
 nbproject/private/
-build/
+built/
 nbbuild/
 dist/
 nbdist/
 .nb-gradle/
+
+#GUI
+src/main/resources/static/node/
+src/main/resources/static/node_modules/
+src/main/resources/static/built/
+src/main/resources/static/npm-debug.log
