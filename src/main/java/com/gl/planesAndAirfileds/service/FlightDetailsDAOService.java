@@ -42,7 +42,7 @@ public class FlightDetailsDAOService {
         return latestFlightDetailForPlane.get(0);
     }
 
-    @Transactional
+    @Transactional()
     public void insertNewFlightDetails(FlightDetails flightDetails) {
         List<FlightDetails> latestFlightDetails = flightDetailsRepository.getLatestFlightDetailForPlane(flightDetails.getPlane().getId());
         for(FlightDetails fd :latestFlightDetails){

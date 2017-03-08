@@ -33,9 +33,8 @@ public class AirportsService {
 
     private  List<Airport> parseAirportFile() {
 
-        try (Stream<String> stream = Files.lines(Paths.get(classPathResource.getURL().getFile()))) {
-
-            return stream.map(lineText -> removeQuotationMarks(lineText))
+        try (Stream<String> stream = Files.lines(Paths.get(classPathResource.getURI()))) {
+                    return stream.map(lineText -> removeQuotationMarks(lineText))
                     .map(lineText -> new ArrayList<String>(Arrays.asList(lineText.split(","))))
                     .map(lineList -> createAirportData(lineList))
                     .collect(Collectors.toList());

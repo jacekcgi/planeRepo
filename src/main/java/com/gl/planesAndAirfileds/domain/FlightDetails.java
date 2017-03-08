@@ -21,15 +21,19 @@ public class FlightDetails {
     @Id
     @GeneratedValue
     private Long id;
+    private Long flightTime;
+    private Double flightDistance;
     private Double gpsLatitude;
     private Double gpsLongitude;
     private Double course;
     private Float velocity;
+    private Double remainingFuel;
     private boolean isActualPosition;
     private Integer averageFuelConsumption;
+    private Double distanceTraveled;
     @Temporal(TemporalType.TIMESTAMP)
     private Date incomingTime;
-    @ManyToOne
+    @ManyToOne()
     private Plane plane;
 
     public Long getId() {
@@ -104,9 +108,51 @@ public class FlightDetails {
         this.velocity = velocity;
     }
 
+    public Long getFlightTime() {
+        return flightTime;
+    }
+
+    public void setFlightTime(Long flightTime) {
+        this.flightTime = flightTime;
+    }
+
+    public Double getFlightDistance() {
+        return flightDistance;
+    }
+
+    public void setFlightDistance(Double flightDistance) {
+        this.flightDistance = flightDistance;
+    }
+
+    public Double getRemainingFuel() {
+        return remainingFuel;
+    }
+
+    public void setRemainingFuel(Double remainingFuel) {
+        this.remainingFuel = remainingFuel;
+    }
+
+    public Double getDistanceTraveled() {
+        return distanceTraveled;
+    }
+
+    public void setDistanceTraveled(Double distanceTraveled) {
+        this.distanceTraveled = distanceTraveled;
+    }
+
     @Override
     public String toString() {
-        return "Latitude: " +gpsLatitude+ "   longitude: "+gpsLongitude+" course:"+course;
-
+        StringBuilder sb = new StringBuilder();
+        sb.append("plane: " + plane.getId());
+        sb.append(";latitude: " + gpsLatitude);
+        sb.append(";longitude: " + gpsLongitude);
+        sb.append(";course:" + course);
+        sb.append(";velocity:" + velocity);
+        sb.append(";flightDistance "+ flightDistance);
+        sb.append(";distanceTraveled "+ distanceTraveled);
+        sb.append(";averageFuelConsumption "+ averageFuelConsumption);
+        sb.append(";remainingFuel "+ remainingFuel);
+        sb.append(";flightTime "+ flightTime);
+        return sb.toString();
     }
 }
