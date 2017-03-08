@@ -1,4 +1,4 @@
-package com.gl.planesAndAirfileds.service;
+package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
@@ -55,7 +55,8 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         return latestFlightDetailForPlane.get(0);
     }
 
-    @Transactional()
+    @Override
+    @Transactional
     public void insertNewFlightDetails(FlightDetails flightDetails) {
         List<FlightDetails> latestFlightDetails = flightDetailsRepository.getLatestFlightDetailForPlane(flightDetails.getPlane().getId());
         for(FlightDetails fd :latestFlightDetails){

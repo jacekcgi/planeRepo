@@ -19,4 +19,12 @@ public interface Mappings {
     String GET_CURRENT_POSITION = "/planeLocation/{id}";
 
     String GET_FLIGHT_DETAILS = "/flightDetails/{plane_id}";
+
+    String POST_FLIGHT_DETAILS = "/flightDetails";
+
+    //Airports controller
+
+    String FIND_AIRPORTS = "/findAirports";
+
+    String GET_AIRPORT = "/getAirport/{airport_id}";
 }

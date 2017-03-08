@@ -1,3 +1,5 @@
+BEGIN;
+
 USE flightdata;
 
 CREATE TABLE plane (
@@ -30,4 +32,6 @@ CREATE TABLE flight_details (
   FOREIGN KEY (plane_id) REFERENCES plane (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 CREATE INDEX flight_details_incoming_time_index ON flight_details (incoming_time) USING BTREE;
+
+COMMIT;
 

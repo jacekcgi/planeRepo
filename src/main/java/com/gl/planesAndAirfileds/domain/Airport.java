@@ -1,39 +1,55 @@
 package com.gl.planesAndAirfileds.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class Airport {
+@Table(name = "airport")
+public class Airport extends AbstractEntity{
 
-    @Id
     @NotNull
-    private Long id;
-    @NotNull
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "iata_code")
     private String iataCode;
+
+    @Column(name = "icao_code")
     private String icaoCode;
+
     @NotNull
+    @Column(name = "latitude")
     private String latitude;
+
     @NotNull
+    @Column(name = "longtitude")
     private String longitude;
+
+    @Column(name = "altitude")
     private String altitude;
+
+    @Column(name = "timezone")
     private String timezone;
+
+    @Column(name = "daylight_saving_time")
     private String daylightSavingTime;
+
+    @Column(name = "tz_database_time_zone")
     private String tzDatabaseTimeZone;
+
+    @Column(name = "type")
     private String type;
+
+    @Column(name = "source")
     private String source;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
