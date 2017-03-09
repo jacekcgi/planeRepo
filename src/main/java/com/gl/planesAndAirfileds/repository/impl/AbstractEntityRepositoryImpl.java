@@ -56,10 +56,10 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> imp
      * Method add order to criteria.
      *
      * @param criteria Criteria on which we apply sort
-     * @param sort sort
+     * @param sort     sort
      */
     protected void addOrder(CriteriaQuery criteria, Sort sort) {
-        if(sort != null) {
+        if (sort != null) {
             Iterator<Sort.Order> iterator = sort.iterator();
             List<Order> orders = new ArrayList<>();
             while (iterator.hasNext()) {
@@ -73,8 +73,7 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> imp
         Path path = JpaUtils.findOrCreateRoot(criteria, getDomainClass());
 
         StringTokenizer stringTokenizer = new StringTokenizer(order.getProperty(), ".");
-        while (stringTokenizer.hasMoreTokens())
-        {
+        while (stringTokenizer.hasMoreTokens()) {
             path = path.get(stringTokenizer.nextToken());
         }
 
@@ -84,11 +83,9 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> imp
     }
 
     @Override
-    public long countBySearchParams(Filter filter)
-    {
+    public long countBySearchParams(Filter filter) {
         CriteriaQuery criteria = createCriteriaFromSearchParams(filter);
-        if (criteria.getRoots().isEmpty())
-        {
+        if (criteria.getRoots().isEmpty()) {
             criteria.from(getDomainClass());
         }
         return JpaUtils.count(getEntityManager(), criteria);

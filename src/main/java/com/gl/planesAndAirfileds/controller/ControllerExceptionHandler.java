@@ -40,41 +40,38 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public @ResponseBody Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e)
-    {
+    public
+    @ResponseBody
+    Object handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         LOGGER.warn(e.getMessage(), e);
         return prepareErrorDto(e.getBindingResult());
     }
 
     @ExceptionHandler(BindException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public @ResponseBody Object handleBindException(BindException e)
-    {
+    public
+    @ResponseBody
+    Object handleBindException(BindException e) {
         LOGGER.warn(e.getMessage(), e);
         return prepareErrorDto(e.getBindingResult());
     }
 
-    private ErrorDto prepareErrorDto(BindingResult result)
-    {
+    private ErrorDto prepareErrorDto(BindingResult result) {
         List<FieldError> fieldErrors = result.getFieldErrors();
 
         Locale locale = LocaleContextHolder.getLocale();
         ErrorDto errorDto = new ErrorDto();
         String errorCode;
         ObjectError objectError = result.getGlobalError();
-        if (objectError != null && !StringUtils.isEmpty(objectError.getCode()))
-        {
+        if (objectError != null && !StringUtils.isEmpty(objectError.getCode())) {
             errorCode = objectError.getCode();
-        }
-        else
-        {
+        } else {
             errorCode = "validation.exception";
         }
         errorDto.setMessage(messageSource.getMessage(errorCode, null, locale));
 
         List<FieldErrorDto> fieldErrorsDtos = new ArrayList<FieldErrorDto>();
-        for (FieldError fieldError : fieldErrors)
-        {
+        for (FieldError fieldError : fieldErrors) {
             String message = messageSource.getMessage(fieldError, locale);
             fieldErrorsDtos.add(new FieldErrorDto(fieldError.getField(), message));
         }
@@ -85,7 +82,9 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(Throwable.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
-    public @ResponseBody Object handleThrowable(Throwable e) {
+    public
+    @ResponseBody
+    Object handleThrowable(Throwable e) {
         LOGGER.error(e.getMessage(), e);
         Locale locale = LocaleContextHolder.getLocale();
         ErrorDto errorDto = new ErrorDto();

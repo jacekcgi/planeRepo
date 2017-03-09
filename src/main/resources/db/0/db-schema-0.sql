@@ -32,7 +32,8 @@ CREATE TABLE `flight_details` (
   `remaining_fuel` double DEFAULT NULL,
   `velocity` float DEFAULT NULL,
   `plane_id` bigint(20) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (plane_id) REFERENCES plane (id) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 CREATE INDEX flight_details_incoming_time_index ON flight_details (incoming_time) USING BTREE;
