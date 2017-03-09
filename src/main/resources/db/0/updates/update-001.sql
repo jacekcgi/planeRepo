@@ -1,4 +1,4 @@
-USE flightdata;
+begin;
 
 INSERT INTO plane(create_date, description, `name`, registration, update_date, sid) values
 ('2017-02-16 13:04:06','plane fyling','plane 1','luftHanza2','2017-02-16 13:04:06', '0941ef7778804f82a77a2fb6839f46f0'),
@@ -9,3 +9,5 @@ INSERT INTO flight_details (plane_id, course, gps_latitude, gps_longitude, is_ac
 ((SELECT id from plane WHERE registration='luftHanza2'), 15, 51, 17, true, NOW(), 800),
 ((SELECT id from plane WHERE registration='luftHanza6'), 30, 52.19, 17, true, NOW(), 600),
 ((SELECT id from plane WHERE registration='luftHanza7'), 230, 50.03, 18.2, true, NOW(), 300);
+
+commit;

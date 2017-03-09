@@ -87,6 +87,7 @@
                 <excludes>
                     <exclude>static/node/**</exclude>
                     <exclude>static/node_modules/**</exclude>
+                    <!-- uncomment if you add bower dependencies -->
                     <!--<exclude>static/bower_components/**</exclude>-->
                 </excludes>
             </resource>

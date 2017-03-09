@@ -1,7 +1,5 @@
 BEGIN;
 
-USE flightdata;
-
 CREATE TABLE `airport` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `altitude` varchar(255) DEFAULT NULL,
