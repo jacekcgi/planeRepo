@@ -59,8 +59,8 @@
              <tr ng-repeat="plane in planeList">
                 <td>{{plane.name}}</td>
                 <td>{{plane.registration}}</td>
-                <td>{{plane.create_date | date : "medium" }}</td>
-                <td>{{plane.update_date | date : "medium" }}</td>
+                <td>{{plane.createDate | date : "medium" }}</td>
+                <td>{{plane.updateDate | date : "medium" }}</td>
                 <td>{{plane.description}}</td>
                 <td><button id_plane="{{plane.id}}" ng-click="showFlightDetails($event)" >more info</button></td>
              </tr>

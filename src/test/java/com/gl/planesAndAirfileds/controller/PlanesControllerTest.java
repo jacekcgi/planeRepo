@@ -1,7 +1,9 @@
 package com.gl.planesAndAirfileds.controller;
 
+import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.PlaneDAOService;
+import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
+import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -26,7 +28,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PlanesControllerTest {
 
     @MockBean
-    private PlaneDAOService planeDaoService;
+    private PlaneServiceImpl planeServiceImpl;
+
+    @MockBean
+    private PlaneValidator planeValidator;
 
     @Autowired
     private MockMvc mvc;
@@ -38,33 +43,25 @@ public class PlanesControllerTest {
     @Test
     public void testGetPlaneList() throws Exception {
         List<Plane> planes = new ArrayList<>();
-        Plane p1 = new Plane(1l,"plane 1","ATZ341","plane description 1");
-        Plane p2 = new Plane(2l,"plane 2","ATZ342","plane description 2");
+        Plane p1 = TestDomainObjectFactory.getPlane();
+        Plane p2 = TestDomainObjectFactory.getPlane();
         planes.add(p1);
         planes.add(p2);
-        Mockito.when(this.planeDaoService.getAllPlanes()).thenReturn(planes);
-        //given(this.planeDaoService.getAllPlanes()).willReturn(planes);
+        Mockito.when(this.planeServiceImpl.getAllPlanes()).thenReturn(planes);
+        //given(this.planeServiceImpl.getAllPlanes()).willReturn(planes);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(1)))
-                .andExpect(jsonPath("$[0].name", is("plane 1")))
-                .andExpect(jsonPath("$[0].registration", is("ATZ341")))
-                .andExpect(jsonPath("$[0].description", is("plane description 1")))
+                .andExpect(jsonPath("$[0].name", is(p1.getName())))
+                .andExpect(jsonPath("$[0].registration", is(p1.getRegistration())))
+                .andExpect(jsonPath("$[0].description", is(p1.getDescription())))
+                .andExpect(jsonPath("$[0].sid", is(p1.getSid())))
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[1].id", is(2)))
-                .andExpect(jsonPath("$[1].name", is("plane 2")))
-                .andExpect(jsonPath("$[1].registration", is("ATZ342")))
-                .andExpect(jsonPath("$[1].description", is("plane description 2")));
-    }
-
-    @Test
-    public void testGetPlaneListNull() throws Exception {
-        Mockito.when(this.planeDaoService.getAllPlanes()).thenReturn(null);
-        //given(this.planeDaoService.getAllPlanes()).willReturn(null);
-        this.mvc.perform(get("/planeList"))
-                .andExpect(status().isInternalServerError());
+                .andExpect(jsonPath("$[1].name", is(p2.getName())))
+                .andExpect(jsonPath("$[1].registration", is(p2.getRegistration())))
+                .andExpect(jsonPath("$[1].description", is(p2.getDescription())))
+                .andExpect(jsonPath("$[1].sid", is(p2.getSid())));
     }
 
 }

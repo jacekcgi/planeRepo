@@ -1,10 +1,12 @@
 package com.gl.planesAndAirfileds.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-public class FlightDetails {
+@Table(name = "flight_details")
+public class FlightDetails extends AbstractEntity {
     public FlightDetails(Long id, Double gpsLatitude, Double gpsLongitude, Double course, Float velocity, boolean isActualPosition, Plane plane) {
         this.id = id;
         this.gpsLatitude = gpsLatitude;
@@ -18,22 +20,43 @@ public class FlightDetails {
 
     }
 
-    @Id
-    @GeneratedValue
-    private Long id;
+    @Column(name = "flight_time")
     private Long flightTime;
+
+    @Column(name = "flight_distance")
     private Double flightDistance;
+
+    @Column(name = "gps_latitude")
     private Double gpsLatitude;
+
+    @Column(name = "gps_longitude")
     private Double gpsLongitude;
+
+    @Column(name = "course")
     private Double course;
+
+    @Column(name = "velocity")
     private Float velocity;
+
+    @Column(name = "remaining_fuel")
     private Double remainingFuel;
+
+    @Column(name = "is_actual_position")
     private boolean isActualPosition;
+
+    @Column(name = "average_fuel_consumption")
     private Integer averageFuelConsumption;
+
+    @Column(name = "distance_traveled")
     private Double distanceTraveled;
+
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "incoming_time")
     private Date incomingTime;
-    @ManyToOne()
+
+    @ManyToOne
+    @JoinColumn(name = "plane_id", nullable = false)
+    @NotNull
     private Plane plane;
 
     public Long getId() {

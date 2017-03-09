@@ -1,1 +1,5 @@
+1,"Goroka Airport","Goroka","GKA","AYGA",-6.081689834590001,145.391998291,5282,\N,"U"
+
+1,"Goroka Airport","Goroka","Papua New Guinea","GKA","AYGA",-6.081689834590001,145.391998291,5282,\N,"U","Pacific/Port_Moresby","airport","OurAirports","airport","airport","airport"
+
 1,"Goroka Airport","Goroka","Papua New Guinea","GKA","AYGA",-6.081689834590001,145.391998291,5282,\N,"U","Pacific/Port_Moresby","airport","OurAirports"

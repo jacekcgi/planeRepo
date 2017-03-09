@@ -1,19 +1,30 @@
 package com.gl.planesAndAirfileds.repository;
 
+import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.PlaneId;
+import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
+import com.gl.planesAndAirfileds.domain.util.SidUtils;
+import junit.framework.TestCase;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.core.Is.is;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -29,16 +40,98 @@ public class PlaneRepositoryTest {
 
     @Test
     public void testGetPlanesId() {
-        Plane plane = new Plane(null,"plane 1","123","first plain test");
-        Plane plane2 = new Plane(null,"plane 1","123","second plain test");
+        Plane plane = TestDomainObjectFactory.getPlane();
+        Plane plane2 = TestDomainObjectFactory.getPlane();
         entityManager.persist(plane);
         entityManager.persist(plane2);
         List<PlaneId> planesIdList = planeRepository.getPlanesId();
         for(PlaneId id :planesIdList) {
             assertThat(id.getId()).isNotNull();
         }
+    }
 
+    @Test
+    public void testGetBySid(){
+        String sid = SidUtils.generate();
+        String otherSid = SidUtils.generate();
 
+        Plane plane = TestDomainObjectFactory.getPlane();
+        plane.setSid(sid);
+        Plane otherPlane = TestDomainObjectFactory.getPlane();
+        otherPlane.setSid(otherSid);
+
+        entityManager.persist(plane);
+        entityManager.persist(otherPlane);
+
+        Plane result = planeRepository.getBySid(sid);
+        TestCase.assertEquals(plane, result);
+    }
+
+    @Test
+    public void testFindByName(){
+        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10)+2);
+        planes.get(0).setName("Test name");
+        planes.get(1).setName("Other name");
+
+        planes.forEach(entityManager::persist);
+
+        PlaneFilter planeFilter = new PlaneFilter();
+        planeFilter.setName("name");
+
+        List<Plane> result = planeRepository.findBySearchParams(planeFilter,new PageRequest(0, Integer.MAX_VALUE));
+        Assert.assertEquals(2, result.size());
+        Assert.assertThat(Arrays.asList(planes.get(0), planes.get(1)),is(result));
+
+        planeFilter.setName("Test");
+        result = planeRepository.findBySearchParams(planeFilter,new PageRequest(0, Integer.MAX_VALUE));
+        Assert.assertEquals(1, result.size());
+        Assert.assertThat(Collections.singletonList(planes.get(0)),is(result));
+    }
+
+    @Test
+    public void testPageable(){
+        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10)+2);
+        planes.get(0).setName("Test name");
+        planes.get(1).setName("Other name");
+
+        planes.forEach(entityManager::persist);
+
+        PlaneFilter planeFilter = new PlaneFilter();
+        planeFilter.setName("name");
+
+        List<Plane> result = planeRepository.findBySearchParams(planeFilter,new PageRequest(0, 1));
+        Assert.assertEquals(1, result.size());
+        Assert.assertThat(Collections.singletonList(planes.get(0)),is(result));
+
+        result = planeRepository.findBySearchParams(planeFilter,new PageRequest(1, 1));
+        Assert.assertEquals(1, result.size());
+        Assert.assertThat(Collections.singletonList(planes.get(1)),is(result));
+    }
+
+    @Test
+    public void testOrder(){
+        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10)+2);
+        planes.get(0).setName("BBB name");
+        planes.get(1).setName("AAA name");
+
+        planes.forEach(entityManager::persist);
+
+        PlaneFilter planeFilter = new PlaneFilter();
+        planeFilter.setName("name");
+
+        List<Plane> result = planeRepository.findBySearchParams(planeFilter,
+                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.ASC,Plane.FIELD_NAME))));
+
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(planes.get(1),result.get(0));
+        Assert.assertEquals(planes.get(0),result.get(1));
+
+        result = planeRepository.findBySearchParams(planeFilter,
+                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.DESC,Plane.FIELD_NAME))));
+
+        Assert.assertEquals(2, result.size());
+        Assert.assertEquals(planes.get(0),result.get(0));
+        Assert.assertEquals(planes.get(1),result.get(1));
     }
 
 }

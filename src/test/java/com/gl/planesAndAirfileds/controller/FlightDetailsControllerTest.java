@@ -1,7 +1,8 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
-import com.gl.planesAndAirfileds.service.FlightDetailsDAOService;
+import com.gl.planesAndAirfileds.service.impl.FlightDetailsServiceImpl;
+import org.hibernate.ObjectNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class FlightDetailsControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    FlightDetailsDAOService flightDetailsDAOService;
+    FlightDetailsServiceImpl flightDetailsServiceImpl;
 
     @Test
     public void getCurrentTimeTest() throws Exception {
@@ -48,8 +49,8 @@ public class FlightDetailsControllerTest {
     @Test
     public void getCurrentPositionOfAllPlanesServiceUnavailableErrorReturnTest() throws Exception {
 
-        when(flightDetailsDAOService.getLatestFlightDetailsForPlanes(anyLong()))
-                .thenReturn(null);
+        when(flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(anyLong()))
+                .thenThrow(new ObjectNotFoundException("id","FD"));
 
         mockMvc.perform(get("/planeLocation"))
                 .andExpect(status().isInternalServerError());
@@ -66,20 +67,9 @@ public class FlightDetailsControllerTest {
     }
 
     @Test
-    public void getLatestFlightDetailsForPlaneServiceUnavailableCaseTest() throws Exception {
-
-        when(flightDetailsDAOService.getLatestFlightDetailsForPlanes(anyLong()))
-                .thenReturn(null);
-
-        mockMvc.perform(get("/planeLocation/2"))
-                .andExpect(status().isInternalServerError());
-
-    }
-
-    @Test
     public void latestFightDetailsForPlaneTest() throws Exception {
 
-        when(flightDetailsDAOService.getLatestFlightDetailsForPlane(anyLong()))
+        when(flightDetailsServiceImpl.getLatestFlightDetailsForPlane(anyLong()))
                 .thenReturn(new FlightDetails());
 
         mockMvc.perform(get("/flightDetails/2"))
