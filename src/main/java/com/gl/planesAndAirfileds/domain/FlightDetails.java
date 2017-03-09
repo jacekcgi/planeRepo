@@ -33,7 +33,7 @@ public class FlightDetails extends AbstractEntity {
     private boolean isActualPosition;
 
     @Column(name = "average_fuel_consumption")
-    private Integer averageFuelConsumption;
+    private Double averageFuelConsumption;
 
     @Column(name = "distance_traveled")
     private Double distanceTraveled;
@@ -79,11 +79,11 @@ public class FlightDetails extends AbstractEntity {
         isActualPosition = actualPosition;
     }
 
-    public Integer getAverageFuelConsumption() {
+    public Double getAverageFuelConsumption() {
         return averageFuelConsumption;
     }
 
-    public void setAverageFuelConsumption(Integer averageFuelConsumption) {
+    public void setAverageFuelConsumption(Double averageFuelConsumption) {
         this.averageFuelConsumption = averageFuelConsumption;
     }
 
@@ -159,11 +159,11 @@ public class FlightDetails extends AbstractEntity {
         sb.append(";longitude: " + gpsLongitude);
         sb.append(";course:" + course);
         sb.append(";velocity:" + velocity);
-        sb.append(";flightDistance "+ flightDistance);
-        sb.append(";distanceTraveled "+ distanceTraveled);
-        sb.append(";averageFuelConsumption "+ averageFuelConsumption);
-        sb.append(";remainingFuel "+ remainingFuel);
-        sb.append(";flightTime "+ flightTime);
+        sb.append(";flightDistance " + flightDistance);
+        sb.append(";distanceTraveled " + distanceTraveled);
+        sb.append(";averageFuelConsumption " + averageFuelConsumption);
+        sb.append(";remainingFuel " + remainingFuel);
+        sb.append(";flightTime " + flightTime);
         return sb.toString();
     }
 }
