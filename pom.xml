@@ -125,7 +125,7 @@
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
-                            <arguments>run production</arguments>
+                            <arguments>run prod</arguments>
                             <environmentVariables>
                                 <!-- variables through mvn install, example: -->
                                 <!-- mvn install -DserverContext=/server -DserverPort=8080 -->

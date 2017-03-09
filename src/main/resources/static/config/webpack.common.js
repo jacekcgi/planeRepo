@@ -52,8 +52,7 @@ module.exports = {
           'process.env': {
             'ENV': JSON.stringify(process.env.ENV),
             'SERVER_CONTEXT': JSON.stringify(process.env.SERVER_CONTEXT),
-            'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
-            'DEV_PORT': JSON.stringify(process.env.DEV_PORT)
+            'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT)
           }
         }),
     new webpack.ContextReplacementPlugin(

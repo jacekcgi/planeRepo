@@ -1,10 +1,16 @@
 Production:
-1. go to project directory
-2. run: mvn install -DserverContext=/server -DserverPort=8081
+1. go to project directory with parameters:
+2. building:
+mvn install -DserverContext=/server -DserverPort=8085
+3. run application
 
-Development:
+Development (default start app):
+0. build & install node,npm by mvn, go to project directory:
+mvn install -DserverContext=/server -DserverPort=8085
 1. go to src\main\resources\static
-2. run: .\node\npm run build
-3. run: .\node\npm run start
+2. build dev:
+.\node\npm run dev
+3. run dev hot reloading server:
+.\node\npm run start
 
-If you want to rebuild gui files, run: .\node\npm run build
+PS: You can define own scripts with another parameters in package.json file

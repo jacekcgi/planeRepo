@@ -6,11 +6,17 @@
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es2015", "dom"],
+    "lib": ["es6", "dom"],
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": [
-      "node"
+      ["node"]
+    ],
+    "files": [
+      "./typings/declarations.d.ts"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
     ]
   }
 }
