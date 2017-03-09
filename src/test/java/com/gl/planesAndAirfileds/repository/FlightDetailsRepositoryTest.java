@@ -1,5 +1,6 @@
 package com.gl.planesAndAirfileds.repository;
 
+import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.Plane;
 import org.junit.Before;
@@ -30,9 +31,9 @@ public class FlightDetailsRepositoryTest {
 
     @Before
     public void initialize() {
-        Plane p1 = new Plane();
-        Plane p2 = new Plane();
-        Plane p3 = new Plane();
+        Plane p1 = TestDomainObjectFactory.getPlane();
+        Plane p2 = TestDomainObjectFactory.getPlane();
+        Plane p3 = TestDomainObjectFactory.getPlane();
         p1.setId(1l);
         p2.setId(2l);
         p3.setId(3l);
@@ -41,10 +42,38 @@ public class FlightDetailsRepositoryTest {
         p2 = entityManager.merge(p2);
         p3 = entityManager.merge(p3);
 
-        FlightDetails fd = new FlightDetails(1l,21d,17d,30d,500f,true,p1);
-        FlightDetails fd2 = new FlightDetails(2l,22d,18d,45d,800f,true,p2);
-        FlightDetails fd3 = new FlightDetails(3l,23d,19d,130d,300f,false,p2);
-        FlightDetails fd4 = new FlightDetails(4l,23d,19d,130d,300f,false,p3);
+
+        FlightDetails fd = TestDomainObjectFactory.getFlightDetails(p1);
+        fd.setId(1L);
+        fd.setGpsLatitude(21d);
+        fd.setGpsLongitude(17d);
+        fd.setCourse(30d);
+        fd.setVelocity(500f);
+        fd.setActualPosition(true);
+
+        FlightDetails fd2 = TestDomainObjectFactory.getFlightDetails(p2);
+        fd2.setId(2L);
+        fd2.setGpsLatitude(22d);
+        fd2.setGpsLongitude(18d);
+        fd2.setCourse(45d);
+        fd2.setVelocity(800f);
+        fd2.setActualPosition(true);
+
+        FlightDetails fd3 = TestDomainObjectFactory.getFlightDetails(p3);
+        fd3.setId(3L);
+        fd3.setGpsLatitude(23d);
+        fd3.setGpsLongitude(19d);
+        fd3.setCourse(130d);
+        fd3.setVelocity(300f);
+        fd3.setActualPosition(false);
+
+        FlightDetails fd4 = TestDomainObjectFactory.getFlightDetails(p3);
+        fd4.setId(4L);
+        fd4.setGpsLatitude(23d);
+        fd4.setGpsLongitude(19d);
+        fd4.setCourse(130d);
+        fd4.setVelocity(300f);
+        fd4.setActualPosition(false);
 
         entityManager.merge(fd);
         entityManager.merge(fd2);

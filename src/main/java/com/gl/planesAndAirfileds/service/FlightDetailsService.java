@@ -12,4 +12,6 @@ public interface FlightDetailsService extends AbstractEntityService<FlightDetail
     List<FlightDetails> getLatestFlightDetailsForPlanes(Long planeId);
 
     FlightDetails getLatestFlightDetailsForPlane(Long planeId);
+
+    void insertNewFlightDetails(FlightDetails flightDetails);
 }

@@ -20,6 +20,12 @@ public class FlightDetails extends AbstractEntity {
 
     }
 
+    @Column(name = "flight_time")
+    private Long flightTime;
+
+    @Column(name = "flight_distance")
+    private Double flightDistance;
+
     @Column(name = "gps_latitude")
     private Double gpsLatitude;
 
@@ -32,11 +38,17 @@ public class FlightDetails extends AbstractEntity {
     @Column(name = "velocity")
     private Float velocity;
 
+    @Column(name = "remaining_fuel")
+    private Double remainingFuel;
+
     @Column(name = "is_actual_position")
     private boolean isActualPosition;
 
     @Column(name = "average_fuel_consumption")
     private Integer averageFuelConsumption;
+
+    @Column(name = "distance_traveled")
+    private Double distanceTraveled;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "incoming_time")
@@ -117,5 +129,53 @@ public class FlightDetails extends AbstractEntity {
 
     public void setVelocity(Float velocity) {
         this.velocity = velocity;
+    }
+
+    public Long getFlightTime() {
+        return flightTime;
+    }
+
+    public void setFlightTime(Long flightTime) {
+        this.flightTime = flightTime;
+    }
+
+    public Double getFlightDistance() {
+        return flightDistance;
+    }
+
+    public void setFlightDistance(Double flightDistance) {
+        this.flightDistance = flightDistance;
+    }
+
+    public Double getRemainingFuel() {
+        return remainingFuel;
+    }
+
+    public void setRemainingFuel(Double remainingFuel) {
+        this.remainingFuel = remainingFuel;
+    }
+
+    public Double getDistanceTraveled() {
+        return distanceTraveled;
+    }
+
+    public void setDistanceTraveled(Double distanceTraveled) {
+        this.distanceTraveled = distanceTraveled;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("plane: " + plane.getId());
+        sb.append(";latitude: " + gpsLatitude);
+        sb.append(";longitude: " + gpsLongitude);
+        sb.append(";course:" + course);
+        sb.append(";velocity:" + velocity);
+        sb.append(";flightDistance "+ flightDistance);
+        sb.append(";distanceTraveled "+ distanceTraveled);
+        sb.append(";averageFuelConsumption "+ averageFuelConsumption);
+        sb.append(";remainingFuel "+ remainingFuel);
+        sb.append(";flightTime "+ flightTime);
+        return sb.toString();
     }
 }

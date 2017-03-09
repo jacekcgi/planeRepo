@@ -1,5 +1,6 @@
 package com.gl.planesAndAirfileds.service;
 
+import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.repository.PlaneRepository;
 import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
@@ -51,10 +52,10 @@ public class PlaneServiceImplTest {
         verify(planeRepository).save(any(Plane.class));
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void shouldReturnNullWhenPlaneCannotBeSave() {
 
-        Plane plane = new Plane();
+        Plane plane = TestDomainObjectFactory.getPlane();
 
         when(planeRepository.save(plane))
                 .thenThrow(Exception.class);

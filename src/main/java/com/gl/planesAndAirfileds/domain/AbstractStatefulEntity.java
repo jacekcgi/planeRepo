@@ -11,15 +11,17 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class AbstractStatefulEntity extends AbstractIdentifiableEntity {
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "state",nullable = false)
-    private StateEnum stateEnum;
+    public static String FIELD_ACTIVE = "active";
 
-    public StateEnum getStateEnum() {
-        return stateEnum;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "active",nullable = false)
+    private StateEnum active;
+
+    public StateEnum getActive() {
+        return active;
     }
 
-    public void setStateEnum(StateEnum stateEnum) {
-        this.stateEnum = stateEnum;
+    public void setActive(StateEnum active) {
+        this.active = active;
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface FlightDetailsRepository extends AbstractEntityRepository<FlightDetails,Long> {
+public interface FlightDetailsRepository extends AbstractEntityRepository<FlightDetails,Long>, CustomFlightDetailsRepository {
 
     @Query("select f from FlightDetails f where f.isActualPosition = true")
     List<FlightDetails> getLatestFlightDetailsForAllPlanes();
