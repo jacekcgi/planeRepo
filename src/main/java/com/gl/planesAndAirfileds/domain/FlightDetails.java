@@ -7,18 +7,6 @@ import java.util.Date;
 @Entity
 @Table(name = "flight_details")
 public class FlightDetails extends AbstractEntity {
-    public FlightDetails(Long id, Double gpsLatitude, Double gpsLongitude, Double course, Float velocity, boolean isActualPosition, Plane plane) {
-        this.id = id;
-        this.gpsLatitude = gpsLatitude;
-        this.gpsLongitude = gpsLongitude;
-        this.course = course;
-        this.velocity = velocity;
-        this.isActualPosition = isActualPosition;
-        this.plane = plane;
-    }
-    public FlightDetails() {
-
-    }
 
     @Column(name = "flight_time")
     private Long flightTime;
@@ -54,7 +42,7 @@ public class FlightDetails extends AbstractEntity {
     @Column(name = "incoming_time")
     private Date incomingTime;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "plane_id", nullable = false)
     @NotNull
     private Plane plane;
