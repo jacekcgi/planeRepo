@@ -1,5 +1,4 @@
-//import path from 'path';
-//import { AppConfig } from 'appconfig';
+import  { AppConfig }  from 'config';
 
 export class ActionService {
 

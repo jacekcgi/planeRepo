@@ -4,15 +4,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var helpers = require('./helpers');
 var path = require('path');
 
-var aliases = require('../aliases');
-
 var node_modules = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   resolve: {
     modules: [helpers.root('src'), helpers.root("node_modules")],
-    extensions: ['.ts', '.js'],
-    alias: aliases
+    extensions: ['.ts', '.js']
   },
 
   module: {
