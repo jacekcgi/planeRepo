@@ -10,7 +10,7 @@ var node_modules = path.resolve(__dirname, 'node_modules');
 
 module.exports = {
   resolve: {
-    modules: [helpers.root('src'), "node_modules"],
+    modules: [helpers.root('src'), helpers.root("node_modules")],
     extensions: ['.ts', '.js'],
     alias: aliases
   },
