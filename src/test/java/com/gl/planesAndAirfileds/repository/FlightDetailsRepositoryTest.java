@@ -29,6 +29,9 @@ public class FlightDetailsRepositoryTest {
     @Autowired
     private FlightDetailsRepository flightDetailsRepository;
 
+    private static final String SID = "0941ef7778804f82a77a2fb6839f46f0";
+    private static final String SID2 = "1941ef7778804f82a77a2fb6839f46f0";
+
     @Before
     public void initialize() {
         Plane p1 = TestDomainObjectFactory.getPlane();
@@ -36,6 +39,7 @@ public class FlightDetailsRepositoryTest {
         Plane p3 = TestDomainObjectFactory.getPlane();
         p1.setId(1l);
         p2.setId(2l);
+        p2.setSid(SID2);
         p3.setId(3l);
 
         p1 = entityManager.merge(p1);
@@ -97,7 +101,7 @@ public class FlightDetailsRepositoryTest {
 
     @Test
     public void testGetLatestFlightDetailForPlane() {
-        List<FlightDetails> flightDetailsList = flightDetailsRepository.getLatestFlightDetailForPlane(2l);
+        List<FlightDetails> flightDetailsList = flightDetailsRepository.getLatestFlightDetailForPlane(SID2);
         assertThat(flightDetailsList).hasSize(1);
         if(!flightDetailsList.isEmpty()) {
             FlightDetails fd = flightDetailsList.get(0);
@@ -107,7 +111,7 @@ public class FlightDetailsRepositoryTest {
             assertThat(fd.isActualPosition()).isTrue();
         }
 
-        flightDetailsList = flightDetailsRepository.getLatestFlightDetailForPlane(3l);
+        flightDetailsList = flightDetailsRepository.getLatestFlightDetailForPlane(SID);
         assertThat(flightDetailsList).isEmpty();
     }
 }

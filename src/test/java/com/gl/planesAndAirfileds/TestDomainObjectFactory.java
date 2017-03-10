@@ -46,7 +46,7 @@ public class TestDomainObjectFactory {
         FlightDetails flightDetails = new FlightDetails();
         flightDetails.setPlane(p1);
         flightDetails.setActualPosition(false);
-        flightDetails.setAverageFuelConsumption(RANDOM.nextInt());
+        flightDetails.setAverageFuelConsumption(RANDOM.nextDouble());
         flightDetails.setCourse(RANDOM.nextDouble());
         flightDetails.setGpsLatitude(RANDOM.nextDouble());
         flightDetails.setGpsLongitude(RANDOM.nextDouble());

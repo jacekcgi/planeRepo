@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.domain;
 
 import com.gl.planesAndAirfileds.domain.util.SidUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -18,12 +19,12 @@ public class AbstractIdentifiableEntity extends AbstractEntity {
     public static final int FIELD_SID_LENGTH = 32;
 
     @Column(name = "sid", nullable = false, unique = true, length = FIELD_SID_LENGTH)
-    @NotBlank
+    @NotBlank(groups = Validation.SidValidate.class)
     private String sid;
 
     @PrePersist
     protected void onCreate() {
-        if (sid == null) {
+        if (StringUtils.isEmpty(sid)) {
             sid = SidUtils.generate();
         }
     }

@@ -25,7 +25,7 @@
 </nav>
 
     <div class="google-map" th:if="not ${session.plane}" lat="53" long="17" zoom="6" ></div>
-    <div class="google-map" th:if="${session.plane}" lat="53" long="17" zoom="6"  th:attr="plane=${session.plane.id}"></div>
+    <div class="google-map" th:if="${session.plane}" lat="53" long="17" zoom="6"  th:attr="plane=${session.plane.sid}"></div>
 <footer th:replace="fragments/footer :: footer">
     <p >Default Copyright statement</p>
 </footer>

@@ -3,8 +3,6 @@ package com.gl.planesAndAirfileds.controller;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
-import com.gl.planesAndAirfileds.domain.api.Mappings;
-import com.gl.planesAndAirfileds.service.impl.FlightDetailsServiceImpl;
 import com.gl.planesAndAirfileds.util.TimeUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,16 +52,16 @@ public class FlightDetailsController {
      */
     @RequestMapping(value = Mappings.GET_CURRENT_POSITION, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
-    public Map<Long, List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable(value = "id") Long planeId) {
-        List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeId);
+    public Map<Long, List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable(value = "sid") String planeSid) {
+        List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeSid);
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
         planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
         return planePositions;
     }
 
     @RequestMapping(value = Mappings.GET_FLIGHT_DETAILS, method = RequestMethod.GET)
-    public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_id") Long planeId) {
-        return flightDetailsService.getLatestFlightDetailsForPlane(planeId);
+    public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_sid") String planeSid) {
+        return flightDetailsService.getLatestFlightDetailsForPlane(planeSid);
     }
 
     @RequestMapping( value = Mappings.POST_FLIGHT_DETAILS, method = RequestMethod.POST )

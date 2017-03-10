@@ -50,11 +50,11 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                    angular.forEach(data, function(value, key){
                             var distance=locationService.distance(serverTime,value.incomingTime,value.velocity);
                             var destPoint = locationService.destinationPoint(value.gpsLatitude,value.gpsLongitude,value.course,distance);
-                            var planeId = value.plane.id;
+                            var planeSid = value.plane.sid;
                             var latlng = new google.maps.LatLng(destPoint.latitude.toString(),destPoint.longitude.toString());
                             icon["rotation"]=destPoint.course;
-                            if(markers[planeId]) {
-                                var marker = markers[planeId];
+                            if(markers[planeSid]) {
+                                var marker = markers[planeSid];
                                 marker.setPosition(latlng);
                                 marker.setIcon(icon);
                              } else {
@@ -64,7 +64,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                         icon: icon,
                                         map: map
                                       });
-                                markers[planeId] = marker;
+                                markers[planeSid] = marker;
                                 }
                         });
 

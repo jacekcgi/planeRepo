@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
+import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,10 +29,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PlanesControllerTest {
 
     @MockBean
-    private PlaneServiceImpl planeServiceImpl;
+    private PlaneService planeService;
 
     @MockBean
     private PlaneValidator planeValidator;
+
+    @MockBean
+    private RestTemplateBuilder builder;
 
     @Autowired
     private MockMvc mvc;
@@ -47,7 +51,7 @@ public class PlanesControllerTest {
         Plane p2 = TestDomainObjectFactory.getPlane();
         planes.add(p1);
         planes.add(p2);
-        Mockito.when(this.planeServiceImpl.getAllPlanes()).thenReturn(planes);
+        Mockito.when(this.planeService.getAllPlanes()).thenReturn(planes);
         //given(this.planeServiceImpl.getAllPlanes()).willReturn(planes);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isOk())

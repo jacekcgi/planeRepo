@@ -11,6 +11,6 @@ public interface FlightDetailsRepository extends AbstractEntityRepository<Flight
     @Query("select f from FlightDetails f where f.isActualPosition = true")
     List<FlightDetails> getLatestFlightDetailsForAllPlanes();
 
-    @Query("select f from FlightDetails f where f.isActualPosition = true and f.plane.id = :id" )
-    List<FlightDetails> getLatestFlightDetailForPlane(@Param("id") Long id);
+    @Query("select f from FlightDetails f where f.isActualPosition = true and f.plane.sid = :sid" )
+    List<FlightDetails> getLatestFlightDetailForPlane(@Param("sid") String sid);
 }

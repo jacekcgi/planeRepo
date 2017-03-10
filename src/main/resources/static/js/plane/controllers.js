@@ -13,8 +13,8 @@ planes.controller('listPlanes', ['$scope', 'PlanesDataService','DetailsPlaneFlig
         });
 
     $scope.showFlightDetails = function (item) {
-        var id_plane = item.currentTarget.getAttribute("id_plane");
-            DetailsPlaneFlightService.flightDetails(id_plane, function (data) {
+        var sid_plane = item.currentTarget.getAttribute("sid_plane");
+            DetailsPlaneFlightService.flightDetails(sid_plane, function (data) {
             flightDetailsWIndow = $window.open('/flightDetailsView', '', 'width=250,height=250');
             flightDetailsWIndow.flightDetails = data;
         });

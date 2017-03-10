@@ -20,7 +20,7 @@ CREATE INDEX plane_update_date_index ON plane (update_date) USING BTREE;
 
 CREATE TABLE `flight_details` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `average_fuel_consumption` int(11) DEFAULT NULL,
+  `average_fuel_consumption` double DEFAULT NULL,
   `course` double DEFAULT NULL,
   `distance_traveled` double DEFAULT NULL,
   `flight_distance` double DEFAULT NULL,

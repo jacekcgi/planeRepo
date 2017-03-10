@@ -1,10 +1,12 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
+import com.gl.planesAndAirfileds.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -17,9 +19,12 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 {
     private FlightDetailsRepository flightDetailsRepository;
 
+    private PlaneService planeService;
+
     @Autowired
-    public FlightDetailsServiceImpl(FlightDetailsRepository flightDetailsRepository) {
+    public FlightDetailsServiceImpl(FlightDetailsRepository flightDetailsRepository,PlaneService planeService) {
         this.flightDetailsRepository = flightDetailsRepository;
+        this.planeService = planeService;
     }
 
     @Override
@@ -39,32 +44,39 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
     @Override
     @Transactional(readOnly = true)
-    public List<FlightDetails> getLatestFlightDetailsForPlanes(Long planeId){
-        if (planeId == null) {
+    public List<FlightDetails> getLatestFlightDetailsForPlanes(String planeSid){
+        if (planeSid  == null) {
             return flightDetailsRepository.getLatestFlightDetailsForAllPlanes();
         } else {
-            return flightDetailsRepository.getLatestFlightDetailForPlane(planeId);
+            return flightDetailsRepository.getLatestFlightDetailForPlane(planeSid);
         }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public FlightDetails getLatestFlightDetailsForPlane(Long planeId){
-        List<FlightDetails> latestFlightDetailForPlane = flightDetailsRepository.getLatestFlightDetailForPlane(planeId);
-
-        return latestFlightDetailForPlane.get(0);
+    public FlightDetails getLatestFlightDetailsForPlane(String planeSid){
+        List<FlightDetails> latestFlightDetailForPlane = flightDetailsRepository.getLatestFlightDetailForPlane(planeSid);
+        if(latestFlightDetailForPlane.isEmpty()) {
+            return null;
+        } else {
+            return latestFlightDetailForPlane.get(0);
+        }
     }
 
     @Override
     @Transactional
     public void insertNewFlightDetails(FlightDetails flightDetails) {
-        List<FlightDetails> latestFlightDetails = flightDetailsRepository.getLatestFlightDetailForPlane(flightDetails.getPlane().getId());
-        for(FlightDetails fd :latestFlightDetails){
-            fd.setActualPosition(false);
-            flightDetailsRepository.save(fd);
+        Plane plane = planeService.getBySid(flightDetails.getPlane().getSid());
+        if(plane != null) {
+            List<FlightDetails> latestFlightDetails = flightDetailsRepository.getLatestFlightDetailForPlane(plane.getSid());
+            for (FlightDetails fd : latestFlightDetails) {
+                fd.setActualPosition(false);
+                flightDetailsRepository.save(fd);
+            }
+            flightDetails.setPlane(plane);
+            flightDetails.setActualPosition(true);
+            flightDetailsRepository.save(flightDetails);
         }
-        flightDetails.setActualPosition(true);
-        flightDetailsRepository.save(flightDetails);
     }
 
 }

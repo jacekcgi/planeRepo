@@ -23,6 +23,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <liquibase.version>3.5.3</liquibase.version>
+        <commons-lang3.version>3.5</commons-lang3.version>
+        <jdal-core.version>2.0.0</jdal-core.version>
     </properties>
 
     <dependencies>
@@ -57,12 +59,18 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.5</version>
+            <version>${commons-lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jdal</groupId>
             <artifactId>jdal-core</artifactId>
-            <version>2.0.0</version>
+            <version>${jdal-core.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.liquibase</groupId>

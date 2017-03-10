@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.repository;
 
 import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.domain.PlaneId;
+import com.gl.planesAndAirfileds.domain.PlaneSid;
 import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
 import com.gl.planesAndAirfileds.domain.util.SidUtils;
 import junit.framework.TestCase;
@@ -44,9 +44,9 @@ public class PlaneRepositoryTest {
         Plane plane2 = TestDomainObjectFactory.getPlane();
         entityManager.persist(plane);
         entityManager.persist(plane2);
-        List<PlaneId> planesIdList = planeRepository.getPlanesId();
-        for(PlaneId id :planesIdList) {
-            assertThat(id.getId()).isNotNull();
+        List<PlaneSid> planesIdList = planeRepository.getPlanesSid();
+        for(PlaneSid id :planesIdList) {
+            assertThat(id.getSid()).isNotEmpty();
         }
     }
 
