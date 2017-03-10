@@ -24,7 +24,7 @@ public class ViewController {
             {
                     "/",
                     "/menu",
-                    "menu/**"
+                    "/menu/**"
             }, method = RequestMethod.GET)
     public String mainMenu() {
         return "index";
