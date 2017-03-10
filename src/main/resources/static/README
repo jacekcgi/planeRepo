@@ -14,3 +14,4 @@ mvn install -DserverContext=/server -DserverPort=8085
 .\node\npm run start
 
 PS: You can define own scripts with another parameters in package.json file
+
