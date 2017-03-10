@@ -22,9 +22,11 @@ public class ViewController {
 
     @RequestMapping(value =
             {
-                    "/"
+                    "/",
+                    "/menu",
+                    "menu/**"
             }, method = RequestMethod.GET)
-    public String displayMap() {
+    public String mainMenu() {
         return "index";
     }
 

@@ -13,5 +13,4 @@ if (process.env.ENV === 'production') {
       module.hot.accept();
   }
 }
-
 platformBrowserDynamic().bootstrapModule(AppModule);
