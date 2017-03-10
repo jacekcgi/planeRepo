@@ -18,7 +18,7 @@ public class AbstractIdentifiableEntity extends AbstractEntity {
     public static final int FIELD_SID_LENGTH = 32;
 
     @Column(name = "sid", nullable = false, unique = true, length = FIELD_SID_LENGTH)
-    @NotBlank
+    @NotBlank(groups = Validation.SidValidate.class)
     private String sid;
 
     @PrePersist
