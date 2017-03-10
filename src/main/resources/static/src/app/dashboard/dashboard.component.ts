@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-var appConfig = require('appconfig');
+import { AppConfig} from '../../config/config'
 
 @Component({
   selector: 'page-dashboard',
@@ -10,6 +10,7 @@ export class DashboardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    alert('App Port:' + appConfig.serverPort + "\n App context: " + appConfig.serverContext )
+  console.log(AppConfig);
+    alert('App Port:' + AppConfig.serverPort + "\n App context: " + AppConfig.serverContext )
   }
 }
