@@ -34,7 +34,6 @@ public class FlightDetailsControllerTest {
         mockMvc.perform(get("/getCurrentTime"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-
     }
 
     @Test
