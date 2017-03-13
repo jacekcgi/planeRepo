@@ -4,8 +4,6 @@ import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.PlaneSid;
 import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
-import com.gl.planesAndAirfileds.domain.util.SidUtils;
-import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,7 +37,7 @@ public class PlaneRepositoryTest {
     private PlaneRepository planeRepository;
 
     @Test
-    public void testGetPlanesId() {
+    public void testGetPlanesSid() {
         Plane plane = TestDomainObjectFactory.getPlane();
         Plane plane2 = TestDomainObjectFactory.getPlane();
         entityManager.persist(plane);
@@ -52,19 +50,17 @@ public class PlaneRepositoryTest {
 
     @Test
     public void testGetBySid(){
-        String sid = SidUtils.generate();
-        String otherSid = SidUtils.generate();
 
         Plane plane = TestDomainObjectFactory.getPlane();
-        plane.setSid(sid);
+        String sid = plane.getSid();
         Plane otherPlane = TestDomainObjectFactory.getPlane();
-        otherPlane.setSid(otherSid);
+        String otherSid = otherPlane.getSid();
 
         entityManager.persist(plane);
         entityManager.persist(otherPlane);
 
         Plane result = planeRepository.getBySid(sid);
-        TestCase.assertEquals(plane, result);
+        Assert.assertEquals(plane, result);
     }
 
     @Test
