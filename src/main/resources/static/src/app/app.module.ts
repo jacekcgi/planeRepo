@@ -10,8 +10,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ActionService } from './services';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 @NgModule({
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,

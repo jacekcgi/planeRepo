@@ -52,6 +52,11 @@ module.exports = {
             'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT)
           }
         }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      Tether: 'tether'
+    }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
