@@ -8,3 +8,5 @@ import '@angular/router';
 // RxJS
 import 'rxjs';
 // Other vendors for example jQuery, Lodash or Bootstrap
+import "jQuery";
+import "lodash";
