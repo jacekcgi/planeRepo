@@ -19,7 +19,7 @@ public class AirPortsStorageWriter implements ApplicationRunner {
     }
 
     @Autowired
-    public void setAirportsServiceImp(AirportsService airportsService) {
+    public void setAirportsService(AirportsService airportsService) {
         this.airportsService = airportsService;
     }
 
