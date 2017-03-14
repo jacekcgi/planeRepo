@@ -14,8 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plane, Long> implements PlaneService
-{
+public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plane, Long> implements PlaneService {
     private PlaneRepository planeRepository;
 
     @Autowired

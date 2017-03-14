@@ -1,47 +1,44 @@
 package com.gl.planesAndAirfileds.components;
 
-import com.gl.planesAndAirfileds.domain.Airport;
-import com.gl.planesAndAirfileds.service.AirportsDAOService;
+import com.gl.planesAndAirfileds.service.AirportsFileParserService;
 import com.gl.planesAndAirfileds.service.AirportsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class AirPortsStorageWriter implements ApplicationRunner {
 
-    private AirportsDAOService airportsDAOService;
-
     private AirportsService airportsService;
 
-    public AirportsDAOService getAirportsDAOService() {
-        return airportsDAOService;
-    }
+    private AirportsFileParserService airportsFileParserService;
 
-    @Autowired
-    public void setAirportsDAOService(AirportsDAOService airportsDAOService) {
-        this.airportsDAOService = airportsDAOService;
-    }
-
-    public AirportsService getAirportsService() {
+    public AirportsService getAirportsServiceImp() {
         return airportsService;
     }
 
     @Autowired
-    public void setAirportsService(AirportsService airportsService) {
+    public void setAirportsServiceImp(AirportsService airportsService) {
         this.airportsService = airportsService;
+    }
+
+    public AirportsFileParserService getAirportsFileParserService() {
+        return airportsFileParserService;
+    }
+
+    @Autowired
+    public void setAirportsFileParserService(AirportsFileParserService airportsFileParserService) {
+        this.airportsFileParserService = airportsFileParserService;
     }
 
     @Override
     public void run(ApplicationArguments applicationArguments) {
 
-        List<Airport> listOfAirports = airportsService.getListOfAirports();
-        if(!listOfAirports.isEmpty()) {
-            airportsDAOService.saveAirports(listOfAirports);
-        }
+//        List<Airport> listOfAirports = airportsFileParserService.getListOfAirports();
+//        if (!listOfAirports.isEmpty()) {
+//            airportsService.saveAirports(listOfAirports); // temporary disable
+//        }
 
     }
 

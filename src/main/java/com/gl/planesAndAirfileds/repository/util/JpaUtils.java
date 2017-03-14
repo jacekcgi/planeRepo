@@ -3,7 +3,7 @@ package com.gl.planesAndAirfileds.repository.util;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-public class JpaUtils extends org.jdal.dao.jpa.JpaUtils{
+public class JpaUtils extends org.jdal.dao.jpa.JpaUtils {
 
     public static <T> Root<T> findRoot(CriteriaQuery<?> query, Class<T> clazz) {
 
@@ -15,8 +15,8 @@ public class JpaUtils extends org.jdal.dao.jpa.JpaUtils{
         return null;
     }
 
-    public static <T> Root<T> findOrCreateRoot(CriteriaQuery<?> query, Class<T> clazz){
+    public static <T> Root<T> findOrCreateRoot(CriteriaQuery<?> query, Class<T> clazz) {
         Root<T> root = findRoot(query, clazz);
-        return root != null ? root :  query.from(clazz);
+        return root != null ? root : query.from(clazz);
     }
 }

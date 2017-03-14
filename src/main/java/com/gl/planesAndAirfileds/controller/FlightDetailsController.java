@@ -19,6 +19,7 @@ import java.util.Map;
 public class FlightDetailsController {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private FlightDetailsService flightDetailsService;
 
     @Autowired
@@ -64,7 +65,7 @@ public class FlightDetailsController {
         return flightDetailsService.getLatestFlightDetailsForPlane(planeSid);
     }
 
-    @RequestMapping( value = Mappings.POST_FLIGHT_DETAILS, method = RequestMethod.POST )
+    @RequestMapping(value = Mappings.POST_FLIGHT_DETAILS, method = RequestMethod.POST)
     public ResponseEntity<FlightDetails> gatherFlightDetails(@RequestBody FlightDetails flightDetails) {
         flightDetailsService.insertNewFlightDetails(flightDetails);
         return new ResponseEntity<FlightDetails>(HttpStatus.OK);

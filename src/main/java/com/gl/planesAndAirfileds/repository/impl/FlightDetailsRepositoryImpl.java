@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
  * Created by krzysztof.gonia on 3/7/2017.
  */
 @Repository
-public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<FlightDetails> implements CustomFlightDetailsRepository {
+public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<FlightDetails>
+        implements CustomFlightDetailsRepository {
 
 }

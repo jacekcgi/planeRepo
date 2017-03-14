@@ -4,8 +4,6 @@ import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
