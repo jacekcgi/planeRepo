@@ -6,7 +6,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
@@ -16,18 +15,18 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(AirportsService.class)
+@WebMvcTest(AirportsFileParserService.class)
 @ActiveProfiles("test")
-public class AirportsServiceTest {
+public class AirportsFileParserServiceTest {
 
     @Autowired
-    private AirportsService airportsService;
+    private AirportsFileParserService airportsFileParserService;
 
     @Test
     public void checkIfFileIsParseCorrectly() {
 
         List<Airport> expectedAirportList = getTesData();
-        List<Airport> actualAirportList = airportsService.getListOfAirports();
+        List<Airport> actualAirportList = airportsFileParserService.getListOfAirports();
 
         assertThat(actualAirportList, is(expectedAirportList));
 

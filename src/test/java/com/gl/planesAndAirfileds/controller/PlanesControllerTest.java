@@ -68,7 +68,7 @@ public class PlanesControllerTest {
         planes.add(p1);
         planes.add(p2);
         Mockito.when(this.planeService.getAllPlanes()).thenReturn(planes);
-        //given(this.planeServiceImpl.getAllPlanes()).willReturn(planes);
+        //given(this.planeService.getAllPlanes()).willReturn(planes);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

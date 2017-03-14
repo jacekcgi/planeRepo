@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(FlightDetailsService.class)
-public class FlightDetailsDAOServiceTest {
+public class FlightDetailsServiceTest {
 
     @MockBean
     private FlightDetailsRepository flightDetailsRepository;
@@ -26,10 +26,11 @@ public class FlightDetailsDAOServiceTest {
     @MockBean
     private PlaneService planeService;
 
+    @MockBean
+    private FlightDetailsFactoryService flightDetailsFactoryService;
+
     @Autowired
-    private FlightDetailsService flightDetailsServiceImpl;
-
-
+    private FlightDetailsService flightDetailsService;
 
     @Test
     public void shouldInvokeGetLatestFlightDetailForPlane() {
@@ -40,7 +41,7 @@ public class FlightDetailsDAOServiceTest {
         when(flightDetailsRepository.getLatestFlightDetailForPlane(anyString()))
                 .thenReturn(flightDetailsTestList);
 
-        flightDetailsServiceImpl.getLatestFlightDetailsForPlane(anyString());
+        flightDetailsService.getLatestFlightDetailsForPlane(anyString());
 
         verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyString());
 
@@ -49,16 +50,16 @@ public class FlightDetailsDAOServiceTest {
     @Test
     public void ifMethodGetNullAsParameterThenFlightDetailsForAllPlanesIsReturn() {
 
-        flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(null);
+        flightDetailsService.getLatestFlightDetailsForPlanes(null);
 
         verify(flightDetailsRepository).getLatestFlightDetailsForAllPlanes();
 
     }
 
-  @Test
+    @Test
     public void ifMethodGetPlaneIdAsParameterThenFlightDetailFroThisPlaneIsReturn() {
 
-        flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(anyString());
+        flightDetailsService.getLatestFlightDetailsForPlanes(anyString());
 
         verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyString());
 

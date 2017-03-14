@@ -43,13 +43,13 @@ public class PlaneRepositoryTest {
         entityManager.persist(plane);
         entityManager.persist(plane2);
         List<PlaneSid> planesIdList = planeRepository.getPlanesSid();
-        for(PlaneSid id :planesIdList) {
+        for (PlaneSid id : planesIdList) {
             assertThat(id.getSid()).isNotEmpty();
         }
     }
 
     @Test
-    public void testGetBySid(){
+    public void testGetBySid() {
 
         Plane plane = TestDomainObjectFactory.getPlane();
         String sid = plane.getSid();
@@ -64,8 +64,8 @@ public class PlaneRepositoryTest {
     }
 
     @Test
-    public void testFindByName(){
-        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10)+2);
+    public void testFindByName() {
+        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10) + 2);
         planes.get(0).setName("Test name");
         planes.get(1).setName("Other name");
 
@@ -74,19 +74,19 @@ public class PlaneRepositoryTest {
         PlaneFilter planeFilter = new PlaneFilter();
         planeFilter.setName("name");
 
-        List<Plane> result = planeRepository.findBySearchParams(planeFilter,new PageRequest(0, Integer.MAX_VALUE));
+        List<Plane> result = planeRepository.findBySearchParams(planeFilter, new PageRequest(0, Integer.MAX_VALUE));
         Assert.assertEquals(2, result.size());
-        Assert.assertThat(Arrays.asList(planes.get(0), planes.get(1)),is(result));
+        Assert.assertThat(Arrays.asList(planes.get(0), planes.get(1)), is(result));
 
         planeFilter.setName("Test");
-        result = planeRepository.findBySearchParams(planeFilter,new PageRequest(0, Integer.MAX_VALUE));
+        result = planeRepository.findBySearchParams(planeFilter, new PageRequest(0, Integer.MAX_VALUE));
         Assert.assertEquals(1, result.size());
-        Assert.assertThat(Collections.singletonList(planes.get(0)),is(result));
+        Assert.assertThat(Collections.singletonList(planes.get(0)), is(result));
     }
 
     @Test
-    public void testPageable(){
-        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10)+2);
+    public void testPageable() {
+        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10) + 2);
         planes.get(0).setName("Test name");
         planes.get(1).setName("Other name");
 
@@ -95,18 +95,18 @@ public class PlaneRepositoryTest {
         PlaneFilter planeFilter = new PlaneFilter();
         planeFilter.setName("name");
 
-        List<Plane> result = planeRepository.findBySearchParams(planeFilter,new PageRequest(0, 1));
+        List<Plane> result = planeRepository.findBySearchParams(planeFilter, new PageRequest(0, 1));
         Assert.assertEquals(1, result.size());
-        Assert.assertThat(Collections.singletonList(planes.get(0)),is(result));
+        Assert.assertThat(Collections.singletonList(planes.get(0)), is(result));
 
-        result = planeRepository.findBySearchParams(planeFilter,new PageRequest(1, 1));
+        result = planeRepository.findBySearchParams(planeFilter, new PageRequest(1, 1));
         Assert.assertEquals(1, result.size());
-        Assert.assertThat(Collections.singletonList(planes.get(1)),is(result));
+        Assert.assertThat(Collections.singletonList(planes.get(1)), is(result));
     }
 
     @Test
-    public void testOrder(){
-        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10)+2);
+    public void testOrder() {
+        List<Plane> planes = TestDomainObjectFactory.getPlanes(new Random().nextInt(10) + 2);
         planes.get(0).setName("BBB name");
         planes.get(1).setName("AAA name");
 
@@ -116,18 +116,18 @@ public class PlaneRepositoryTest {
         planeFilter.setName("name");
 
         List<Plane> result = planeRepository.findBySearchParams(planeFilter,
-                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.ASC,Plane.FIELD_NAME))));
+                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.ASC, Plane.FIELD_NAME))));
 
         Assert.assertEquals(2, result.size());
-        Assert.assertEquals(planes.get(1),result.get(0));
-        Assert.assertEquals(planes.get(0),result.get(1));
+        Assert.assertEquals(planes.get(1), result.get(0));
+        Assert.assertEquals(planes.get(0), result.get(1));
 
         result = planeRepository.findBySearchParams(planeFilter,
-                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.DESC,Plane.FIELD_NAME))));
+                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.DESC, Plane.FIELD_NAME))));
 
         Assert.assertEquals(2, result.size());
-        Assert.assertEquals(planes.get(0),result.get(0));
-        Assert.assertEquals(planes.get(1),result.get(1));
+        Assert.assertEquals(planes.get(0), result.get(0));
+        Assert.assertEquals(planes.get(1), result.get(1));
     }
 
 }

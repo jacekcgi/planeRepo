@@ -8,6 +8,5 @@ import java.io.Serializable;
  * Created by marek.sroga on 2017-03-06.
  */
 public interface AbstractStatefulEntityService<T extends AbstractStatefulEntity, S extends Serializable>
-        extends AbstractIdentifiableEntityService<T, S>
-{
+        extends AbstractIdentifiableEntityService<T, S> {
 }

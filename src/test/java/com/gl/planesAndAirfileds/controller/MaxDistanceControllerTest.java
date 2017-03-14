@@ -1,8 +1,8 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.MaxDistanceCalculatorService;
-import com.gl.planesAndAirfileds.service.impl.FlightDetailsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class MaxDistanceControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    private FlightDetailsServiceImpl flightDetailsServiceImp;
+    private FlightDetailsService flightDetailsService;
 
     @MockBean
     private MaxDistanceCalculatorService maxDistanceCalculatorService;
@@ -37,12 +37,11 @@ public class MaxDistanceControllerTest {
     @Test
     public void getMaxDistanceCalculationTest() throws Exception {
 
-        when(flightDetailsServiceImp.getLatestFlightDetailsForPlane(anyString()))
+        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString()))
                 .thenReturn(new FlightDetails());
 
         when(maxDistanceCalculatorService.calculateMaxDistance(anyDouble(), anyDouble()))
                 .thenReturn(RETURN_VALUE_MAX_DISTANCE);
-
 
         mockMvc.perform(MockMvcRequestBuilders.get("/planeMaxDistance/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
