@@ -1,7 +1,9 @@
 package com.gl.planesAndAirfileds.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
+import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import org.junit.Test;
@@ -14,6 +16,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.WebDataBinder;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -22,12 +25,15 @@ import java.util.List;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(PlanesController.class)
 public class PlanesControllerTest {
 
+    @MockBean
+    WebDataBinder binder;
     @MockBean
     private PlaneService planeService;
 
@@ -43,6 +49,16 @@ public class PlanesControllerTest {
     private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
+
+    @Test
+    public void testSave() throws Exception {
+        Plane p1 = TestDomainObjectFactory.getPlane();
+        ObjectMapper mapper = new ObjectMapper();
+        Mockito.when(this.planeService.save(p1)).thenReturn(p1);
+        Mockito.doNothing().when(planeValidator).validate(p1,null);
+        this.mvc.perform(post(Mappings.CREATE_PLANE).content(mapper.writeValueAsString(p1)).contentType(contentType)).
+                andExpect(status().isOk());
+    }
 
     @Test
     public void testGetPlaneList() throws Exception {

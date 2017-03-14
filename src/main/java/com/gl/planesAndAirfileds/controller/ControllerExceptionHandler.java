@@ -65,7 +65,8 @@ public class ControllerExceptionHandler {
         ObjectError objectError = result.getGlobalError();
         if (objectError != null && !StringUtils.isEmpty(objectError.getCode())) {
             errorCode = objectError.getCode();
-        } else {
+        }
+        else {
             errorCode = "validation.exception";
         }
         errorDto.setMessage(messageSource.getMessage(errorCode, null, locale));
