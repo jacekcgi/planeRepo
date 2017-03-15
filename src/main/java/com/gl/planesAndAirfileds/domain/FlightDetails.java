@@ -47,6 +47,9 @@ public class FlightDetails extends AbstractEntity {
     @NotNull
     private Plane plane;
 
+    @Column(name = "is_landed")
+    private boolean isLanded;
+
     public Long getId() {
         return id;
     }
@@ -151,6 +154,14 @@ public class FlightDetails extends AbstractEntity {
         this.distanceTraveled = distanceTraveled;
     }
 
+    public boolean isLanded() {
+        return isLanded;
+    }
+
+    public void setLanded(boolean landed) {
+        isLanded = landed;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -164,6 +175,7 @@ public class FlightDetails extends AbstractEntity {
         sb.append(";averageFuelConsumption " + averageFuelConsumption);
         sb.append(";remainingFuel " + remainingFuel);
         sb.append(";flightTime " + flightTime);
+        sb.append(";isLanded " + isLanded);
         return sb.toString();
     }
 }
