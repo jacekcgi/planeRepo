@@ -2,7 +2,6 @@ package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.repository.AirportRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -11,8 +10,6 @@ import java.util.List;
  */
 public interface AirportsService {
     AirportRepository getAirportRepository();
-
-    @Autowired
     void setAirportRepository(AirportRepository airportRepository);
 
     void saveAirports(List<Airport> airportsList);

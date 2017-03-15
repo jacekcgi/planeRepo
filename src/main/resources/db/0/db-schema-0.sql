@@ -12,7 +12,7 @@ CREATE TABLE plane (
   update_date datetime DEFAULT NULL,
   PRIMARY KEY (id),
   UNIQUE KEY UK_plane_registration (registration)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE INDEX plane_sid_index ON plane (sid) USING BTREE;
 CREATE INDEX plane_create_date_index ON plane (create_date) USING BTREE;
 CREATE INDEX plane_registration_index ON plane (registration) USING BTREE;
@@ -32,9 +32,10 @@ CREATE TABLE `flight_details` (
   `remaining_fuel` double DEFAULT NULL,
   `velocity` float DEFAULT NULL,
   `plane_id` bigint(20) NOT NULL,
+  `is_landed` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (plane_id) REFERENCES plane (id) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
 CREATE INDEX flight_details_incoming_time_index ON flight_details (incoming_time) USING BTREE;
 
