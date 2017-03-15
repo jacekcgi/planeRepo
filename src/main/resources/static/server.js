@@ -4,7 +4,7 @@ var config = require('./config/webpack.dev');
 
 var app = new WebpackDevServer(webpack(config), {
     contentBase: __dirname,
-    publicPath: 'http://localhost:3000/built/',
+    publicPath: 'http://localhost:3000/',
     hot: true,
     historyApiFallback: true,
     headers: { 'Access-Control-Allow-Origin': '*' }
