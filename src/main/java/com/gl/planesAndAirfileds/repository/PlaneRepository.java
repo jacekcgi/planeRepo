@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface PlaneRepository extends AbstractIdentifiableEntityRepository<Plane,Long>, CustomPlaneRepository {
+public interface PlaneRepository extends AbstractIdentifiableEntityRepository<Plane, Long>, CustomPlaneRepository {
 
     @Query("select p from  Plane p")
     List<PlaneSid> getPlanesSid();

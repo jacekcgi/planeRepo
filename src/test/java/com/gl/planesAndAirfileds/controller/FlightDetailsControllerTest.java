@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
-import com.gl.planesAndAirfileds.service.impl.FlightDetailsServiceImpl;
+import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import org.hibernate.ObjectNotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public class FlightDetailsControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    FlightDetailsServiceImpl flightDetailsServiceImpl;
+    FlightDetailsService flightDetailsService;
 
     @Test
     public void getCurrentTimeTest() throws Exception {
@@ -48,8 +48,8 @@ public class FlightDetailsControllerTest {
     @Test
     public void getCurrentPositionOfAllPlanesServiceUnavailableErrorReturnTest() throws Exception {
 
-        when(flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(anyString()))
-                .thenThrow(new ObjectNotFoundException("id","FD"));
+        when(flightDetailsService.getLatestFlightDetailsForPlanes(anyString()))
+                .thenThrow(new ObjectNotFoundException("id", "FD"));
 
         mockMvc.perform(get("/planeLocation"))
                 .andExpect(status().isInternalServerError());
@@ -68,7 +68,7 @@ public class FlightDetailsControllerTest {
     @Test
     public void latestFightDetailsForPlaneTest() throws Exception {
 
-        when(flightDetailsServiceImpl.getLatestFlightDetailsForPlane(anyString()))
+        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString()))
                 .thenReturn(new FlightDetails());
 
         mockMvc.perform(get("/flightDetails/2"))

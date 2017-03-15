@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class MaxDistanceController {
 
     private MaxDistanceCalculatorService maxDistanceCalculatorService;
+
     private FlightDetailsService flightDetailsService;
 
     @Autowired
-    public MaxDistanceController(MaxDistanceCalculatorService maxDistanceCalculatorService, FlightDetailsService flightDetailsService) {
+    public MaxDistanceController(MaxDistanceCalculatorService maxDistanceCalculatorService,
+                                 FlightDetailsService flightDetailsService) {
         this.maxDistanceCalculatorService = maxDistanceCalculatorService;
         this.flightDetailsService = flightDetailsService;
     }
@@ -28,6 +30,6 @@ public class MaxDistanceController {
         Double reamingFuel = flightDetails.getRemainingFuel();
         Double averageFuelConsumption = flightDetails.getAverageFuelConsumption();
 
-        return maxDistanceCalculatorService.calculateMaxDistance(reamingFuel,averageFuelConsumption);
+        return maxDistanceCalculatorService.calculateMaxDistance(reamingFuel, averageFuelConsumption);
     }
 }

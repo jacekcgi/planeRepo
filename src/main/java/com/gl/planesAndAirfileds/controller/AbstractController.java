@@ -10,8 +10,7 @@ import java.util.Optional;
  */
 public abstract class AbstractController {
 
-    protected void addValidator(WebDataBinder binder, Class<?> clazz, Validator... validators)
-    {
+    protected void addValidator(WebDataBinder binder, Class<?> clazz, Validator... validators) {
         Optional
                 .ofNullable(binder.getTarget())
                 .filter(notNullBinder -> clazz.isAssignableFrom(notNullBinder.getClass()))

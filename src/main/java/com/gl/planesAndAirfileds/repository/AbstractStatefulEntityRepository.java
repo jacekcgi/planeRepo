@@ -9,5 +9,6 @@ import java.io.Serializable;
  * Created by krzysztof.gonia on 3/6/2017.
  */
 @NoRepositoryBean
-public interface AbstractStatefulEntityRepository<T extends AbstractStatefulEntity, S extends Serializable> extends AbstractIdentifiableEntityRepository<T, S> {
+public interface AbstractStatefulEntityRepository<T extends AbstractStatefulEntity, S extends Serializable>
+        extends AbstractIdentifiableEntityRepository<T, S> {
 }

@@ -21,8 +21,10 @@ import java.util.List;
 public class PlanesController extends AbstractController {
 
     private RestTemplate restTemplate;
+
     @Value("${simulator.plane.add.url}")
     private String simulatorPlaneAddUrl;
+
     private PlaneService planeService;
 
     private PlaneValidator planeValidator;
@@ -31,16 +33,15 @@ public class PlanesController extends AbstractController {
     public PlanesController(PlaneService planeService, PlaneValidator planeValidator, RestTemplateBuilder builder) {
         this.planeService = planeService;
         this.planeValidator = planeValidator;
-            this.restTemplate = builder.build();
+        this.restTemplate = builder.build();
     }
 
     @InitBinder
-    protected void initBinder(WebDataBinder binder)
-    {
+    protected void initBinder(WebDataBinder binder) {
         addValidator(binder, Plane.class, planeValidator);
     }
 
-    @RequestMapping( value = Mappings.CREATE_PLANE, method = RequestMethod.POST )
+    @RequestMapping(value = Mappings.CREATE_PLANE, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public Plane save(@RequestBody @Validated(Default.class) Plane plane) {
         return planeService.save(plane);

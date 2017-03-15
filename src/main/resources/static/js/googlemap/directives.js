@@ -34,7 +34,8 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                                 fillOpacity: 1,
                                                 fillColor: '#ffda44',
                                                 strokeWeight: 1,
-                                                scale: 0.05
+                                                scale: 0.05,
+                                                anchor: new google.maps.Point(256,256)
                                                 }
        var markers = [];
        var lastUpdate;
@@ -60,7 +61,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                              } else {
                             var marker =  new google.maps.Marker({
                                         position: latlng,
-                                        title:value.gpsLatitude + " "+value.gpsLongitude,
+                                        title:value.course.toString(),
                                         icon: icon,
                                         map: map
                                       });

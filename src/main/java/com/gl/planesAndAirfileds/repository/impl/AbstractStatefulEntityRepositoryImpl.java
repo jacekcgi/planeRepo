@@ -9,7 +9,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-
 /**
  * Created by krzysztof.gonia on 3/7/2017.
  */
@@ -24,7 +23,8 @@ public abstract class AbstractStatefulEntityRepositoryImpl<T extends AbstractSta
             return builder.and(
                     where,
                     builder.equal(root.get(AbstractStatefulEntity.FIELD_ACTIVE), stateful == StateEnum.ACTIVE));
-        } else {
+        }
+        else {
             return where;
         }
     }
