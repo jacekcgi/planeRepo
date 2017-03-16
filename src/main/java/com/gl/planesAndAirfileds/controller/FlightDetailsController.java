@@ -47,7 +47,6 @@ public class FlightDetailsController {
 
         String planeSid = pathVariables.get("sid");
         String lastUpdate = pathVariables.get("last_update");
-        System.out.println("SSSS "+planeSid+ " "+lastUpdate);
         Long lastUpdateTime = null;
         if (lastUpdate != null) {
             try {
@@ -66,8 +65,7 @@ public class FlightDetailsController {
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
         List<FlightDetails> currentPositionOfAllPlanes = new ArrayList<>();
         if (updatePositions) {
-            System.out.println("UPDATE Z BAZY");
-            currentPositionOfAllPlanes = flightDetailsService
+             currentPositionOfAllPlanes = flightDetailsService
                     .getLatestFlightDetailsForPlanes(planeSid);
         }
 
