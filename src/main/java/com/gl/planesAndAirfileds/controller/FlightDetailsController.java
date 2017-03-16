@@ -66,7 +66,7 @@ public class FlightDetailsController {
         List<FlightDetails> currentPositionOfAllPlanes = new ArrayList<>();
         if (updatePositions) {
              currentPositionOfAllPlanes = flightDetailsService
-                    .getLatestFlightDetailsForPlanes(planeSid);
+                    .getLatestFlightDetailsForPlanes(planeSid,false);
         }
 
         planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfAllPlanes);
@@ -83,14 +83,14 @@ public class FlightDetailsController {
     public Map<Long, List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable Map<String, String> pathVariables) {
 
         String planeSid = pathVariables.get("sid");
-        List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeSid);
+        List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeSid,false);
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
         planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
         return planePositions;
     }
     @RequestMapping(value = Mappings.GET_FLIGHT_DETAILS, method = RequestMethod.GET)
     public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_sid") String planeSid) {
-        return flightDetailsService.getLatestFlightDetailsForPlane(planeSid);
+        return flightDetailsService.getLatestFlightDetailsForPlane(planeSid,true);
     }
 
     @RequestMapping(value = Mappings.POST_FLIGHT_DETAILS, method = RequestMethod.POST)

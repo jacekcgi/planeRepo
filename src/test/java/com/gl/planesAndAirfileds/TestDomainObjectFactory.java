@@ -52,6 +52,7 @@ public class TestDomainObjectFactory {
         flightDetails.setGpsLongitude(RANDOM.nextDouble());
         flightDetails.setIncomingTime(new Date());
         flightDetails.setVelocity(RANDOM.nextFloat());
+        flightDetails.setLanded(false);
         return flightDetails;
     }
 }

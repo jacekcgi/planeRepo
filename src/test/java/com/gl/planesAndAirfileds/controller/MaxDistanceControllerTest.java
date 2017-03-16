@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyDouble;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
@@ -37,7 +38,7 @@ public class MaxDistanceControllerTest {
     @Test
     public void getMaxDistanceCalculationTest() throws Exception {
 
-        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString()))
+        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString(),anyBoolean()))
                 .thenReturn(new FlightDetails());
 
         when(maxDistanceCalculatorService.calculateMaxDistance(anyDouble(), anyDouble()))

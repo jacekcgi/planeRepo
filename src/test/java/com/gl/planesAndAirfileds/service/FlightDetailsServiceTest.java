@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -38,30 +39,19 @@ public class FlightDetailsServiceTest {
         List<FlightDetails> flightDetailsTestList = new ArrayList<>();
         flightDetailsTestList.add(new FlightDetails());
 
-        when(flightDetailsRepository.getLatestFlightDetailForPlane(anyString()))
+        when(flightDetailsRepository.getLatestFlightDetails(anyString(),anyBoolean()))
                 .thenReturn(flightDetailsTestList);
 
-        flightDetailsService.getLatestFlightDetailsForPlane(anyString());
+        flightDetailsService.getLatestFlightDetailsForPlanes(anyString(),anyBoolean());
 
-        verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyString());
+        verify(flightDetailsRepository).getLatestFlightDetails(anyString(),anyBoolean());
 
     }
 
     @Test
     public void ifMethodGetNullAsParameterThenFlightDetailsForAllPlanesIsReturn() {
-
-        flightDetailsService.getLatestFlightDetailsForPlanes(null);
-
-        verify(flightDetailsRepository).getLatestFlightDetailsForAllPlanes();
-
-    }
-
-    @Test
-    public void ifMethodGetPlaneIdAsParameterThenFlightDetailFroThisPlaneIsReturn() {
-
-        flightDetailsService.getLatestFlightDetailsForPlanes(anyString());
-
-        verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyString());
+        flightDetailsService.getLatestFlightDetailsForPlanes(null,false);
+        verify(flightDetailsRepository).getLatestFlightDetails(null,false);
 
     }
 

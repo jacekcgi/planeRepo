@@ -13,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -49,7 +50,7 @@ public class FlightDetailsControllerTest {
     @Test
     public void getCurrentPositionOfAllPlanesServiceUnavailableErrorReturnTest() throws Exception {
 
-        when(flightDetailsService.getLatestFlightDetailsForPlanes(anyString()))
+        when(flightDetailsService.getLatestFlightDetailsForPlanes(anyString(),anyBoolean()))
                 .thenThrow(new ObjectNotFoundException("id", "FD"));
 
         mockMvc.perform(get(Mappings.FIND_CURRENT_POSITIONS))
@@ -60,7 +61,7 @@ public class FlightDetailsControllerTest {
     @Test
     public void getLatestFlightDetailsForPlaneSuccessCaseStatusOkTest() throws Exception {
 
-        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString()))
+        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString(),anyBoolean()))
                 .thenReturn(new FlightDetails());
 
         mockMvc.perform(get("/onePlaneLocation/2"))
@@ -72,7 +73,7 @@ public class FlightDetailsControllerTest {
     @Test
     public void latestFightDetailsForPlaneTest() throws Exception {
 
-        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString()))
+        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString(),anyBoolean()))
                 .thenReturn(new FlightDetails());
 
         mockMvc.perform(get("/flightDetails/2"))

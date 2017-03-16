@@ -56,20 +56,15 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
     @Override
     @Transactional(readOnly = true)
-    public List<FlightDetails> getLatestFlightDetailsForPlanes(String planeSid) {
-        if (planeSid == null) {
-            return flightDetailsRepository.getLatestFlightDetailsForAllPlanes();
-        }
-        else {
-            return flightDetailsRepository.getLatestFlightDetailForPlane(planeSid);
-        }
+    public List<FlightDetails> getLatestFlightDetailsForPlanes(String planeSid,boolean returnPlaneLanded) {
+            return flightDetailsRepository.getLatestFlightDetails(planeSid,returnPlaneLanded);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public FlightDetails getLatestFlightDetailsForPlane(String planeSid) {
+    public FlightDetails getLatestFlightDetailsForPlane(String planeSid,boolean returnPlaneLanded) {
         List<FlightDetails> latestFlightDetailForPlane = flightDetailsRepository
-                .getLatestFlightDetailForPlane(planeSid);
+                .getLatestFlightDetails(planeSid,returnPlaneLanded);
 
         if (latestFlightDetailForPlane.isEmpty()) {
 
@@ -86,7 +81,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         Plane plane = planeService.getBySid(flightDetails.getPlane().getSid());
         if (plane != null) {
             List<FlightDetails> latestFlightDetails = flightDetailsRepository
-                    .getLatestFlightDetailForPlane(plane.getSid());
+                    .getLatestFlightDetails(plane.getSid(),true);
             for (FlightDetails fd : latestFlightDetails) {
                 fd.setActualPosition(false);
                 flightDetailsRepository.save(fd);

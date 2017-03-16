@@ -8,6 +8,12 @@ import java.util.Date;
 @Table(name = "flight_details")
 public class FlightDetails extends AbstractEntity {
 
+    public static final String FIELD_IS_ACTUAL_POSITION = "isActualPosition";
+
+    public static final String FIELD_IS_LANDED = "isLanded";
+
+    public static final String FIELD_PLANE = "plane";
+
     @Column(name = "flight_time")
     private Long flightTime;
 

@@ -26,7 +26,7 @@ public class MaxDistanceController {
     @RequestMapping(value = "/planeMaxDistance/{plane_sid}", method = RequestMethod.GET)
     public double getPlaneMaxDistance(@PathVariable(value = "plane_sid") String planeSid) {
 
-        FlightDetails flightDetails = flightDetailsService.getLatestFlightDetailsForPlane(planeSid);
+        FlightDetails flightDetails = flightDetailsService.getLatestFlightDetailsForPlane(planeSid,true);
         Double reamingFuel = flightDetails.getRemainingFuel();
         Double averageFuelConsumption = flightDetails.getAverageFuelConsumption();
 
