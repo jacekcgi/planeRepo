@@ -1,8 +1,18 @@
-<div><h2 style="color: blue"> {{ title }} </h2>
-  <a id="test" onclick="console.log(_.partition([1, 2, 3, 4], n => n % 2));"><span>sdf</span></a>
-  <a onclick="console.log(jQuery('#test'));">111ss111222  AAA</a>
-  <a onclick="console.log($('#test'));">12aa2</a>
-  sss12sf22
-</div>
-<div>{{ 'hello' | translate:{value: 'grozny'} }}</div>
-<div>{{ 'airplanes.title' | translate }}</div>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" class="form-control" name="username" formControlName="name" id="name">
+    <error-messages [form]="userForm" property="name"></error-messages>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="text" class="form-control" name="password" formControlName="password" id="password">
+    <error-messages [form]="userForm" property="password"></error-messages>
+  </div>
+  <div class="form-group" formGroupName="address">
+    <label for="street">Street</label>
+    <input type="text" class="form-control" name="street" formControlName="street" id="street">
+    <error-messages [form]="userForm" property="address.street"></error-messages>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -55,7 +55,8 @@ module.exports = {
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
-      Tether: 'tether'
+      Tether: 'tether',
+      _: 'loadsh'
     }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows

@@ -1,3 +1,3 @@
-export const airplanes = {
+export const airplane = {
   title: 'Air Planes'
 }
