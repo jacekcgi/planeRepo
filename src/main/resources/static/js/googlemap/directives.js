@@ -42,7 +42,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
        var storedLocationData;
        var positions = function() {
            locationService.currentPosition(scope.plane,lastUpdate,function(serverTime,data){
-                  if(data) {
+                  if(data.length > 0) {
                     lastUpdate = serverTime
                     storedLocationData = data;
                   } else {

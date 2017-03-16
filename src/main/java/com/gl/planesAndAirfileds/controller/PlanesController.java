@@ -44,7 +44,13 @@ public class PlanesController extends AbstractController {
     @RequestMapping(value = Mappings.CREATE_PLANE, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     public Plane save(@RequestBody @Validated(Default.class) Plane plane) {
-        return planeService.save(plane);
+        boolean newPlane = plane.getSid() == null;
+        Plane savedPlane = planeService.save(plane);
+       if(newPlane) {
+            restTemplate.postForEntity(simulatorPlaneAddUrl, savedPlane, Plane.class);
+        }
+        return savedPlane;
+
     }
 
     @RequestMapping(value = Mappings.FIND_PLANES)

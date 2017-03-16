@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,8 @@ public class FlightDetailsController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private FlightDetailsService flightDetailsService;
+
+    private static final long UPDATE_INTERVAL = 30000;
 
     @Autowired
     public FlightDetailsController(FlightDetailsService flightDetailsService) {
@@ -33,15 +36,41 @@ public class FlightDetailsController {
     }
 
     /**
-     * Get from database position of all planes
+     * Get from database position of all planes or selected one
      *
      * @return
      */
-    @RequestMapping(value = Mappings.FIND_CURRENT_POSITIONS, method = RequestMethod.GET)
+    @RequestMapping(value = {Mappings.FIND_CURRENT_POSITIONS_UPDATE, Mappings.GET_CURRENT_POSITION_UPDATE}, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
-    public Map<Long, List<FlightDetails>> getCurrentPositionOfAllPlanes() {
-        List<FlightDetails> currentPositionOfAllPlanes = flightDetailsService.getLatestFlightDetailsForPlanes(null);
+    public Map<Long, List<FlightDetails>> getCurrentPositionOfAllPlanes(
+            @PathVariable Map<String, String> pathVariables) {
+
+        String planeSid = pathVariables.get("sid");
+        String lastUpdate = pathVariables.get("last_update");
+        System.out.println("SSSS "+planeSid+ " "+lastUpdate);
+        Long lastUpdateTime = null;
+        if (lastUpdate != null) {
+            try {
+                lastUpdateTime = Long.valueOf(lastUpdate);
+            }
+            catch (NumberFormatException e) {
+                logger.error(e.getMessage(), e);
+            }
+        }
+
+        boolean updatePositions = true;
+        if (lastUpdateTime != null && (TimeUtil.getCurrentTimeInMillisecondsUTC() - lastUpdateTime < UPDATE_INTERVAL)) {
+            updatePositions = false;
+        }
+
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
+        List<FlightDetails> currentPositionOfAllPlanes = new ArrayList<>();
+        if (updatePositions) {
+            System.out.println("UPDATE Z BAZY");
+            currentPositionOfAllPlanes = flightDetailsService
+                    .getLatestFlightDetailsForPlanes(planeSid);
+        }
+
         planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfAllPlanes);
         return planePositions;
     }
@@ -51,15 +80,16 @@ public class FlightDetailsController {
      *
      * @return list of FligtDetails
      */
-    @RequestMapping(value = Mappings.GET_CURRENT_POSITION, method = RequestMethod.GET)
+    @RequestMapping(value = {Mappings.FIND_CURRENT_POSITIONS, Mappings.GET_CURRENT_POSITION}, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
-    public Map<Long, List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable(value = "sid") String planeSid) {
+    public Map<Long, List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable Map<String, String> pathVariables) {
+
+        String planeSid = pathVariables.get("sid");
         List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeSid);
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
         planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
         return planePositions;
     }
-
     @RequestMapping(value = Mappings.GET_FLIGHT_DETAILS, method = RequestMethod.GET)
     public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_sid") String planeSid) {
         return flightDetailsService.getLatestFlightDetailsForPlane(planeSid);

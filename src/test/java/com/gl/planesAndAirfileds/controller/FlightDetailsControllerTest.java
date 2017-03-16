@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import org.hibernate.ObjectNotFoundException;
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class FlightDetailsControllerTest {
     @Test
     public void getCurrentPositionOfAllPlanesSuccessCaseThenStatusOkTest() throws Exception {
 
-        mockMvc.perform(get("/planeLocation"))
+        mockMvc.perform(get(Mappings.FIND_CURRENT_POSITIONS))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
 
@@ -51,7 +52,7 @@ public class FlightDetailsControllerTest {
         when(flightDetailsService.getLatestFlightDetailsForPlanes(anyString()))
                 .thenThrow(new ObjectNotFoundException("id", "FD"));
 
-        mockMvc.perform(get("/planeLocation"))
+        mockMvc.perform(get(Mappings.FIND_CURRENT_POSITIONS))
                 .andExpect(status().isInternalServerError());
 
     }
@@ -59,7 +60,10 @@ public class FlightDetailsControllerTest {
     @Test
     public void getLatestFlightDetailsForPlaneSuccessCaseStatusOkTest() throws Exception {
 
-        mockMvc.perform(get("/planeLocation/2"))
+        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString()))
+                .thenReturn(new FlightDetails());
+
+        mockMvc.perform(get("/onePlaneLocation/2"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType((MediaType.APPLICATION_JSON_UTF8)));
 
