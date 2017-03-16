@@ -3,6 +3,7 @@
 
 export const AppConfig = Object.freeze({
      serverContext: process.env.SERVER_CONTEXT || '/',
-     serverPort: process.env.SERVER_PORT || '8080'
+     serverPort: process.env.SERVER_PORT || '8080',
+     defaultTimeout : 10000, // default timeout in milis
  });
 
