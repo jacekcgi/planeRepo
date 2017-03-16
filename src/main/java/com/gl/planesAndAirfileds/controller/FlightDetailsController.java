@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -63,7 +62,7 @@ public class FlightDetailsController {
         }
 
         Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
-        List<FlightDetails> currentPositionOfAllPlanes = new ArrayList<>();
+        List<FlightDetails> currentPositionOfAllPlanes = null;
         if (updatePositions) {
              currentPositionOfAllPlanes = flightDetailsService
                     .getLatestFlightDetailsForPlanes(planeSid,false);

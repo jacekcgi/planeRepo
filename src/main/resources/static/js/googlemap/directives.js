@@ -37,17 +37,20 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                                 scale: 0.05,
                                                 anchor: new google.maps.Point(256,256)
                                                 }
-       var markers = [];
+       var markers={};
+
        var lastUpdate;
        var storedLocationData;
        var positions = function() {
            locationService.currentPosition(scope.plane,lastUpdate,function(serverTime,data){
-                  if(data.length > 0) {
+                  if(data) {
                     lastUpdate = serverTime
                     storedLocationData = data;
                   } else {
                     data = storedLocationData;
                   }
+
+                    var tmpMarkers={};
                    angular.forEach(data, function(value, key){
                             var distance=locationService.distance(serverTime,value.incomingTime,value.velocity);
                             var destPoint = locationService.destinationPoint(value.gpsLatitude,value.gpsLongitude,value.course,distance);
@@ -58,6 +61,10 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                 var marker = markers[planeSid];
                                 marker.setPosition(latlng);
                                 marker.setIcon(icon);
+                                tmpMarkers[planeSid] = marker;
+                                markers[planeSid] = undefined;
+                                delete markers[planeSid];
+
                              } else {
                             var marker =  new google.maps.Marker({
                                         position: latlng,
@@ -65,9 +72,16 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                         icon: icon,
                                         map: map
                                       });
-                                markers[planeSid] = marker;
-                                }
+                                tmpMarkers[planeSid] = marker;
+                               }
                         });
+
+                     for (var m in markers) {
+                        if( markers.hasOwnProperty(m) ) {
+                            markers[m].setMap(null);
+                        }
+                      }
+                      markers = tmpMarkers;
 
                })
        };
