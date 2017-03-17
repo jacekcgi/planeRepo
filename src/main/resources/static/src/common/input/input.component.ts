@@ -52,7 +52,6 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     }
 
     set value(val) {
-        console.log(val);
         this._value = val;
         this.onChange(val);
         this.onTouched();

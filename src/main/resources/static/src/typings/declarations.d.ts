@@ -10,3 +10,4 @@ declare var process: {
 };
 // jquery & loadsh
 declare var _: any;
+declare var jQuery: any;
