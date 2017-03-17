@@ -60,6 +60,10 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                             if(markers[planeSid]) {
                                 var marker = markers[planeSid];
                                 marker.setPosition(latlng);
+                                marker["latitude"]=destPoint.latitude.toString();
+                                marker["longitude"]=destPoint.longitude.toString();
+                                marker["flightTime"]=value.flightTime;
+                                marker["velocity"] = value.velocity,
                                 marker.setIcon(icon);
                                 tmpMarkers[planeSid] = marker;
                                 markers[planeSid] = undefined;
@@ -68,10 +72,41 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                              } else {
                             var marker =  new google.maps.Marker({
                                         position: latlng,
-                                        title:value.course.toString(),
+                                        title:value.plane.name,
+                                        sid:planeSid,
+                                        name:value.plane.name,
+                                        latitude:destPoint.latitude.toString(),
+                                        longitude:destPoint.longitude.toString(),
+                                        registration:value.plane.registration,
+                                        flightTime:value.flightTime,
+                                        velocity:value.velocity,
                                         icon: icon,
                                         map: map
                                       });
+                            google.maps.event.addListener(marker, 'click', function () {
+
+                                     if($('#wrapper').hasClass('toggled')){
+                                       var plane = $( "#wrapper" ).attr( 'plane' )
+                                       $('#wrapper').removeAttr('plane');
+                                       if(plane == this.sid) {
+                                        $('#wrapper').removeClass('toggled');
+                                       }else {
+                                        $('#wrapper').attr('plane',this.sid);
+                                      }
+                                     }else{
+                                       $('#wrapper').addClass('toggled');
+                                       $('#wrapper').attr('plane',this.sid);
+                                     }
+
+                                      if($('#wrapper').hasClass('toggled')) {
+                                          $('#plane-name').text(this.name);
+                                          $('#plane-registration').text(this.registration);
+                                          $('#flight-latitude').text(this.latitude);
+                                          $('#flight-longitude').text(this.longitude);
+                                          $('#flight-time').text(this.flightTime);
+                                          $('#plane-velocity').text(this.velocity);
+                                      }
+                                     });
                                 tmpMarkers[planeSid] = marker;
                                }
                         });

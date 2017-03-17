@@ -6,6 +6,7 @@
     <meta charset="utf-8"/>
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="/css/main.css" rel="stylesheet"/>
+    <link href="css/simple-sidebar.css" rel="stylesheet"/>
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -26,9 +27,24 @@
 <body ng-app="map">
 <nav th:replace="fragments/header :: navbar (main)">
 </nav>
+<div class="container" id="wrapper" >
 
+    <div id="sidebar-wrapper"  >
+        <ul class="sidebar-nav">
+            <li id="hide-toggle" style="right:5px;position:absolute;cursor: pointer;font-weight:bold">X</li>
+            <li id="plane-name"/>
+            <li id="plane-registration"/>
+            <li id="flight-latitude"/>
+            <li id="flight-longitude"/>
+            <li id="flight-time"/>
+            <li id="plane-velocity"/>
+        </ul>
+    </div>
+</div>
+<div id="map-container">
 <div class="google-map" th:if="not ${session.plane}" lat="53" long="17" zoom="6"></div>
 <div class="google-map" th:if="${session.plane}" lat="53" long="17" zoom="6" th:attr="plane=${session.plane.sid}"></div>
+</div>
 <footer th:replace="fragments/footer :: footer">
     <p>Default Copyright statement</p>
 </footer>
@@ -38,5 +54,10 @@
 <script src="/js/googlemap/services.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
+<script>
+    $("#hide-toggle").click(function(e) {
+        $("#wrapper").removeClass("toggled");
+    });
+    </script>
 </body>
 </html>
