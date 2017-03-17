@@ -16,6 +16,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ErrorMessagesComponent } from 'common/validations';
 import { InputComponent } from 'common/input';
+import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { InputComponent } from 'common/input';
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useClass: CustomLoader
-    })
+    }),
+    SimpleNotificationsModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -39,7 +41,7 @@ import { InputComponent } from 'common/input';
     ErrorMessagesComponent,
     InputComponent
   ],
-  providers: [ActionService, PlaneService],
+  providers: [ActionService, PlaneService, NotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

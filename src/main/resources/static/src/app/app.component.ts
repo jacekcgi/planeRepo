@@ -11,4 +11,19 @@ export class AppComponent {
         // this language will be used as a fallback when a translation isn't found in the current language
         translate.setDefaultLang('en');
     }
+
+    private notificationOptions = {
+        timeOut: 5000,
+        lastOnBottom: true,
+        clickToClose: true,
+        maxLength: 0,
+        maxStack: 7,
+        showProgressBar: true,
+        pauseOnHover: true,
+        preventDuplicates: false,
+        preventLastDuplicates: 'visible',
+        rtl: false,
+        animate: 'scale',
+        position: ['right', 'top']
+    }
 }
