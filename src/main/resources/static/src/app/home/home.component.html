@@ -1,18 +1,21 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
+  <!--<input type="text" class="form-control" name="registration" formControlName="registration" >-->
+  <ap-input formControlName="registration" label="Registration" [formGroup]="userForm" size=6></ap-input>
+
+  <!--<div class="form-group">
     <label for="registration">Registration</label>
-    <input type="text" class="form-control" name="registration" formControlName="registration" id="registration">
-    <error-messages [form]="userForm" property="registration"></error-messages>
-  </div>
-  <div class="form-group">
+    <input type="text" class="form-control" name="registration" formControlName="registration" >
+    <error-messages [formControl]="userForm.controls['registration']"></error-messages>
+  </div>-->
+  <!--<div class="form-group">
     <label for="password">Password</label>
-    <input type="text" class="form-control" name="password" formControlName="password" id="password">
-    <error-messages [form]="userForm" property="password"></error-messages>
+    <input type="text" class="form-control" name="password" formControlName="password">
+    <error-messages [formControl]="passControl"></error-messages>
   </div>
   <div class="form-group" formGroupName="address">
     <label for="street">Street</label>
-    <input type="text" class="form-control" name="street" formControlName="street" id="street">
-    <error-messages [form]="userForm" property="address.street"></error-messages>
-  </div>
+    <input type="text" class="form-control" name="street" formControlName="street">
+    <error-messages [formControl]="streetControl"></error-messages>
+  </div>-->
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>

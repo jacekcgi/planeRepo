@@ -15,6 +15,7 @@ import { ActionService, PlaneService } from './services';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ErrorMessagesComponent } from 'common/validations';
+import { InputComponent } from 'common/input';
 
 
 @NgModule({
@@ -34,7 +35,9 @@ import { ErrorMessagesComponent } from 'common/validations';
     AppComponent,
     DashboardComponent,
     HomeComponent,
-    ErrorMessagesComponent
+    // root components
+    ErrorMessagesComponent,
+    InputComponent
   ],
   providers: [ActionService, PlaneService],
   bootstrap: [AppComponent]

@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { SERVER_ERROR } from 'common/validations';
-import { PlaneService } from 'app/services/plane.service';
+import { PlaneService } from 'app/services';
 
 @Component({
   selector: 'page-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent  {
 
   userForm: FormGroup;
 
   constructor(private fb: FormBuilder, private planeService: PlaneService) {
     this.userForm = this.fb.group({
-      registration: new FormControl(''),
+      registration: ['', Validators.required],
       password: ['', Validators.required],
       address: fb.group({
         street: ['', Validators.required]
@@ -22,7 +21,7 @@ export class HomeComponent {
   }
 
   onSubmit() {
-    console.log(this.userForm.value);
-    this.planeService.save2(this.userForm, this.userForm.value);
+    console.log(this.userForm);
+    // this.planeService.save2(this.userForm, this.userForm.value);
   }
 }
