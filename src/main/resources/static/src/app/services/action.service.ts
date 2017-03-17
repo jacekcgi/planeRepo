@@ -4,7 +4,7 @@ import { FormGroup, AbstractControl } from '@angular/forms';
 import { SERVER_ERROR } from 'common/validations';
 import { NotificationsService } from 'angular2-notifications';
 
-import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
+import axios, { AxiosRequestConfig, AxiosPromise, AxiosResponse } from 'axios';
 const path = require('path');
 const DEFAULT_API = '';
 
@@ -65,23 +65,23 @@ export class ActionService {
     return path.join(AppConfig.serverContext, link);
   }
 
-  get(link: string, config: AxiosRequestConfig = this.defaultConfig) : AxiosPromise { 
-     return axios.get(link, config).then((response) => {
+  get(link: string, config: AxiosRequestConfig = this.defaultConfig) { 
+     return axios.get(link, config).then((response: AxiosResponse) => {
          return Promise.resolve(response.data);
      });
   }
 
-  post(link: string, data: any, config: AxiosRequestConfig = this.defaultConfig) : AxiosPromise { 
+  post(link: string, data: any, config: AxiosRequestConfig = this.defaultConfig){ 
      return axios.post(link, data, config).then((response) => {
          return Promise.resolve(response.data);
      });
   }
 
-  delete(link: string, config: AxiosRequestConfig = this.defaultConfig) : AxiosPromise { 
+  delete(link: string, config: AxiosRequestConfig = this.defaultConfig){ 
      return axios.delete(link, config);
   }
 
-  put(link: string, data: any, config: AxiosRequestConfig = this.defaultConfig) : AxiosPromise { 
+  put(link: string, data: any, config: AxiosRequestConfig = this.defaultConfig) { 
      return axios.put(link, data, config);
   }
 

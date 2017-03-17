@@ -2,6 +2,7 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
+import com.gl.planesAndAirfileds.dto.FligthDetailsDto;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.util.TimeUtil;
 import org.slf4j.Logger;
@@ -11,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +41,7 @@ public class FlightDetailsController {
      */
     @RequestMapping(value = {Mappings.FIND_CURRENT_POSITIONS_UPDATE, Mappings.GET_CURRENT_POSITION_UPDATE}, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
-    public Map<Long, List<FlightDetails>> getCurrentPositionOfAllPlanes(
+    public FligthDetailsDto getCurrentPositionOfAllPlanes(
             @PathVariable Map<String, String> pathVariables) {
 
         String planeSid = pathVariables.get("sid");
@@ -61,15 +61,13 @@ public class FlightDetailsController {
             updatePositions = false;
         }
 
-        Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
         List<FlightDetails> currentPositionOfAllPlanes = null;
         if (updatePositions) {
              currentPositionOfAllPlanes = flightDetailsService
                     .getLatestFlightDetailsForPlanes(planeSid,false);
         }
 
-        planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfAllPlanes);
-        return planePositions;
+        return new FligthDetailsDto(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfAllPlanes);
     }
 
     /**
@@ -79,13 +77,11 @@ public class FlightDetailsController {
      */
     @RequestMapping(value = {Mappings.FIND_CURRENT_POSITIONS, Mappings.GET_CURRENT_POSITION}, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
-    public Map<Long, List<FlightDetails>> getCurrentPositionOfPlane(@PathVariable Map<String, String> pathVariables) {
+    public FligthDetailsDto getCurrentPositionOfPlane(@PathVariable Map<String, String> pathVariables) {
 
         String planeSid = pathVariables.get("sid");
         List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeSid,false);
-        Map<Long, List<FlightDetails>> planePositions = new HashMap<>();
-        planePositions.put(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
-        return planePositions;
+        return new FligthDetailsDto(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
     }
     @RequestMapping(value = Mappings.GET_FLIGHT_DETAILS, method = RequestMethod.GET)
     public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_sid") String planeSid) {
