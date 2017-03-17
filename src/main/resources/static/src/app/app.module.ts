@@ -15,8 +15,12 @@ import { ActionService, PlaneService } from './services';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { PlanesComponent } from './planes/planes.component';
 import { ErrorMessagesComponent } from 'common/validations';
+import { InputComponent } from 'common/input';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
+
+import { Table } from './planes/table.component';
 
 
 @NgModule({
@@ -37,8 +41,12 @@ import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifi
     AppComponent,
     DashboardComponent,
     HomeComponent,
+    // root components
+    PlanesComponent,
+    InputComponent,
     ErrorMessagesComponent,
-    MapComponent
+    MapComponent,
+    Table
   ],
   providers: [ActionService, PlaneService, NotificationsService],
   bootstrap: [AppComponent]

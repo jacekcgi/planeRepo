@@ -23,7 +23,6 @@ module.exports = webpackMerge(commonConfig, {
   },
 
   plugins: [
-    new ExtractTextPlugin('[name].css'),
     new webpack.HotModuleReplacementPlugin()
   ]
 });
