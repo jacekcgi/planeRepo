@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AppConfig }  from 'config';
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { SERVER_ERROR } from 'common/validations';
+import { NotificationsService } from 'angular2-notifications';
 
 import axios, { AxiosRequestConfig, AxiosPromise } from 'axios';
 const path = require('path');
@@ -17,7 +18,7 @@ export class ActionService {
       headers: {}    
   }
 
-  constructor() {
+  constructor(private notify : NotificationsService) {
     axios.interceptors.request.use(
         request => { 
             return request; 
@@ -56,8 +57,7 @@ export class ActionService {
 
   private printError = (error: any) => {
     if (error && error.response && error.response.data && error.response.data.message) {
-        //todo
-        //Notification.error(error.response.data.message)
+         this.notify.error("", error.response.data.message)
     }
   }
 

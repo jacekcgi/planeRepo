@@ -15,6 +15,7 @@ import { ActionService, PlaneService } from './services';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { ErrorMessagesComponent } from 'common/validations';
+import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
 
 
 @NgModule({
@@ -28,15 +29,16 @@ import { ErrorMessagesComponent } from 'common/validations';
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useClass: CustomLoader
-    })
+    }),
+    SimpleNotificationsModule.forRoot()
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
     HomeComponent,
-    ErrorMessagesComponent
+    ErrorMessagesComponent,
   ],
-  providers: [ActionService, PlaneService],
+  providers: [ActionService, PlaneService, NotificationsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
