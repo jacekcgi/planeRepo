@@ -34,7 +34,7 @@ module.exports = {
       {
         test: /\.css$/,
         exclude: helpers.root('src', 'app'),
-        loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: 'css-loader?sourceMap' })
+        loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css-loader?sourceMap'] })
       },
       {
         test: /\.css$/,
@@ -65,6 +65,7 @@ module.exports = {
     ),
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
-    })
+    }),
+    new ExtractTextPlugin('[name].css')
   ]
 };
