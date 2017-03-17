@@ -64,6 +64,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                 marker["longitude"]=destPoint.longitude.toString();
                                 marker["flightTime"]=value.flightTime;
                                 marker["velocity"] = value.velocity,
+                                marker["averageFuelConsumption"] = value.averageFuelConsumption,
                                 marker.setIcon(icon);
                                 tmpMarkers[planeSid] = marker;
                                 markers[planeSid] = undefined;
@@ -80,6 +81,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                         registration:value.plane.registration,
                                         flightTime:value.flightTime,
                                         velocity:value.velocity,
+                                        fuelConsumption:value.averageFuelConsumption,
                                         icon: icon,
                                         map: map
                                       });
@@ -105,6 +107,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                           $('#flight-longitude').text(this.longitude);
                                           $('#flight-time').text(this.flightTime);
                                           $('#plane-velocity').text(this.velocity);
+                                          $('#plane-averageFuelConsumption').text(this.fuelConsumption);
                                       }
                                      });
                                 tmpMarkers[planeSid] = marker;
