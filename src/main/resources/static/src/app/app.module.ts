@@ -5,8 +5,9 @@ import { HttpModule } from '@angular/http';
 import { TranslateModule, TranslateLoader } from 'ng2-translate';
 import { CustomLoader } from './translate/translate.loader';
 
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HomeComponent } from './home/home.component';
+import { DashboardComponent }   from './dashboard/dashboard.component';
+import { HomeComponent }  from './home/home.component';
+import { MapComponent }  from './home/map.component';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -37,6 +38,7 @@ import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifi
     DashboardComponent,
     HomeComponent,
     ErrorMessagesComponent,
+    MapComponent
   ],
   providers: [ActionService, PlaneService, NotificationsService],
   bootstrap: [AppComponent]

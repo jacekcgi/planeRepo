@@ -1,5 +1,10 @@
 body {
   padding-top: 50px;
+  height:100%;
+}
+
+html{
+  height:100%;
 }
 
 .footer {
@@ -28,8 +33,17 @@ body {
     padding: 5px;
 }
 
-.google-map{
-   height: 100%;
+.container-fluid {
+    width:100%;
+    position:absolute;
+    top:0;
+    padding:0;
+    height:100%;
+}
+.google-map {
+    border-top:50px solid #fff;
+    border-bottom:20px solid #fff;
+    height:900px;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {

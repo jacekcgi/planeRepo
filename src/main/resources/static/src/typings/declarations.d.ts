@@ -9,5 +9,5 @@ declare var process: {
     }
 };
 // jquery & loadsh
-declare var jQuery: JQueryStatic;
+declare var jQuery: any;
 declare var _: any;
