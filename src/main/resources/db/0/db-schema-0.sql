@@ -31,8 +31,7 @@ CREATE TABLE `flight_details` (
   `is_actual_position` bit(1) DEFAULT NULL,
   `remaining_fuel` double DEFAULT NULL,
   `velocity` float DEFAULT NULL,
-  `plane_id` bigint(20) NOT NULL,
-  `is_landed` bit(1) DEFAULT NULL,
+  `plane_id` bigint(20) NOT NULL
   PRIMARY KEY (`id`),
   FOREIGN KEY (plane_id) REFERENCES plane (id) ON DELETE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
