@@ -12,8 +12,7 @@ import java.util.List;
  * Created by marek.sroga on 2017-03-06.
  */
 public abstract class AbstractIdentifiableEntityServiceImpl<T extends AbstractIdentifiableEntity, S extends Serializable>
-        extends AbstractEntityServiceImpl<T, S> implements AbstractIdentifiableEntityService<T, S>
-{
+        extends AbstractEntityServiceImpl<T, S> implements AbstractIdentifiableEntityService<T, S> {
     @Override
     protected abstract AbstractIdentifiableEntityRepository<T, S> getRepository();
 

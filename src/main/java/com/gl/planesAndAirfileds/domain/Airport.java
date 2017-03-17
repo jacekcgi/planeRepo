@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "airport")
-public class Airport extends AbstractEntity{
+public class Airport extends AbstractIdentifiableEntity {
 
     @NotNull
     @Column(name = "name")
@@ -157,26 +157,56 @@ public class Airport extends AbstractEntity{
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Airport)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Airport)) {
+            return false;
+        }
 
         Airport airport = (Airport) o;
 
-        if (!id.equals(airport.id)) return false;
-        if (name != null ? !name.equals(airport.name) : airport.name != null) return false;
-        if (city != null ? !city.equals(airport.city) : airport.city != null) return false;
-        if (country != null ? !country.equals(airport.country) : airport.country != null) return false;
-        if (iataCode != null ? !iataCode.equals(airport.iataCode) : airport.iataCode != null) return false;
-        if (icaoCode != null ? !icaoCode.equals(airport.icaoCode) : airport.icaoCode != null) return false;
-        if (latitude != null ? !latitude.equals(airport.latitude) : airport.latitude != null) return false;
-        if (longitude != null ? !longitude.equals(airport.longitude) : airport.longitude != null) return false;
-        if (altitude != null ? !altitude.equals(airport.altitude) : airport.altitude != null) return false;
-        if (timezone != null ? !timezone.equals(airport.timezone) : airport.timezone != null) return false;
-        if (daylightSavingTime != null ? !daylightSavingTime.equals(airport.daylightSavingTime) : airport.daylightSavingTime != null)
+        if (!id.equals(airport.id)) {
             return false;
-        if (tzDatabaseTimeZone != null ? !tzDatabaseTimeZone.equals(airport.tzDatabaseTimeZone) : airport.tzDatabaseTimeZone != null)
+        }
+        if (name != null ? !name.equals(airport.name) : airport.name != null) {
             return false;
-        if (type != null ? !type.equals(airport.type) : airport.type != null) return false;
+        }
+        if (city != null ? !city.equals(airport.city) : airport.city != null) {
+            return false;
+        }
+        if (country != null ? !country.equals(airport.country) : airport.country != null) {
+            return false;
+        }
+        if (iataCode != null ? !iataCode.equals(airport.iataCode) : airport.iataCode != null) {
+            return false;
+        }
+        if (icaoCode != null ? !icaoCode.equals(airport.icaoCode) : airport.icaoCode != null) {
+            return false;
+        }
+        if (latitude != null ? !latitude.equals(airport.latitude) : airport.latitude != null) {
+            return false;
+        }
+        if (longitude != null ? !longitude.equals(airport.longitude) : airport.longitude != null) {
+            return false;
+        }
+        if (altitude != null ? !altitude.equals(airport.altitude) : airport.altitude != null) {
+            return false;
+        }
+        if (timezone != null ? !timezone.equals(airport.timezone) : airport.timezone != null) {
+            return false;
+        }
+        if (daylightSavingTime != null ? !daylightSavingTime
+                .equals(airport.daylightSavingTime) : airport.daylightSavingTime != null) {
+            return false;
+        }
+        if (tzDatabaseTimeZone != null ? !tzDatabaseTimeZone
+                .equals(airport.tzDatabaseTimeZone) : airport.tzDatabaseTimeZone != null) {
+            return false;
+        }
+        if (type != null ? !type.equals(airport.type) : airport.type != null) {
+            return false;
+        }
         return source != null ? source.equals(airport.source) : airport.source == null;
     }
 

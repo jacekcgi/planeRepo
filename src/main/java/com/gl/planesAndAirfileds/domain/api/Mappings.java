@@ -9,16 +9,20 @@ public interface Mappings {
 
     String FIND_PLANES = "/planeList";
 
-    String FIND_PLANE_IDS = "/planeIdList";
+    String FIND_PLANE_SIDS = "/planeSidList";
 
     //FlightDetailsController
     String GET_CURRENT_TIME = "/getCurrentTime";
 
-    String FIND_CURRENT_POSITIONS = "/planeLocation";
+    String FIND_CURRENT_POSITIONS_UPDATE = "/allPlanesLocation/{last_update}";
 
-    String GET_CURRENT_POSITION = "/planeLocation/{id}";
+    String GET_CURRENT_POSITION_UPDATE = "/onePlaneLocation/{sid}/{last_update}";
 
-    String GET_FLIGHT_DETAILS = "/flightDetails/{plane_id}";
+    String FIND_CURRENT_POSITIONS = "/allPlanesLocation";
+
+    String GET_CURRENT_POSITION = "/onePlaneLocation/{sid}";
+
+    String GET_FLIGHT_DETAILS = "/flightDetails/{plane_sid}";
 
     String POST_FLIGHT_DETAILS = "/flightDetails";
 

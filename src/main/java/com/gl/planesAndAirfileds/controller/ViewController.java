@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
+import com.gl.planesAndAirfileds.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,11 +13,11 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ViewController {
 
-    private PlaneServiceImpl planeServiceImpl;
+    private PlaneService planeService;
 
     @Autowired
-    public ViewController(PlaneServiceImpl planeServiceImpl) {
-        this.planeServiceImpl = planeServiceImpl;
+    public ViewController(PlaneService planeService) {
+        this.planeService = planeService;
     }
 
     @RequestMapping(value =
@@ -30,10 +30,9 @@ public class ViewController {
         return "index";
     }
 
-
-    @RequestMapping("/showPlane/{id}")
-    public String displayOnePlaneMap(@PathVariable(value = "id") Long planeId, HttpSession session) {
-        Plane plane = planeServiceImpl.getPlane(planeId);
+    @RequestMapping("/showPlane/{sid}")
+    public String displayOnePlaneMap(@PathVariable(value = "sid") String planeSid, HttpSession session) {
+        Plane plane = planeService.getBySid(planeSid);
         if (plane != null) {
             session.setAttribute("plane", plane);
         }

@@ -11,4 +11,5 @@ public class Test {
         System.out.println(UUID.randomUUID().toString().replace(MINUS, ""));
         System.out.println(UUID.randomUUID().toString().replace(MINUS, ""));
     }
+
 }

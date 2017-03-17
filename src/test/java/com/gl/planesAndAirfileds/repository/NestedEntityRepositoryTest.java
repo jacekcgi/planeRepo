@@ -31,20 +31,18 @@ public class NestedEntityRepositoryTest {
     private NestedEntityRepository nestedEntityRepository;
 
     @Test
-    public void testSave()
-    {
+    public void testSave() {
         NestedEntity nestedEntity = new NestedEntity();
         Plane plane = TestDomainObjectFactory.getPlane();
         nestedEntity.setPlane(plane);
         entityManager.persist(plane);
         entityManager.persist(nestedEntity);
 
-        Assert.assertEquals(1,nestedEntityRepository.count());
+        Assert.assertEquals(1, nestedEntityRepository.count());
     }
 
     @Test
-    public void testSort()
-    {
+    public void testSort() {
         Plane plane1 = TestDomainObjectFactory.getPlane();
         plane1.setName("AAA");
         Plane plane2 = TestDomainObjectFactory.getPlane();
@@ -61,25 +59,29 @@ public class NestedEntityRepositoryTest {
         entityManager.persist(nestedEntity2);
 
         List<NestedEntity> result = nestedEntityRepository.findBySearchParams(null,
-                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.DESC,NestedEntity.FIELD_TEST_STRING))));
+                new PageRequest(0, Integer.MAX_VALUE,
+                        new Sort(new Sort.Order(Sort.Direction.DESC, NestedEntity.FIELD_TEST_STRING))));
 
         Assert.assertEquals(2, result.size());
-        Assert.assertEquals(nestedEntity2,result.get(0));
-        Assert.assertEquals(nestedEntity1,result.get(1));
+        Assert.assertEquals(nestedEntity2, result.get(0));
+        Assert.assertEquals(nestedEntity1, result.get(1));
 
         result = nestedEntityRepository.findBySearchParams(null,
-                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.DESC,NestedEntity.FIELD_PLANE + "." + Plane.FIELD_NAME))));
+                new PageRequest(0, Integer.MAX_VALUE, new Sort(
+                        new Sort.Order(Sort.Direction.DESC, NestedEntity.FIELD_PLANE + "." + Plane.FIELD_NAME))));
 
         Assert.assertEquals(2, result.size());
-        Assert.assertEquals(nestedEntity2,result.get(0));
-        Assert.assertEquals(nestedEntity1,result.get(1));
+        Assert.assertEquals(nestedEntity2, result.get(0));
+        Assert.assertEquals(nestedEntity1, result.get(1));
 
         result = nestedEntityRepository.findBySearchParams(null,
-                new PageRequest(0, Integer.MAX_VALUE, new Sort(new Sort.Order(Sort.Direction.ASC,NestedEntity.FIELD_PLANE + "." + Plane.FIELD_NAME))));
+                new PageRequest(0, Integer.MAX_VALUE,
+                        new Sort(new Sort.Order(Sort.Direction.ASC,
+                                NestedEntity.FIELD_PLANE + "." + Plane.FIELD_NAME))));
 
         Assert.assertEquals(2, result.size());
-        Assert.assertEquals(nestedEntity1,result.get(0));
-        Assert.assertEquals(nestedEntity2,result.get(1));
+        Assert.assertEquals(nestedEntity1, result.get(0));
+        Assert.assertEquals(nestedEntity2, result.get(1));
     }
 
 }

@@ -2,7 +2,6 @@ package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
-import com.gl.planesAndAirfileds.service.impl.FlightDetailsServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +12,26 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(FlightDetailsServiceImpl.class)
-public class FlightDetailsDAOServiceTest {
+@WebMvcTest(FlightDetailsService.class)
+public class FlightDetailsServiceTest {
 
     @MockBean
     private FlightDetailsRepository flightDetailsRepository;
 
-    @Autowired
-    private FlightDetailsServiceImpl flightDetailsServiceImpl;
+    @MockBean
+    private PlaneService planeService;
 
+    @MockBean
+    private FlightDetailsFactoryService flightDetailsFactoryService;
+
+    @Autowired
+    private FlightDetailsService flightDetailsService;
 
     @Test
     public void shouldInvokeGetLatestFlightDetailForPlane() {
@@ -34,30 +39,19 @@ public class FlightDetailsDAOServiceTest {
         List<FlightDetails> flightDetailsTestList = new ArrayList<>();
         flightDetailsTestList.add(new FlightDetails());
 
-        when(flightDetailsRepository.getLatestFlightDetailForPlane(anyLong()))
+        when(flightDetailsRepository.getLatestFlightDetails(anyString(),anyBoolean()))
                 .thenReturn(flightDetailsTestList);
 
-        flightDetailsServiceImpl.getLatestFlightDetailsForPlane(anyLong());
+        flightDetailsService.getLatestFlightDetailsForPlanes(anyString(),anyBoolean());
 
-        verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyLong());
+        verify(flightDetailsRepository).getLatestFlightDetails(anyString(),anyBoolean());
 
     }
 
     @Test
     public void ifMethodGetNullAsParameterThenFlightDetailsForAllPlanesIsReturn() {
-
-        flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(null);
-
-        verify(flightDetailsRepository).getLatestFlightDetailsForAllPlanes();
-
-    }
-
-  @Test
-    public void ifMethodGetPlaneIdAsParameterThenFlightDetailFroThisPlaneIsReturn() {
-
-        flightDetailsServiceImpl.getLatestFlightDetailsForPlanes(anyLong());
-
-        verify(flightDetailsRepository).getLatestFlightDetailForPlane(anyLong());
+        flightDetailsService.getLatestFlightDetailsForPlanes(null,false);
+        verify(flightDetailsRepository).getLatestFlightDetails(null,false);
 
     }
 

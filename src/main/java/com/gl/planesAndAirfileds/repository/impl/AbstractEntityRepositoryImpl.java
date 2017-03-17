@@ -25,7 +25,8 @@ import java.util.StringTokenizer;
  * Created by krzysztof.gonia on 3/7/2017.
  */
 @Component
-public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity> implements CustomAbstractEntityRepository<T> {
+public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity>
+        implements CustomAbstractEntityRepository<T> {
 
     private final Class<T> persistentClass;
 

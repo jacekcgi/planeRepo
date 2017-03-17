@@ -24,38 +24,27 @@ map.service('locationService',['$http',function ($http) {
     this.distance = calculateDistance;
     this.destinationPoint=calculateDestinationPoint;
     function getCurrentPosition(planeId,lastUpdate,callback) {
-    var url = '/planeLocation';
-    if(planeId){
-        url=url+'/'+planeId
+    var url;
+    if(!lastUpdate) {
+        lastUpdate="";
     }
-    $http.get("/getCurrentTime").then(function successCallback(response) {
-            var currentTime = response.data;
-            var loadFromServer = true;
-            if(lastUpdate) {
-                if(currentTime-lastUpdate < 30000) {
-                    loadFromServer = false;
-                }
-            }
+    if(planeId){
+        url="/onePlaneLocation/"+planeId+"/"+lastUpdate;
+    }else {
+        url="/allPlanesLocation/"+lastUpdate;
+    }
 
-            if(loadFromServer ) {
-              $http.get(url).
-                      then(function successCallback(response) {
-                      var data;
-                      angular.forEach(response.data, function(value, key){
-                            data = value;
-                            lastUpdate = key;
+     $http.get(url).
+                then(function successCallback(response) {
+                     var data;
+                     angular.forEach(response.data, function(value, key){
+                         data = value;
+                         lastUpdate = key;
                       });
-
                       callback(lastUpdate,data);
-                       }, function errorCallback(response) {
-                       });
-             } else {
-                callback(currentTime,"");
-             }
-     },function errorCallback(response) {
-       //             callback(response.data);
-     });
+                  }, function errorCallback(response) {
 
+                  });
      }
 
      function calculateDistance (actualTime,incomingTime,velocity) {

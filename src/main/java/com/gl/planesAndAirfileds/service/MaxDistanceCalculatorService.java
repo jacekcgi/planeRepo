@@ -1,7 +1,5 @@
 package com.gl.planesAndAirfileds.service;
 
-import com.gl.planesAndAirfileds.service.impl.FlightDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,14 +10,14 @@ public class MaxDistanceCalculatorService {
 
     private static final int PRECISION_NUMBER = 2;
 
-    private FlightDetailsServiceImpl flightDetailsServiceImp;
+    private FlightDetailsService flightDetailsService;
 
-    public FlightDetailsServiceImpl getFlightDetailsServiceImp() {
-        return flightDetailsServiceImp;
+    public FlightDetailsService getFlightDetailsService() {
+        return flightDetailsService;
     }
 
-    public void setFlightDetailsServiceImp(FlightDetailsServiceImpl flightDetailsServiceImp) {
-        this.flightDetailsServiceImp = flightDetailsServiceImp;
+    public void setFlightDetailsService(FlightDetailsService flightDetailsService) {
+        this.flightDetailsService = flightDetailsService;
     }
 
     public Double calculateMaxDistance(Double fuelRemaining, Double currentFuelConsumption) {

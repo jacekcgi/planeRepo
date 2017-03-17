@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Airport;
-import com.gl.planesAndAirfileds.service.AirportsDAOService;
+import com.gl.planesAndAirfileds.service.AirportsService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Matchers;
@@ -31,12 +31,12 @@ public class AirportsControllerTest {
     MockMvc mockMvc;
 
     @MockBean
-    AirportsDAOService airportsDAOService;
+    AirportsService airportsService;
 
     @Test
     public void getCurrentTimeTest() throws Exception {
 
-        when(airportsDAOService.findAirports())
+        when(airportsService.findAirports())
                 .thenReturn(new ArrayList<Airport>());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/findAirports"))
@@ -48,7 +48,7 @@ public class AirportsControllerTest {
     @Test
     public void getOneAirportTest() throws Exception {
 
-        when(airportsDAOService.getAirport(Matchers.anyLong()))
+        when(airportsService.getAirport(Matchers.anyLong()))
                 .thenReturn(new Airport());
 
         mockMvc.perform(get("/getAirport/1"))

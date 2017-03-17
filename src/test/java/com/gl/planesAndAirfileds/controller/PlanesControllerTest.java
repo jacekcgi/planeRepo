@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
+import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,9 +10,11 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.WebDataBinder;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
@@ -28,10 +30,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PlanesControllerTest {
 
     @MockBean
-    private PlaneServiceImpl planeServiceImpl;
+    WebDataBinder binder;
+    @MockBean
+    private PlaneService planeService;
 
     @MockBean
     private PlaneValidator planeValidator;
+
+    @MockBean
+    private RestTemplateBuilder builder;
 
     @Autowired
     private MockMvc mvc;
@@ -40,6 +47,16 @@ public class PlanesControllerTest {
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
 
+//    @Test
+//    public void testSave() throws Exception {
+//        Plane p1 = TestDomainObjectFactory.getPlane();
+//        ObjectMapper mapper = new ObjectMapper();
+//        Mockito.when(this.planeService.save(p1)).thenReturn(p1);
+//        Mockito.doNothing().when(planeValidator).validate(p1,null);
+//        this.mvc.perform(post(Mappings.CREATE_PLANE).content(mapper.writeValueAsString(p1)).contentType(contentType)).
+//                andExpect(status().isOk());
+//    }
+
     @Test
     public void testGetPlaneList() throws Exception {
         List<Plane> planes = new ArrayList<>();
@@ -47,8 +64,8 @@ public class PlanesControllerTest {
         Plane p2 = TestDomainObjectFactory.getPlane();
         planes.add(p1);
         planes.add(p2);
-        Mockito.when(this.planeServiceImpl.getAllPlanes()).thenReturn(planes);
-        //given(this.planeServiceImpl.getAllPlanes()).willReturn(planes);
+        Mockito.when(this.planeService.getAllPlanes()).thenReturn(planes);
+        //given(this.planeService.getAllPlanes()).willReturn(planes);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))

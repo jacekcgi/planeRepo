@@ -9,8 +9,7 @@ public class SidUtils {
 
     private static final String MINUS = "-";
 
-    public static String generate()
-    {
+    public static String generate() {
         return UUID.randomUUID().toString().replace(MINUS, "");
     }
 }

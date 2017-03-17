@@ -5,7 +5,7 @@ import com.gl.planesAndAirfileds.repository.CustomAbstractEntityRepository;
 
 /**
  * Created by krzysztof.gonia on 3/8/2017.
- *
+ * <p>
  * Additional repository for tests
  */
 public interface CustomNestedEntityRepository extends CustomAbstractEntityRepository<NestedEntity> {

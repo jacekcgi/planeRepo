@@ -10,13 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
-
 /**
  * Created by marek.sroga on 2017-03-06.
  */
 public abstract class AbstractEntityServiceImpl<T extends AbstractEntity, ID extends Serializable>
-        implements AbstractEntityService<T, ID>
-{
+        implements AbstractEntityService<T, ID> {
     protected abstract AbstractEntityRepository<T, ID> getRepository();
 
     @Override
@@ -79,7 +77,7 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity, ID ext
         getRepository().deleteAll();
     }
 
-    abstract  public List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
+    abstract public List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
 
     abstract public long countBySearchParams(Filter filter);
 

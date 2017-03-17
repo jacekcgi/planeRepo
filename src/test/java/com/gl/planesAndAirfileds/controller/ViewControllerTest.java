@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.service.impl.PlaneServiceImpl;
+import com.gl.planesAndAirfileds.service.PlaneService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,7 +12,7 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Matchers.anyLong;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -22,14 +22,16 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class ViewControllerTest {
 
     public static final String PLANE_NAME = "plane";
+
     public static final String TEXT_HTML_CHARSET_UTF_8 = "text/html;charset=UTF-8";
+
     public static final String REDIRECT_TO_HOME_VIEW = "redirect:/";
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    PlaneServiceImpl planeServiceImpl;
+    PlaneService planeService;
 
     @Test
     public void dispalyMapTest() throws Exception {
@@ -77,7 +79,7 @@ public class ViewControllerTest {
     @Test
     public void displayOnePlaneMapTest() throws Exception {
 
-        when(planeServiceImpl.getPlane(anyLong()))
+        when(planeService.getBySid(anyString()))
                 .thenReturn(new Plane());
 
         MockHttpSession mockHttpSession = new MockHttpSession();

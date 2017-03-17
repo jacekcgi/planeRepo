@@ -20,7 +20,7 @@ CREATE INDEX plane_update_date_index ON plane (update_date) USING BTREE;
 
 CREATE TABLE `flight_details` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `average_fuel_consumption` int(11) DEFAULT NULL,
+  `average_fuel_consumption` double DEFAULT NULL,
   `course` double DEFAULT NULL,
   `distance_traveled` double DEFAULT NULL,
   `flight_distance` double DEFAULT NULL,
@@ -32,6 +32,7 @@ CREATE TABLE `flight_details` (
   `remaining_fuel` double DEFAULT NULL,
   `velocity` float DEFAULT NULL,
   `plane_id` bigint(20) NOT NULL,
+  `is_landed` bit(1) DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (plane_id) REFERENCES plane (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,6 +41,7 @@ CREATE INDEX flight_details_incoming_time_index ON flight_details (incoming_time
 
 CREATE TABLE `airport` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+   sid varchar(32) NOT NULL,
   `altitude` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,

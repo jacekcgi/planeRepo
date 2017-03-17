@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface NestedEntityRepository extends AbstractEntityRepository<NestedEntity,Long>, CustomNestedEntityRepository {
+public interface NestedEntityRepository
+        extends AbstractEntityRepository<NestedEntity, Long>, CustomNestedEntityRepository {
 
 }

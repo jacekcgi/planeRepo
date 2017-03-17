@@ -9,63 +9,73 @@
 
 </head>
 <body ng-app="planes">
-<nav  th:replace="fragments/header :: navbar (plane)">
+<nav th:replace="fragments/header :: navbar (plane)">
 </nav>
 <div class="container">
     <h2><p class="label label-primary" th:text="#{label.plane.editor}">Add Planes</p></h2>
-<div ng-controller="savePlane">
-    <h3 ng-cloak="" ng-show="planeModified != null">
-        <span ng-show="planeModified" class="label label-success" th:text="#{message.save.success}">Success</span>
-        <span ng-hide="planeModified" class="label label-danger" th:text="#{message.save.error}">Error</span>
-    </h3>
-     <form ng-cloak="" name="form" ng-submit="submitForm(form.$valid)" novalidate="novalidate">
-         <div class="form-group">
-             <label for="pName" th:text="#{plane.name}">Name:</label>
-             <input ng-model="plane.name" class="form-control" type="text" name="pName" id="pName" required="" th:attr="placeholder=#{placeholder.plane.enterName}"/>
-             <div ng-show="form.$submitted || form.pName.$touched" >
-                 <div ng-show="form.pName.$error.required" th:text="#{error.required.plane.name}" class="alert alert-danger" role="alert">Field required</div>
-             </div>
-         </div>
-         <div class="form-group">
-             <label for="pRegistration" th:text="#{plane.registration_number}">Registration:</label>
-             <input ng-model="plane.registration" class="form-control" type="text" name="pRegistration" id="pRegistration" required="" th:attr="placeholder=#{placeholder.plane.enterRegistration}"/>
-             <div ng-show="form.$submitted || form.pRegistration.$touched" >
-                 <div ng-show="form.pRegistration.$error.required" th:text="#{error.required.plane.registration}" class="alert alert-danger" role="alert">Field required</div>
-             </div>
-         </div>
-         <div class="form-group">
-             <label for="pDescription" th:text="#{plane.description}">Decription:</label>
-             <textarea class="form-control" ng-model="plane.description" id="pDescription" th:attr="placeholder=#{placeholder.plane.enterDescription}"/>
-         </div>
-        <button type="reset" ng-click="reset(form)" th:text="#{button.reset}" class="btn btn-default">Submit</button>
-        <button type="submit" th:text="#{button.save}" class="btn btn-default">Submit</button>
-    </form>
+    <div ng-controller="savePlane">
+        <h3 ng-cloak="" ng-show="planeModified != null">
+            <span ng-show="planeModified" class="label label-success" th:text="#{message.save.success}">Success</span>
+            <span ng-hide="planeModified" class="label label-danger" th:text="#{message.save.error}">Error</span>
+        </h3>
+        <form ng-cloak="" name="form" ng-submit="submitForm(form.$valid)" novalidate="novalidate">
+            <div class="form-group">
+                <label for="pName" th:text="#{plane.name}">Name:</label>
+                <input ng-model="plane.name" class="form-control" type="text" name="pName" id="pName" required=""
+                       th:attr="placeholder=#{placeholder.plane.enterName}"/>
+                <div ng-show="form.$submitted || form.pName.$touched">
+                    <div ng-show="form.pName.$error.required" th:text="#{error.required.plane.name}"
+                         class="alert alert-danger" role="alert">Field required
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pRegistration" th:text="#{plane.registration_number}">Registration:</label>
+                <input ng-model="plane.registration" class="form-control" type="text" name="pRegistration"
+                       id="pRegistration" required="" th:attr="placeholder=#{placeholder.plane.enterRegistration}"/>
+                <div ng-show="form.$submitted || form.pRegistration.$touched">
+                    <div ng-show="form.pRegistration.$error.required" th:text="#{error.required.plane.registration}"
+                         class="alert alert-danger" role="alert">Field required
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="pDescription" th:text="#{plane.description}">Decription:</label>
+                <textarea class="form-control" ng-model="plane.description" id="pDescription"
+                          th:attr="placeholder=#{placeholder.plane.enterDescription}"/>
+            </div>
+            <button type="reset" ng-click="reset(form)" th:text="#{button.reset}" class="btn btn-default">Submit
+            </button>
+            <button type="submit" th:text="#{button.save}" class="btn btn-default">Submit</button>
+        </form>
 
-</div>
+    </div>
 
     <div id="container" ng-controller="listPlanes" ng-cloak="">
         <div id="left">
-        <table class="table table-striped">
-            <thead>
-             <tr>
-                <th th:text="#{plane.planeName}">plane name</th>
-                <th th:text="#{plane.registrationNumber}">registration number</th>
-                <th th:text="#{plane.createDate}">create date</th>
-                <th th:text="#{plane.updateDate}">update date</th>
-                <th th:text="#{plane.descriptionText}">description</th>
-             </tr>
-            </thead>
-            <tbody>
-             <tr ng-repeat="plane in planeList">
-                <td>{{plane.name}}</td>
-                <td>{{plane.registration}}</td>
-                <td>{{plane.createDate | date : "medium" }}</td>
-                <td>{{plane.updateDate | date : "medium" }}</td>
-                <td>{{plane.description}}</td>
-                <td><button id_plane="{{plane.id}}" ng-click="showFlightDetails($event)" >more info</button></td>
-             </tr>
-            </tbody>
-        </table>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th th:text="#{plane.planeName}">plane name</th>
+                    <th th:text="#{plane.registrationNumber}">registration number</th>
+                    <th th:text="#{plane.createDate}">create date</th>
+                    <th th:text="#{plane.updateDate}">update date</th>
+                    <th th:text="#{plane.descriptionText}">description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="plane in planeList">
+                    <td>{{plane.name}}</td>
+                    <td>{{plane.registration}}</td>
+                    <td>{{plane.createDate | date : "medium" }}</td>
+                    <td>{{plane.updateDate | date : "medium" }}</td>
+                    <td>{{plane.description}}</td>
+                    <td>
+                        <button sid_plane="{{plane.sid}}" ng-click="showFlightDetails($event)">more info</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

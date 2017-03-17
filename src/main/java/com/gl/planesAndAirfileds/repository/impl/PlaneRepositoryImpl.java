@@ -61,7 +61,8 @@ public class PlaneRepositoryImpl extends AbstractEntityRepositoryImpl<Plane> imp
         Root root = criteriaQuery.from(Plane.class);
         criteriaQuery.select(builder.count(root));
 
-        Predicate where = builder.equal(builder.lower(root.get(Plane.FIELD_REGISTRATION)), StringUtils.lowerCase(registration));
+        Predicate where = builder
+                .equal(builder.lower(root.get(Plane.FIELD_REGISTRATION)), StringUtils.lowerCase(registration));
         if (!StringUtils.isBlank(ignoreSid)) {
             where = builder.and(where, builder.notEqual(root.get(Plane.FIELD_SID), ignoreSid));
         }

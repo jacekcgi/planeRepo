@@ -34,9 +34,11 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                                 fillOpacity: 1,
                                                 fillColor: '#ffda44',
                                                 strokeWeight: 1,
-                                                scale: 0.05
+                                                scale: 0.05,
+                                                anchor: new google.maps.Point(256,256)
                                                 }
-       var markers = [];
+       var markers={};
+
        var lastUpdate;
        var storedLocationData;
        var positions = function() {
@@ -47,26 +49,39 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                   } else {
                     data = storedLocationData;
                   }
+
+                    var tmpMarkers={};
                    angular.forEach(data, function(value, key){
                             var distance=locationService.distance(serverTime,value.incomingTime,value.velocity);
                             var destPoint = locationService.destinationPoint(value.gpsLatitude,value.gpsLongitude,value.course,distance);
-                            var planeId = value.plane.id;
+                            var planeSid = value.plane.sid;
                             var latlng = new google.maps.LatLng(destPoint.latitude.toString(),destPoint.longitude.toString());
                             icon["rotation"]=destPoint.course;
-                            if(markers[planeId]) {
-                                var marker = markers[planeId];
+                            if(markers[planeSid]) {
+                                var marker = markers[planeSid];
                                 marker.setPosition(latlng);
                                 marker.setIcon(icon);
+                                tmpMarkers[planeSid] = marker;
+                                markers[planeSid] = undefined;
+                                delete markers[planeSid];
+
                              } else {
                             var marker =  new google.maps.Marker({
                                         position: latlng,
-                                        title:value.gpsLatitude + " "+value.gpsLongitude,
+                                        title:value.course.toString(),
                                         icon: icon,
                                         map: map
                                       });
-                                markers[planeId] = marker;
-                                }
+                                tmpMarkers[planeSid] = marker;
+                               }
                         });
+
+                     for (var m in markers) {
+                        if( markers.hasOwnProperty(m) ) {
+                            markers[m].setMap(null);
+                        }
+                      }
+                      markers = tmpMarkers;
 
                })
        };

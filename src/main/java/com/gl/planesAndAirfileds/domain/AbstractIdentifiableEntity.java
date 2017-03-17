@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.domain;
 
 import com.gl.planesAndAirfileds.domain.util.SidUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Column;
@@ -23,7 +24,7 @@ public class AbstractIdentifiableEntity extends AbstractEntity {
 
     @PrePersist
     protected void onCreate() {
-        if (sid == null) {
+        if (StringUtils.isEmpty(sid)) {
             sid = SidUtils.generate();
         }
     }
