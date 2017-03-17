@@ -1,26 +1,27 @@
-map.directive('googleMap',['$interval','lazyLoadApi','locationService', function($interval,lazyLoadApi,locationService) {
+map.directive('googleMap',['$interval','lazyLoadApi','locationService','ShowHideWindow', function($interval,lazyLoadApi,locationService,ShowHideWindow) {
 
   return {
     restrict: 'CA', // restrict by class name
     scope: {
-      lat: '@', // latitude
-      long: '@', // longitude
+      latitude: '@',
+      longitude: '@',
       zoom: '@',
-      plane: '@'
+      plane: '@',
+      flightView: '='
     },
     link: function(scope, element, attrs) {
       var location = null;
       var map = null;
       var mapOptions = null;
       // Check if latitude and longitude are specified
-      if (angular.isDefined(scope.lat) && angular.isDefined(scope.long)) {
+      if (angular.isDefined(scope.latitude) && angular.isDefined(scope.longitude)) {
         // Loads google map script
         lazyLoadApi.then( initializeMap )
       }
 
       // Initialize the map
       function initializeMap() {
-        location = new google.maps.LatLng(scope.lat, scope.long);
+        location = new google.maps.LatLng(scope.latitude, scope.longitude);
 
         mapOptions = {
           zoom: parseInt(scope.zoom),
@@ -65,6 +66,27 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                         icon: icon,
                                         map: map
                                       });
+
+                                       window.google.maps.event.addListener(marker, 'click', function () {
+
+//                                       document.getElementById('airportCommandWindow').style.visibility = "hidden";
+
+//                                       var divWindow = angular.element(document.querySelector('#airportCommandWindow'));
+//                                       console.log(divWindow);
+                                       console.log("Before set:"  + ShowHideWindow.showAirports);
+//                                       console.log(ShowHideWindow.showHideOption);
+//                                       console.log(ShowHideWindow.showHideOption.showAirports);
+                                       ShowHideWindow.showAirports=true;
+                                       console.log("wartosc z dyrektywy przed ??:  "+ scope.flightView.visibility);
+
+                                       scope.flightView.visibility = true;
+
+                                       console.log("After set:  "+ ShowHideWindow.showAirports);
+                                       console.log("wartosc z dyrektywy ??:  "+ scope.flightView.visibility);
+
+                                     //                                             alert("Hello! I am an alert box!");
+                                          });
+
                                 markers[planeSid] = marker;
                                 }
                         });
@@ -74,6 +96,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
        positions();
        $interval(positions,2000);
       }
+
     }
   };
 }]);

@@ -4,8 +4,12 @@
     <title th:text="#{title}">Flight Radar</title>
     <meta name="viewport" content="initial-scale=1.0"/>
     <meta charset="utf-8"/>
-    <link href="/css/bootstrap.min.css" rel="stylesheet"/>
+    <!--<link href="/css/bootstrap.min.css" rel="stylesheet"/>-->
     <link href="/css/main.css" rel="stylesheet"/>
+    <link href="/css/flight-view.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
     <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
@@ -21,22 +25,68 @@
 
 
 
+
+
+
+
+
     </style>
 </head>
-<body ng-app="map">
+<body ng-app="map" ng-controller="airports">
 <nav th:replace="fragments/header :: navbar (main)">
 </nav>
+<!--<div>-->
+<!--<div style="font-size: 250%; text-align:center ;z-index:-20; position:relative; left:80px; top:0; bottom:0; height: 100px">-->
+<!--<h1> SHOW Something ******************************* </h1>-->
+<!--</div>-->
 
-<div class="google-map" th:if="not ${session.plane}" lat="53" long="17" zoom="6"></div>
-<div class="google-map" th:if="${session.plane}" lat="53" long="17" zoom="6" th:attr="plane=${session.plane.sid}"></div>
+<!--<div ng-app="map">-->
+
+<!--<div ng-controller="airports">-->
+<!--<div style="height:100%">-->
+<!--<div>-->
+<!--<h1> SHOW Something ******************************* </h1>-->
+<!--</div>-->
+<!--<div style="height:100%; width:90%;float: right">-->
+
+<!--<div ng-show="flightView.visibility" class="flight-view-container">-->
+<!--<h1> SHOW Something ******************************* {{bahama}} i co ? {{flightView.visibility}} </h1>-->
+<!--<i class="fa fa-window-close close-icon" aria-hidden="true"></i>-->
+<!--</div>-->
+
+<div ng-show="flightView.visibility" class="flight-view-container">
+    <h1>Plane:  </h1>
+    <i class="fa fa-window-close close-icon" aria-hidden="true" ng-click="closeFlightView()" ></i>
+    <select class="selectpicker" data-live-search="true">
+        <option data-tokens="ketchup mustard">Hot Dog, Fries and a Soda</option>
+        <option data-tokens="mustard">Burger, Shake and a Smile</option>
+        <option data-tokens="frosting">Sugar, Spice and all things nice</option>
+    </select>
+</div>
+
+<div class="google-map" th:if="not ${session.plane}" latitude="53" longitude="17" zoom="6"
+     flight-view="flightView"></div>
+<div class="google-map" th:if="${session.plane}" latitude="53" longitude="17" zoom="6"
+     th:attr="plane=${session.plane.sid}"></div>
+
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
 <footer th:replace="fragments/footer :: footer">
     <p>Default Copyright statement</p>
 </footer>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js" type="text/javascript"></script>
 <script src="/js/googlemap/app.js"></script>
 <script src="/js/googlemap/directives.js"></script>
+<script src="/js/googlemap/controllers.js"></script>
 <script src="/js/googlemap/services.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+<script src="/js/airports/services.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!--<script src="/js/bootstrap.min.js"></script>-->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
 </body>
 </html>

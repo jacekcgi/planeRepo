@@ -1,0 +1,20 @@
+.flight-view-container {
+     z-index: 16789;
+        position: absolute;
+        width: 250px;
+        height: 300px;
+        resize: both;
+        top: 100px;
+        border: 2px solid;
+        padding: 20px;
+        overflow: auto;
+        background:#FFFFFF;
+
+}
+
+.close-icon {
+    position: absolute;
+    font-size:25px;
+    right: 0;
+    top:0
+}

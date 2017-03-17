@@ -88,3 +88,17 @@ map.service('locationService',['$http',function ($http) {
 
 }]);
 
+map.service('ShowHideWindow',['$rootScope',function ($rootScope) {
+
+  var showHideOption = {
+  showAirports: false
+  };
+
+ $rootScope.$broadcast('AirportCommandWindow');
+ console.log("Jestem w srodku  ShowHideWindow Factory po boradkascie zdarzenia: "+ showHideOption.showAirports );
+
+  return showHideOption;
+
+  }]);
+
+
