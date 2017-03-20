@@ -1,5 +1,5 @@
 <div ngClass="form-group col-sm-{{size}}">
     <label [for]="property">{{ label | translate }}</label>
-    <input type="text" (input)="onInputChange($event.target.value)" class="form-control" [name]="property">
+    <input type="text" (input)="onInputChange($event.target.value)" [value]="value" class="form-control" [name]="property">
     <error-messages [control]="control"></error-messages>
 </div>

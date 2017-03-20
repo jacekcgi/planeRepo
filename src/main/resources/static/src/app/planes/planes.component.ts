@@ -27,11 +27,11 @@ export class PlanesComponent {
     });
   }
 
-  resetForm() {
-    this.planeForm.reset();
+  ngOnInit() {
+    this.createForm();
   }
 
-  ngOnInit() {
+  createForm() {
     this.planeForm = this.fb.group({
       name: ['', Validators.required],
       registration: ['', Validators.required],
