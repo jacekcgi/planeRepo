@@ -1,5 +1,22 @@
-<div>
-    <h2>Planes List</h2>
-</div>
+<div class="container-fluid">
+    <h1>Add Plane</h1>
 
-<app-table [columns]="columns" [data]="data" [pagingRequest]="pagingRequest"></app-table>
+    <div>
+        <form [formGroup]="planeForm" (ngSubmit)="onSubmit()">
+            <ap-input formControlName="name" label="airplane.name" [formGroup]="planeForm" size=12></ap-input>
+            <ap-input formControlName="registration" label="airplane.registration" [formGroup]="planeForm" size=12></ap-input>
+            <ap-input formControlName="description" label="airplane.description" [formGroup]="planeForm" size=12></ap-input>
+            <button type="submit" [disabled]="!planeForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <div>
+        <h2>Planes List</h2>
+    </div>
+
+    <app-table [columns]="columns" [data]="data" [pagingRequest]="pagingRequest"></app-table>
+
+
+</div>

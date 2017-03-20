@@ -20,11 +20,7 @@ export class PlaneService {
         return this.actions.get("/allPlanesLocation/" + lastUpdate);
     }
 
-    save(data: object) {
-        return this.actions.post("/plane", data);
-    }
-
-    save2(form: FormGroup, data: object) {
+    save(form: FormGroup, data: object) {
         return this.actions.postForm("/plane", data, form);
     }
 
