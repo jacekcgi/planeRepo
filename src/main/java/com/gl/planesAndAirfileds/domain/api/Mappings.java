@@ -20,6 +20,8 @@ public interface Mappings {
 
     String FIND_CURRENT_POSITIONS = "/allPlanesLocation";
 
+    String GET_SEND_PLANE_TO_POSITION = "/sendPlaneToPosition/{sid}/{latitude}/{longitude}";
+
     String GET_CURRENT_POSITION = "/onePlaneLocation/{sid}";
 
     String GET_FLIGHT_DETAILS = "/flightDetails/{plane_sid}";

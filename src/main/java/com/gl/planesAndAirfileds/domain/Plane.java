@@ -18,6 +18,7 @@ public class Plane extends AbstractIdentifiableEntity {
     public static final String FIELD_NAME = "name";
 
     @Column(name = "name")
+    @NotEmpty
     private String name;
 
     @Column(name = "registration", unique = true)

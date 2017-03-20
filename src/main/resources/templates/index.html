@@ -30,17 +30,45 @@
 <div class="container" id="wrapper" >
 
     <div id="sidebar-wrapper"  >
-        <ul class="sidebar-nav">
+        <div class="sidebar-container">
+        <ul  class="sidebar-nav">
             <li id="hide-toggle" style="right:5px;position:absolute;cursor: pointer;font-weight:bold">X</li>
             <li id="plane-name"/>
+            <li th:text="#{plane.registrationNumber}"></li>
             <li id="plane-registration"/>
+            <li th:text="#{flightDetails.gpsLatitude}"></li>
             <li id="flight-latitude"/>
+            <li th:text="#{flightDetails.gpsLongitude}"></li>
             <li id="flight-longitude"/>
+            <li th:text="#{flightDetails.flightTime}"></li>
             <li id="flight-time"/>
+            <li th:text="#{flightDetails.Velocity}"></li>
             <li id="plane-velocity"/>
+            <li th:text="#{flightDetails.averageFuelConsumption}"></li>
             <li id="plane-averageFuelConsumption"/>
             <li id="plane-distance-Left"/>
         </ul>
+        <div  ng-controller="airportsController" ng-cloak="">
+            <div ng-click="loadAirports()">FIND</div>
+            <div id="left">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th th:text="#{plane.planeName}">Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="airport in airportList">
+                        <td>{{airport.name}}</td>
+                        <td>
+                            <button ng-click='sendPlaneToAirport(airport.latitude,airport.longitude)'>SEND</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        </div>
     </div>
 </div>
 <div id="map-container">
@@ -53,6 +81,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js" type="text/javascript"></script>
 <script src="/js/googlemap/app.js"></script>
 <script src="/js/googlemap/directives.js"></script>
+<script src="/js/googlemap/controllers.js"></script>
 <script src="/js/googlemap/services.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
