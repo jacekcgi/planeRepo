@@ -9,8 +9,8 @@ import { NotificationsService } from 'angular2-notifications';
   templateUrl: './planes.component.html',
 })
 export class PlanesComponent {
-  columns: [Column] = [{ title: "Name", property: "name", sortable: true }, { title: "Registration", property: "registration", sortable: true }];
-  data: [{}] = [{ name: "Dupa", registration: "234" }, { name: "Dupa2", registration: "2342" }];
+  columns: [Column] = [{ title: "Name", property: "name", sortable: true }, { title: "Registration", property: "registration", sortable: true }, {title: "Description", property: "description"}];
+  data: [{}] = [{ name: "xxx", registration: "234" }, { name: "sss", registration: "2342" }];
   pagingRequest: PagingRequest = { sortFilterChain: { field: "name", ascending: true }, offset: 0, limit: 25 };
 
   planeForm: FormGroup;
@@ -36,6 +36,9 @@ export class PlanesComponent {
       name: ['', Validators.required],
       registration: ['', Validators.required],
       description: ['']
+    })
+    this.planeService.findPlanes().then((response) => {
+      this.data = response;
     })
   }
 }
