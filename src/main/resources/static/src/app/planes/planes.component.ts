@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { Column, PagingRequest, } from './table.component'
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services'
-import { NotificationsService } from 'angular2-notifications';
+import { NotificationService } from 'app/services';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
   selector: 'page-planes',
@@ -16,13 +17,13 @@ export class PlanesComponent {
   planeForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationsService) {
+  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {
 
   }
 
   onSubmit() {
     this.planeService.save(this.planeForm, this.planeForm.value).then((response) => {
-      this.ns.success('Success', 'Plane has been created');
+      this.ns.success('airplane.successCreated');
       this.planeForm.reset();
     });
   }

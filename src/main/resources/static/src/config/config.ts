@@ -1,9 +1,7 @@
-//export var serverContext: string = process.env.SERVER_CONTEXT || '/';
-//export var serverPort: string = process.env.SERVER_PORT || '8080';
-
 export const AppConfig = Object.freeze({
-     serverContext: process.env.SERVER_CONTEXT || '/',
-     serverPort: process.env.SERVER_PORT || '8080',
-     defaultTimeout : 10000, // default timeout in milis
- });
+    serverContext: process.env.SERVER_CONTEXT || '/',
+    serverPort: process.env.SERVER_PORT || '8080',
+    defaultTimeout: 10000,  // default timeout in milis
+    defaultNotificationTimeout: 5000
+});
 

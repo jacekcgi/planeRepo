@@ -9,5 +9,10 @@ export const LANG_EN_TRANS = {
     validations,
 
     // main keys
-    saveButton: 'Save'
+    saveButton: 'Save',
+    // notification titles
+    successTitle: 'Success',
+    infoTitle: 'Info',
+    warnTitle: 'Warning',
+    errorTitle: 'Error'
 };

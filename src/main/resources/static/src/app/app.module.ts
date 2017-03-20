@@ -14,11 +14,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { ActionService, PlaneService } from './services';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
 
 import { PlanesComponent } from './planes/planes.component';
 import { ErrorMessagesComponent } from 'common/validations';
 import { InputComponent } from 'common/input';
-import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
+import { NotificationService } from 'app/services'; // app notifications
+
 
 import { Table } from './planes/table.component';
 
@@ -48,7 +50,7 @@ import { Table } from './planes/table.component';
     MapComponent,
     Table
   ],
-  providers: [ActionService, PlaneService, NotificationsService],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
