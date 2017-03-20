@@ -36,9 +36,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     }
 
     writeValue(value: any) {
-        if (value) {
-            this.value = value;
-        }
+        this._value = value;
     }
 
     // execute if our input field has been changed
