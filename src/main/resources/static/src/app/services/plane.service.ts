@@ -21,11 +21,7 @@ export class PlaneService {
         
     }
 
-    save(data: object) {
-        return this.actions.post("/plane", data);
-    }
-
-    save2(form: FormGroup, data: object) {
+    save(form: FormGroup, data: object) {
         return this.actions.postForm("/plane", data, form);
     }
 
