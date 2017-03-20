@@ -1,4 +1,4 @@
-map.directive('googleMap',['$interval','lazyLoadApi','locationService', function($interval,lazyLoadApi,locationService) {
+map.directive('googleMap',['$interval','lazyLoadApi','locationService','maxDistanceService' , function($interval,lazyLoadApi,locationService, maxDistanceService) {
 
   return {
     restrict: 'CA', // restrict by class name
@@ -56,9 +56,18 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                             var destPoint = locationService.destinationPoint(value.gpsLatitude,value.gpsLongitude,value.course,distance);
                             var planeSid = value.plane.sid;
                             var latlng = new google.maps.LatLng(destPoint.latitude.toString(),destPoint.longitude.toString());
+                            var maxPlaneDistanceLeft = 0;
                             icon["rotation"]=destPoint.course;
                             if(markers[planeSid]) {
                                 var marker = markers[planeSid];
+
+                                maxDistanceService.maxDistance(planeSid,function(maxDistanceRemaining){
+
+                                maxPlaneDistanceLeft = maxDistanceRemaining;
+                                marker["maxPlaneDistanceLeft"] = maxPlaneDistanceLeft;
+
+                                });
+
                                 marker.setPosition(latlng);
                                 marker["latitude"]=destPoint.latitude.toString();
                                 marker["longitude"]=destPoint.longitude.toString();
@@ -82,6 +91,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                         flightTime:value.flightTime,
                                         velocity:value.velocity,
                                         fuelConsumption:value.averageFuelConsumption,
+                                        maxPlaneDistanceLeft:0,
                                         icon: icon,
                                         map: map
                                       });
@@ -108,6 +118,7 @@ map.directive('googleMap',['$interval','lazyLoadApi','locationService', function
                                           $('#flight-time').text(this.flightTime);
                                           $('#plane-velocity').text(this.velocity);
                                           $('#plane-averageFuelConsumption').text(this.fuelConsumption);
+                                          $('#plane-distance-Left').text(this.maxPlaneDistanceLeft);
                                       }
                                      });
                                 tmpMarkers[planeSid] = marker;

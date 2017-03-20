@@ -85,6 +85,22 @@ map.service('locationService',['$http',function ($http) {
      function toDegrees(radian) {
                return radian * (180/Math.PI);
      }
+}]);
+
+map.service('maxDistanceService',['$http',function ($http) {
+
+    this.maxDistance = function getMaxDistanceForPlane(plane_sid,callback) {
+
+    $http.get('/planeMaxDistance/'+ plane_sid).
+                    then(function successCallback(response) {
+                        callback(response.data);
+                      }, function errorCallback(response) {
+
+                      });
+
+                 };
+
 
 }]);
+
 
