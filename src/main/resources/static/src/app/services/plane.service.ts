@@ -17,30 +17,16 @@ export class PlaneService {
     }
 
     findAllPlanesLocation(lastUpdate: string) {
-        return this.actions.get("/allPlanesLocation/" + lastUpdate);
+        return this.actions.get(_.filter(["/allPlanesLocation/", lastUpdate]).join(""));
+        
     }
 
-    save(form: FormGroup, data: object) {
+    save(data: object) {
+        return this.actions.post("/plane", data);
+    }
+
+    save2(form: FormGroup, data: object) {
         return this.actions.postForm("/plane", data, form);
-    }
-
-    getCurrentPosition(planeId: string, lastUpdate: string, callback: any) {
-        var url;
-        if (!lastUpdate) {
-            lastUpdate = "";
-        }
-        if (planeId) {
-            url = "/onePlaneLocation/" + planeId + "/" + lastUpdate;
-        } else {
-            url = "/allPlanesLocation/" + lastUpdate;
-        }
-
-        this.actions.get(url).
-            then(function successCallback(response) {
-                callback(response.updateTime, response.flightDetails);
-            }, function errorCallback(response) {
-
-            });
     }
 
     calculateDistance(actualTime: number, incomingTime: number, velocity: number) {

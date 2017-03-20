@@ -16,7 +16,7 @@ export class MapComponent implements AfterViewInit {
 
     private map: any;
 
-    lastUpdate: any;
+    lastUpdate: any = null;
 
     storedLocationData: any;
 
@@ -48,10 +48,7 @@ export class MapComponent implements AfterViewInit {
             center: uluru
         });
         this.map = map;
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: this.map
-        });
+
         this.loadAndUpdatePlanes();
         setInterval(() => { this.loadAndUpdatePlanes() }, 5000);
     }
