@@ -59,3 +59,7 @@ html{
 .text-grey {
   color: #ccc !important;
 }
+
+.form-group .invalid {
+  border-color: red !important
+}
