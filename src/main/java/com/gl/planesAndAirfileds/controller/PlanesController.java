@@ -23,6 +23,8 @@ public class PlanesController extends AbstractController {
 
     @Value("${simulator.plane.add.url}")
     private String simulatorPlaneAddUrl;
+    @Value("${simulator.plane.newCoordinates.url}")
+    private String simulatorPlaneNewCoordinatesUrl;
 
     private PlaneService planeService;
 
@@ -62,5 +64,22 @@ public class PlanesController extends AbstractController {
     @ResponseStatus(value = HttpStatus.OK)
     public List<String> findPlanesSid() {
         return planeService.findPlanesSid();
+    }
+
+    @RequestMapping(value = Mappings.GET_SEND_PLANE_TO_POSITION, method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void sendPlaneToCoordinates(@PathVariable(value = "sid") String sid,
+                                       @PathVariable(value = "latitude") Double latitude,
+                                       @PathVariable(value = "longitude") Double longitude) {
+        StringBuilder builder = new StringBuilder(simulatorPlaneNewCoordinatesUrl);
+        builder.append("/");
+        builder.append(sid);
+        builder.append("/");
+        builder.append(latitude);
+        builder.append("/");
+        builder.append(longitude);
+        builder.append("/");
+        restTemplate.getForEntity(builder.toString(),null);
+
     }
 }
