@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Column, PagingRequest, } from './table.component'
+import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services'
 import { NotificationService } from 'app/services';
@@ -12,9 +12,14 @@ import { TranslateService } from 'ng2-translate';
 export class PlanesComponent {
   columns: [Column] = [{ title: "Name", property: "name", sortable: true }, { title: "Registration", property: "registration", sortable: true }, {title: "Description", property: "description"}];
   data: [{}] = [{ name: "xxx", registration: "234" }, { name: "sss", registration: "2342" }];
-  pagingRequest: PagingRequest = { sortFilterChain: { field: "name", ascending: true }, offset: 0, limit: 25 };
+  searchRequest: SearchRequest = {
+      pageRequest: { sort: {orders: [{ field: "name", ascending: true }]}, page: 0, size: 25 },
+      filter: { name: "" }
+    };
+  rows: number;
 
   planeForm: FormGroup;
+  filterForm: FormGroup;
 
 
   constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {
@@ -30,6 +35,7 @@ export class PlanesComponent {
 
   ngOnInit() {
     this.createForm();
+    this.fetchData();
   }
 
   createForm() {
@@ -37,9 +43,27 @@ export class PlanesComponent {
       name: ['', Validators.required],
       registration: ['', Validators.required],
       description: ['']
-    })
-    this.planeService.findPlanes().then((response) => {
-      this.data = response;
-    })
+    });
+    this.filterForm = this.fb.group({
+      name: ['']
+    });
   }
+
+    fetchData() {
+      this.planeService.findPlanes2(this.searchRequest).then((response) => {
+        this.rows = response.count;
+        this.data = response.entities;
+        this.searchRequest.pageRequest = response.pagingRequest;
+      })
+    }
+
+    onChange(pageRequest: PageRequest) {
+      this.searchRequest.pageRequest = pageRequest;
+      this.fetchData()
+    }
+
+    onFilter(filter: any) {
+      this.searchRequest.filter = filter;
+      this.fetchData();
+    }
 }

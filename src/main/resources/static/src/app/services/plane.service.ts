@@ -2,6 +2,7 @@ import { ActionService } from 'app/services/action.service';
 import { Injectable, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AxiosResponse } from "axios";
+import { SearchRequest } from "common/table";
 
 @Injectable()
 export class PlaneService {
@@ -10,6 +11,10 @@ export class PlaneService {
 
     findPlanes() {
         return this.actions.get("/planeList");
+    }
+
+    findPlanes2(request: any) {
+        return this.actions.post("/find/planes", request);
     }
 
     findPlanesIDs() {
