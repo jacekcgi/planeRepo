@@ -33,4 +33,8 @@ public interface Mappings {
     String FIND_AIRPORTS = "/findAirports";
 
     String GET_AIRPORT = "/getAirport/{airport_id}";
+
+    // Languages
+
+    String FIND_LANGUAGES = "/laguages";
 }

@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>Add Plane</h1>
+    <h1>{{ 'airplane.formHeader' | translate}}</h1>
 
     <div>
         <form [formGroup]="planeForm" (ngSubmit)="onSubmit()">
@@ -11,12 +11,11 @@
     </div>
     <hr>
 
-
+ 
     <!-- uncomment after demo -->
     <div>
     <h2>Planes List</h2>
     </div>
     <app-table [columns]="columns" [data]="data" [pagingRequest]="pagingRequest"></app-table>
-
 
 </div>

@@ -24,6 +24,7 @@ public class PlanesController extends AbstractController {
 
     @Value("${simulator.plane.add.url}")
     private String simulatorPlaneAddUrl;
+
     @Value("${simulator.plane.newCoordinates.url}")
     private String simulatorPlaneNewCoordinatesUrl;
 
@@ -48,7 +49,7 @@ public class PlanesController extends AbstractController {
     public Plane save(@RequestBody @Validated(Default.class) Plane plane) {
         boolean newPlane = plane.getSid() == null;
         Plane savedPlane = planeService.save(plane);
-       if(newPlane) {
+        if (newPlane) {
             restTemplate.postForEntity(simulatorPlaneAddUrl, savedPlane, Plane.class);
         }
         return savedPlane;
@@ -80,7 +81,7 @@ public class PlanesController extends AbstractController {
         builder.append("/");
         builder.append(longitude);
         builder.append("/");
-        restTemplate.getForEntity(builder.toString(),null);
+        restTemplate.getForEntity(builder.toString(), null);
 
     }
 }
