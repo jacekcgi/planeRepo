@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertNull;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,23 +24,6 @@ public class PlaneServiceTest {
 
     @Autowired
     private PlaneService planeService;
-
-    @Test
-    public void shouldInvokeFindOneInRepository() {
-
-        planeService.getPlane(anyLong());
-
-        verify(planeRepository).findOne(anyLong());
-
-    }
-
-    @Test
-    public void shouldInvokeFindAllInRepository() {
-
-        planeService.getAllPlanes();
-
-        verify(planeRepository).findAll();
-    }
 
     @Test
     public void shouldInvokeSaveMethodInRepository() {

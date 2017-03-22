@@ -1,17 +1,14 @@
 package com.gl.planesAndAirfileds.repository;
 
 import com.gl.planesAndAirfileds.domain.AbstractIdentifiableEntity;
-import org.springframework.data.repository.NoRepositoryBean;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by krzysztof.gonia on 3/6/2017.
  */
-@NoRepositoryBean
-public interface AbstractIdentifiableEntityRepository<T extends AbstractIdentifiableEntity, S extends Serializable>
-        extends AbstractEntityRepository<T, S> {
+public interface AbstractIdentifiableEntityRepository<T extends AbstractIdentifiableEntity>
+        extends AbstractEntityRepository<T> {
 
     T getBySid(String sid);
 

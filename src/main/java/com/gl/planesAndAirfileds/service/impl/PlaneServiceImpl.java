@@ -1,7 +1,6 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.domain.PlaneSid;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractIdentifiableEntityRepository;
 import com.gl.planesAndAirfileds.repository.PlaneRepository;
@@ -13,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service
-public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plane, Long> implements PlaneService {
+@Service("planeService")
+public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plane> implements PlaneService {
     private PlaneRepository planeRepository;
 
     @Autowired
@@ -23,7 +22,7 @@ public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plan
     }
 
     @Override
-    protected AbstractIdentifiableEntityRepository<Plane, Long> getRepository() {
+    protected AbstractIdentifiableEntityRepository<Plane> getRepository() {
         return planeRepository;
     }
 
@@ -40,24 +39,13 @@ public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plan
     @Override
     @Transactional(readOnly = true)
     public Plane getPlane(Long id) {
-        return planeRepository.findOne(id);
-    }
-
-    @Override
-    public Plane save(Plane plane) {
-        return planeRepository.save(plane);
+        return planeRepository.getById(id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<PlaneSid> getAllPlanesSid() {
-        return planeRepository.getPlanesSid();
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Iterable<Plane> getAllPlanes() {
-        return planeRepository.findAll();
+    public List<String> findPlanesSid() {
+        return planeRepository.findPlanesSid();
     }
 
     @Override

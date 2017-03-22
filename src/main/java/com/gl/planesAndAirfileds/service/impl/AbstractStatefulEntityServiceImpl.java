@@ -4,13 +4,11 @@ import com.gl.planesAndAirfileds.domain.AbstractStatefulEntity;
 import com.gl.planesAndAirfileds.repository.AbstractStatefulEntityRepository;
 import com.gl.planesAndAirfileds.service.AbstractStatefulEntityService;
 
-import java.io.Serializable;
-
 /**
  * Created by marek.sroga on 2017-03-06.
  */
-public abstract class AbstractStatefulEntityServiceImpl<T extends AbstractStatefulEntity, S extends Serializable>
-        extends AbstractIdentifiableEntityServiceImpl<T, S> implements AbstractStatefulEntityService<T, S> {
+public abstract class AbstractStatefulEntityServiceImpl<T extends AbstractStatefulEntity>
+        extends AbstractIdentifiableEntityServiceImpl<T> implements AbstractStatefulEntityService<T> {
     @Override
-    protected abstract AbstractStatefulEntityRepository<T, S> getRepository();
+    protected abstract AbstractStatefulEntityRepository<T> getRepository();
 }

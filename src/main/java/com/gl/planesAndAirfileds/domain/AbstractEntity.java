@@ -25,4 +25,28 @@ public class AbstractEntity implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
+
+    protected String getDefaultId() {
+        return id != null ? id.toString() : null;
+    }
+
+    private boolean equalsId(AbstractEntity obj) {
+        return getDefaultId() != null && obj.getDefaultId() != null && getDefaultId().equals(obj.getDefaultId());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null && obj.getClass().equals(getClass()) && equalsId((AbstractEntity) obj)) {
+            return true;
+        }
+        return super.equals(obj);
+    }
+
+    @Override
+    public int hashCode() {
+        if (getDefaultId() != null) {
+            return getDefaultId().hashCode();
+        }
+        return super.hashCode();
+    }
 }

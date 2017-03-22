@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.repository.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.repository.CustomFlightDetailsRepository;
+import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +15,9 @@ import java.util.List;
 /**
  * Created by krzysztof.gonia on 3/7/2017.
  */
-@Repository
+@Repository("flightDetailsRepository")
 public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<FlightDetails>
-        implements CustomFlightDetailsRepository {
+        implements FlightDetailsRepository {
 
     /**
      * Returns flight details where field isActualPosition = true

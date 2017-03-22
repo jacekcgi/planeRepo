@@ -56,14 +56,6 @@ public class FlightDetails extends AbstractEntity {
     @Column(name = "is_landed")
     private boolean isLanded;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public Double getGpsLatitude() {
         return gpsLatitude;
     }

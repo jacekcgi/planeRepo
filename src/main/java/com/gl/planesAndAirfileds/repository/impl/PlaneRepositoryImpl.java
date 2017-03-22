@@ -3,7 +3,7 @@ package com.gl.planesAndAirfileds.repository.impl;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
-import com.gl.planesAndAirfileds.repository.CustomPlaneRepository;
+import com.gl.planesAndAirfileds.repository.PlaneRepository;
 import com.gl.planesAndAirfileds.repository.util.JpaUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * Created by krzysztof.gonia on 3/6/2017.
  */
-@Repository
-public class PlaneRepositoryImpl extends AbstractEntityRepositoryImpl<Plane> implements CustomPlaneRepository {
+@Repository("planeRepository")
+public class PlaneRepositoryImpl extends AbstractIdentifiableEntityRepositoryImpl<Plane> implements PlaneRepository {
 
     @Override
-    public CriteriaQuery createCriteriaFromSearchParams(Filter filter) {
+    public CriteriaQuery<Plane> createCriteriaFromSearchParams(Filter filter) {
 
-        CriteriaQuery criteria = super.createCriteriaFromSearchParams(filter);
-        Root root = JpaUtils.findOrCreateRoot(criteria, getDomainClass());
+        CriteriaQuery<Plane> criteria = super.createCriteriaFromSearchParams(filter);
+        Root<Plane> root = JpaUtils.findOrCreateRoot(criteria, Plane.class);
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 
         Predicate where = builder.conjunction();
@@ -45,6 +45,17 @@ public class PlaneRepositoryImpl extends AbstractEntityRepositoryImpl<Plane> imp
     }
 
     @Override
+    public List<String> findPlanesSid() {
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<String> criteriaQuery = builder.createQuery(String.class);
+
+        Root<Plane> root = criteriaQuery.from(Plane.class);
+        criteriaQuery.select(root.get(Plane.FIELD_SID));
+
+        return getEntityManager().createQuery(criteriaQuery).getResultList();
+    }
+
+    @Override
     public List<Plane> findAllContainsDescription(String description) {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Plane> criteriaQuery = builder.createQuery(Plane.class);
@@ -58,7 +69,7 @@ public class PlaneRepositoryImpl extends AbstractEntityRepositoryImpl<Plane> imp
     public long countByRegistration(String registration, String ignoreSid) {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Long> criteriaQuery = builder.createQuery(Long.class);
-        Root root = criteriaQuery.from(Plane.class);
+        Root<Plane> root = criteriaQuery.from(Plane.class);
         criteriaQuery.select(builder.count(root));
 
         Predicate where = builder
