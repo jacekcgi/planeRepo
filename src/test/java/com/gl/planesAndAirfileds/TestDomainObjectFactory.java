@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.domain.NestedEntity;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.util.SidUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -46,5 +47,16 @@ public class TestDomainObjectFactory {
         flightDetails.setVelocity(RANDOM.nextFloat());
         flightDetails.setLanded(false);
         return flightDetails;
+    }
+
+    public static NestedEntity getNestedEntity(NestedEntity childNestedEntity) {
+        NestedEntity nestedEntity = new NestedEntity();
+        nestedEntity.setTestString(RandomStringUtils.random(10));
+        nestedEntity.setNestedEntity(childNestedEntity);
+        return nestedEntity;
+    }
+
+    public static NestedEntity getNestedEntity() {
+        return getNestedEntity(null);
     }
 }
