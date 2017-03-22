@@ -4,18 +4,24 @@ import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/fo
 import { PlaneService } from 'app/services'
 import { NotificationService } from 'app/services';
 import { TranslateService } from 'ng2-translate';
+import { ActionsColumnComponent } from './actions.column.component';
 
 @Component({
   selector: 'page-planes',
   templateUrl: './planes.component.html',
 })
 export class PlanesComponent {
-  columns: [Column] = [{ title: "Name", property: "name", sortable: true }, { title: "Registration", property: "registration", sortable: true }, {title: "Description", property: "description"}];
+  columns: [Column] = [
+    { title: "Name", property: "name", sortable: true },
+    { title: "Registration", property: "registration", sortable: true },
+    { title: "Description", property: "description" },
+    { title: "Actions", property: "name", cell: ActionsColumnComponent } 
+  ];
   data: [{}] = [{ name: "xxx", registration: "234" }, { name: "sss", registration: "2342" }];
   searchRequest: SearchRequest = {
-      pageRequest: { sort: {orders: [{ field: "name", ascending: true }]}, page: 0, size: 25 },
-      filter: { name: "" }
-    };
+    pageRequest: { sort: { orders: [{ field: "name", ascending: true }] }, page: 0, size: 25 },
+    filter: { name: "" }
+  };
   rows: number;
 
   planeForm: FormGroup;
@@ -49,21 +55,21 @@ export class PlanesComponent {
     });
   }
 
-    fetchData() {
-      this.planeService.findPlanes2(this.searchRequest).then((response) => {
-        this.rows = response.count;
-        this.data = response.entities;
-        this.searchRequest.pageRequest = response.pagingRequest;
-      })
-    }
+  fetchData() {
+    this.planeService.findPlanes2(this.searchRequest).then((response) => {
+      this.rows = response.count;
+      this.data = response.entities;
+      this.searchRequest.pageRequest = response.pagingRequest;
+    })
+  }
 
-    onChange(pageRequest: PageRequest) {
-      this.searchRequest.pageRequest = pageRequest;
-      this.fetchData()
-    }
+  onChange(pageRequest: PageRequest) {
+    this.searchRequest.pageRequest = pageRequest;
+    this.fetchData()
+  }
 
-    onFilter(filter: any) {
-      this.searchRequest.filter = filter;
-      this.fetchData();
-    }
+  onFilter(filter: any) {
+    this.searchRequest.filter = filter;
+    this.fetchData();
+  }
 }

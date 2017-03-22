@@ -5,8 +5,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomLoader } from 'app/translate/translate.loader';
 
 import { InputComponent } from 'common/input';
-import { Table, PageableTable, Pagination, FilterToolbar } from 'common/table';
+import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, DefaultCellComponent } from 'common/table';
 import { ErrorMessagesComponent } from 'common/validations';
+
+import { ActionsColumnComponent } from 'app/planes/actions.column.component'
 
 import { NotificationService } from 'app/services';
 
@@ -26,8 +28,11 @@ import { NotificationService } from 'app/services';
         Table,
         PageableTable,
         Pagination,
-        FilterToolbar
+        FilterToolbar,
+        CellComponent,
+        DefaultCellComponent
     ],
+    entryComponents: [DefaultCellComponent],
     providers: [
 
     ],
@@ -37,7 +42,9 @@ import { NotificationService } from 'app/services';
         Table,
         PageableTable,
         Pagination,
-        FilterToolbar
+        FilterToolbar,
+        CellComponent,
+        DefaultCellComponent
     ]
 })
 export class CommonComponentsModule {

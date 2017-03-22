@@ -19,10 +19,10 @@ import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifi
 import { CommonComponentsModule } from 'common/common.components.module'
 
 import { PlanesComponent } from './planes/planes.component';
-import { ErrorMessagesComponent } from 'common/validations';
-import { InputComponent } from 'common/input';
+import { ActionsColumnComponent } from 'app/planes/actions.column.component'
+
 import { NotificationService } from 'app/services'; // app notifications
-import { Table, PageableTable, Pagination, FilterToolbar} from 'common/table';
+
 
 
 @NgModule({
@@ -46,8 +46,10 @@ import { Table, PageableTable, Pagination, FilterToolbar} from 'common/table';
     HomeComponent,
     // root components
     PlanesComponent,
-    MapComponent
+    MapComponent,
+    ActionsColumnComponent
   ],
+  entryComponents: [ActionsColumnComponent],
   providers: [ActionService, PlaneService, NotificationsService, NotificationService],
   bootstrap: [AppComponent]
 })

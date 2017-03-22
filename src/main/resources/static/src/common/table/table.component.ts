@@ -15,7 +15,7 @@ import { Column, Sort, Order } from 'common/table';
         </thead>
         <tbody>
             <tr *ngFor="let item of data">
-                <td *ngFor="let column of columns">{{valueOf(item, column.property)}}</td>
+                <td *ngFor="let column of columns"><ap-cell [item]="item" [column]="column"></ap-cell></td>
             </tr>
         </tbody>
     </table>
@@ -76,10 +76,6 @@ export class Table {
             this.sort.orders = newOrders;
             this.onSort.emit(this.sort)
         }
-    }
-
-    valueOf(item: object, columnProperty : string) {
-        return item[columnProperty];
     }
 
     sortClass(column: Column) {

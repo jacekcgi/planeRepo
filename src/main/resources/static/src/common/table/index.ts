@@ -1,7 +1,11 @@
+import { Type } from '@angular/core';
+
 export * from './filtertoolbar.component';
 export * from './pagination.component';
 export * from './table.component';
 export * from './pageable.table.component';
+export * from './cell.component';
+export * from './default.cell.component';
 
 export interface TableConfig {
     limit : number,
@@ -10,8 +14,9 @@ export interface TableConfig {
 
 export interface Column {
     title: string,
-    property: string,
+    property?: string,
     sortable?: boolean,
+    cell?: Type<any>
 }
 
 export interface Order {
