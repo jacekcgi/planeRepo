@@ -64,7 +64,7 @@ public class PlanesControllerTest {
         Plane p2 = TestDomainObjectFactory.getPlane();
         planes.add(p1);
         planes.add(p2);
-        Mockito.when(this.planeService.getAllPlanes()).thenReturn(planes);
+        Mockito.when(this.planeService.findAll()).thenReturn(planes);
         //given(this.planeService.getAllPlanes()).willReturn(planes);
         this.mvc.perform(get("/planeList"))
                 .andExpect(status().isOk())

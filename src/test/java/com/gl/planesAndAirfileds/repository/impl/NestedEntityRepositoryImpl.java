@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class NestedEntityRepositoryImpl extends AbstractEntityRepositoryImpl<NestedEntity>
-        implements CustomNestedEntityRepository {
+        implements NestedEntityRepository {
 }

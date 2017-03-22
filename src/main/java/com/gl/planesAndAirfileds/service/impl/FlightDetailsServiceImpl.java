@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDetails, Long>
+public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDetails>
         implements FlightDetailsService {
     private FlightDetailsRepository flightDetailsRepository;
 
@@ -40,7 +40,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
     }
 
     @Override
-    protected AbstractEntityRepository<FlightDetails, Long> getRepository() {
+    protected AbstractEntityRepository<FlightDetails> getRepository() {
         return flightDetailsRepository;
     }
 

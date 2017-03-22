@@ -2,50 +2,49 @@ package com.gl.planesAndAirfileds.repository;
 
 import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.domain.PlaneSid;
 import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.core.Is.is;
 
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-public class PlaneRepositoryTest {
-
-    @Autowired
-    private TestEntityManager entityManager;
+public class PlaneRepositoryTest extends AbstractIdentifiableEntityRepositoryImplTest<Plane> {
 
     @Autowired
     private PlaneRepository planeRepository;
 
+    @Override
+    protected AbstractIdentifiableEntityRepository<Plane> getRepository() {
+        return planeRepository;
+    }
+
+    @Override
+    protected Plane getEntity() {
+        return TestDomainObjectFactory.getPlane();
+    }
+
+    @Override
+    protected List<Plane> getEntities() {
+        return TestDomainObjectFactory.getPlanes(randomCount(10));
+    }
+
     @Test
     public void testGetPlanesSid() {
-        Plane plane = TestDomainObjectFactory.getPlane();
-        Plane plane2 = TestDomainObjectFactory.getPlane();
-        entityManager.persist(plane);
-        entityManager.persist(plane2);
-        List<PlaneSid> planesIdList = planeRepository.getPlanesSid();
-        for (PlaneSid id : planesIdList) {
-            assertThat(id.getSid()).isNotEmpty();
-        }
+        List<Plane> planes = TestDomainObjectFactory.getPlanes(randomCount(10));
+        persist(planes);
+        List<String> sids = planes.stream().map(Plane::getSid).collect(Collectors.toList());
+
+        List<String> planesSid = planeRepository.findPlanesSid();
+        deepEquals(sids, planesSid);
     }
 
     @Test

@@ -35,13 +35,6 @@ public class TestDomainObjectFactory {
         return planes;
     }
 
-    public static NestedEntity getNestedEntity(Plane plane) {
-        NestedEntity nestedEntity = new NestedEntity();
-        nestedEntity.setTestString(RandomStringUtils.random(10));
-        nestedEntity.setPlane(plane);
-        return nestedEntity;
-    }
-
     public static FlightDetails getFlightDetails(Plane p1) {
         FlightDetails flightDetails = new FlightDetails();
         flightDetails.setPlane(p1);
@@ -54,5 +47,16 @@ public class TestDomainObjectFactory {
         flightDetails.setVelocity(RANDOM.nextFloat());
         flightDetails.setLanded(false);
         return flightDetails;
+    }
+
+    public static NestedEntity getNestedEntity(NestedEntity childNestedEntity) {
+        NestedEntity nestedEntity = new NestedEntity();
+        nestedEntity.setTestString(RandomStringUtils.random(10));
+        nestedEntity.setNestedEntity(childNestedEntity);
+        return nestedEntity;
+    }
+
+    public static NestedEntity getNestedEntity() {
+        return getNestedEntity(null);
     }
 }

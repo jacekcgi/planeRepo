@@ -1,7 +1,6 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.domain.PlaneSid;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
@@ -59,13 +58,13 @@ public class PlanesController extends AbstractController {
     @RequestMapping(value = Mappings.FIND_PLANES)
     @ResponseStatus(value = HttpStatus.OK)
     public Iterable<Plane> getPlaneList() {
-        return planeService.getAllPlanes();
+        return planeService.findAll();
     }
 
     @RequestMapping(value = Mappings.FIND_PLANE_SIDS)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<PlaneSid> getPlanesSid() {
-        return planeService.getAllPlanesSid();
+    public List<String> findPlanesSid() {
+        return planeService.findPlanesSid();
     }
 
     @RequestMapping(value = Mappings.GET_SEND_PLANE_TO_POSITION, method = RequestMethod.GET)

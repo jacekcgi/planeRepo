@@ -4,37 +4,42 @@ import com.gl.planesAndAirfileds.domain.AbstractEntity;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import org.springframework.data.domain.PageRequest;
 
-import java.io.Serializable;
+import javax.persistence.LockModeType;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by marek.sroga on 2017-03-06.
  */
-public interface AbstractEntityService<T extends AbstractEntity, ID extends Serializable> {
+public interface AbstractEntityService<T extends AbstractEntity> {
 
-    <S extends T> S save(S entity);
+    T save(T entity);
 
-    <S extends T> Iterable<S> save(Iterable<S> entities);
+    T update(T entity);
 
-    T findOne(ID id);
+    void saveList(Collection<T> entities);
 
-    boolean exists(ID id);
+    List<T> findAll();
 
-    Iterable<T> findAll();
-
-    Iterable<T> findAll(Iterable<ID> ids);
-
-    long count();
-
-    void delete(ID id);
+    List<T> findAll(String field, boolean ascending);
 
     void delete(T entity);
 
-    void delete(Iterable<? extends T> entities);
-
-    void deleteAll();
+    void deleteList(Collection<T> entities);
 
     List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
 
     long countBySearchParams(Filter filter);
+
+    long countAll();
+
+    T merge(T entity);
+
+    void refresh(T entity);
+
+    void refresh(Collection<T> entities);
+
+    void lock(T entity, LockModeType lockModeType);
+
+    T getById(Long id);
 }

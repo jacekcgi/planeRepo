@@ -36,4 +36,9 @@ public class AbstractIdentifiableEntity extends AbstractEntity {
     public void setSid(String sid) {
         this.sid = sid;
     }
+
+    @Override
+    public String getDefaultId() {
+        return sid;
+    }
 }
