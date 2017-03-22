@@ -1,16 +1,17 @@
 package com.gl.planesAndAirfileds.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "airport")
 public class Airport extends AbstractIdentifiableEntity {
 
-    @NotNull
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @Column(name = "city")
@@ -25,12 +26,12 @@ public class Airport extends AbstractIdentifiableEntity {
     @Column(name = "icao_code")
     private String icaoCode;
 
-    @NotNull
     @Column(name = "latitude")
+    @NotBlank
     private String latitude;
 
-    @NotNull
     @Column(name = "longtitude")
+    @NotBlank
     private String longitude;
 
     @Column(name = "altitude")
