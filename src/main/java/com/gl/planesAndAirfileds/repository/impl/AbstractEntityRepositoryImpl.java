@@ -46,9 +46,7 @@ public abstract class AbstractEntityRepositoryImpl<T extends AbstractEntity>
     public List<T> findBySearchParams(Filter filter, Pageable pageRequest) {
         CriteriaQuery<T> criteria = createCriteriaFromSearchParams(filter);
         addOrder(criteria, pageRequest.getSort());
-        if (CollectionUtils.isEmpty(criteria.getRoots())) {
-            criteria.from(getDomainClass());
-        }
+        JpaUtils.findOrCreateRoot(criteria, getDomainClass());
         return applyPaging(criteria, pageRequest.getOffset(), pageRequest.getPageSize()).getResultList();
     }
 
