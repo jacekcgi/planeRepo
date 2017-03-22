@@ -56,6 +56,6 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     }
 
     ngOnInit() {
-         this.control = this.formGroup.get(this.property)
+        this.control = this.formGroup.get(this.property)
     }
 }
