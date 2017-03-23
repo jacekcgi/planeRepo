@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { DefaultCellComponent } from './default.cell.component';
 
 export * from './filtertoolbar.component';
 export * from './pagination.component';
@@ -16,7 +17,7 @@ export interface Column {
     title: string,
     property?: string,
     sortable?: boolean,
-    cell?: Type<any>
+    cell?: Type<DefaultCellComponent>
 }
 
 export interface Order {

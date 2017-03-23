@@ -15,5 +15,6 @@ export const LANG_EN_TRANS = {
     successTitle: 'Success',
     infoTitle: 'Info',
     warnTitle: 'Warning',
-    errorTitle: 'Error'
+    errorTitle: 'Error',
+    actions: 'Actions'
 };

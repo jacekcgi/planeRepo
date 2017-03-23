@@ -3,8 +3,8 @@ import { Column } from 'common/table'
 
 @Component({
     template: `
-    <span>{{getValue()}}</span>
-  `,
+        <span>{{getValue()}}</span>
+    `
 })
 export class DefaultCellComponent {
     @Input() item: any;

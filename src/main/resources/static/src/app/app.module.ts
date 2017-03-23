@@ -21,7 +21,7 @@ import { CommonComponentsModule } from 'common/common.components.module'
 import { PlanesComponent } from './planes/planes.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component'
 
-import { NotificationService } from 'app/services'; // app notifications
+import { NotificationService, TranslationService } from 'app/services'; // app notifications
 
 
 
@@ -50,7 +50,7 @@ import { NotificationService } from 'app/services'; // app notifications
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

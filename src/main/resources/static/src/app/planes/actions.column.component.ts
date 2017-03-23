@@ -9,7 +9,7 @@ import { DefaultCellComponent } from 'common/table'
 export class ActionsColumnComponent extends DefaultCellComponent {
     
     onEdit(){
-        console.log("Not implemented yet!!!");
+        alert("Not implemented yet!!!");
     }
 
 }

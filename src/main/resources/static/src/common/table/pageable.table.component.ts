@@ -29,10 +29,17 @@ export class PageableTable {
     @Input() data: Array<any>;
     @Input() pageRequest: PageRequest;
     @Input() rows: number;
+    @Input() pageSizes: Array<number> = [5, 10, 25, 50];
 
     @Output() onChange: EventEmitter<PageRequest> = new EventEmitter();
 
-    private pageSizes = [5, 10, 25, 50];
+    ngOnInit() {
+        let index = this.pageSizes.findIndex((value) => {return this.pageRequest.size === value});
+        if (index < 0) {
+            console.warn('Size of page have to be one of defined sizes');
+            this.pageRequest.size = this.pageSizes[0];
+        }
+    }  
 
     onSort(sort: Sort) {
       this.pageRequest.sort = sort;

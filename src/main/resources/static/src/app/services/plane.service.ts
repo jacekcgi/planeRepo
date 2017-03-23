@@ -13,6 +13,7 @@ export class PlaneService {
         return this.actions.get("/planeList");
     }
 
+    //todo: rename after delete findPlanes method
     findPlanes2(request: any) {
         return this.actions.post("/find/planes", request);
     }
