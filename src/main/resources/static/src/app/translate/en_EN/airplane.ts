@@ -1,7 +1,8 @@
 export const airplane = {
-  title: 'Air Planes',
+  title: 'Planes',
   name: 'Name',
   registration: 'Registration',
   description: 'Description',
-  successCreated: 'Plane has been created'
+  successCreated: 'Plane has been created',
+  formHeader: 'Add Plane'
 }

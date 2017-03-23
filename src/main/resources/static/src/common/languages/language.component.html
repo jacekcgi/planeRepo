@@ -1,0 +1,8 @@
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">{{ 'languages' | translate}}</a>
+    <div class="dropdown-menu" aria-labelledby="dropdown01">
+        <a class="dropdown-item" (click)="onLanguageChange(language)" *ngFor="let language of languages">
+          <span class="flag-icon flag-icon-{{language.isoCode}}"></span> {{ language?.locale | translate}}</a>
+    </div>
+</li>

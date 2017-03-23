@@ -11,7 +11,7 @@ import { MapComponent }  from './home/map.component';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ActionService, PlaneService } from './services';
+import { ActionService, PlaneService, LanguageService } from './services';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
@@ -22,6 +22,7 @@ import { PlanesComponent } from './planes/planes.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component'
 
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
+import { LanguageComponent } from 'common/languages'
 
 
 
@@ -47,10 +48,11 @@ import { NotificationService, TranslationService } from 'app/services'; // app n
     // root components
     PlanesComponent,
     MapComponent,
-    ActionsColumnComponent
+    ActionsColumnComponent,
+    LanguageComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

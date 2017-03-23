@@ -36,7 +36,7 @@ public class AirportsControllerTest {
     @Test
     public void getCurrentTimeTest() throws Exception {
 
-        when(airportsService.findAirports())
+        when(airportsService.findAll())
                 .thenReturn(new ArrayList<Airport>());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/findAirports"))
@@ -48,7 +48,7 @@ public class AirportsControllerTest {
     @Test
     public void getOneAirportTest() throws Exception {
 
-        when(airportsService.getAirport(Matchers.anyLong()))
+        when(airportsService.getById(Matchers.anyLong()))
                 .thenReturn(new Airport());
 
         mockMvc.perform(get("/getAirport/1"))

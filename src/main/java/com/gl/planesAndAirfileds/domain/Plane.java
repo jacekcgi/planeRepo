@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.domain;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,11 +18,11 @@ public class Plane extends AbstractIdentifiableEntity {
     public static final String FIELD_NAME = "name";
 
     @Column(name = "name")
-    @NotBlank
+    @NotEmpty
     private String name;
 
     @Column(name = "registration", unique = true)
-    @NotBlank
+    @NotEmpty
     private String registration;
 
     @Column(name = "description", columnDefinition = "TEXT")
@@ -37,14 +37,6 @@ public class Plane extends AbstractIdentifiableEntity {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updateDate")
     private Date updateDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

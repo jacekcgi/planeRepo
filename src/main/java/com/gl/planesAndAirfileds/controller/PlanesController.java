@@ -1,7 +1,6 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.domain.PlaneSid;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.domain.dto.SearchResult;
 import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
@@ -30,6 +29,9 @@ public class PlanesController extends AbstractController {
     @Value("${simulator.plane.add.url}")
     private String simulatorPlaneAddUrl;
 
+    @Value("${simulator.plane.newCoordinates.url}")
+    private String simulatorPlaneNewCoordinatesUrl;
+
     private PlaneService planeService;
 
     private PlaneValidator planeValidator;
@@ -51,7 +53,7 @@ public class PlanesController extends AbstractController {
     public Plane save(@RequestBody @Validated(Default.class) Plane plane) {
         boolean newPlane = plane.getSid() == null;
         Plane savedPlane = planeService.save(plane);
-       if(newPlane) {
+        if (newPlane) {
             restTemplate.postForEntity(simulatorPlaneAddUrl, savedPlane, Plane.class);
         }
         return savedPlane;
@@ -61,13 +63,30 @@ public class PlanesController extends AbstractController {
     @RequestMapping(value = Mappings.FIND_PLANES)
     @ResponseStatus(value = HttpStatus.OK)
     public Iterable<Plane> getPlaneList() {
-        return planeService.getAllPlanes();
+        return planeService.findAll();
     }
 
     @RequestMapping(value = Mappings.FIND_PLANE_SIDS)
     @ResponseStatus(value = HttpStatus.OK)
-    public List<PlaneSid> getPlanesSid() {
-        return planeService.getAllPlanesSid();
+    public List<String> findPlanesSid() {
+        return planeService.findPlanesSid();
+    }
+
+    @RequestMapping(value = Mappings.GET_SEND_PLANE_TO_POSITION, method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public void sendPlaneToCoordinates(@PathVariable(value = "sid") String sid,
+                                       @PathVariable(value = "latitude") Double latitude,
+                                       @PathVariable(value = "longitude") Double longitude) {
+        StringBuilder builder = new StringBuilder(simulatorPlaneNewCoordinatesUrl);
+        builder.append("/");
+        builder.append(sid);
+        builder.append("/");
+        builder.append(latitude);
+        builder.append("/");
+        builder.append(longitude);
+        builder.append("/");
+        restTemplate.getForEntity(builder.toString(), null);
+
     }
 
     @RequestMapping(value = "/find/planes", method = RequestMethod.POST)

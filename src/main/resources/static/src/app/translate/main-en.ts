@@ -1,10 +1,10 @@
-import { airplane } from './en/airplane';
-import { validations } from './en/validations'
+import { airplane } from './en_EN/airplane';
+import { validations } from './en_EN/validations'
 
-export const LANG_EN_NAME = 'en';
+export const LANG_EN_NAME = 'en_EN';
 
 export const LANG_EN_TRANS = {
-    'hello': 'Fajndsadsadsa22dsadsadsadsads2adsay {{value}}',
+    'hello': 'Smart {{value}}',
     airplane,
     validations,
 
@@ -17,4 +17,7 @@ export const LANG_EN_TRANS = {
     warnTitle: 'Warning',
     errorTitle: 'Error',
     actions: 'Actions'
+    languages: 'Languages',
+    en_EN: 'English',
+    pl_PL: 'Polish'
 };

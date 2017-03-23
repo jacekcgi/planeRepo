@@ -4,81 +4,116 @@ import com.gl.planesAndAirfileds.domain.AbstractEntity;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.service.AbstractEntityService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
+import javax.persistence.LockModeType;
+import java.util.Collection;
 import java.util.List;
 
 /**
  * Created by marek.sroga on 2017-03-06.
  */
-public abstract class AbstractEntityServiceImpl<T extends AbstractEntity, ID extends Serializable>
-        implements AbstractEntityService<T, ID> {
-    protected abstract AbstractEntityRepository<T, ID> getRepository();
+public abstract class AbstractEntityServiceImpl<T extends AbstractEntity>
+        implements AbstractEntityService<T> {
+
+    protected abstract AbstractEntityRepository<T> getRepository();
 
     @Override
-    public <S extends T> S save(S entity) {
+    @Transactional
+    public T save(T entity) {
         return getRepository().save(entity);
     }
 
     @Override
-    public <S extends T> Iterable<S> save(Iterable<S> entities) {
-        return getRepository().save(entities);
+    @Transactional
+    public T update(T entity) {
+        return getRepository().update(entity);
+    }
+
+    @Override
+    @Transactional
+    public void saveList(Collection<T> entities) {
+        getRepository().saveList(entities);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public T findOne(ID id) {
-        return getRepository().findOne(id);
+    public List<T> findAll() {
+        return getRepository().findAll(null, true);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public boolean exists(ID id) {
-        return getRepository().exists(id);
+    public List<T> findAll(String field, boolean ascending) {
+        return getRepository().findAll(field, ascending);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Iterable<T> findAll() {
-        return getRepository().findAll();
+    public long countAll() {
+        return getRepository().countAll();
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public Iterable<T> findAll(Iterable<ID> ids) {
-        return getRepository().findAll(ids);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public long count() {
-        return getRepository().count();
-    }
-
-    @Override
-    public void delete(ID id) {
-        getRepository().delete(id);
-    }
-
-    @Override
+    @Transactional
     public void delete(T entity) {
         getRepository().delete(entity);
     }
 
     @Override
-    public void delete(Iterable<? extends T> entities) {
-        getRepository().delete(entities);
+    @Transactional
+    public void deleteList(Collection<T> entities) {
+        if (CollectionUtils.isNotEmpty(entities)) {
+            for (T obj : entities) {
+                delete(obj);
+            }
+        }
     }
 
     @Override
-    public void deleteAll() {
-        getRepository().deleteAll();
+    @Transactional(readOnly = true)
+    public T merge(T entity) {
+        return getRepository().merge(entity);
     }
 
-    abstract public List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
+    @Override
+    @Transactional(readOnly = true)
+    public void refresh(T entity) {
+        getRepository().refresh(entity);
+    }
 
-    abstract public long countBySearchParams(Filter filter);
+    @Override
+    @Transactional(readOnly = true)
+    public void refresh(Collection<T> entities) {
+        if (CollectionUtils.isNotEmpty(entities)) {
+            for (T entity : entities) {
+                getRepository().refresh(entity);
+            }
+        }
+    }
 
+    @Override
+    public void lock(T entity, LockModeType lockModeType) {
+        getRepository().lock(entity, lockModeType);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<T> findBySearchParams(Filter filter, PageRequest pageRequest) {
+        return getRepository().findBySearchParams(filter, pageRequest);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public long countBySearchParams(Filter filter) {
+        return getRepository().countBySearchParams(filter);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public T getById(Long id) {
+        return getRepository().getById(id);
+    }
 }

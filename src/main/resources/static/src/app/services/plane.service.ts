@@ -24,7 +24,6 @@ export class PlaneService {
 
     findAllPlanesLocation(lastUpdate: string) {
         return this.actions.get(_.filter(["/allPlanesLocation/", lastUpdate]).join(""));
-        
     }
 
     save(form: FormGroup, data: object) {

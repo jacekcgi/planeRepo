@@ -21,12 +21,12 @@ public class AirportsController {
 
     @RequestMapping(value = Mappings.FIND_AIRPORTS, method = RequestMethod.GET)
     public Iterable<Airport> findAirports() {
-        return airportsService.findAirports();
+        return airportsService.findAll();
     }
 
     @RequestMapping(value = Mappings.GET_AIRPORT, method = RequestMethod.GET)
     public Airport getAirport(@PathVariable(value = "airport_id") Long airportId) {
-        return airportsService.getAirport(airportId);
+        return airportsService.getById(airportId);
     }
 
 }
