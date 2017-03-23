@@ -22,7 +22,6 @@ import { PlanesComponent } from './planes/planes.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component'
 
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
-import { LanguageComponent } from 'common/languages'
 
 
 
@@ -48,8 +47,7 @@ import { LanguageComponent } from 'common/languages'
     // root components
     PlanesComponent,
     MapComponent,
-    ActionsColumnComponent,
-    LanguageComponent
+    ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
   providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService],

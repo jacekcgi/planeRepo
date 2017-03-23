@@ -7,8 +7,7 @@ import { CustomLoader } from 'app/translate/translate.loader';
 import { InputComponent } from 'common/input';
 import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, DefaultCellComponent } from 'common/table';
 import { ErrorMessagesComponent } from 'common/validations';
-
-import { ActionsColumnComponent } from 'app/planes/actions.column.component'
+import { LanguageComponent } from 'common/languages'
 
 import { NotificationService } from 'app/services';
 
@@ -30,7 +29,8 @@ import { NotificationService } from 'app/services';
         Pagination,
         FilterToolbar,
         CellComponent,
-        DefaultCellComponent
+        DefaultCellComponent,
+        LanguageComponent
     ],
     entryComponents: [DefaultCellComponent],
     providers: [
@@ -44,7 +44,8 @@ import { NotificationService } from 'app/services';
         Pagination,
         FilterToolbar,
         CellComponent,
-        DefaultCellComponent
+        DefaultCellComponent,
+        LanguageComponent
     ]
 })
 export class CommonComponentsModule {

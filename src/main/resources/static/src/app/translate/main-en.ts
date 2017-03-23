@@ -16,7 +16,7 @@ export const LANG_EN_TRANS = {
     infoTitle: 'Info',
     warnTitle: 'Warning',
     errorTitle: 'Error',
-    actions: 'Actions'
+    actions: 'Actions',
     languages: 'Languages',
     en_EN: 'English',
     pl_PL: 'Polish'

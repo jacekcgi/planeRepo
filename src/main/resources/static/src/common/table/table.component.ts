@@ -8,7 +8,7 @@ import { Column, Sort, Order } from 'common/table';
         <thead>
             <tr>
                 <th *ngFor="let column of columns" (click)="sorting(column)">
-                    {{column.title}}
+                    {{column.title | translate}}
                     <i *ngIf="column.sortable" [class]="sortClass(column)"></i>
                 </th>
             </tr>

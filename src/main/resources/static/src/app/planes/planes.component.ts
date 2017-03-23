@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { PlaneService, TranslationService } from 'app/services'
+import { PlaneService } from 'app/services'
 import { NotificationService } from 'app/services';
-// import { TranslateService } from 'ng2-translate';
 import { ActionsColumnComponent } from './actions.column.component';
 
 @Component({
@@ -12,10 +11,10 @@ import { ActionsColumnComponent } from './actions.column.component';
 })
 export class PlanesComponent {
   columns: [Column] = [
-    { title: this.translate.get("airplane.name"), property: "name", sortable: true },
-    { title: this.translate.get("airplane.registration"), property: "registration", sortable: true },
-    { title: this.translate.get("airplane.description"), property: "description" },
-    { title: this.translate.get("actions"), property: "name", cell: ActionsColumnComponent } 
+    { title: "airplane.name", property: "name", sortable: true },
+    { title: "airplane.registration", property: "registration", sortable: true },
+    { title: "airplane.description", property: "description" },
+    { title: "actions", property: "name", cell: ActionsColumnComponent }
   ];
   data: [{}];
   searchRequest: SearchRequest = {
@@ -28,7 +27,7 @@ export class PlanesComponent {
   filterForm: FormGroup;
 
 
-  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService, private translate: TranslationService) {
+  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {
   }
 
   onSubmit() {
