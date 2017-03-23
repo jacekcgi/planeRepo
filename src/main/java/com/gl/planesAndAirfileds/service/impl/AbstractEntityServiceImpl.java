@@ -6,6 +6,7 @@ import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.service.AbstractEntityService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.LockModeType;
@@ -101,7 +102,7 @@ public abstract class AbstractEntityServiceImpl<T extends AbstractEntity>
 
     @Override
     @Transactional(readOnly = true)
-    public List<T> findBySearchParams(Filter filter, PageRequest pageRequest) {
+    public List<T> findBySearchParams(Filter filter, Pageable pageRequest) {
         return getRepository().findBySearchParams(filter, pageRequest);
     }
 

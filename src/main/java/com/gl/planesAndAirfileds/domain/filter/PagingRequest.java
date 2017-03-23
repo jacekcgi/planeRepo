@@ -1,5 +1,8 @@
 package com.gl.planesAndAirfileds.domain.filter;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+
 import java.io.Serializable;
 
 public class PagingRequest implements Serializable
@@ -66,5 +69,11 @@ public class PagingRequest implements Serializable
    public void setSort(SortRequest sort)
    {
       this.sort = sort;
+   }
+
+   public PageRequest toPageRequest()
+   {
+      Sort sort = this.sort.toSort();
+      return new PageRequest(this.page, this.size, sort);
    }
 }
