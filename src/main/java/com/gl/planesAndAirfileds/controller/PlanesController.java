@@ -65,13 +65,6 @@ public class PlanesController extends AbstractController
 
    }
 
-   @RequestMapping(value = Mappings.FIND_PLANES)
-   @ResponseStatus(value = HttpStatus.OK)
-   public Iterable<Plane> getPlaneList()
-   {
-      return planeService.findAll();
-   }
-
    @RequestMapping(value = Mappings.FIND_PLANE_SIDS)
    @ResponseStatus(value = HttpStatus.OK)
    public List<String> findPlanesSid()
@@ -97,7 +90,7 @@ public class PlanesController extends AbstractController
 
    }
 
-   @RequestMapping(value = "/find/planes", method = RequestMethod.POST)
+   @RequestMapping(value = Mappings.FIND_PLANES, method = RequestMethod.POST)
    @ResponseStatus(value = HttpStatus.OK)
    public SearchResult<Plane> findPlanes(@RequestBody SearchRequest<PlaneFilter> searchRequest)
    {

@@ -54,7 +54,7 @@ export class PlanesComponent {
   }
 
   fetchData() {
-    this.planeService.findPlanes2(this.searchRequest).then((response) => {
+    this.planeService.findPlanes(this.searchRequest).then((response) => {
       this.rows = response.count;
       this.data = response.entities;
       this.searchRequest.pageRequest = response.pagingRequest;

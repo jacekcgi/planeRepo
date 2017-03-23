@@ -9,12 +9,7 @@ export class PlaneService {
     constructor( @Inject(ActionService) private actions: ActionService) {
     }
 
-    findPlanes() {
-        return this.actions.get("/planeList");
-    }
-
-    //todo: rename after delete findPlanes method
-    findPlanes2(request: any) {
+    findPlanes(request: any) {
         return this.actions.post("/find/planes", request);
     }
 
