@@ -1,0 +1,14 @@
+<div class="container">
+    <h1>{{ 'airplane.formHeader' | translate}}</h1>
+
+    <div>
+        <form [formGroup]="planeForm" (ngSubmit)="onSubmit()">
+            <input type="hidden" formControlName="sid" [value]="sid">
+            <ap-input formControlName="name" label="airplane.name" [formGroup]="planeForm" size=12></ap-input>
+            <ap-input formControlName="registration" label="airplane.registration" [formGroup]="planeForm" size=12></ap-input>
+            <ap-input formControlName="description" label="airplane.description" [formGroup]="planeForm" size=12></ap-input>
+            <button type="submit" [disabled]="!planeForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
+        </form>
+    </div>
+
+</div>

@@ -17,6 +17,10 @@ public class Plane extends AbstractIdentifiableEntity {
 
     public static final String FIELD_NAME = "name";
 
+    public static final String FIELD_CREATE_DATE = "createDate";
+
+    public static final String FIELD_UPDATE_DATE = "updateDate";
+
     @Column(name = "name")
     @NotEmpty
     private String name;

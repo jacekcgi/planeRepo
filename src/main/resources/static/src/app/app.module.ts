@@ -19,7 +19,8 @@ import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifi
 import { CommonComponentsModule } from 'common/common.components.module'
 
 import { PlanesComponent } from './planes/planes.component';
-import { ActionsColumnComponent } from 'app/planes/actions.column.component'
+import { PlaneDetailsComponent} from './planes/plane.details.component';
+import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
 
@@ -44,6 +45,7 @@ import { NotificationService, TranslationService } from 'app/services'; // app n
     AppComponent,
     DashboardComponent,
     HomeComponent,
+    PlaneDetailsComponent,
     // root components
     PlanesComponent,
     MapComponent,

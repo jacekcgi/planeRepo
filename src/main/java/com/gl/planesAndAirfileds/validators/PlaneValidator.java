@@ -28,7 +28,7 @@ public class PlaneValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Plane plane = (Plane) target;
-        if (planeService.existRegistration(plane.getRegistration(), null)) {
+        if (planeService.existRegistration(plane.getRegistration(), plane.getSid())) {
             errors.rejectValue(Plane.FIELD_REGISTRATION, "entity.already.exist"); //here static field from entity
         }
     }

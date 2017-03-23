@@ -23,19 +23,9 @@ export class PlanesComponent {
   };
   rows: number;
 
-  planeForm: FormGroup;
   filterForm: FormGroup;
 
-
-  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {
-  }
-
-  onSubmit() {
-    this.planeService.save(this.planeForm, this.planeForm.value).then((response) => {
-      this.ns.success('airplane.successCreated');
-      this.planeForm.reset();
-    });
-  }
+  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {  }
 
   ngOnInit() {
     this.createForm();
@@ -43,11 +33,6 @@ export class PlanesComponent {
   }
 
   createForm() {
-    this.planeForm = this.fb.group({
-      name: ['', Validators.required],
-      registration: ['', Validators.required],
-      description: ['']
-    });
     this.filterForm = this.fb.group({
       name: ['']
     });
