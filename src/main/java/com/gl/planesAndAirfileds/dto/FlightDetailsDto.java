@@ -8,6 +8,30 @@ import java.time.LocalDateTime;
  */
 public class FlightDetailsDto implements Serializable {
 
+    public static final String FIELD_UPDATE_TIME = "updateTime";
+
+    public static final String FIELD_CURRENT_LATITUDE = "currentLatitude";
+
+    public static final String FIELD_CURRENT_LONGITUDE = "currentLongitude";
+
+    public static final String FIELD_DESTINATION_LATITUDE = "destinationLatitude";
+
+    public static final String FIELD_DESTINATION_LONGITUDE = "destinationLongitude";
+
+    public static final String FIELD_VELOCITY = "velocity";
+
+    public static final String FIELD_FLIGHT_ROUTE_SID = "flightRouteSid";
+
+    public FlightDetailsDto(double currentLatitude, double currentLongitude, double destinationLatitude,
+                            double destinationLongitude, float velocity, String flightRouteSid) {
+        this.currentLatitude = currentLatitude;
+        this.currentLongitude = currentLongitude;
+        this.destinationLatitude = destinationLatitude;
+        this.destinationLongitude = destinationLongitude;
+        this.velocity = velocity;
+        this.flightRouteSid = flightRouteSid;
+    }
+
     private LocalDateTime updateTime;
 
     private double currentLatitude;
@@ -19,6 +43,8 @@ public class FlightDetailsDto implements Serializable {
     private double destinationLongitude;
 
     private float velocity;
+
+    private String flightRouteSid;
 
     public LocalDateTime getUpdateTime() {
         return updateTime;
@@ -66,5 +92,13 @@ public class FlightDetailsDto implements Serializable {
 
     public void setVelocity(float velocity) {
         this.velocity = velocity;
+    }
+
+    public String getFlightRouteSid() {
+        return flightRouteSid;
+    }
+
+    public void setFlightRouteSid(String flightRouteSid) {
+        this.flightRouteSid = flightRouteSid;
     }
 }

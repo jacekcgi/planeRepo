@@ -13,6 +13,12 @@ public class Airport extends AbstractIdentifiableEntity {
 
     public static final int FIELD_NAME_LENGTH = 255;
 
+    public static final String FIELD_NAME = "name";
+
+    public static final String FIELD_LATITUDE = "latitude";
+
+    public static final String FIELD_LONGITUDE = "longitude";
+
     @Column(name = "name", length = FIELD_NAME_LENGTH)
     @Length(max = FIELD_NAME_LENGTH)
     @NotBlank

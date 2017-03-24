@@ -18,6 +18,12 @@ public class FlightDetails extends AbstractEntity {
 
     public static final String FIELD_CREATED_DATE = "createdDate";
 
+    public static final String FIELD_LATITUDE = "gpsLatitude";
+
+    public static final String FIELD_LONGITUDE = "gpsLongitude";
+
+    public static final String FIELD_VELOCITY = "velocity";
+
     @Column(name = "gps_latitude", nullable = false)
     @NotNull
     private double gpsLatitude;

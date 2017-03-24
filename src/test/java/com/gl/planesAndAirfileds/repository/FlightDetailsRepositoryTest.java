@@ -5,12 +5,15 @@ import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.FlightRoute;
 import com.gl.planesAndAirfileds.domain.Plane;
+import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
+import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FlightDetailsRepositoryTest extends AbstractEntityRepositoryImplTest<FlightDetails> {
@@ -88,8 +91,35 @@ public class FlightDetailsRepositoryTest extends AbstractEntityRepositoryImplTes
         lastDetailOfSecondRoute.setActualPosition(true); // excepted this position
         persist(secondFlightDetails);
 
+        List<FlightDetails> excepted = Arrays.asList(lastDetailOfFirstRoute, lastDetailOfSecondRoute);
+        List<FlightDetailsDto> result = flightDetailsRepository.findLatest();
 
-//        List<FlightDetails> result = flightDetailsRepository.findLatest();
-//        deepEquals(Arrays.asList(lastDetailOfFirstRoute, lastDetailOfSecondRoute), result);
+        TestCase.assertEquals(excepted.size(), result.size());
+        for (FlightDetailsDto fdd : result) {
+            FlightDetails flightDetails = getFlightDetails(fdd, excepted);
+            assertDto(fdd, flightDetails);
+        }
+    }
+
+    private void assertDto(FlightDetailsDto dto, FlightDetails flightDetails)
+    {
+        TestCase.assertNotNull(dto);
+        TestCase.assertEquals(dto.getCurrentLatitude(),flightDetails.getGpsLatitude());
+        TestCase.assertEquals(dto.getCurrentLongitude(),flightDetails.getGpsLongitude());
+        TestCase.assertEquals(dto.getDestinationLatitude(), flightDetails.getFlightRoute().getDestination().getLatitude());
+        TestCase.assertEquals(dto.getDestinationLongitude(), flightDetails.getFlightRoute().getDestination().getLongitude());
+        TestCase.assertEquals(dto.getVelocity(),flightDetails.getVelocity());
+    }
+
+    private FlightDetails getFlightDetails(FlightDetailsDto dto, List<FlightDetails> fds)
+    {
+        for (FlightDetails fd : fds)
+        {
+            if(dto.getFlightRouteSid().equals(fd.getFlightRoute().getSid()))
+            {
+                return fd;
+            }
+        }
+        return null;
     }
 }

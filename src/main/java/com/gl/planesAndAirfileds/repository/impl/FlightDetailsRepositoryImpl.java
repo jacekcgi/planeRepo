@@ -52,7 +52,7 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         CriteriaQuery<FlightDetailsDto> criteriaQuery = builder.createQuery(FlightDetailsDto.class);
         Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
 
-        Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE);
+        Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE); //default inner join
         Path<Airport> airportRoot = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
 
         LocalDateTime now = LocalDateTime.now();
@@ -61,14 +61,21 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
                 builder.literal(now));
         where = builder.and(where, builder.lessThan(flightRouteRoot.get(FlightRoute.FIELD_START_DATE),
                 builder.literal(now)));
-        where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION),true));
+        where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true));
 
         criteriaQuery.where(where);
 
         Expression expression = builder.greatest(root.<LocalDateTime>get(FlightDetails.FIELD_CREATED_DATE));
-        criteriaQuery.having(builder.equal(root.get(FlightDetails.FIELD_CREATED_DATE),expression));
+        criteriaQuery.having(builder.equal(root.get(FlightDetails.FIELD_CREATED_DATE), expression));
 
-//        criteriaQuery.select(builder.construct(FlightDetailsDto.class, builder.se))
+        //alis change nothing but you know what binds to what
+        criteriaQuery.multiselect(root.get(FlightDetails.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LATITUDE),
+                root.get(FlightDetails.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LONGITUDE),
+                airportRoot.get(Airport.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LATITUDE),
+                airportRoot.get(Airport.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LONGITUDE),
+                root.get(FlightDetails.FIELD_VELOCITY).alias(FlightDetailsDto.FIELD_VELOCITY),
+                flightRouteRoot.get(FlightRoute.FIELD_SID).alias(FlightDetailsDto.FIELD_FLIGHT_ROUTE_SID)
+                );
 
         return getEntityManager().createQuery(criteriaQuery).getResultList();
     }

@@ -46,7 +46,7 @@ public class AirportsFileParserService {
         }
         catch (IOException e) {
             e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error("you message", e);
         }
 
         return Collections.emptyList();

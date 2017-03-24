@@ -34,7 +34,7 @@ public class FlightDetailsController {
     @ResponseStatus(code = HttpStatus.OK)
     public FlightDetailsDto getCurrentPositionOfPlane(@PathVariable Map<String, String> pathVariables) {
 
-        List<FlightDetails> flightDetailsDtos = flightDetailsService.findLatestFlightDetails();
+        List<FlightDetailsDto> flightDetailsDtos = flightDetailsService.findLatestFlightDetails();
 
 //        List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeSid,false);
 //        return new FlightDetailsDto(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
