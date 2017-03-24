@@ -5,7 +5,6 @@ import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
-import com.gl.planesAndAirfileds.service.FlightDetailsFactoryService;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
     private PlaneService planeService;
 
-    private FlightDetailsFactoryService flightDetailsFactoryService;
+    private FlightDetailsFactoryServiceImpl flightDetailsFactoryServiceImpl;
 
     @Autowired
     public FlightDetailsServiceImpl(FlightDetailsRepository flightDetailsRepository, PlaneService planeService) {
@@ -30,13 +29,13 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         this.planeService = planeService;
     }
 
-    public FlightDetailsFactoryService getFlightDetailsFactoryService() {
-        return flightDetailsFactoryService;
+    public FlightDetailsFactoryServiceImpl getFlightDetailsFactoryServiceImpl() {
+        return flightDetailsFactoryServiceImpl;
     }
 
     @Autowired
-    public void setFlightDetailsFactoryService(FlightDetailsFactoryService flightDetailsFactoryService) {
-        this.flightDetailsFactoryService = flightDetailsFactoryService;
+    public void setFlightDetailsFactoryServiceImpl(FlightDetailsFactoryServiceImpl flightDetailsFactoryServiceImpl) {
+        this.flightDetailsFactoryServiceImpl = flightDetailsFactoryServiceImpl;
     }
 
     @Override
@@ -68,7 +67,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
         if (latestFlightDetailForPlane.isEmpty()) {
 
-            return flightDetailsFactoryService.getEmptyFlightDetailsObject();
+            return flightDetailsFactoryServiceImpl.getEmptyFlightDetailsObject();
         }
 
         return latestFlightDetailForPlane.get(0);

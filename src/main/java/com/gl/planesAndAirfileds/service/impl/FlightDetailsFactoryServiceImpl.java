@@ -1,10 +1,10 @@
-package com.gl.planesAndAirfileds.service;
+package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FlightDetailsFactoryService {
+public class FlightDetailsFactoryServiceImpl {
 
     public FlightDetails getEmptyFlightDetailsObject() {
         FlightDetails flightDetails = new FlightDetails();

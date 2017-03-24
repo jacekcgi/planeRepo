@@ -19,6 +19,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @ActiveProfiles("test")
 public class AirportsFileParserServiceTest {
 
+    public static final String TEST_SID = "12345678";
+
     @Autowired
     private AirportsFileParserService airportsFileParserService;
 
@@ -26,7 +28,9 @@ public class AirportsFileParserServiceTest {
     public void checkIfFileIsParseCorrectly() {
 
         List<Airport> expectedAirportList = getTesData();
+
         List<Airport> actualAirportList = airportsFileParserService.getListOfAirports();
+        actualAirportList.get(0).setSid(TEST_SID);
 
         assertThat(actualAirportList, is(expectedAirportList));
 
@@ -37,7 +41,7 @@ public class AirportsFileParserServiceTest {
         List<Airport> flightDetailsTestList = new ArrayList<>();
 
         Airport airportOne = new Airport();
-        airportOne.setId(1l);
+        airportOne.setSid(TEST_SID);
         airportOne.setName("Goroka Airport");
         airportOne.setCity("Goroka");
         airportOne.setCountry("Papua New Guinea");

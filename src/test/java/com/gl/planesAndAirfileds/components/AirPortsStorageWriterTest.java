@@ -1,8 +1,8 @@
 package com.gl.planesAndAirfileds.components;
 
 import com.gl.planesAndAirfileds.domain.Airport;
-import com.gl.planesAndAirfileds.service.AirportsService;
 import com.gl.planesAndAirfileds.service.AirportsFileParserService;
+import com.gl.planesAndAirfileds.service.AirportsService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
