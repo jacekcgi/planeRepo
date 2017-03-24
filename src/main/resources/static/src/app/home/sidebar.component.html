@@ -1,0 +1,15 @@
+<div class="container" id="wrapper" [ngClass]="toggled" >
+
+    <div id="sidebar-wrapper"  *ngIf="flightDetails">
+        <ul class="sidebar-nav">
+            <li id="hide-toggle" style="right:5px;position:absolute;cursor: pointer;font-weight:bold"></li>
+            <li> {{flightDetails?.planeName}}</li>
+            <li> {{flightDetails?.planeRegistration}}</li>
+            <li> {{flightDetails?.latitude}}</li>
+            <li> {{flightDetails?.longitude}}</li>
+            <li> {{flightDetails?.flightTime}}</li>
+            <li> {{flightDetails?.velocity}}</li>
+            <li> {{flightDetails?.averageFuelConsumption}}</li>
+        </ul>
+    </div>
+</div>

@@ -8,6 +8,7 @@ import { CustomLoader } from './translate/translate.loader';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { HomeComponent }  from './home/home.component';
 import { MapComponent }  from './home/map.component';
+import { SidebarComponent }  from './home/sidebar.component';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -47,6 +48,7 @@ import { NotificationService, TranslationService } from 'app/services'; // app n
     // root components
     PlanesComponent,
     MapComponent,
+    SidebarComponent,
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],

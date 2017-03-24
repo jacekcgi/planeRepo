@@ -1,6 +1,7 @@
-import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
+import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit} from "@angular/core";
 import { PlaneService } from "app/services";
 import { Observable } from "rxjs/Observable";
+import { FlightDetails } from "app/domain";
 declare var google: any;
 
 let $ = require('jquery');
@@ -12,6 +13,11 @@ let $ = require('jquery');
 
 export class MapComponent implements AfterViewInit {
 
+    toggled:string="";
+
+    flightDetails: FlightDetails = {planeSid:""};
+    
+ 
     @ViewChild('map') mapDiv: any;
 
     private map: any;
@@ -34,7 +40,7 @@ export class MapComponent implements AfterViewInit {
     }
 
     constructor(private planeService: PlaneService) {
-
+      
     }
 
     ngAfterViewInit(): void {
@@ -102,15 +108,40 @@ export class MapComponent implements AfterViewInit {
             position: latlng,
             title: value.course.toString(),
             icon: this.icon,
-            map: this.map
+            map: this.map,
+            planeSid:planeSid,
+            planeName:value.plane.name,
         });
-        marker.set('planeSid', planeSid)
         marker.set('mapComponent', this)
-        marker.addListener('click', function () {
-            //this in here is marker
-            this.get('mapComponent').onMarkerClick(this.get('planeSid'))
+        marker.addListener('click', function() {
+            var that = this.get('mapComponent');
+             
+           if(that.toggled === "toggled") {
+                if(that.flightDetails.planeSid === planeSid) {     
+                    that.toggled = "";
+                    that.flightDetails = {planeSid:""};
+                } else {
+                    that.createFligtDetails(that.flightDetails,this);
+                }
+           } else {
+                that.toggled = "toggled";
+                that.createFligtDetails(that.flightDetails,this);
+           }
+
+          //  this.get('mapComponent').onMarkerClick(this.get('planeSid'))
+        
         });
+
+
+
         return marker;
+    }
+
+    createFligtDetails (flightDetails:any,marker:any) {
+        flightDetails['planeSid']=marker.planeSid;
+        flightDetails['planeName']=marker.planeName;
+        flightDetails['latitude']=marker.position.lat();
+        flightDetails['longitude']=marker.position.lng();
     }
 
     onMarkerClick(planeSid: any) {
