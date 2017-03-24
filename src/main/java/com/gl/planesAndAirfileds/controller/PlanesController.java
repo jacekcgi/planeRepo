@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.groups.Default;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -95,22 +94,7 @@ public class PlanesController extends AbstractController
    public SearchResult<Plane> findPlanes(@RequestBody SearchRequest<PlaneFilter> searchRequest)
    {
       PlaneFilter planeFilter = searchRequest.getFilter();
-
-      long count = planeService.countBySearchParams(planeFilter);
-      List<Plane> planes = new ArrayList<Plane>();
-      if (count > 0)
-      {
-         PagingRequest pageRequest = searchRequest.getPageRequest();
-         int page = pageRequest.getPage();
-         int size = pageRequest.getSize();
-         int pages = (int) Math.ceil((double) count / (double) size);
-         if (page >= pages)
-         {
-            pageRequest.setPage(pages - 1);
-         }
-
-         planes = planeService.findBySearchParams(searchRequest.getFilter(), pageRequest.toPageRequest());
-      }
-      return new SearchResult<>(planes, count, searchRequest.getPageRequest());
+      PagingRequest pagingRequest = searchRequest.getPageRequest();
+      return findBySearchParams(planeFilter, pagingRequest, planeService);
    }
 }
