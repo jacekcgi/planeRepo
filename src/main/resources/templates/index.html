@@ -18,7 +18,7 @@
 
 <app-root>Loading Angular...</app-root>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMM5SVaQN_uhe5GVZj41g5s0db1OBNtFE"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMM5SVaQN_uhe5GVZj41g5s0db1OBNtFE&libraries=geometry"></script>
 
 <th:block th:if="${@environment.getProperty('server.production')}">
     <script th:src="@{/built/polyfills.js}"></script>

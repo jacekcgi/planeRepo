@@ -7,7 +7,6 @@ import com.gl.planesAndAirfileds.domain.util.SidUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -37,15 +36,10 @@ public class TestDomainObjectFactory {
 
     public static FlightDetails getFlightDetails(Plane p1) {
         FlightDetails flightDetails = new FlightDetails();
-        flightDetails.setPlane(p1);
-        flightDetails.setActualPosition(false);
         flightDetails.setAverageFuelConsumption(RANDOM.nextDouble());
-        flightDetails.setCourse(RANDOM.nextDouble());
         flightDetails.setGpsLatitude(RANDOM.nextDouble());
         flightDetails.setGpsLongitude(RANDOM.nextDouble());
-        flightDetails.setIncomingTime(new Date());
         flightDetails.setVelocity(RANDOM.nextFloat());
-        flightDetails.setLanded(false);
         return flightDetails;
     }
 
