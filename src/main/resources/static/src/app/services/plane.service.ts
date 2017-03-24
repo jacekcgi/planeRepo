@@ -10,7 +10,7 @@ export class PlaneService {
     constructor( @Inject(ActionService) private actions: ActionService) {
     }
 
-    findPlanes() {
+    findPlanes(request: any) {
         return this.actions.post("/find/planes", request);
     }
 

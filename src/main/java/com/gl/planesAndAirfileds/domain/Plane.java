@@ -28,11 +28,11 @@ public class Plane extends AbstractIdentifiableEntity {
     private String description;
 
     @Column(name = "create_date", nullable = false)
-    @NotNull
+    @NotNull(groups = Validation.PlaneValidate.class)
     private LocalDateTime createDate;
 
     @Column(name = "updateDate", nullable = false)
-    @NotNull
+    @NotNull(groups = Validation.PlaneValidate.class)
     private LocalDateTime updateDate;
 
     @PrePersist
