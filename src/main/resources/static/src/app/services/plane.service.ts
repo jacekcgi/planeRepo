@@ -11,7 +11,7 @@ export class PlaneService {
     }
 
     findPlanes() {
-        return this.actions.get("/planeList");
+        return this.actions.post("/find/planes", request);
     }
 
     findPlanesIDs() {
