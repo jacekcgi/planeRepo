@@ -73,6 +73,7 @@ public class AirportsFileParserService {
         airportData.setTzDatabaseTimeZone(lineList.get(11));
         airportData.setType(lineList.get(12));
         airportData.setSource(lineList.get(13));
+        airportData.setZoomlvl(8);
 
         return airportData;
     }

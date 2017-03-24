@@ -37,4 +37,9 @@ public class AirportServiceImp extends AbstractIdentifiableEntityServiceImpl<Air
         airportRepository.saveList(airportsList);
         logger.info("List of Airport saved");
     }
+
+    @Override
+    public List<Airport> getAirportOnZoomLvl(int zoomLvl) {
+        return null;
+    }
 }

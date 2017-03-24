@@ -51,6 +51,7 @@ export class MapComponent implements AfterViewInit {
 
         this.loadAndUpdatePlanes();
         setInterval(() => { this.loadAndUpdatePlanes() }, 5000);
+        this.loadAirports(map);
     }
 
     loadAndUpdatePlanes() {
@@ -116,6 +117,59 @@ export class MapComponent implements AfterViewInit {
     onMarkerClick(planeSid: any) {
         console.log('clicked!')
         console.log(planeSid)
+    }
+
+    loadAirportsOnMap(map: any, data: any) {
+           var markers = new Array;
+           let i = 0;
+           for(let value of data) {
+           var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(value.latitude, value.longitude),
+            // animation: google.maps.Animation.DROP,
+            map: null,
+            zoomlvl: value.zoomlvl
+              });
+              markers[i++] = marker;
+           }
+            google.maps.event.addListener(map, 'zoom_changed', function() {
+            //  if (map.getBounds().contains(marker.getPosition())) {
+            var z = map.getZoom();
+            console.log(z);
+            for (let mkr of markers) {
+                  console.log(z);
+                  if ( z >= mkr.zoomlvl) { 
+                mkr.setMap(map);
+            }
+            else if (!map.getBounds().contains(marker.getPosition()) || z < mkr.zoomlvl){
+                // mkr.setAnimation(google.maps.Animation.DROP);
+                mkr.setMap(null);
+            } 
+            }
+        //  }
+                });
+
+                 google.maps.event.addListener(map, 'dragend', function() {
+            //  if (map.getBounds().contains(marker.getPosition())) {
+            var z = map.getZoom();
+            
+            for (let mkr of markers) {
+         if (map.getBounds().contains(mkr.getPosition())&& z>=mkr.zoomlvl ){
+                mkr.setAnimation(google.maps.Animation.DROP);
+                mkr.setMap(map);
+            } 
+            else{
+                mkr.setMap(null);
+            }
+            }
+        //  }
+                });
+    }
+
+    loadAirports(map: any) {
+         this.planeService.findAirports().then((data) => {
+            this.loadAirportsOnMap(map, data);
+        })
+      
     }
 
 }

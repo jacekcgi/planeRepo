@@ -51,8 +51,19 @@ public class Airport extends AbstractIdentifiableEntity {
     @Column(name = "source")
     private String source;
 
+    @Column(name = "zoomlvl")
+    private int zoomlvl;
+
     public String getName() {
         return name;
+    }
+
+    public int getZoomlvl() {
+        return zoomlvl;
+    }
+
+    public void setZoomlvl(int zoomlvl) {
+        this.zoomlvl = zoomlvl;
     }
 
     public void setName(String name) {

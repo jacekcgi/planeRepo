@@ -63,4 +63,10 @@ export class PlaneService {
     toDegrees(radian: number) {
         return radian * (180 / Math.PI);
     }
+
+    
+    findAirports() {
+        return this.actions.get("/findAirports");
+    }
+
 }

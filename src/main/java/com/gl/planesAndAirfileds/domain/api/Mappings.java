@@ -34,6 +34,8 @@ public interface Mappings {
 
     String GET_AIRPORT = "/getAirport/{airport_id}";
 
+    String GET_AIRPORT_ONZOOM_LVL = "/getAirport/{airport_zoomlevel}";
+
     // Languages
 
     String FIND_LANGUAGES = "/laguages";

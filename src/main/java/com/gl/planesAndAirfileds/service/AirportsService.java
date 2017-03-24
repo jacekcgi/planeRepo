@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface AirportsService extends AbstractIdentifiableEntityService<Airport> {
     void saveAirports(List<Airport> airportsList);
+    List<Airport> getAirportOnZoomLvl(int zoomLvl);
 }
