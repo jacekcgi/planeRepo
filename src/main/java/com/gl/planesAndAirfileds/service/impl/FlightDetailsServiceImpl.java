@@ -2,6 +2,7 @@ package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
+import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
 import com.gl.planesAndAirfileds.service.FlightDetailsFactoryService;
@@ -76,7 +77,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
     @Override
     @Transactional(readOnly = true)
-    public List<FlightDetails> findLatestFlightDetails() {
+    public List<FlightDetailsDto> findLatestFlightDetails() {
         return flightDetailsRepository.findLatest();
     }
 

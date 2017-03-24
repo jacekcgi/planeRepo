@@ -15,6 +15,8 @@ public class FlightRoute extends AbstractIdentifiableEntity {
 
     public static final String FIELD_INCOMING_DATE = "incomingDate";
 
+    public static final String FIELD_DESTINATION = "destination";
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "source_id", nullable = false)
     @NotNull

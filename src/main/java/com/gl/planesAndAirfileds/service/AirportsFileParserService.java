@@ -65,9 +65,9 @@ public class AirportsFileParserService {
         airportData.setCountry(lineList.get(3));
         airportData.setIataCode(lineList.get(4));
         airportData.setIcaoCode(lineList.get(5));
-        airportData.setLatitude(lineList.get(6));
-        airportData.setLongitude(lineList.get(7));
-        airportData.setAltitude(lineList.get(8));
+        airportData.setLatitude(Double.valueOf(lineList.get(6)));
+        airportData.setLongitude(Double.valueOf(lineList.get(7)));
+        airportData.setAltitude(Double.valueOf(lineList.get(8)));
         airportData.setTimezone(lineList.get(9));
         airportData.setDaylightSavingTime(lineList.get(10));
         airportData.setTzDatabaseTimeZone(lineList.get(11));

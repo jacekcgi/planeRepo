@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Table(name = "flight_details")
 public class FlightDetails extends AbstractEntity {
 
-    public static final String FIELD_IS_ACTUAL_POSITION = "isActualPosition";
+    public static final String FIELD_ACTUAL_POSITION = "actualPosition";
 
     public static final String FIELD_IS_LANDED = "isLanded";
 
@@ -48,6 +48,9 @@ public class FlightDetails extends AbstractEntity {
     @Column(name = "created_date", nullable = false)
     @NotNull
     private LocalDateTime createdDate;
+
+    @Column(name = "actual_position", nullable = false)
+    private boolean actualPosition;
 
     public double getGpsLatitude() {
         return gpsLatitude;
@@ -103,6 +106,22 @@ public class FlightDetails extends AbstractEntity {
 
     public void setFlightRoute(FlightRoute flightRoute) {
         this.flightRoute = flightRoute;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public boolean isActualPosition() {
+        return actualPosition;
+    }
+
+    public void setActualPosition(boolean actualPosition) {
+        this.actualPosition = actualPosition;
     }
 
     @Override

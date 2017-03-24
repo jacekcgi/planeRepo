@@ -42,6 +42,8 @@ CREATE TABLE `flight_details` (
   `remaining_fuel` double DEFAULT NULL,
   `velocity` float not NULL,
   `flight_route_id` bigint(20) NOT NULL,
+  `created_date` timestamp NOT NULL,
+  `is_actual_position` boolean NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (flight_route_id)
         REFERENCES flight_route(id)

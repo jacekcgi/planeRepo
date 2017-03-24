@@ -1,11 +1,10 @@
 package com.gl.planesAndAirfileds;
 
-import com.gl.planesAndAirfileds.domain.FlightDetails;
-import com.gl.planesAndAirfileds.domain.NestedEntity;
-import com.gl.planesAndAirfileds.domain.Plane;
+import com.gl.planesAndAirfileds.domain.*;
 import com.gl.planesAndAirfileds.domain.util.SidUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -34,12 +33,16 @@ public class TestDomainObjectFactory {
         return planes;
     }
 
-    public static FlightDetails getFlightDetails(Plane p1) {
+    public static FlightDetails getFlightDetails(FlightRoute flightRoute) {
         FlightDetails flightDetails = new FlightDetails();
         flightDetails.setAverageFuelConsumption(RANDOM.nextDouble());
         flightDetails.setGpsLatitude(RANDOM.nextDouble());
         flightDetails.setGpsLongitude(RANDOM.nextDouble());
         flightDetails.setVelocity(RANDOM.nextFloat());
+        flightDetails.setFlightRoute(flightRoute);
+        flightDetails.setCreatedDate(LocalDateTime.now());
+        flightDetails.setDistanceTraveled(RANDOM.nextDouble());
+        flightDetails.setActualPosition(false);
         return flightDetails;
     }
 
@@ -52,5 +55,42 @@ public class TestDomainObjectFactory {
 
     public static NestedEntity getNestedEntity() {
         return getNestedEntity(null);
+    }
+
+    public static List<FlightRoute> findPlaneRoutes(Plane plane, Airport sourceAirport, Airport destinationAirport,
+                                                    int count) {
+        List<FlightRoute> flightRoutes = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            flightRoutes.add(getFlightRoute(plane, sourceAirport, destinationAirport));
+        }
+        return flightRoutes;
+
+    }
+
+    public static FlightRoute getFlightRoute(Plane plane, Airport sourceAirport, Airport destinationAirport) {
+        FlightRoute flightRoute = new FlightRoute();
+        flightRoute.setPlane(plane);
+        flightRoute.setSource(sourceAirport);
+        flightRoute.setDestination(destinationAirport);
+        flightRoute.setIncomingDate(LocalDateTime.now());
+        flightRoute.setStartDate(LocalDateTime.now());
+        return flightRoute;
+    }
+
+    public static Airport getAirport() {
+        Airport airport = new Airport();
+        airport.setAltitude(RANDOM.nextDouble());
+        airport.setLongitude(RANDOM.nextDouble());
+        airport.setAltitude(RANDOM.nextDouble());
+        airport.setName(SidUtils.generate());
+        return airport;
+    }
+
+    public static List<FlightDetails> findFlightDetails(FlightRoute flightRoute, int count) {
+        List<FlightDetails> flightDetails = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            flightDetails.add(getFlightDetails(flightRoute));
+        }
+        return flightDetails;
     }
 }

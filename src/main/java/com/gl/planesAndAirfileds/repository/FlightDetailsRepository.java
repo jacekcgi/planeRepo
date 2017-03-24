@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.repository;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
 
 import java.util.List;
 
@@ -8,5 +9,5 @@ public interface FlightDetailsRepository extends AbstractEntityRepository<Flight
 
     List<FlightDetails> getLatestFlightDetails(String planeSid, boolean returnPlaneLanded);
 
-    List<FlightDetails> findLatest();
+    List<FlightDetailsDto> findLatest();
 }
