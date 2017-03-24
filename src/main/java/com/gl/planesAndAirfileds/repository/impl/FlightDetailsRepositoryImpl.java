@@ -33,7 +33,7 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         CriteriaQuery<FlightDetails> criteriaQuery = builder.createQuery(FlightDetails.class);
         Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
 
-        Predicate where = builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true);
+         Predicate where = builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true);
         if (!StringUtils.isBlank(planeSid)) {
             where = builder
                     .and(where, builder.equal(root.get(FlightDetails.FIELD_PLANE).get(Plane.FIELD_SID), planeSid));
