@@ -16,14 +16,13 @@ import { ActionService, PlaneService, LanguageService } from './services';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
 
+import { CommonComponentsModule } from 'common/common.components.module'
+
 import { PlanesComponent } from './planes/planes.component';
-import { ErrorMessagesComponent } from 'common/validations';
-import { InputComponent } from 'common/input';
-import { NotificationService } from 'app/services'; // app notifications
+import { ActionsColumnComponent } from 'app/planes/actions.column.component'
 
-import { LanguageComponent } from 'common/languages'
+import { NotificationService, TranslationService } from 'app/services'; // app notifications
 
-import { Table } from './planes/table.component';
 
 
 @NgModule({
@@ -38,7 +37,8 @@ import { Table } from './planes/table.component';
       provide: TranslateLoader,
       useClass: CustomLoader
     }),
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    CommonComponentsModule
   ],
   declarations: [
     AppComponent,
@@ -46,13 +46,11 @@ import { Table } from './planes/table.component';
     HomeComponent,
     // root components
     PlanesComponent,
-    InputComponent,
-    ErrorMessagesComponent,
     MapComponent,
-    Table,
-    LanguageComponent
+    ActionsColumnComponent
   ],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, LanguageService],
+  entryComponents: [ActionsColumnComponent],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,6 +3,8 @@ import { Injectable, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AxiosResponse } from "axios";
 
+declare var google: any;
+
 @Injectable()
 export class PlaneService {
     constructor( @Inject(ActionService) private actions: ActionService) {
@@ -24,8 +26,11 @@ export class PlaneService {
         return this.actions.postForm("/plane", data, form);
     }
 
+    // flight distance in km
     calculateDistance(actualTime: number, incomingTime: number, velocity: number) {
         var flightTime = (actualTime - incomingTime) / 3600000
+        console.log("inconming",incomingTime);
+        console.log(flightTime);
         return velocity * flightTime;
     }
 
@@ -41,7 +46,8 @@ export class PlaneService {
         var longitudeEnd = longitude + Math.atan2(Math.sin(bearing) * Math.sin(angularDistance) * Math.cos(latitude),
             Math.cos(angularDistance) - Math.sin(latitude) * Math.sin(latitudeEnd));
 
-        var finalBearing = this.getFinalBearing(latitudeEnd, longitudeEnd, latitude, longitude);
+        var finalBearing = google.maps.geometry.spherical.computeHeading([latitude, longitude], [latitudeEnd, longitudeEnd])
+        // var finalBearing = this.getFinalBearing(latitudeEnd, longitudeEnd, latitude, longitude);
         var point = { latitude: this.toDegrees(latitudeEnd), longitude: this.toDegrees(longitudeEnd), course: finalBearing };
 
         return point;

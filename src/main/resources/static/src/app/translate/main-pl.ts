@@ -7,5 +7,9 @@ export const LANG_PL_TRANS = {
     airplane,
     languages: 'Języki',
     pl_PL: 'Polski',
-    en_EN: 'Angielski'
+    en_EN: 'Angielski',
+
+    saveButton: 'Zapisz',
+    searchButton: 'Szukaj',
+    actions: 'Akcje',
 };

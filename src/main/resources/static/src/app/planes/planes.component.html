@@ -11,11 +11,17 @@
     </div>
     <hr>
 
- 
-    <!-- uncomment after demo -->
-    <div>
-    <h2>Planes List</h2>
+
+    <div class="card">
+        <div class="card-header">
+            <strong>{{'airplane.title' | translate}}</strong>
+        </div>
+        <div>
+            <ap-filtertoolbar [formGroup]="filterForm" (onFilter)="onFilter($event)">
+                <ap-input formControlName="name" [formGroup]="filterForm" size=2 placeholder="airplane.name"></ap-input>
+            </ap-filtertoolbar>
+            <ap-pageabletable [columns]="columns" [data]="data" [pageRequest]="searchRequest.pageRequest" [rows]="rows" (onChange)="onChange($event)"></ap-pageabletable>
+        </div>
     </div>
-    <app-table [columns]="columns" [data]="data" [pagingRequest]="pagingRequest"></app-table>
 
 </div>

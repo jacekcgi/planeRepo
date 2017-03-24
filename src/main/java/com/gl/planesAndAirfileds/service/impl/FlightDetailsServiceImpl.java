@@ -1,7 +1,6 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
-import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
@@ -9,7 +8,7 @@ import com.gl.planesAndAirfileds.service.FlightDetailsFactoryService;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +44,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
     }
 
     @Override
-    public List<FlightDetails> findBySearchParams(Filter filter, PageRequest pageRequest) {
+    public List<FlightDetails> findBySearchParams(Filter filter, Pageable pageRequest) {
         return flightDetailsRepository.findBySearchParams(filter, pageRequest);
     }
 
@@ -76,20 +75,26 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
     }
 
     @Override
-    @Transactional
-    public void insertNewFlightDetails(FlightDetails flightDetails) {
-        Plane plane = planeService.getBySid(flightDetails.getPlane().getSid());
-        if (plane != null) {
-            List<FlightDetails> latestFlightDetails = flightDetailsRepository
-                    .getLatestFlightDetails(plane.getSid(),true);
-            for (FlightDetails fd : latestFlightDetails) {
-                fd.setActualPosition(false);
-                flightDetailsRepository.save(fd);
-            }
-            flightDetails.setPlane(plane);
-            flightDetails.setActualPosition(true);
-            flightDetailsRepository.save(flightDetails);
-        }
+    @Transactional(readOnly = true)
+    public List<FlightDetails> findLatestFlightDetails() {
+        return flightDetailsRepository.findLatest();
     }
+
+//    @Override
+//    @Transactional
+//    public void insertNewFlightDetails(FlightDetails flightDetails) {
+//        Plane plane = planeService.getBySid(flightDetails.getPlane().getSid());
+//        if (plane != null) {
+//            List<FlightDetails> latestFlightDetails = flightDetailsRepository
+//                    .findLatestFlightDetails(plane.getSid(),true);
+//            for (FlightDetails fd : latestFlightDetails) {
+//                fd.setActualPosition(false);
+//                flightDetailsRepository.save(fd);
+//            }
+//            flightDetails.setPlane(plane);
+//            flightDetails.setActualPosition(true);
+//            flightDetailsRepository.save(flightDetails);
+//        }
+//    }
 
 }

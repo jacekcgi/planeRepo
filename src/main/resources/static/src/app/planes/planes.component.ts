@@ -1,24 +1,33 @@
 import { Component } from '@angular/core';
-import { Column, PagingRequest, } from './table.component'
+import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services'
 import { NotificationService } from 'app/services';
-import { TranslateService } from 'ng2-translate';
+import { ActionsColumnComponent } from './actions.column.component';
 
 @Component({
   selector: 'page-planes',
   templateUrl: './planes.component.html',
 })
 export class PlanesComponent {
-  columns: [Column] = [{ title: "Name", property: "name", sortable: true }, { title: "Registration", property: "registration", sortable: true }, {title: "Description", property: "description"}];
-  data: [{}] = [{ name: "xxx", registration: "234" }, { name: "sss", registration: "2342" }];
-  pagingRequest: PagingRequest = { sortFilterChain: { field: "name", ascending: true }, offset: 0, limit: 25 };
+  columns: [Column] = [
+    { title: "airplane.name", property: "name", sortable: true },
+    { title: "airplane.registration", property: "registration", sortable: true },
+    { title: "airplane.description", property: "description" },
+    { title: "actions", property: "name", cell: ActionsColumnComponent }
+  ];
+  data: [{}];
+  searchRequest: SearchRequest = {
+    pageRequest: { sort: { orders: [{ field: "name", ascending: true }] }, page: 0, size: 25 },
+    filter: { name: "" }
+  };
+  rows: number;
 
   planeForm: FormGroup;
+  filterForm: FormGroup;
 
 
   constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {
-
   }
 
   onSubmit() {
@@ -30,6 +39,7 @@ export class PlanesComponent {
 
   ngOnInit() {
     this.createForm();
+    this.fetchData();
   }
 
   createForm() {
@@ -37,9 +47,27 @@ export class PlanesComponent {
       name: ['', Validators.required],
       registration: ['', Validators.required],
       description: ['']
+    });
+    this.filterForm = this.fb.group({
+      name: ['']
+    });
+  }
+
+  fetchData() {
+    this.planeService.findPlanes(this.searchRequest).then((response) => {
+      this.rows = response.count;
+      this.data = response.entities;
+      this.searchRequest.pageRequest = response.pagingRequest;
     })
-    this.planeService.findPlanes().then((response) => {
-      this.data = response;
-    })
+  }
+
+  onChange(pageRequest: PageRequest) {
+    this.searchRequest.pageRequest = pageRequest;
+    this.fetchData()
+  }
+
+  onFilter(filter: any) {
+    this.searchRequest.filter = filter;
+    this.fetchData();
   }
 }

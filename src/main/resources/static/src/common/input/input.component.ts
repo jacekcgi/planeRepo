@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ErrorMessagesComponent } from 'common/validations';
+import { TranslateService } from 'ng2-translate';
 
 @Component({
     selector: 'ap-input',
@@ -19,13 +20,14 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     @Input() formGroup: FormGroup;
     @Input('value') _value: string = "";
     @Input('formControlName') property: string;
+    @Input() placeholder: string;
 
     onChange: any = () => { };
     onTouched: any = () => { };
 
     control: AbstractControl;
 
-    constructor() { }
+    constructor(private translateService: TranslateService, ) { }
 
     registerOnChange(fn: any) {
         this.onChange = fn;
@@ -57,5 +59,13 @@ export class InputComponent implements ControlValueAccessor, OnInit {
 
     ngOnInit() {
         this.control = this.formGroup.get(this.property)
+    }
+
+    getPlaceholder() {
+        let x = "";
+        if (this.placeholder) {
+            this.translateService.get(this.placeholder).subscribe((value: string) => x = value);
+        }
+        return x;
     }
 }

@@ -3,6 +3,7 @@ package com.gl.planesAndAirfileds.service;
 import com.gl.planesAndAirfileds.domain.AbstractEntity;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import javax.persistence.LockModeType;
 import java.util.Collection;
@@ -27,7 +28,7 @@ public interface AbstractEntityService<T extends AbstractEntity> {
 
     void deleteList(Collection<T> entities);
 
-    List<T> findBySearchParams(Filter filter, PageRequest pageRequest);
+    List<T> findBySearchParams(Filter filter, Pageable pageRequest);
 
     long countBySearchParams(Filter filter);
 
