@@ -33,6 +33,7 @@ CREATE TABLE `flight_details` (
   `velocity` float DEFAULT NULL,
   `plane_id` bigint(20) NOT NULL,
   `is_landed` bit(1) DEFAULT NULL,
+  `actual_position` TINYINT(1) NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (plane_id) REFERENCES plane (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -42,14 +43,14 @@ CREATE INDEX flight_details_incoming_time_index ON flight_details (incoming_time
 CREATE TABLE `airport` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
    sid varchar(32) NOT NULL,
-  `altitude` varchar(255) DEFAULT NULL,
+  `altitude` DOUBLE DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
   `daylight_saving_time` varchar(255) DEFAULT NULL,
   `iata_code` varchar(255) DEFAULT NULL,
   `icao_code` varchar(255) DEFAULT NULL,
-  `latitude` varchar(255) NOT NULL,
-  `longtitude` varchar(255) NOT NULL,
+  `latitude` DOUBLE NOT NULL,
+  `longtitude` DOUBLE NOT NULL,
   `name` varchar(255) NOT NULL,
   `source` varchar(255) DEFAULT NULL,
   `timezone` varchar(255) DEFAULT NULL,
