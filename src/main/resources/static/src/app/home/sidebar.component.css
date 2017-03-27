@@ -108,6 +108,12 @@
     background: none;
 }
 
+#sidebar-wrapper table {
+    background-color: #f8f8f8;
+    color:#292b2c;
+    font-size:12px;
+}
+
 @media(min-width:768px) {
     #wrapper {
         padding-left: 0;

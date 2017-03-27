@@ -111,6 +111,9 @@ export class MapComponent implements AfterViewInit {
             map: this.map,
             planeSid:planeSid,
             planeName:value.plane.name,
+            planeRegistration:value.plane.registration,
+            velocity:value.velocity,
+            averageFuelConsumption:value.averageFuelConsumption
         });
         marker.set('mapComponent', this)
         marker.addListener('click', function() {
@@ -140,8 +143,12 @@ export class MapComponent implements AfterViewInit {
     createFligtDetails (flightDetails:any,marker:any) {
         flightDetails['planeSid']=marker.planeSid;
         flightDetails['planeName']=marker.planeName;
+        flightDetails['planeRegistration']=marker.planeRegistration;
         flightDetails['latitude']=marker.position.lat();
         flightDetails['longitude']=marker.position.lng();
+        flightDetails['velocity']=marker.velocity;
+        flightDetails['averageFuelConsumption']=marker.averageFuelConsumption;
+         flightDetails['course']=marker.icon.rotation;
     }
 
     onMarkerClick(planeSid: any) {

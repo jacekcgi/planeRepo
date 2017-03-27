@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { FlightDetails } from "app/domain";
+import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 
 
 @Component({
@@ -7,15 +8,15 @@ import { FlightDetails } from "app/domain";
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css']
 })
-
 export class SidebarComponent {
-   @Input() toggled: string;
+   @Input() toggled: string;   
    @Input() flightDetails: FlightDetails;
-     @Input() planeName: string;
-   
-    constructor() {
+
+   constructor() {
            this.toggled="toggled"; 
+           
     }
 
+rows:number = 1;
      
 }

@@ -1,15 +1,38 @@
 <div class="container" id="wrapper" [ngClass]="toggled" >
 
     <div id="sidebar-wrapper"  *ngIf="flightDetails">
-        <ul class="sidebar-nav">
-            <li id="hide-toggle" style="right:5px;position:absolute;cursor: pointer;font-weight:bold"></li>
-            <li> {{flightDetails?.planeName}}</li>
-            <li> {{flightDetails?.planeRegistration}}</li>
-            <li> {{flightDetails?.latitude}}</li>
-            <li> {{flightDetails?.longitude}}</li>
-            <li> {{flightDetails?.flightTime}}</li>
-            <li> {{flightDetails?.velocity}}</li>
-            <li> {{flightDetails?.averageFuelConsumption}}</li>
-        </ul>
+       <table class="table table-bordered table-striped table-sm">
+         <tbody>
+             <tr>
+                 <th>{{'airplane.name' | translate}}</th>
+                 <td>{{flightDetails?.planeName}}</td>
+            </tr>
+            <tr>    
+                <th>{{'airplane.registration' | translate}}</th>
+                <td>{{flightDetails?.planeRegistration}}</td>
+            </tr>
+             <tr>    
+                <th>{{'airplane.course' | translate}}</th>
+                <td>{{flightDetails?.course}}</td>
+            </tr>
+             <tr>    
+                <th>{{'airplane.latitude' | translate}}</th>
+                <td>{{flightDetails?.latitude}}</td>
+            </tr>
+             <tr>    
+                <th>{{'airplane.longitude' | translate}}</th>
+                <td>{{flightDetails?.longitude}}</td>
+            </tr>
+             <tr>    
+                <th>{{'airplane.velocityKmH' | translate}}</th>
+                <td>{{flightDetails?.velocity}}</td>
+            </tr>
+             <tr>    
+                <th>{{'airplane.averageFuelConsumptionLKm' | translate}}</th>
+                <td>{{flightDetails?.averageFuelConsumption}}</td>
+            </tr>
+        
+        </tbody>
+    </table>
     </div>
 </div>
