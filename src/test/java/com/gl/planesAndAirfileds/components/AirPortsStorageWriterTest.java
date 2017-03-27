@@ -1,5 +1,6 @@
 package com.gl.planesAndAirfileds.components;
 
+import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.service.AirportsFileParserService;
 import com.gl.planesAndAirfileds.service.AirportsService;
@@ -13,7 +14,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,12 +41,7 @@ public class AirPortsStorageWriterTest {
     @Ignore
     public void ShouldSaveToStorageIfListOfAirportsHaveData() throws Exception {
 
-        Airport airportOne = new Airport();
-        Airport airportTwo = new Airport();
-
-        List<Airport> airportsList = new ArrayList<>();
-        airportsList.add(airportOne);
-        airportsList.add(airportTwo);
+        List<Airport> airportsList = TestDomainObjectFactory.getAirportListWithEmptyAirportObjectsInIt();
 
         when(airportsFileParserService.getListOfAirports())
                 .thenReturn(airportsList);

@@ -48,8 +48,7 @@ public class AirportsFileParserServiceImpl implements AirportsFileParserService 
 
         }
         catch (IOException e) {
-            e.printStackTrace();
-            logger.error(e.getMessage());
+            logger.error("Cannot find file",e);
         }
 
         return Collections.emptyList();
@@ -59,7 +58,7 @@ public class AirportsFileParserServiceImpl implements AirportsFileParserService 
         return lineText.replaceAll("\"", "");
     }
 
-    private Airport createAirportData(ArrayList<String> lineList) {
+    private Airport createAirportData(List<String> lineList) {
 
         Airport airportData = new Airport();
         airportData.setName(lineList.get(1));

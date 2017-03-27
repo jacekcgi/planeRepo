@@ -1,8 +1,10 @@
 package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.MaxDistanceCalculatorService;
+import com.gl.planesAndAirfileds.service.PrimitiveConverterHelperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,8 @@ public class MaxDistanceController {
 
     private FlightDetailsService flightDetailsService;
 
+    private PrimitiveConverterHelperService primitiveConverterHelperService;
+
     @Autowired
     public MaxDistanceController(MaxDistanceCalculatorService maxDistanceCalculatorService,
                                  FlightDetailsService flightDetailsService) {
@@ -23,13 +27,34 @@ public class MaxDistanceController {
         this.flightDetailsService = flightDetailsService;
     }
 
-    @RequestMapping(value = "/planeMaxDistance/{plane_sid}", method = RequestMethod.GET)
+    public PrimitiveConverterHelperService getPrimitiveConverterHelperService() {
+        return primitiveConverterHelperService;
+    }
+
+    @Autowired
+    public void setPrimitiveConverterHelperService(
+            PrimitiveConverterHelperService primitiveConverterHelperService) {
+        this.primitiveConverterHelperService = primitiveConverterHelperService;
+    }
+
+    @RequestMapping(value = Mappings.MAX_DISTANCE_FOR_PLANE, method = RequestMethod.GET)
     public double getPlaneMaxDistance(@PathVariable(value = "plane_sid") String planeSid) {
 
-        FlightDetails flightDetails = flightDetailsService.getLatestFlightDetailsForPlane(planeSid,true);
-        Double reamingFuel = flightDetails.getRemainingFuel();
-        Double averageFuelConsumption = flightDetails.getAverageFuelConsumption();
+        double reamingFuel = 0;
+        double averageFuelConsumption = 0;
+
+        FlightDetails flightDetails = flightDetailsService.getLatestFlightDetailsForPlane(planeSid, true);
+        if (flightDetails != null) {
+
+            reamingFuel = primitiveConverterHelperService
+                    .changeDoubleObjectToPrimitive(flightDetails.getRemainingFuel());
+            averageFuelConsumption = primitiveConverterHelperService
+                    .changeDoubleObjectToPrimitive(flightDetails.getAverageFuelConsumption());
+
+        }
 
         return maxDistanceCalculatorService.calculateMaxDistance(reamingFuel, averageFuelConsumption);
+
     }
+
 }

@@ -1,7 +1,5 @@
 package com.gl.planesAndAirfileds.domain;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Column;
@@ -157,56 +155,6 @@ public class Airport extends AbstractIdentifiableEntity {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (!(o instanceof Airport)) {
-            return false;
-        }
-
-        Airport airport = (Airport) o;
-
-        return new EqualsBuilder()
-                .appendSuper(super.equals(o))
-                .append(getName(), airport.getName())
-                .append(getCity(), airport.getCity())
-                .append(getCountry(), airport.getCountry())
-                .append(getIataCode(), airport.getIataCode())
-                .append(getIcaoCode(), airport.getIcaoCode())
-                .append(getLatitude(), airport.getLatitude())
-                .append(getLongitude(), airport.getLongitude())
-                .append(getAltitude(), airport.getAltitude())
-                .append(getTimezone(), airport.getTimezone())
-                .append(getDaylightSavingTime(), airport.getDaylightSavingTime())
-                .append(getTzDatabaseTimeZone(), airport.getTzDatabaseTimeZone())
-                .append(getType(), airport.getType())
-                .append(getSource(), airport.getSource())
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .appendSuper(super.hashCode())
-                .append(getName())
-                .append(getCity())
-                .append(getCountry())
-                .append(getIataCode())
-                .append(getIcaoCode())
-                .append(getLatitude())
-                .append(getLongitude())
-                .append(getAltitude())
-                .append(getTimezone())
-                .append(getDaylightSavingTime())
-                .append(getTzDatabaseTimeZone())
-                .append(getType())
-                .append(getSource())
-                .toHashCode();
     }
 
     @Override

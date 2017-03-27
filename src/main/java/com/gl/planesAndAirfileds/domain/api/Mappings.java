@@ -34,6 +34,10 @@ public interface Mappings {
 
     String GET_AIRPORT = "/getAirport/{airport_id}";
 
+    //MaxDistanceController
+
+    String MAX_DISTANCE_FOR_PLANE = "/planeMaxDistance/{plane_sid}";
+
     // Languages
 
     String FIND_LANGUAGES = "/laguages";

@@ -2,7 +2,6 @@ package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
-import com.gl.planesAndAirfileds.service.impl.FlightDetailsFactoryServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +26,6 @@ public class FlightDetailsServiceTest {
 
     @MockBean
     private PlaneService planeService;
-
-    @MockBean
-    private FlightDetailsFactoryServiceImpl flightDetailsFactoryServiceImpl;
 
     @Autowired
     private FlightDetailsService flightDetailsService;

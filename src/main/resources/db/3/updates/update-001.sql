@@ -10,7 +10,7 @@ INSERT INTO flight_details (plane_id, course, gps_latitude, gps_longitude, is_ac
 ((SELECT id from plane WHERE registration='luftHanza6'), 30, 52.19, 17, true, NOW(), 600,400,6000,5000,5000,40,false),
 ((SELECT id from plane WHERE registration='luftHanza7'), 230, 50.03, 18.2, true, NOW(), 300,400,6000,5000,6678,32,false);
 
-INSERT INTO `airport` (`altitude`,`city`,`country`,`daylight_saving_time`,`iata_code`,`icao_code`,`latitude`,`longtitude`,`name`,`source`,`timezone`,`type`,`tz_database_time_zone`,`sid`) VALUES
+INSERT INTO `airport` (`sid`,`altitude`,`city`,`country`,`daylight_saving_time`,`iata_code`,`icao_code`,`latitude`,`longtitude`,`name`,`source`,`timezone`,`type`,`tz_database_time_zone`) VALUES
 ('c7621e93945d4c54bcd44040caa9aac9','352','Warsaw','Poland','E','\\N','EPBC','52.26850128173828','20.910999298095703','Babice Airport','OurAirports','1','airport','Europe/Warsaw'),
 ('4a1f6ba296bf46438862a5e0445c215d','489','Gdansk','Poland','E','GDN','EPGD','54.377601623535156','18.46619987487793','Gdańsk Lech Wałęsa Airport','OurAirports','1','airport','Europe/Warsaw'),
 ('8cd54e4122b345d481600a1f6c194706','791','Krakow','Poland','E','KRK','EPKK','50.077701568603516','19.784799575805664','John Paul II International Airport Kraków-Balice Airport','OurAirports','1','airport','Europe/Warsaw'),

@@ -1,6 +1,5 @@
 package com.gl.planesAndAirfileds.service.impl;
 
-import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.MaxDistanceCalculatorService;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +11,10 @@ public class MaxDistanceCalculatorServiceImpl implements MaxDistanceCalculatorSe
 
     private static final int PRECISION_NUMBER = 2;
 
-    private FlightDetailsService flightDetailsService;
-
-    public FlightDetailsService getFlightDetailsService() {
-        return flightDetailsService;
-    }
-
-    public void setFlightDetailsService(FlightDetailsService flightDetailsService) {
-        this.flightDetailsService = flightDetailsService;
-    }
+    public static final double FUEL_RESERVE_FACTOR = 0.9;
 
     @Override
-    public Double calculateMaxDistance(Double fuelRemaining, Double currentFuelConsumption) {
+    public double calculateMaxDistance(double fuelRemaining, double currentFuelConsumption) {
 
         BigDecimal maxDistanceInKm = BigDecimal.ZERO;
         if (currentFuelConsumption != 0) {
@@ -38,6 +29,6 @@ public class MaxDistanceCalculatorServiceImpl implements MaxDistanceCalculatorSe
     }
 
     private BigDecimal takeFuelReserveIntoAccount(BigDecimal maxDistanceInKm) {
-        return maxDistanceInKm.multiply(new BigDecimal(0.9));
+        return maxDistanceInKm.multiply(new BigDecimal(FUEL_RESERVE_FACTOR));
     }
 }
