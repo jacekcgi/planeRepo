@@ -11,6 +11,8 @@ import { LanguageComponent } from 'common/languages'
 
 import { NotificationService } from 'app/services';
 
+import { FormatTimePipe } from 'common/pipe';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -30,7 +32,8 @@ import { NotificationService } from 'app/services';
         FilterToolbar,
         CellComponent,
         DefaultCellComponent,
-        LanguageComponent
+        LanguageComponent,
+        FormatTimePipe
     ],
     entryComponents: [DefaultCellComponent],
     providers: [
@@ -45,7 +48,8 @@ import { NotificationService } from 'app/services';
         FilterToolbar,
         CellComponent,
         DefaultCellComponent,
-        LanguageComponent
+        LanguageComponent,
+        FormatTimePipe
     ]
 })
 export class CommonComponentsModule {

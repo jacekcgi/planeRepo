@@ -13,15 +13,15 @@
             </tr>
              <tr>    
                 <th>{{'airplane.course' | translate}}</th>
-                <td>{{flightDetails?.course}}</td>
+                <td>{{flightDetails?.course | number:'1.0-0'}}&#x00B0;</td>
             </tr>
              <tr>    
                 <th>{{'airplane.latitude' | translate}}</th>
-                <td>{{flightDetails?.latitude}}</td>
+                <td>{{flightDetails?.latitude | number:'1.4-4'}}</td>
             </tr>
              <tr>    
                 <th>{{'airplane.longitude' | translate}}</th>
-                <td>{{flightDetails?.longitude}}</td>
+                <td>{{flightDetails?.longitude | number:'1.4-4'}}</td>
             </tr>
              <tr>    
                 <th>{{'airplane.velocityKmH' | translate}}</th>
@@ -30,6 +30,10 @@
              <tr>    
                 <th>{{'airplane.averageFuelConsumptionLKm' | translate}}</th>
                 <td>{{flightDetails?.averageFuelConsumption}}</td>
+            </tr>
+             <tr>    
+                <th>{{'airplane.flightTime' | translate}}</th>
+                <td>{{flightDetails?.flightTime | formatTime}}</td>
             </tr>
         
         </tbody>

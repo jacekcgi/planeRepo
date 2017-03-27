@@ -9,5 +9,6 @@ export const airplane = {
   longitude:'Longitude',
   velocityKmH:'Velocity (km/h)',
   averageFuelConsumptionLKm:'Fuel consumption (L/km)',
-  course:'Course'
+  course:'Course',
+  flightTime:'Flight time (HH:mm:ss)'
 }

@@ -25,7 +25,6 @@ import { ActionsColumnComponent } from 'app/planes/actions.column.component'
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
 
 
-
 @NgModule({
   imports: [
     NgbModule.forRoot(),
