@@ -1,7 +1,13 @@
-import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
+import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
 import { PlaneService } from "app/services";
-import { Observable } from "rxjs/Observable";
+import { FlightDetailsDto } from "app/domain";
+import { Observable, Subscription } from 'rxjs/Rx';
+
 declare var google: any;
+
+var PLANES_REFRESH_INTERVAL : number = 1000; // 1s
+
+var SERVER_POST_FOR_PLANES_INTERVAL: number = 11; //call every N execution of planes refresh
 
 let $ = require('jquery');
 
@@ -10,9 +16,13 @@ let $ = require('jquery');
     templateUrl: './map.component.html'
 })
 
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('map') mapDiv: any;
+
+    private timer: Observable<number>;
+
+    private sub: Subscription;
 
     private map: any;
 
@@ -34,11 +44,26 @@ export class MapComponent implements AfterViewInit {
     }
 
     constructor(private planeService: PlaneService) {
+        this.timer = Observable.interval(PLANES_REFRESH_INTERVAL);
+    }
 
+    ngOnInit() {
+        this.initMap();
     }
 
     ngAfterViewInit(): void {
-        this.initMap();
+        this.sub = this.timer.subscribe((i) => {
+            if (i % SERVER_POST_FOR_PLANES_INTERVAL == 0) {
+                this.loadAndUpdatePlanes();
+            }
+            else {
+                this.updatePositions()
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     initMap() {
@@ -50,32 +75,32 @@ export class MapComponent implements AfterViewInit {
         this.map = map;
 
         this.loadAndUpdatePlanes();
-        setInterval(() => { this.loadAndUpdatePlanes() }, 5000);
     }
 
     loadAndUpdatePlanes() {
-        this.planeService.findAllPlanesLocation(this.lastUpdate).then((data) => {
-            this.updatePositions(data.updateTime, data.flightDetails)
+        this.planeService.findAllPlanesLocation().then((data: Array<FlightDetailsDto>) => {
+            this.updateData(data);
+            this.updatePositions();
         })
     }
 
-    updatePositions(serverTime: any, data: any) {
-        if (data) {
-            this.lastUpdate = serverTime
-            this.storedLocationData = data;
-        } else {
-            data = this.storedLocationData;
-        }
+    updateData(data: Array<FlightDetailsDto>) {
+        this.storedLocationData = data;
+        this.lastUpdate = new Date();
+    }
+
+    updatePositions() {
+        var data: Array<FlightDetailsDto> = this.storedLocationData;
 
         var tmpMarkers = {};
 
         for (let value of data) {
-            var distance = this.planeService.calculateDistance(serverTime, value.incomingTime, value.velocity);
-            var destPoint = this.planeService.calculateDestinationPoint(value.gpsLatitude, value.gpsLongitude, value.course, distance);
-            var planeSid = value.plane.sid;
-            var latlng = new google.maps.LatLng(destPoint.latitude.toString(), destPoint.longitude.toString());
+            var distance = this.planeService.calculateDistance(this.lastUpdate, value.velocity);
+            var destPoint = this.planeService.calculateDestinationPoint(value, distance);
+            var planeSid = value.flightRouteSid;
+            var latlng = destPoint.latlng;
             this.icon["rotation"] = destPoint.course;
-            
+
             if (this.markers[planeSid]) {
                 var marker = this.markers[planeSid];
                 marker.setPosition(latlng);
@@ -100,7 +125,7 @@ export class MapComponent implements AfterViewInit {
     createMarker(latlng: any, value: any, planeSid: string) {
         var marker = new google.maps.Marker({
             position: latlng,
-            title: value.course.toString(),
+            title: value.course,
             icon: this.icon,
             map: this.map
         });

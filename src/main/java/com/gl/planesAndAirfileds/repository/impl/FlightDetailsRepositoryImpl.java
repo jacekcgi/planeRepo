@@ -4,7 +4,7 @@ import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.FlightRoute;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
@@ -64,9 +64,6 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true));
 
         criteriaQuery.where(where);
-
-        Expression expression = builder.greatest(root.<LocalDateTime>get(FlightDetails.FIELD_CREATED_DATE));
-        criteriaQuery.having(builder.equal(root.get(FlightDetails.FIELD_CREATED_DATE), expression));
 
         //alis change nothing but you know what binds to what
         criteriaQuery.multiselect(root.get(FlightDetails.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LATITUDE),

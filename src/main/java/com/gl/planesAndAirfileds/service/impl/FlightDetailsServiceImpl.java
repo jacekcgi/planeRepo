@@ -1,8 +1,8 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
+import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
-import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
 import com.gl.planesAndAirfileds.service.FlightDetailsFactoryService;

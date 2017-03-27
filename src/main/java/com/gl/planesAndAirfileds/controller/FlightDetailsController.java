@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
-import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class FlightDetailsController {
@@ -32,13 +31,8 @@ public class FlightDetailsController {
      */
     @RequestMapping(value = {Mappings.FIND_CURRENT_POSITIONS, Mappings.GET_CURRENT_POSITION}, method = RequestMethod.GET)
     @ResponseStatus(code = HttpStatus.OK)
-    public FlightDetailsDto getCurrentPositionOfPlane(@PathVariable Map<String, String> pathVariables) {
-
-        List<FlightDetailsDto> flightDetailsDtos = flightDetailsService.findLatestFlightDetails();
-
-//        List<FlightDetails> currentPositionOfOnePlane = flightDetailsService.getLatestFlightDetailsForPlanes(planeSid,false);
-//        return new FlightDetailsDto(TimeUtil.getCurrentTimeInMillisecondsUTC(), currentPositionOfOnePlane);
-        return null;
+    public List<FlightDetailsDto> getCurrentPositionOfPlane() {
+        return flightDetailsService.findLatestFlightDetails();
     }
 
     @RequestMapping(value = Mappings.GET_FLIGHT_DETAILS, method = RequestMethod.GET)

@@ -5,7 +5,7 @@ import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.FlightRoute;
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;

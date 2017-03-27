@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.repository;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
-import com.gl.planesAndAirfileds.dto.FlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
 
 import java.util.List;
 
