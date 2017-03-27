@@ -122,6 +122,7 @@ export class MapComponent implements AfterViewInit {
     loadAirportsOnMap(map: any, data: any) {
            var markers = new Array;
            let i = 0;
+            var z = map.getZoom();
            for(let value of data) {
            var marker = new google.maps.Marker({
             position: new google.maps.LatLng(value.latitude, value.longitude),
@@ -130,13 +131,15 @@ export class MapComponent implements AfterViewInit {
             zoomlvl: value.zoomlvl
               });
               markers[i++] = marker;
+                if ( z >= marker.zoomlvl) { 
+                marker.setMap(map);
+            }
            }
             google.maps.event.addListener(map, 'zoom_changed', function() {
             //  if (map.getBounds().contains(marker.getPosition())) {
             var z = map.getZoom();
             console.log(z);
             for (let mkr of markers) {
-                  console.log(z);
                   if ( z >= mkr.zoomlvl) { 
                 mkr.setMap(map);
             }
