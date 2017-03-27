@@ -1,13 +1,19 @@
 <div class="container">
+
+    <a (click)="showModal()" class="btn btn-primary">Show</a>
+
     <h1>{{ 'airplane.formHeader' | translate}}</h1>
 
     <div>
-        <form [formGroup]="planeForm" (ngSubmit)="onSubmit()">
-            <ap-input formControlName="name" label="airplane.name" [formGroup]="planeForm" size=12></ap-input>
-            <ap-input formControlName="registration" label="airplane.registration" [formGroup]="planeForm" size=12></ap-input>
-            <ap-input formControlName="description" label="airplane.description" [formGroup]="planeForm" size=12></ap-input>
+        <ap-form>
+           <ap-input2 property="name" label="airplane.name" size=12 [validators]="['', 'Validators.required']"></ap-input2>
+            <ap-input2 property="registration" label="airplane.registration" size=12 [validators]="['', 'Validators.required']"></ap-input2>
+            <ap-input2 property="description" label="airplane.description" size=12 [validators]="['']"></ap-input2>
+            <ap-form-input size="12" property="boom">
+                <span>huj</span>
+            </ap-form-input>
             <button type="submit" [disabled]="!planeForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
-        </form>
+        </ap-form>
     </div>
     <hr>
 
@@ -23,5 +29,14 @@
             <ap-pageabletable [columns]="columns" [data]="data" [pageRequest]="searchRequest.pageRequest" [rows]="rows" (onChange)="onChange($event)"></ap-pageabletable>
         </div>
     </div>
+
+    <!--<ap-modal #test uid="test" title="Modal Window">
+        <ap-input2 property="name" label="airplane.name" size=12 [validators]="['', 'Validators.required']"></ap-input2>
+        <ap-input2 property="registration" label="airplane.registration" size=12 [validators]="['', 'Validators.required']"></ap-input2>
+        <ap-input2 property="description" label="airplane.description" size=12 [validators]="['']"></ap-input2>
+        <ap-form-input size="12" property="boom">
+            <span>huj</span>
+        </ap-form-input>
+    </ap-modal>-->
 
 </div>

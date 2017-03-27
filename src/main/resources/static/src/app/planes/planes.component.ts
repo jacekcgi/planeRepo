@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services'
 import { NotificationService } from 'app/services';
 import { ActionsColumnComponent } from './actions.column.component';
+import {Modal} from 'common/modal/modal.window.component';
 
 @Component({
   selector: 'page-planes',
@@ -26,6 +27,12 @@ export class PlanesComponent {
   planeForm: FormGroup;
   filterForm: FormGroup;
 
+  @ViewChild('test') modal:Modal;
+
+  showModal(){
+    this.modal.show();
+    //$('#test').modal('show');
+  }
 
   constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {
   }
