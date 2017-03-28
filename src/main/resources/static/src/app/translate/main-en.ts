@@ -1,4 +1,6 @@
-import { airplane } from './en_EN/airplane';
+import { airplane } from './en_EN/airplane'
+import { airport } from './en_EN/airport'
+import { flightDetails } from './en_EN/flightDetails'
 import { validations } from './en_EN/validations'
 
 export const LANG_EN_NAME = 'en_EN';
@@ -7,6 +9,8 @@ export const LANG_EN_TRANS = {
     'hello': 'Smart {{value}}',
     airplane,
     validations,
+    airport,
+    flightDetails,
 
     // main keys
     saveButton: 'Save',

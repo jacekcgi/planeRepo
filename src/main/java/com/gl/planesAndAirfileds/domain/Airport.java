@@ -9,6 +9,16 @@ import javax.validation.constraints.NotNull;
 @Table(name = "airport")
 public class Airport extends AbstractIdentifiableEntity {
 
+    public static final String FIELD_NAME = "name";
+
+    public static final String FIELD_CITY = "city";
+
+    public static final String FIELD_COUNTRY = "country";
+
+    public static final String FIELD_IATA_CODE = "iataCode";
+
+    public static final String FIELD_ICAO_CODE = "icaoCode";
+
     @NotNull
     @Column(name = "name")
     private String name;

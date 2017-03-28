@@ -63,3 +63,21 @@ html{
 .form-group .invalid {
   border-color: red !important
 }
+
+#sidebar-wrapper .form-control {
+      font-size: 12px;
+      margin: 3px 0;
+      padding: 4px;
+}
+
+#sidebar-wrapper .card-block {
+       padding:0;
+}
+
+#sidebar-wrapper .btn-sm {
+       font-size:12px;
+}
+
+#sidebar-wrapper .table td, #sidebar-wrapper  .table th  {
+       padding:0;
+}

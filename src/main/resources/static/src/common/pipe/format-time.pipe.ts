@@ -8,7 +8,6 @@ export class FormatTimePipe implements PipeTransform {
     transform(value: number): string {
 
         if(value) {
-            console.log(value);
             let totalSeconds:number = value / 1000;
             let totalMinutes:number = totalSeconds / 60;
             let totalHours:number = totalMinutes / 60;

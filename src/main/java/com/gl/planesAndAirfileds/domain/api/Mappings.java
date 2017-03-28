@@ -30,7 +30,7 @@ public interface Mappings {
 
     //Airports controller
 
-    String FIND_AIRPORTS = "/findAirports";
+    String FIND_AIRPORTS = "/find/airports";
 
     String GET_AIRPORT = "/getAirport/{airport_id}";
 

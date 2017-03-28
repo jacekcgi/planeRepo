@@ -1,7 +1,11 @@
 <div class="container" id="wrapper" [ngClass]="toggled" >
 
-    <div id="sidebar-wrapper"  *ngIf="flightDetails">
-       <table class="table table-bordered table-striped table-sm">
+    <div id="sidebar-wrapper"  >
+        <div class="card">
+          <div class="card-header">
+            <strong>{{'flightDetails.title' | translate}}</strong>
+        </div>
+       <table class="table table-bordered table-striped table-sm" *ngIf="flightDetails">
          <tbody>
              <tr>
                  <th>{{'airplane.name' | translate}}</th>
@@ -12,31 +16,44 @@
                 <td>{{flightDetails?.planeRegistration}}</td>
             </tr>
              <tr>    
-                <th>{{'airplane.course' | translate}}</th>
+                <th>{{'flightDetails.course' | translate}}</th>
                 <td>{{flightDetails?.course | number:'1.0-0'}}&#x00B0;</td>
             </tr>
              <tr>    
-                <th>{{'airplane.latitude' | translate}}</th>
+                <th>{{'flightDetails.latitude' | translate}}</th>
                 <td>{{flightDetails?.latitude | number:'1.4-4'}}</td>
             </tr>
              <tr>    
-                <th>{{'airplane.longitude' | translate}}</th>
+                <th>{{'flightDetails.longitude' | translate}}</th>
                 <td>{{flightDetails?.longitude | number:'1.4-4'}}</td>
             </tr>
              <tr>    
-                <th>{{'airplane.velocityKmH' | translate}}</th>
+                <th>{{'flightDetails.velocityKmH' | translate}}</th>
                 <td>{{flightDetails?.velocity}}</td>
             </tr>
              <tr>    
-                <th>{{'airplane.averageFuelConsumptionLKm' | translate}}</th>
+                <th>{{'flightDetails.averageFuelConsumptionLKm' | translate}}</th>
                 <td>{{flightDetails?.averageFuelConsumption}}</td>
             </tr>
              <tr>    
-                <th>{{'airplane.flightTime' | translate}}</th>
+                <th>{{'flightDetails.flightTime' | translate}}</th>
                 <td>{{flightDetails?.flightTime | formatTime}}</td>
             </tr>
         
         </tbody>
     </table>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <strong>{{'airport.title' | translate}}</strong>
+        </div>
+        <div>
+           <ap-filtertoolbar [formGroup]="filterForm" (onFilter)="onFilter($event)">
+                <ap-input formControlName="name" [formGroup]="filterForm" placeholder="airport.name" class="test" size=2></ap-input>
+                <ap-input formControlName="city" [formGroup]="filterForm" placeholder="airport.city" size=2></ap-input>
+                <ap-input formControlName="country" [formGroup]="filterForm" placeholder="airport.country" size=2></ap-input>
+           </ap-filtertoolbar>
+         <ap-pageabletable [columns]="columns" [data]="data" [pageRequest]="searchRequest.pageRequest" [rows]="rows" (onChange)="onChange($event)"></ap-pageabletable>
+        </div>
     </div>
 </div>
