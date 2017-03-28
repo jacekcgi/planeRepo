@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -55,14 +56,18 @@ public class PlanesController extends AbstractController
    @ResponseStatus(value = HttpStatus.OK)
    public Plane save(@RequestBody @Validated(Default.class) Plane plane)
    {
-      boolean newPlane = plane.getSid() == null;
-      Plane savedPlane = planeService.save(plane);
-      if (newPlane)
+      if (StringUtils.isEmpty(plane.getSid()))
       {
-         restTemplate.postForEntity(simulatorPlaneAddUrl, savedPlane, Plane.class);
+         boolean newPlane = plane.getSid() == null;
+         Plane savedPlane = planeService.save(plane);
+         if (newPlane)
+         {
+            restTemplate.postForEntity(simulatorPlaneAddUrl, savedPlane, Plane.class);
+         }
+         return savedPlane;
+      } else {
+         return planeService.update(plane);
       }
-      return savedPlane;
-
    }
 
    @RequestMapping(value = Mappings.FIND_PLANE_SIDS)
@@ -95,22 +100,13 @@ public class PlanesController extends AbstractController
    public SearchResult<Plane> findPlanes(@RequestBody SearchRequest<PlaneFilter> searchRequest)
    {
       PlaneFilter planeFilter = searchRequest.getFilter();
+      PagingRequest pagingRequest = searchRequest.getPageRequest();
+      return findBySearchParams(planeFilter, pagingRequest, planeService);
+   }
 
-      long count = planeService.countBySearchParams(planeFilter);
-      List<Plane> planes = new ArrayList<Plane>();
-      if (count > 0)
-      {
-         PagingRequest pageRequest = searchRequest.getPageRequest();
-         int page = pageRequest.getPage();
-         int size = pageRequest.getSize();
-         int pages = (int) Math.ceil((double) count / (double) size);
-         if (page >= pages)
-         {
-            pageRequest.setPage(pages - 1);
-         }
-
-         planes = planeService.findBySearchParams(searchRequest.getFilter(), pageRequest.toPageRequest());
-      }
-      return new SearchResult<>(planes, count, searchRequest.getPageRequest());
+   @RequestMapping(value = Mappings.GET_PLANE, method = RequestMethod.GET)
+   @ResponseStatus(value = HttpStatus.OK)
+   public Plane getPlane(@PathVariable(value = "sid") String sid) {
+      return planeService.getBySid(sid);
    }
 }

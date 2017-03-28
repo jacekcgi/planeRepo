@@ -7,6 +7,8 @@ public interface Mappings {
     //PlanesController
     String CREATE_PLANE = "/plane";
 
+    String GET_PLANE = "/get/plane/{sid}";
+
     String FIND_PLANES = "/find/planes";
 
     String FIND_PLANE_SIDS = "/planeSidList";

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services'
@@ -24,7 +24,6 @@ export class PlanesComponent {
   };
   rows: number;
 
-  planeForm: FormGroup;
   filterForm: FormGroup;
 
   @ViewChild('test') modal:Modal;
@@ -34,15 +33,7 @@ export class PlanesComponent {
     //$('#test').modal('show');
   }
 
-  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {
-  }
-
-  onSubmit() {
-    this.planeService.save(this.planeForm, this.planeForm.value).then((response) => {
-      this.ns.success('airplane.successCreated');
-      this.planeForm.reset();
-    });
-  }
+  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {  }
 
   ngOnInit() {
     this.createForm();
@@ -50,11 +41,6 @@ export class PlanesComponent {
   }
 
   createForm() {
-    this.planeForm = this.fb.group({
-      name: ['', Validators.required],
-      registration: ['', Validators.required],
-      description: ['']
-    });
     this.filterForm = this.fb.group({
       name: ['']
     });

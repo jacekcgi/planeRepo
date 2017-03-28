@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.Plane;
+import com.gl.planesAndAirfileds.domain.exceptions.DataNotFoundException;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractIdentifiableEntityRepository;
 import com.gl.planesAndAirfileds.repository.PlaneRepository;
@@ -11,11 +12,23 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service("planeService")
 public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plane> implements PlaneService {
     private PlaneRepository planeRepository;
+
+    @Override
+    protected String[] getUpdateIgnoreFields()
+    {
+        return new String[] {
+                Plane.FIELD_ID,
+                Plane.FIELD_SID,
+                Plane.FIELD_CREATE_DATE
+        };
+    }
 
     @Autowired
     public PlaneServiceImpl(PlaneRepository planeRepository) {
