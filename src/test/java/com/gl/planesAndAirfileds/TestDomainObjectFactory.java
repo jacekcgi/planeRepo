@@ -43,6 +43,8 @@ public class TestDomainObjectFactory {
         flightDetails.setCreatedDate(LocalDateTime.now());
         flightDetails.setDistanceTraveled(RANDOM.nextDouble());
         flightDetails.setActualPosition(false);
+        flightDetails.setRemainingFuel(RANDOM.nextDouble());
+        flightDetails.setAverageFuelConsumption(RANDOM.nextDouble());
         return flightDetails;
     }
 
@@ -74,6 +76,8 @@ public class TestDomainObjectFactory {
         flightRoute.setDestination(destinationAirport);
         flightRoute.setIncomingDate(LocalDateTime.now());
         flightRoute.setStartDate(LocalDateTime.now());
+        flightRoute.setFlightPhase(FlightPhase.READY);
+        flightRoute.setFlightDistance(0);
         return flightRoute;
     }
 

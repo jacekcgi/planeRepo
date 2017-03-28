@@ -3,9 +3,8 @@ package com.gl.planesAndAirfileds.controller;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.simulator.PostFlightDetailsDto;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,6 @@ import java.util.List;
 
 @RestController
 public class FlightDetailsController {
-
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private FlightDetailsService flightDetailsService;
 
@@ -40,9 +37,9 @@ public class FlightDetailsController {
         return flightDetailsService.getLatestFlightDetailsForPlane(planeSid,true);
     }
 
-//    @RequestMapping(value = Mappings.POST_FLIGHT_DETAILS, method = RequestMethod.POST)
-//    public ResponseEntity<FlightDetails> gatherFlightDetails(@RequestBody FlightDetails flightDetails) {
-//        flightDetailsService.insertNewFlightDetails(flightDetails);
-//        return new ResponseEntity<FlightDetails>(HttpStatus.OK);
-//    }
+    @RequestMapping(value = Mappings.POST_FLIGHT_DETAILS, method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    public void gatherFlightDetails(@RequestBody List<PostFlightDetailsDto> postFlightDetailsDtos) {
+        flightDetailsService.insertNewFlightDetails(postFlightDetailsDtos);
+    }
 }

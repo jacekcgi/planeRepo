@@ -6,7 +6,13 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "flight_details")
+@NamedQueries({
+        @NamedQuery(name = FlightDetails.UPDATE_ACTUAL_POSITION,
+                query = "update FlightDetails set actualPosition=false where flightRoute.id in (:ids)")
+})
 public class FlightDetails extends AbstractEntity {
+
+    public static final String UPDATE_ACTUAL_POSITION = "flight.details.update.actual.position";
 
     public static final String FIELD_ACTUAL_POSITION = "actualPosition";
 
@@ -24,6 +30,8 @@ public class FlightDetails extends AbstractEntity {
 
     public static final String FIELD_VELOCITY = "velocity";
 
+    public static final String FIELD_DISTANCE_TRAVELED = "distanceTraveled";
+
     @Column(name = "gps_latitude", nullable = false)
     @NotNull
     private double gpsLatitude;
@@ -34,17 +42,19 @@ public class FlightDetails extends AbstractEntity {
 
     @Column(name = "velocity", nullable = false)
     @NotNull
-    private float velocity;
+    private double velocity;
 
-    @Column(name = "remaining_fuel")
-    private Double remainingFuel;
+    @Column(name = "remaining_fuel", nullable = false)
+    @NotNull
+    private double remainingFuel;
 
     @Column(name = "distance_traveled", nullable = false)
     @NotNull
     private double distanceTraveled;
 
-    @Column(name = "average_fuel_consumption")
-    private Double averageFuelConsumption;
+    @Column(name = "average_fuel_consumption", nullable = false)
+    @NotNull
+    private double averageFuelConsumption;
 
     @JoinColumn(name = "flight_route_id", nullable = false)
     @ManyToOne(optional = false)
@@ -74,19 +84,19 @@ public class FlightDetails extends AbstractEntity {
         this.gpsLongitude = gpsLongitude;
     }
 
-    public float getVelocity() {
+    public double getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(float velocity) {
+    public void setVelocity(double velocity) {
         this.velocity = velocity;
     }
 
-    public Double getRemainingFuel() {
+    public double getRemainingFuel() {
         return remainingFuel;
     }
 
-    public void setRemainingFuel(Double remainingFuel) {
+    public void setRemainingFuel(double remainingFuel) {
         this.remainingFuel = remainingFuel;
     }
 
@@ -98,11 +108,11 @@ public class FlightDetails extends AbstractEntity {
         this.distanceTraveled = distanceTraveled;
     }
 
-    public Double getAverageFuelConsumption() {
+    public double getAverageFuelConsumption() {
         return averageFuelConsumption;
     }
 
-    public void setAverageFuelConsumption(Double averageFuelConsumption) {
+    public void setAverageFuelConsumption(double averageFuelConsumption) {
         this.averageFuelConsumption = averageFuelConsumption;
     }
 

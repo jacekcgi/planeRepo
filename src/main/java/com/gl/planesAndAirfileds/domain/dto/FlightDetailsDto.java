@@ -17,14 +17,21 @@ public class FlightDetailsDto implements Serializable {
 
     public static final String FIELD_VELOCITY = "velocity";
 
+    public static final String FIELD_DISTANCE_TRAVELED = "distanceTraveled";
+
+    public static final String FIELD_FLIGHT_DISTANCE = "flightDistance";
+
     public static final String FIELD_FLIGHT_ROUTE_SID = "flightRouteSid";
 
-    public FlightDetailsDto(double currentLatitude, double currentLongitude, double destinationLatitude,
-                            double destinationLongitude, float velocity, String flightRouteSid) {
+    public FlightDetailsDto(double currentLatitude, double currentLongitude,
+                            double destinationLatitude, double destinationLongitude,
+                            double velocity, double distanceTraveled, double flightDistance, String flightRouteSid) {
         this.currentLatitude = currentLatitude;
         this.currentLongitude = currentLongitude;
         this.destinationLatitude = destinationLatitude;
         this.destinationLongitude = destinationLongitude;
+        this.distanceTraveled = distanceTraveled;
+        this.flightDistance = flightDistance;
         this.velocity = velocity;
         this.flightRouteSid = flightRouteSid;
     }
@@ -37,9 +44,29 @@ public class FlightDetailsDto implements Serializable {
 
     private double destinationLongitude;
 
-    private float velocity;
+    private double velocity;
 
     private String flightRouteSid;
+
+    private double flightDistance;
+
+    private double distanceTraveled;
+
+    public double getFlightDistance() {
+        return flightDistance;
+    }
+
+    public void setFlightDistance(double flightDistance) {
+        this.flightDistance = flightDistance;
+    }
+
+    public double getDistanceTraveled() {
+        return distanceTraveled;
+    }
+
+    public void setDistanceTraveled(double distanceTraveled) {
+        this.distanceTraveled = distanceTraveled;
+    }
 
     public double getCurrentLatitude() {
         return currentLatitude;
@@ -73,11 +100,11 @@ public class FlightDetailsDto implements Serializable {
         this.destinationLongitude = destinationLongitude;
     }
 
-    public float getVelocity() {
+    public double getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(float velocity) {
+    public void setVelocity(double velocity) {
         this.velocity = velocity;
     }
 

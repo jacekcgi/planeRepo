@@ -2,6 +2,8 @@ package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.simulator.GetFlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.simulator.PostFlightDetailsDto;
 
 import java.util.List;
 
@@ -15,4 +17,7 @@ public interface FlightDetailsService extends AbstractEntityService<FlightDetail
 
     List<FlightDetailsDto> findLatestFlightDetails();
 
+    void insertNewFlightDetails(List<PostFlightDetailsDto> flightDetails);
+
+    List<GetFlightDetailsDto> findLatestForSimulator();
 }
