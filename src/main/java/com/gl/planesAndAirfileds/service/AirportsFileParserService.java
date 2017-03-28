@@ -23,6 +23,8 @@ public class AirportsFileParserService {
 
     public static final int ELEMENTS_NUMBER_IN_LIST = 14;
 
+    private  static final int DEFAULT_ZOOMLVL = 8;
+
     private static final Logger logger = LoggerFactory.getLogger(AirPortsStorageWriter.class);
 
     @Value("${airport.file.list}")
@@ -73,7 +75,7 @@ public class AirportsFileParserService {
         airportData.setTzDatabaseTimeZone(lineList.get(11));
         airportData.setType(lineList.get(12));
         airportData.setSource(lineList.get(13));
-        airportData.setZoomlvl(8);
+        airportData.setZoomlvl(DEFAULT_ZOOMLVL);
 
         return airportData;
     }

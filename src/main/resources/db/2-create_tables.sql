@@ -42,6 +42,7 @@ CREATE INDEX flight_details_incoming_time_index ON flight_details (incoming_time
 CREATE TABLE `airport` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
    sid varchar(32) NOT NULL,
+  `zoomlvl` int(2) NOT NULL DEFAULT '8',
   `altitude` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,

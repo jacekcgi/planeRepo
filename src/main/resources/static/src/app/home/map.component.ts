@@ -126,17 +126,16 @@ export class MapComponent implements AfterViewInit {
            for(let value of data) {
            var marker = new google.maps.Marker({
             position: new google.maps.LatLng(value.latitude, value.longitude),
-            // animation: google.maps.Animation.DROP,
             map: null,
-            zoomlvl: value.zoomlvl
-              });
+            zoomlvl: value.zoomlvl,
+            title: value.name
+            });
               markers[i++] = marker;
                 if ( z >= marker.zoomlvl) { 
                 marker.setMap(map);
             }
            }
             google.maps.event.addListener(map, 'zoom_changed', function() {
-            //  if (map.getBounds().contains(marker.getPosition())) {
             var z = map.getZoom();
             console.log(z);
             for (let mkr of markers) {
@@ -144,28 +143,22 @@ export class MapComponent implements AfterViewInit {
                 mkr.setMap(map);
             }
             else if (!map.getBounds().contains(marker.getPosition()) || z < mkr.zoomlvl){
-                // mkr.setAnimation(google.maps.Animation.DROP);
+               
                 mkr.setMap(null);
             } 
             }
-        //  }
-                });
-
-                 google.maps.event.addListener(map, 'dragend', function() {
-            //  if (map.getBounds().contains(marker.getPosition())) {
+            });
+            google.maps.event.addListener(map, 'dragend', function() {
             var z = map.getZoom();
-            
             for (let mkr of markers) {
-         if (map.getBounds().contains(mkr.getPosition())&& z>=mkr.zoomlvl ){
-                mkr.setAnimation(google.maps.Animation.DROP);
+            if (map.getBounds().contains(mkr.getPosition())&& z>=mkr.zoomlvl ){
                 mkr.setMap(map);
             } 
             else{
                 mkr.setMap(null);
             }
             }
-        //  }
-                });
+            });
     }
 
     loadAirports(map: any) {
