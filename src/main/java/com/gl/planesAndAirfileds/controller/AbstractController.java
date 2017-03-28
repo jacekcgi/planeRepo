@@ -4,6 +4,7 @@ import com.gl.planesAndAirfileds.domain.AbstractEntity;
 import com.gl.planesAndAirfileds.domain.dto.SearchResult;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.domain.filter.PagingRequest;
+import com.gl.planesAndAirfileds.domain.filter.SearchRequest;
 import com.gl.planesAndAirfileds.service.AbstractEntityService;
 import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
@@ -34,6 +35,11 @@ public abstract class AbstractController
       List<T> find(Filter filter, PagingRequest pagingRequest);
    }
 
+    protected <T extends AbstractEntity> SearchResult<T> findBySearchParams(SearchRequest searchRequest,
+                                                                            final AbstractEntityService<T> service){
+        return findBySearchParams(searchRequest.getFilter(), searchRequest.getPageRequest(), service);
+    }
+
    protected <T extends AbstractEntity> SearchResult<T> findBySearchParams(Filter filter,
                                                                            PagingRequest pagingRequest,
                                                                            final AbstractEntityService<T> service)
@@ -53,6 +59,11 @@ public abstract class AbstractController
          }
       });
    }
+
+    protected <T extends Serializable> SearchResult<T> findBySearchParams(SearchRequest searchRequest,
+                                                                          ResultCallback<T> resultCallback){
+       return findBySearchParams(searchRequest.getFilter(), searchRequest.getPageRequest(), resultCallback);
+    }
 
    protected <T extends Serializable> SearchResult<T> findBySearchParams(Filter filter, PagingRequest pagingRequest,
                                                                          ResultCallback<T> resultCallback)

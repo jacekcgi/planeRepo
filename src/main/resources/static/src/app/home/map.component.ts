@@ -7,7 +7,7 @@ declare var google: any;
 
 var PLANES_REFRESH_INTERVAL : number = 1000; // 1s
 
-var SERVER_POST_FOR_PLANES_INTERVAL: number = 11; //call every N execution of planes refresh
+var SERVER_POST_FOR_PLANES_INTERVAL: number = 20; //call every N execution of planes refresh
 
 let $ = require('jquery');
 

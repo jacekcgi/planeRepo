@@ -39,4 +39,8 @@ public interface Mappings {
     // Languages
 
     String FIND_LANGUAGES = "/laguages";
+
+    //flight routes
+
+    String FIND_FLIGHT_ROUTES = "/find/flightRoutes";
 }

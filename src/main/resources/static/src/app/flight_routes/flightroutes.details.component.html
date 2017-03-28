@@ -1,0 +1,11 @@
+<div class="container">
+    <!--<h1>{{ 'airplane.formHeader' | translate}}</h1>-->
+
+    <div>
+        <form [formGroup]="flightRouteForm" (ngSubmit)="onSubmit()">
+            <input  formControlName="sid" [value]="sid">
+
+        </form>
+    </div>
+
+</div>
