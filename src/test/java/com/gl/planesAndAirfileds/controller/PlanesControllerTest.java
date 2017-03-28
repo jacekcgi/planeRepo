@@ -27,7 +27,6 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -37,6 +36,7 @@ public class PlanesControllerTest {
 
     @MockBean
     WebDataBinder binder;
+
     @MockBean
     private PlaneService planeService;
 
@@ -85,7 +85,6 @@ public class PlanesControllerTest {
         Gson gson = builder.create();
         gson.toJson(searchRequest);
 
-        //given(this.planeService.getAllPlanes()).willReturn(planes);
         this.mvc.perform(post(Mappings.FIND_PLANES).contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).content(gson.toJson(searchRequest)))
                 .andExpect(status().isOk())
