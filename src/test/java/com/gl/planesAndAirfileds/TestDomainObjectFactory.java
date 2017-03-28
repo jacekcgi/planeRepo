@@ -60,5 +60,4 @@ public class TestDomainObjectFactory {
         return getNestedEntity(null);
     }
 
-
 }
