@@ -1,5 +1,9 @@
 BEGIN;
 
+SET SQL_SAFE_UPDATES = 0;
+
+SET foreign_key_checks = 0;
+
 DELETE FROM `plane`;
 
 ALTER table plane modify create_date timestamp not null;
@@ -7,7 +11,6 @@ ALTER table plane modify update_date timestamp not null;
 
 delete from flight_details;
 
-SET foreign_key_checks = 0;
 drop table if exists flight_route;
 CREATE TABLE `flight_route` (
   id bigint(20) NOT NULL AUTO_INCREMENT,
