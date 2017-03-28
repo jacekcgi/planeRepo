@@ -83,9 +83,7 @@ public class PlanesControllerTest {
 
         GsonBuilder builder = new GsonBuilder();
         Gson gson = builder.create();
-        gson.toJson(searchRequest);
 
-        //given(this.planeService.getAllPlanes()).willReturn(planes);
         this.mvc.perform(post(Mappings.FIND_PLANES).contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON).content(gson.toJson(searchRequest)))
                 .andExpect(status().isOk())
