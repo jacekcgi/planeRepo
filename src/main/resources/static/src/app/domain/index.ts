@@ -11,4 +11,6 @@ export interface FlightDetailsDto {
     velocity: number;
 
     flightRouteSid: string;
+
+    timeElapsed: number; //in ms
 }

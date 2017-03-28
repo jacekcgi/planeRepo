@@ -7,7 +7,7 @@ declare var google: any;
 
 var PLANES_REFRESH_INTERVAL : number = 1000; // 1s
 
-var SERVER_POST_FOR_PLANES_INTERVAL: number = 20; //call every N execution of planes refresh
+var SERVER_POST_FOR_PLANES_INTERVAL: number = 31; //call every N execution of planes refresh
 
 let $ = require('jquery');
 
@@ -91,11 +91,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     updatePositions() {
         var data: Array<FlightDetailsDto> = this.storedLocationData;
-
         var tmpMarkers = {};
 
         for (let value of data) {
-            var distance = this.planeService.calculateDistance(this.lastUpdate, value.velocity);
+            var distance = this.planeService.calculateDistance(this.lastUpdate, value.velocity, value.timeElapsed);
             var destPoint = this.planeService.calculateDestinationPoint(value, distance);
             var planeSid = value.flightRouteSid;
             var latlng = destPoint.latlng;

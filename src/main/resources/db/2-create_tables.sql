@@ -28,6 +28,7 @@ CREATE TABLE `flight_route` (
   start_date timestamp not null,
   incoming_date timestamp not null,
   PRIMARY KEY (`id`),
+  UNIQUE KEY UK_flight_route_sid (sid),
   FOREIGN KEY (source_id)
         REFERENCES airport(id)
         ON DELETE no action,

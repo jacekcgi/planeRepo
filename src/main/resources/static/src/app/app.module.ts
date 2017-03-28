@@ -26,6 +26,7 @@ import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
 
+ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
       useClass: CustomLoader
     }),
     SimpleNotificationsModule.forRoot(),
-    CommonComponentsModule
+    CommonComponentsModule,
+    Ng2AutoCompleteModule
   ],
   declarations: [
     AppComponent,

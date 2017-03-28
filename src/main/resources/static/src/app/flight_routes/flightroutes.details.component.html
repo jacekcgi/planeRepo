@@ -3,8 +3,9 @@
 
     <div>
         <form [formGroup]="flightRouteForm" (ngSubmit)="onSubmit()">
-            <input  formControlName="sid" [value]="sid">
-
+            <input type="hidden" formControlName="sid" [value]="sid">
+            <input ng2-auto-complete formControlName="continent" [source]="getData.bind(this)" [list-formatter]="autocompleListFormatter" 
+             value-property-name="sid" display-property-name="name" placeholder="Contients" class="form-control" [min-chars]="3">
         </form>
     </div>
 

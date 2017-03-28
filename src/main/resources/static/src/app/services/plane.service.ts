@@ -6,6 +6,8 @@ import { FlightDetailsDto } from "app/domain";
 
 declare var google: any;
 
+const MILISECONDS_IN_ONE_HOUR = 3600000;
+
 @Injectable()
 export class PlaneService {
     constructor( @Inject(ActionService) private actions: ActionService) {
@@ -31,8 +33,8 @@ export class PlaneService {
         return this.actions.postForm("/plane", data, form);
     }
 
-    calculateDistance(lastUpdate: Date, velocity: number) {
-        var elapsedTime = lastUpdate ? (new Date().getTime() - lastUpdate.getTime()) / 3600000 : 0; // in hours
+    calculateDistance(lastUpdate: Date, velocity: number, timeElapsed: number) {
+        var elapsedTime = ((lastUpdate ? (new Date().getTime() - lastUpdate.getTime()) : 0) + timeElapsed) / MILISECONDS_IN_ONE_HOUR; // in hours
         return velocity * elapsedTime * 1000; //im meters
     }
 

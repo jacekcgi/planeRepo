@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.domain.dto;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * Created by krzysztof.gonia on 3/17/2017.
@@ -23,9 +24,19 @@ public class FlightDetailsDto implements Serializable {
 
     public static final String FIELD_FLIGHT_ROUTE_SID = "flightRouteSid";
 
+    public static final String FIELD_CREATED_DATE = "created";
+
     public FlightDetailsDto(double currentLatitude, double currentLongitude,
                             double destinationLatitude, double destinationLongitude,
                             double velocity, double distanceTraveled, double flightDistance, String flightRouteSid) {
+        this(currentLatitude, currentLongitude, destinationLatitude, destinationLongitude, velocity, distanceTraveled,
+                flightDistance, flightRouteSid, null);
+    }
+
+    public FlightDetailsDto(double currentLatitude, double currentLongitude,
+                            double destinationLatitude, double destinationLongitude,
+                            double velocity, double distanceTraveled, double flightDistance, String flightRouteSid,
+                            LocalDateTime created) {
         this.currentLatitude = currentLatitude;
         this.currentLongitude = currentLongitude;
         this.destinationLatitude = destinationLatitude;
@@ -34,6 +45,7 @@ public class FlightDetailsDto implements Serializable {
         this.flightDistance = flightDistance;
         this.velocity = velocity;
         this.flightRouteSid = flightRouteSid;
+        this.created = created;
     }
 
     private double currentLatitude;
@@ -51,6 +63,11 @@ public class FlightDetailsDto implements Serializable {
     private double flightDistance;
 
     private double distanceTraveled;
+
+    //time elapsed from creation and call for data in miliseconds
+    private double timeElapsed;
+
+    private LocalDateTime created;
 
     public double getFlightDistance() {
         return flightDistance;
@@ -112,7 +129,23 @@ public class FlightDetailsDto implements Serializable {
         return flightRouteSid;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
     public void setFlightRouteSid(String flightRouteSid) {
         this.flightRouteSid = flightRouteSid;
+    }
+
+    public double getTimeElapsed() {
+        return timeElapsed;
+    }
+
+    public void setTimeElapsed(double timeElapsed) {
+        this.timeElapsed = timeElapsed;
     }
 }

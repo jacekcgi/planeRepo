@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -95,7 +96,13 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
     @Override
     @Transactional(readOnly = true)
     public List<FlightDetailsDto> findLatestFlightDetails() {
-        return flightDetailsRepository.findLatest();
+        List<FlightDetailsDto> flightDetailsDtos = flightDetailsRepository.findLatest();
+        LocalDateTime now = LocalDateTime.now();
+        flightDetailsDtos.forEach(flightDetailsDto ->
+        {
+            flightDetailsDto.setTimeElapsed(ChronoUnit.MILLIS.between(flightDetailsDto.getCreated(), now));
+        });
+        return flightDetailsDtos;
     }
 
     @Override

@@ -72,7 +72,8 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
                 root.get(FlightDetails.FIELD_VELOCITY).alias(FlightDetailsDto.FIELD_VELOCITY),
                 root.get(FlightDetails.FIELD_DISTANCE_TRAVELED),
                 flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_DISTANCE),
-                flightRouteRoot.get(FlightRoute.FIELD_SID).alias(FlightDetailsDto.FIELD_FLIGHT_ROUTE_SID)
+                flightRouteRoot.get(FlightRoute.FIELD_SID).alias(FlightDetailsDto.FIELD_FLIGHT_ROUTE_SID),
+                root.get(FlightDetails.FIELD_CREATED_DATE).alias(FlightDetailsDto.FIELD_CREATED_DATE)
         );
         return getEntityManager().createQuery(criteriaQuery).getResultList();
     }
