@@ -1,8 +1,8 @@
 package com.gl.planesAndAirfileds.components;
 
 import com.gl.planesAndAirfileds.domain.Airport;
-import com.gl.planesAndAirfileds.service.AirportsService;
 import com.gl.planesAndAirfileds.service.AirportsFileParserService;
+import com.gl.planesAndAirfileds.service.AirportsService;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +41,7 @@ public class AirPortsStorageWriterTest {
     @Ignore
     public void ShouldSaveToStorageIfListOfAirportsHaveData() throws Exception {
 
-        Airport airportOne = new Airport();
+        Airport airportOne= new Airport();
         Airport airportTwo = new Airport();
 
         List<Airport> airportsList = new ArrayList<>();

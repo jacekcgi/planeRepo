@@ -5,7 +5,6 @@ import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
-import com.gl.planesAndAirfileds.service.FlightDetailsFactoryService;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,25 +18,15 @@ import java.util.List;
 @Service
 public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDetails>
         implements FlightDetailsService {
+
     private FlightDetailsRepository flightDetailsRepository;
 
     private PlaneService planeService;
-
-    private FlightDetailsFactoryService flightDetailsFactoryService;
 
     @Autowired
     public FlightDetailsServiceImpl(FlightDetailsRepository flightDetailsRepository, PlaneService planeService) {
         this.flightDetailsRepository = flightDetailsRepository;
         this.planeService = planeService;
-    }
-
-    public FlightDetailsFactoryService getFlightDetailsFactoryService() {
-        return flightDetailsFactoryService;
-    }
-
-    @Autowired
-    public void setFlightDetailsFactoryService(FlightDetailsFactoryService flightDetailsFactoryService) {
-        this.flightDetailsFactoryService = flightDetailsFactoryService;
     }
 
     @Override
@@ -57,19 +46,19 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
     @Override
     @Transactional(readOnly = true)
-    public List<FlightDetails> getLatestFlightDetailsForPlanes(String planeSid,boolean returnPlaneLanded) {
-            return flightDetailsRepository.getLatestFlightDetails(planeSid,returnPlaneLanded);
+    public List<FlightDetails> getLatestFlightDetailsForPlanes(String planeSid, boolean returnPlaneLanded) {
+        return flightDetailsRepository.getLatestFlightDetails(planeSid, returnPlaneLanded);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public FlightDetails getLatestFlightDetailsForPlane(String planeSid,boolean returnPlaneLanded) {
+    public FlightDetails getLatestFlightDetailsForPlane(String planeSid, boolean returnPlaneLanded) {
         List<FlightDetails> latestFlightDetailForPlane = flightDetailsRepository
-                .getLatestFlightDetails(planeSid,returnPlaneLanded);
+                .getLatestFlightDetails(planeSid, returnPlaneLanded);
 
         if (latestFlightDetailForPlane.isEmpty()) {
 
-            return flightDetailsFactoryService.getEmptyFlightDetailsObject();
+            return null;
         }
 
         return latestFlightDetailForPlane.get(0);
@@ -82,7 +71,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         Plane plane = planeService.getBySid(flightDetails.getPlane().getSid());
         if (plane != null) {
             List<FlightDetails> latestFlightDetails = flightDetailsRepository
-                    .getLatestFlightDetails(plane.getSid(),true);
+                    .getLatestFlightDetails(plane.getSid(), true);
             for (FlightDetails fd : latestFlightDetails) {
                 fd.setActualPosition(false);
                 flightDetailsRepository.save(fd);

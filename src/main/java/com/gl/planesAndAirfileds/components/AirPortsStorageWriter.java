@@ -14,7 +14,7 @@ public class AirPortsStorageWriter implements ApplicationRunner {
 
     private AirportsFileParserService airportsFileParserService;
 
-    public AirportsService getAirportsServiceImp() {
+    public AirportsService getAirportsService() {
         return airportsService;
     }
 

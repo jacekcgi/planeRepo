@@ -59,4 +59,5 @@ public class TestDomainObjectFactory {
     public static NestedEntity getNestedEntity() {
         return getNestedEntity(null);
     }
+
 }
