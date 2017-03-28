@@ -13,6 +13,8 @@ import java.io.Serializable;
 @MappedSuperclass
 public class AbstractEntity implements Serializable {
 
+    public static final String FIELD_ID = "id";
+
     @Id
     @GeneratedValue
     @JsonIgnore

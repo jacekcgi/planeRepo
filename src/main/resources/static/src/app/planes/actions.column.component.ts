@@ -3,13 +3,18 @@ import { DefaultCellComponent } from 'common/table'
 
 @Component({
   template: `
-    <a href="#" (click)="onEdit();false;"><i class="fa fa-edit"></i></a>
+    <a href="#" routerLink="/menu/plane" routerLinkActive="active" [queryParams]="params"><i class="fa fa-edit"></i></a>
   `,
 })
 export class ActionsColumnComponent extends DefaultCellComponent {
-    
+    params: object;
+
     onEdit(){
         alert("Not implemented yet!!!");
+    }
+
+    ngOnInit() {  
+      this.params = { sid: this.item["sid"] }; 
     }
 
 }

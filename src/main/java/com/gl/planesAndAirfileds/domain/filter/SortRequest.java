@@ -1,6 +1,6 @@
 package com.gl.planesAndAirfileds.domain.filter;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
@@ -31,10 +31,14 @@ public class SortRequest implements Serializable
    }
 
    public Sort toSort() {
-      List<Sort.Order> o = new ArrayList<>();
-      for (OrderRequest order : orders) {
-         o.add(order.toOrder());
+      if(CollectionUtils.isNotEmpty(orders))
+      {
+         List<Sort.Order> o = new ArrayList<>();
+         for (OrderRequest order : orders) {
+            o.add(order.toOrder());
+         }
+         return new Sort(o);
       }
-      return new Sort(o);
+      return null;
    }
 }

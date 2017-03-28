@@ -43,9 +43,9 @@ public class AirportsFileParserServiceTest {
         airportOne.setCountry("Papua New Guinea");
         airportOne.setIataCode("GKA");
         airportOne.setIcaoCode("AYGA");
-        airportOne.setLatitude("-6.081689834590001");
-        airportOne.setLongitude("145.391998291");
-        airportOne.setAltitude("5282");
+        airportOne.setLatitude(-6.081689834590001);
+        airportOne.setLongitude(145.391998291);
+        airportOne.setAltitude(5282);
         airportOne.setTimezone("\\N");
         airportOne.setDaylightSavingTime("U");
         airportOne.setTzDatabaseTimeZone("Pacific/Port_Moresby");

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomLoader } from 'app/translate/translate.loader';
 
 import { InputComponent } from 'common/input';
-import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, DefaultCellComponent } from 'common/table';
+import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, DefaultCellComponent, DateCellComponent } from 'common/table';
 import { ErrorMessagesComponent } from 'common/validations';
 import { LanguageComponent } from 'common/languages'
 
@@ -32,10 +32,11 @@ import { FormatTimePipe } from 'common/pipe';
         FilterToolbar,
         CellComponent,
         DefaultCellComponent,
+        DateCellComponent,
         LanguageComponent,
         FormatTimePipe
     ],
-    entryComponents: [DefaultCellComponent],
+    entryComponents: [DefaultCellComponent, DateCellComponent],
     providers: [
 
     ],
@@ -48,6 +49,7 @@ import { FormatTimePipe } from 'common/pipe';
         FilterToolbar,
         CellComponent,
         DefaultCellComponent,
+        DateCellComponent,
         LanguageComponent,
         FormatTimePipe
     ]

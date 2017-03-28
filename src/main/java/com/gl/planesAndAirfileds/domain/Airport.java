@@ -1,26 +1,31 @@
 package com.gl.planesAndAirfileds.domain;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "airport")
 public class Airport extends AbstractIdentifiableEntity {
 
+    public static final int FIELD_NAME_LENGTH = 255;
+
     public static final String FIELD_NAME = "name";
 
-    public static final String FIELD_CITY = "city";
+    public static final String FIELD_LATITUDE = "latitude";
 
-    public static final String FIELD_COUNTRY = "country";
+    public static final String FIELD_LONGITUDE = "longitude";
 
     public static final String FIELD_IATA_CODE = "iataCode";
 
-    public static final String FIELD_ICAO_CODE = "icaoCode";
+    public static final String FIELD_ICAO_CODE = "icaoCode"
 
-    @NotNull
-    @Column(name = "name")
+    @Column(name = "name", length = FIELD_NAME_LENGTH)
+    @Length(max = FIELD_NAME_LENGTH)
+    @NotBlank
     private String name;
 
     @Column(name = "city")
@@ -35,16 +40,14 @@ public class Airport extends AbstractIdentifiableEntity {
     @Column(name = "icao_code")
     private String icaoCode;
 
-    @NotNull
-    @Column(name = "latitude")
-    private String latitude;
+    @Column(name = "latitude", nullable = false)
+    private double latitude;
 
-    @NotNull
-    @Column(name = "longtitude")
-    private String longitude;
+    @Column(name = "longtitude", nullable = false)
+    private double longitude;
 
-    @Column(name = "altitude")
-    private String altitude;
+    @Column(name = "altitude", nullable = false)
+    private double altitude;
 
     @Column(name = "timezone")
     private String timezone;
@@ -101,27 +104,27 @@ public class Airport extends AbstractIdentifiableEntity {
         this.icaoCode = icaoCode;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
 
-    public void setAltitude(String altitude) {
+    public void setAltitude(double altitude) {
         this.altitude = altitude;
     }
 
@@ -163,80 +166,6 @@ public class Airport extends AbstractIdentifiableEntity {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Airport)) {
-            return false;
-        }
-
-        Airport airport = (Airport) o;
-
-        if (!id.equals(airport.id)) {
-            return false;
-        }
-        if (name != null ? !name.equals(airport.name) : airport.name != null) {
-            return false;
-        }
-        if (city != null ? !city.equals(airport.city) : airport.city != null) {
-            return false;
-        }
-        if (country != null ? !country.equals(airport.country) : airport.country != null) {
-            return false;
-        }
-        if (iataCode != null ? !iataCode.equals(airport.iataCode) : airport.iataCode != null) {
-            return false;
-        }
-        if (icaoCode != null ? !icaoCode.equals(airport.icaoCode) : airport.icaoCode != null) {
-            return false;
-        }
-        if (latitude != null ? !latitude.equals(airport.latitude) : airport.latitude != null) {
-            return false;
-        }
-        if (longitude != null ? !longitude.equals(airport.longitude) : airport.longitude != null) {
-            return false;
-        }
-        if (altitude != null ? !altitude.equals(airport.altitude) : airport.altitude != null) {
-            return false;
-        }
-        if (timezone != null ? !timezone.equals(airport.timezone) : airport.timezone != null) {
-            return false;
-        }
-        if (daylightSavingTime != null ? !daylightSavingTime
-                .equals(airport.daylightSavingTime) : airport.daylightSavingTime != null) {
-            return false;
-        }
-        if (tzDatabaseTimeZone != null ? !tzDatabaseTimeZone
-                .equals(airport.tzDatabaseTimeZone) : airport.tzDatabaseTimeZone != null) {
-            return false;
-        }
-        if (type != null ? !type.equals(airport.type) : airport.type != null) {
-            return false;
-        }
-        return source != null ? source.equals(airport.source) : airport.source == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (city != null ? city.hashCode() : 0);
-        result = 31 * result + (country != null ? country.hashCode() : 0);
-        result = 31 * result + (iataCode != null ? iataCode.hashCode() : 0);
-        result = 31 * result + (icaoCode != null ? icaoCode.hashCode() : 0);
-        result = 31 * result + (latitude != null ? latitude.hashCode() : 0);
-        result = 31 * result + (longitude != null ? longitude.hashCode() : 0);
-        result = 31 * result + (altitude != null ? altitude.hashCode() : 0);
-        result = 31 * result + (timezone != null ? timezone.hashCode() : 0);
-        result = 31 * result + (daylightSavingTime != null ? daylightSavingTime.hashCode() : 0);
-        result = 31 * result + (tzDatabaseTimeZone != null ? tzDatabaseTimeZone.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (source != null ? source.hashCode() : 0);
-        return result;
     }
 
     @Override
