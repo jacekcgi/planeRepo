@@ -150,7 +150,6 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
                         .orElseThrow(() -> new InsertFlightDetailsException(
                                 "The given flight route with sid:  " + dto.getFlightRouteSid() + " does not exist!"));
                 flightDetails.setFlightRoute(flightRoute);
-                flightDetails.setActualPosition(true);
                 flightDetailsToSave.add(flightDetails);
 
 //                update if flight phase has been changed
