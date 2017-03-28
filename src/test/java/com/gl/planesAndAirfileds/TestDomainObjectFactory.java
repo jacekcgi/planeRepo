@@ -1,6 +1,5 @@
 package com.gl.planesAndAirfileds;
 
-import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.domain.FlightDetails;
 import com.gl.planesAndAirfileds.domain.NestedEntity;
 import com.gl.planesAndAirfileds.domain.Plane;
@@ -18,8 +17,6 @@ import java.util.Random;
 public class TestDomainObjectFactory {
 
     private static final Random RANDOM = new Random();
-
-    private static final String TEST_SID = "12345678";
 
     public static Plane getPlane() {
         Plane plane = new Plane();
@@ -63,41 +60,5 @@ public class TestDomainObjectFactory {
         return getNestedEntity(null);
     }
 
-    public static String getStaticTestSid() {
-        return TEST_SID;
-    }
 
-    public static List<Airport> getAirportSpecificObjectWithTheStaticSid() {
-
-        List<Airport> flightDetailsTestList = new ArrayList<>();
-
-        Airport airportOne = new Airport();
-        airportOne.setSid(TEST_SID);
-        airportOne.setName("Goroka Airport");
-        airportOne.setCity("Goroka");
-        airportOne.setCountry("Papua New Guinea");
-        airportOne.setIataCode("GKA");
-        airportOne.setIcaoCode("AYGA");
-        airportOne.setLatitude("-6.081689834590001");
-        airportOne.setLongitude("145.391998291");
-        airportOne.setAltitude("5282");
-        airportOne.setTimezone("\\N");
-        airportOne.setDaylightSavingTime("U");
-        airportOne.setTzDatabaseTimeZone("Pacific/Port_Moresby");
-        airportOne.setType("airport");
-        airportOne.setSource("OurAirports");
-
-        flightDetailsTestList.add(airportOne);
-
-        return flightDetailsTestList;
-    }
-
-    public static List<Airport> getAirportListWithEmptyAirportObjectsInIt() {
-
-        List<Airport> airportsList = new ArrayList<>();
-        airportsList.add(new Airport());
-        airportsList.add(new Airport());
-
-        return airportsList;
-    }
 }
