@@ -9,9 +9,6 @@ import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, Default
 import { ErrorMessagesComponent } from 'common/validations';
 import { LanguageComponent } from 'common/languages';
 import { Modal } from 'common/modal/modal.window.component';
-import {Form} from 'common/modal/form.component';
-import {FormInput} from 'common/modal/form.input.component';
-import {InputComponent2} from 'common/modal/input.component';
 
 import { NotificationService } from 'app/services';
 
@@ -35,10 +32,7 @@ import { NotificationService } from 'app/services';
         CellComponent,
         DefaultCellComponent,
         LanguageComponent,
-        Modal,
-        Form,
-        FormInput,
-        InputComponent2
+        Modal
     ],
     entryComponents: [DefaultCellComponent],
     providers: [
@@ -54,10 +48,7 @@ import { NotificationService } from 'app/services';
         CellComponent,
         DefaultCellComponent,
         LanguageComponent,
-        Modal,
-        Form,
-        FormInput,
-        InputComponent2
+        Modal
     ]
 })
 export class CommonComponentsModule {

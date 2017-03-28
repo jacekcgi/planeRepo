@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services'
 import { NotificationService } from 'app/services';
 import { ActionsColumnComponent } from './actions.column.component';
-import {Modal} from 'common/modal/modal.window.component';
+import { Modal } from 'common/modal/modal.window.component';
 
 @Component({
   selector: 'page-planes',
@@ -25,15 +25,16 @@ export class PlanesComponent {
   rows: number;
 
   filterForm: FormGroup;
+  modalForm: FormGroup;
 
-  @ViewChild('test') modal:Modal;
+  @ViewChild('test') modal: Modal;
 
-  showModal(){
+  showModal() {
     this.modal.show();
     //$('#test').modal('show');
   }
 
-  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) {  }
+  constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService) { }
 
   ngOnInit() {
     this.createForm();
@@ -43,6 +44,12 @@ export class PlanesComponent {
   createForm() {
     this.filterForm = this.fb.group({
       name: ['']
+    });
+    this.modalForm = this.fb.group({
+      sid: [''],
+      name: ['', Validators.required],
+      registration: ['', Validators.required],
+      description: ['']
     });
   }
 
@@ -62,5 +69,12 @@ export class PlanesComponent {
   onFilter(filter: any) {
     this.searchRequest.filter = filter;
     this.fetchData();
+  }
+
+  onSubmit(event: any) {
+    this.planeService.save(event, event.value).then((response) => {
+      this.ns.success('airplane.successCreated');
+      this.modal.dismiss();
+    })
   }
 }
