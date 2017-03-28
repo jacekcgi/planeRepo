@@ -146,8 +146,14 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
                 flightDetails.setActualPosition(true);
                 flightDetailsToSave.add(flightDetails);
 
-                flightRoute.setFlightPhase(dto.getFlightPhase());
-                flightRouteService.update(flightRoute);
+//                update if flight phase has been changed
+                if (dto.getFlightPhase() != flightRoute.getFlightPhase()) {
+                    if (dto.getFlightPhase() == FlightPhase.LANDED) {
+                        flightRoute.setLandedDate(LocalDateTime.now());
+                    }
+                    flightRoute.setFlightPhase(dto.getFlightPhase());
+                    flightRouteService.update(flightRoute);
+                }
             }
             saveList(flightDetailsToSave);
         }
