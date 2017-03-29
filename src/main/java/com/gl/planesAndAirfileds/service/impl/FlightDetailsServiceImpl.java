@@ -12,7 +12,6 @@ import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.FlightRouteService;
-import com.gl.planesAndAirfileds.service.PlaneService;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +32,12 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
     private FlightDetailsRepository flightDetailsRepository;
 
-    private PlaneService planeService;
-
-    private FlightDetailsFactoryService flightDetailsFactoryService;
-
     private FlightRouteService flightRouteService;
 
     @Autowired
-    public FlightDetailsServiceImpl(FlightDetailsRepository flightDetailsRepository, PlaneService planeService,
+    public FlightDetailsServiceImpl(FlightDetailsRepository flightDetailsRepository,
                                     FlightRouteService flightRouteService) {
         this.flightDetailsRepository = flightDetailsRepository;
-        this.planeService = planeService;
         this.flightRouteService = flightRouteService;
     }
 
