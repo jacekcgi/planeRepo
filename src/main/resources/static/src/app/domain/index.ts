@@ -13,6 +13,10 @@ export interface FlightDetailsDto {
     flightRouteSid: string;
 
     timeElapsed: number; //in ms
+
+    distanceTraveled: number;
+
+    flightDistance: number;
 }
 
  export interface FlightDetails {

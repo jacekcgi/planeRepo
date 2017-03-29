@@ -27,9 +27,6 @@ public class FlightDetailsServiceTest {
     @MockBean
     private PlaneService planeService;
 
-    @MockBean
-    private FlightDetailsFactoryService flightDetailsFactoryService;
-
     @Autowired
     private FlightDetailsService flightDetailsService;
 

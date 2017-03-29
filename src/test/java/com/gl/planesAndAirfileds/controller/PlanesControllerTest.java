@@ -2,8 +2,12 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
+import com.gl.planesAndAirfileds.domain.api.Mappings;
+import com.gl.planesAndAirfileds.domain.filter.*;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -18,11 +22,12 @@ import org.springframework.web.bind.WebDataBinder;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -31,6 +36,7 @@ public class PlanesControllerTest {
 
     @MockBean
     WebDataBinder binder;
+
     @MockBean
     private PlaneService planeService;
 
@@ -64,21 +70,34 @@ public class PlanesControllerTest {
         Plane p2 = TestDomainObjectFactory.getPlane();
         planes.add(p1);
         planes.add(p2);
-        Mockito.when(this.planeService.findAll()).thenReturn(planes);
-        //given(this.planeService.getAllPlanes()).willReturn(planes);
-        this.mvc.perform(get("/planeList"))
+
+        SearchRequest<PlaneFilter> searchRequest = new SearchRequest<>();
+        List<OrderRequest> orderRequests = Arrays.asList(new OrderRequest(Plane.FIELD_NAME, true));
+        searchRequest.setPageRequest(new PagingRequest(0, Integer.MAX_VALUE, new SortRequest(orderRequests)));
+
+        Mockito.when(this.planeService.countBySearchParams(null))
+                .thenReturn(2l);
+
+        Mockito.when(this.planeService.findBySearchParams(null, searchRequest.getPageRequest().toPageRequest()))
+                .thenReturn(planes);
+
+        GsonBuilder builder = new GsonBuilder();
+        Gson gson = builder.create();
+
+        this.mvc.perform(post(Mappings.FIND_PLANES).contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON).content(gson.toJson(searchRequest)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].name", is(p1.getName())))
-                .andExpect(jsonPath("$[0].registration", is(p1.getRegistration())))
-                .andExpect(jsonPath("$[0].description", is(p1.getDescription())))
-                .andExpect(jsonPath("$[0].sid", is(p1.getSid())))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[1].name", is(p2.getName())))
-                .andExpect(jsonPath("$[1].registration", is(p2.getRegistration())))
-                .andExpect(jsonPath("$[1].description", is(p2.getDescription())))
-                .andExpect(jsonPath("$[1].sid", is(p2.getSid())));
+                .andExpect(jsonPath("$.entities", hasSize(2)))
+                .andExpect(jsonPath("$.entities[0].name", is(p1.getName())))
+                .andExpect(jsonPath("$.entities[0].registration", is(p1.getRegistration())))
+                .andExpect(jsonPath("$.entities[0].description", is(p1.getDescription())))
+                .andExpect(jsonPath("$.entities[0].sid", is(p1.getSid())))
+                .andExpect(jsonPath("$.entities", hasSize(2)))
+                .andExpect(jsonPath("$.entities[1].name", is(p2.getName())))
+                .andExpect(jsonPath("$.entities[1].registration", is(p2.getRegistration())))
+                .andExpect(jsonPath("$.entities[1].description", is(p2.getDescription())))
+                .andExpect(jsonPath("$.entities[1].sid", is(p2.getSid())));
     }
 
 }
