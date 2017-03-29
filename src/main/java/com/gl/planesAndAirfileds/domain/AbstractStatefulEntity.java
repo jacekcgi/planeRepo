@@ -14,16 +14,17 @@ public class AbstractStatefulEntity extends AbstractIdentifiableEntity {
 
     public static String FIELD_ACTIVE = "active";
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "active", nullable = false)
     @NotNull
-    private StateEnum active;
+    private boolean active = true;
 
-    public StateEnum getActive() {
+    public boolean isActive()
+    {
         return active;
     }
 
-    public void setActive(StateEnum active) {
+    public void setActive(boolean active)
+    {
         this.active = active;
     }
 }
