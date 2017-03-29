@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 public class AirportsController {
 
@@ -27,6 +29,11 @@ public class AirportsController {
     @RequestMapping(value = Mappings.GET_AIRPORT, method = RequestMethod.GET)
     public Airport getAirport(@PathVariable(value = "airport_id") Long airportId) {
         return airportsService.getById(airportId);
+    }
+
+    @RequestMapping(value = Mappings.GET_AIRPORT_ONZOOM_LVL, method = RequestMethod.GET)
+    public List<Airport> getAirport(@PathVariable(value = "airport_zoomlevel") int zoomlvl) {
+        return airportsService.getAirportOnZoomLvl(zoomlvl);
     }
 
 }

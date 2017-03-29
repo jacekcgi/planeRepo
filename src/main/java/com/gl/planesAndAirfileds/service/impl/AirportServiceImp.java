@@ -40,6 +40,6 @@ public class AirportServiceImp extends AbstractIdentifiableEntityServiceImpl<Air
 
     @Override
     public List<Airport> getAirportOnZoomLvl(int zoomLvl) {
-        return null;
+        return airportRepository.getAirportBasedOnZoomLvl(zoomLvl);
     }
 }

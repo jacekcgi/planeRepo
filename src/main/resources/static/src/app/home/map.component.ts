@@ -1,5 +1,6 @@
 import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
 import { PlaneService } from "app/services";
+import { AirportService } from "app/services";
 import { Observable } from "rxjs/Observable";
 declare var google: any;
 
@@ -33,7 +34,7 @@ export class MapComponent implements AfterViewInit {
         anchor: new google.maps.Point(256, 256)
     }
 
-    constructor(private planeService: PlaneService) {
+    constructor(private planeService: PlaneService, private airportService: AirportService) {
 
     }
 
@@ -162,7 +163,7 @@ export class MapComponent implements AfterViewInit {
     }
 
     loadAirports(map: any) {
-         this.planeService.findAirports().then((data) => {
+         this.airportService.findAirports().then((data) => {
             this.loadAirportsOnMap(map, data);
         })
       

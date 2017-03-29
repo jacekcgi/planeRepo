@@ -9,6 +9,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "airport")
 public class Airport extends AbstractIdentifiableEntity {
 
+    public static final String FIELD_ZOOMLEVEL = "zoomlvl";
+
     @NotNull
     @Column(name = "name")
     private String name;
