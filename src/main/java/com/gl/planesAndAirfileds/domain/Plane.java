@@ -1,11 +1,10 @@
 package com.gl.planesAndAirfileds.domain;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "plane")
@@ -32,15 +31,23 @@ public class Plane extends AbstractIdentifiableEntity {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "create_date")
-    private Date createDate;
+    @Column(name = "create_date", nullable = false)
+    @NotNull(groups = Validation.PlaneValidate.class)
+    private LocalDateTime createDate;
 
-    @UpdateTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "updateDate")
-    private Date updateDate;
+    @Column(name = "updateDate", nullable = false)
+    @NotNull(groups = Validation.PlaneValidate.class)
+    private LocalDateTime updateDate;
+
+    @PrePersist
+    public void onPersist() {
+        updateDate = createDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void onUpdate() {
+        updateDate = LocalDateTime.now();
+    }
 
     public String getName() {
         return name;
@@ -58,19 +65,19 @@ public class Plane extends AbstractIdentifiableEntity {
         this.description = description;
     }
 
-    public Date getCreateDate() {
+    public LocalDateTime getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(LocalDateTime createDate) {
         this.createDate = createDate;
     }
 
-    public Date getUpdateDate() {
+    public LocalDateTime getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
     }
 

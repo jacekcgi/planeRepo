@@ -61,9 +61,9 @@ public class AirportsFileParserServiceTest {
         airportExpected.setCountry("Papua New Guinea");
         airportExpected.setIataCode("GKA");
         airportExpected.setIcaoCode("AYGA");
-        airportExpected.setLatitude("-6.081689834590001");
-        airportExpected.setLongitude("145.391998291");
-        airportExpected.setAltitude("5282");
+        airportExpected.setLatitude(-6.081689834590001);
+        airportExpected.setLongitude(145.391998291);
+        airportExpected.setAltitude(5282);
         airportExpected.setTimezone("\\N");
         airportExpected.setDaylightSavingTime("U");
         airportExpected.setTzDatabaseTimeZone("Pacific/Port_Moresby");

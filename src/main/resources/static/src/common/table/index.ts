@@ -7,6 +7,7 @@ export * from './table.component';
 export * from './pageable.table.component';
 export * from './cell.component';
 export * from './default.cell.component';
+export * from './date.cell.component'
 
 export interface TableConfig {
     limit : number,

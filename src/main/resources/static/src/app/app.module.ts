@@ -8,10 +8,11 @@ import { CustomLoader } from './translate/translate.loader';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { HomeComponent }  from './home/home.component';
 import { MapComponent }  from './home/map.component';
+import { FlightRoutesComponent } from "./flight_routes/flightroutes.component";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ActionService, PlaneService, LanguageService } from './services';
+import { ActionService, PlaneService, LanguageService, FlightRoutesService } from './services';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
@@ -23,7 +24,9 @@ import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
+import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
 
+ import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 
 
 @NgModule({
@@ -39,20 +42,23 @@ import { NotificationService, TranslationService } from 'app/services'; // app n
       useClass: CustomLoader
     }),
     SimpleNotificationsModule.forRoot(),
-    CommonComponentsModule
+    CommonComponentsModule,
+    Ng2AutoCompleteModule
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
     HomeComponent,
     PlaneDetailsComponent,
+    FlightRoutesComponent,
+    FlightRouteDetailsComponent,
     // root components
     PlanesComponent,
     MapComponent,
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

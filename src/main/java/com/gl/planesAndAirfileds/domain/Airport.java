@@ -1,18 +1,29 @@
 package com.gl.planesAndAirfileds.domain;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "airport")
 public class Airport extends AbstractIdentifiableEntity {
 
-    @NotNull
-    @Column(name = "name")
+    public static final int FIELD_NAME_LENGTH = 255;
+
+    public static final String FIELD_NAME = "name";
+
+    public static final String FIELD_LATITUDE = "latitude";
+
+    public static final String FIELD_LONGITUDE = "longitude";
+
+    @Column(name = "name", length = FIELD_NAME_LENGTH)
+    @Length(max = FIELD_NAME_LENGTH)
+    @NotBlank
     private String name;
 
     @Column(name = "city")
@@ -27,16 +38,14 @@ public class Airport extends AbstractIdentifiableEntity {
     @Column(name = "icao_code")
     private String icaoCode;
 
-    @NotNull
-    @Column(name = "latitude")
-    private String latitude;
+    @Column(name = "latitude", nullable = false)
+    private double latitude;
 
-    @NotNull
-    @Column(name = "longtitude")
-    private String longitude;
+    @Column(name = "longtitude", nullable = false)
+    private double longitude;
 
-    @Column(name = "altitude")
-    private String altitude;
+    @Column(name = "altitude", nullable = false)
+    private double altitude;
 
     @Column(name = "timezone")
     private String timezone;
@@ -93,27 +102,27 @@ public class Airport extends AbstractIdentifiableEntity {
         this.icaoCode = icaoCode;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
-    public String getAltitude() {
+    public double getAltitude() {
         return altitude;
     }
 
-    public void setAltitude(String altitude) {
+    public void setAltitude(double altitude) {
         this.altitude = altitude;
     }
 

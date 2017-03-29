@@ -6,107 +6,70 @@ import com.gl.planesAndAirfileds.domain.dto.SearchResult;
 import com.gl.planesAndAirfileds.domain.filter.PagingRequest;
 import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
 import com.gl.planesAndAirfileds.domain.filter.SearchRequest;
+import com.gl.planesAndAirfileds.domain.simulator.GetFlightDetailsDto;
+import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.groups.Default;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class PlanesController extends AbstractController
-{
+public class PlanesController extends AbstractController {
 
-   private RestTemplate restTemplate;
+    private PlaneService planeService;
 
-   @Value("${simulator.plane.add.url}")
-   private String simulatorPlaneAddUrl;
+    private PlaneValidator planeValidator;
 
-   @Value("${simulator.plane.newCoordinates.url}")
-   private String simulatorPlaneNewCoordinatesUrl;
+    private FlightDetailsService flightDetailsService;
 
-   private PlaneService planeService;
+    @Autowired
+    public PlanesController(PlaneService planeService, PlaneValidator planeValidator,
+                            FlightDetailsService flightDetailsService) {
+        this.planeService = planeService;
+        this.planeValidator = planeValidator;
+        this.flightDetailsService = flightDetailsService;
+    }
 
-   private PlaneValidator planeValidator;
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        addValidator(binder, Plane.class, planeValidator);
+    }
 
-   @Autowired
-   public PlanesController(PlaneService planeService, PlaneValidator planeValidator, RestTemplateBuilder builder)
-   {
-      this.planeService = planeService;
-      this.planeValidator = planeValidator;
-      this.restTemplate = builder.build();
-   }
+    @RequestMapping(value = Mappings.CREATE_PLANE, method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Plane save(@RequestBody @Validated(Default.class) Plane plane) {
+        if (StringUtils.isEmpty(plane.getSid())) {
+            return planeService.save(plane);
+        }
+        else {
+            return planeService.update(plane);
+        }
+    }
 
-   @InitBinder
-   protected void initBinder(WebDataBinder binder)
-   {
-      addValidator(binder, Plane.class, planeValidator);
-   }
+    @RequestMapping(value = Mappings.CURRENT_FLIGHTS)
+    @ResponseStatus(value = HttpStatus.OK)
+    public List<GetFlightDetailsDto> findFlightsToSimulate() {
+        return flightDetailsService.findLatestForSimulator();
+    }
 
-   @RequestMapping(value = Mappings.CREATE_PLANE, method = RequestMethod.POST)
-   @ResponseStatus(value = HttpStatus.OK)
-   public Plane save(@RequestBody @Validated(Default.class) Plane plane)
-   {
-      if (StringUtils.isEmpty(plane.getSid()))
-      {
-         boolean newPlane = plane.getSid() == null;
-         Plane savedPlane = planeService.save(plane);
-         if (newPlane)
-         {
-            restTemplate.postForEntity(simulatorPlaneAddUrl, savedPlane, Plane.class);
-         }
-         return savedPlane;
-      } else {
-         return planeService.update(plane);
-      }
-   }
+    @RequestMapping(value = Mappings.FIND_PLANES, method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public SearchResult<Plane> findPlanes(@RequestBody SearchRequest<PlaneFilter> searchRequest) {
+        PlaneFilter planeFilter = searchRequest.getFilter();
+        PagingRequest pagingRequest = searchRequest.getPageRequest();
+        return findBySearchParams(planeFilter, pagingRequest, planeService);
+    }
 
-   @RequestMapping(value = Mappings.FIND_PLANE_SIDS)
-   @ResponseStatus(value = HttpStatus.OK)
-   public List<String> findPlanesSid()
-   {
-      return planeService.findPlanesSid();
-   }
-
-   @RequestMapping(value = Mappings.GET_SEND_PLANE_TO_POSITION, method = RequestMethod.GET)
-   @ResponseStatus(value = HttpStatus.OK)
-   public void sendPlaneToCoordinates(@PathVariable(value = "sid") String sid,
-                                      @PathVariable(value = "latitude") Double latitude,
-                                      @PathVariable(value = "longitude") Double longitude)
-   {
-      StringBuilder builder = new StringBuilder(simulatorPlaneNewCoordinatesUrl);
-      builder.append("/");
-      builder.append(sid);
-      builder.append("/");
-      builder.append(latitude);
-      builder.append("/");
-      builder.append(longitude);
-      builder.append("/");
-      restTemplate.getForEntity(builder.toString(), null);
-
-   }
-
-   @RequestMapping(value = Mappings.FIND_PLANES, method = RequestMethod.POST)
-   @ResponseStatus(value = HttpStatus.OK)
-   public SearchResult<Plane> findPlanes(@RequestBody SearchRequest<PlaneFilter> searchRequest)
-   {
-      PlaneFilter planeFilter = searchRequest.getFilter();
-      PagingRequest pagingRequest = searchRequest.getPageRequest();
-      return findBySearchParams(planeFilter, pagingRequest, planeService);
-   }
-
-   @RequestMapping(value = Mappings.GET_PLANE, method = RequestMethod.GET)
-   @ResponseStatus(value = HttpStatus.OK)
-   public Plane getPlane(@PathVariable(value = "sid") String sid) {
-      return planeService.getBySid(sid);
-   }
+    @RequestMapping(value = Mappings.GET_PLANE, method = RequestMethod.GET)
+    @ResponseStatus(value = HttpStatus.OK)
+    public Plane getPlane(@PathVariable(value = "sid") String sid) {
+        return planeService.getBySid(sid);
+    }
 }

@@ -2,178 +2,152 @@ package com.gl.planesAndAirfileds.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "flight_details")
+@NamedQueries({
+        @NamedQuery(name = FlightDetails.UPDATE_ACTUAL_POSITION,
+                query = "update FlightDetails set actualPosition=false where flightRoute.id in (:ids)")
+})
 public class FlightDetails extends AbstractEntity {
 
-    public static final String FIELD_IS_ACTUAL_POSITION = "isActualPosition";
+    public static final String UPDATE_ACTUAL_POSITION = "flight.details.update.actual.position";
+
+    public static final String FIELD_ACTUAL_POSITION = "actualPosition";
 
     public static final String FIELD_IS_LANDED = "isLanded";
 
     public static final String FIELD_PLANE = "plane";
 
-    @Column(name = "flight_time")
-    private Long flightTime;
+    public static final String FIELD_FLIGHT_ROUTE = "flightRoute";
 
-    @Column(name = "flight_distance")
-    private Double flightDistance;
+    public static final String FIELD_CREATED_DATE = "createdDate";
 
-    @Column(name = "gps_latitude")
-    private Double gpsLatitude;
+    public static final String FIELD_LATITUDE = "gpsLatitude";
 
-    @Column(name = "gps_longitude")
-    private Double gpsLongitude;
+    public static final String FIELD_LONGITUDE = "gpsLongitude";
 
-    @Column(name = "course")
-    private Double course;
+    public static final String FIELD_VELOCITY = "velocity";
 
-    @Column(name = "velocity")
-    private Float velocity;
+    public static final String FIELD_DISTANCE_TRAVELED = "distanceTraveled";
 
-    @Column(name = "remaining_fuel")
-    private Double remainingFuel;
-
-    @Column(name = "is_actual_position")
-    private boolean isActualPosition;
-
-    @Column(name = "average_fuel_consumption")
-    private Double averageFuelConsumption;
-
-    @Column(name = "distance_traveled")
-    private Double distanceTraveled;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "incoming_time")
-    private Date incomingTime;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "plane_id", nullable = false)
+    @Column(name = "gps_latitude", nullable = false)
     @NotNull
-    private Plane plane;
+    private double gpsLatitude;
 
-    @Column(name = "is_landed")
-    private boolean isLanded;
+    @Column(name = "gps_longitude", nullable = false)
+    @NotNull
+    private double gpsLongitude;
 
-    public Double getGpsLatitude() {
+    @Column(name = "velocity", nullable = false)
+    @NotNull
+    private double velocity;
+
+    @Column(name = "remaining_fuel", nullable = false)
+    @NotNull
+    private double remainingFuel;
+
+    @Column(name = "distance_traveled", nullable = false)
+    @NotNull
+    private double distanceTraveled;
+
+    @Column(name = "average_fuel_consumption", nullable = false)
+    @NotNull
+    private double averageFuelConsumption;
+
+    @JoinColumn(name = "flight_route_id", nullable = false)
+    @ManyToOne(optional = false)
+    @NotNull
+    private FlightRoute flightRoute;
+
+    @Column(name = "created_date", nullable = false)
+    @NotNull
+    private LocalDateTime createdDate;
+
+    @Column(name = "actual_position", nullable = false)
+    private boolean actualPosition;
+
+    public double getGpsLatitude() {
         return gpsLatitude;
     }
 
-    public void setGpsLatitude(Double gpsLatitude) {
+    public void setGpsLatitude(double gpsLatitude) {
         this.gpsLatitude = gpsLatitude;
     }
 
-    public Double getGpsLongitude() {
+    public double getGpsLongitude() {
         return gpsLongitude;
     }
 
-    public void setGpsLongitude(Double gpsLongitude) {
+    public void setGpsLongitude(double gpsLongitude) {
         this.gpsLongitude = gpsLongitude;
     }
 
-    public boolean isActualPosition() {
-        return isActualPosition;
-    }
-
-    public void setActualPosition(boolean actualPosition) {
-        isActualPosition = actualPosition;
-    }
-
-    public Double getAverageFuelConsumption() {
-        return averageFuelConsumption;
-    }
-
-    public void setAverageFuelConsumption(Double averageFuelConsumption) {
-        this.averageFuelConsumption = averageFuelConsumption;
-    }
-
-    public Date getIncomingTime() {
-        return incomingTime;
-    }
-
-    public void setIncomingTime(Date incomingTime) {
-        this.incomingTime = incomingTime;
-    }
-
-    public Plane getPlane() {
-        return plane;
-    }
-
-    public void setPlane(Plane plane) {
-        this.plane = plane;
-    }
-
-    public Double getCourse() {
-        return course;
-    }
-
-    public void setCourse(Double course) {
-        this.course = course;
-    }
-
-    public Float getVelocity() {
+    public double getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(Float velocity) {
+    public void setVelocity(double velocity) {
         this.velocity = velocity;
     }
 
-    public Long getFlightTime() {
-        return flightTime;
-    }
-
-    public void setFlightTime(Long flightTime) {
-        this.flightTime = flightTime;
-    }
-
-    public Double getFlightDistance() {
-        return flightDistance;
-    }
-
-    public void setFlightDistance(Double flightDistance) {
-        this.flightDistance = flightDistance;
-    }
-
-    public Double getRemainingFuel() {
+    public double getRemainingFuel() {
         return remainingFuel;
     }
 
-    public void setRemainingFuel(Double remainingFuel) {
+    public void setRemainingFuel(double remainingFuel) {
         this.remainingFuel = remainingFuel;
     }
 
-    public Double getDistanceTraveled() {
+    public double getDistanceTraveled() {
         return distanceTraveled;
     }
 
-    public void setDistanceTraveled(Double distanceTraveled) {
+    public void setDistanceTraveled(double distanceTraveled) {
         this.distanceTraveled = distanceTraveled;
     }
 
-    public boolean isLanded() {
-        return isLanded;
+    public double getAverageFuelConsumption() {
+        return averageFuelConsumption;
     }
 
-    public void setLanded(boolean landed) {
-        isLanded = landed;
+    public void setAverageFuelConsumption(double averageFuelConsumption) {
+        this.averageFuelConsumption = averageFuelConsumption;
+    }
+
+    public FlightRoute getFlightRoute() {
+        return flightRoute;
+    }
+
+    public void setFlightRoute(FlightRoute flightRoute) {
+        this.flightRoute = flightRoute;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public boolean isActualPosition() {
+        return actualPosition;
+    }
+
+    public void setActualPosition(boolean actualPosition) {
+        this.actualPosition = actualPosition;
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("plane: " + plane.getId());
         sb.append(";latitude: " + gpsLatitude);
         sb.append(";longitude: " + gpsLongitude);
-        sb.append(";course:" + course);
         sb.append(";velocity:" + velocity);
-        sb.append(";flightDistance " + flightDistance);
-        sb.append(";distanceTraveled " + distanceTraveled);
         sb.append(";averageFuelConsumption " + averageFuelConsumption);
         sb.append(";remainingFuel " + remainingFuel);
-        sb.append(";flightTime " + flightTime);
-        sb.append(";isLanded " + isLanded);
         return sb.toString();
     }
 }

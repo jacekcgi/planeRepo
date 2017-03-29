@@ -11,6 +11,6 @@ export class DefaultCellComponent {
     @Input() column: Column;
 
     getValue() {
-        return this.column.property ? this.item[this.column.property] : null;
+        return _.get(this.item, this.column.property, null);
     }
 }
