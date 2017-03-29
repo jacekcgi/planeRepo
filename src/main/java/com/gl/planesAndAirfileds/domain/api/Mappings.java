@@ -44,4 +44,7 @@ public interface Mappings {
     //flight routes
 
     String FIND_FLIGHT_ROUTES = "/find/flightRoutes";
+
+    // authentication
+    String AUTHENTICATION_API = "/login";
 }
