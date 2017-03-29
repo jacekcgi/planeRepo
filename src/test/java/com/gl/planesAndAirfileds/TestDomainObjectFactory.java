@@ -98,4 +98,34 @@ public class TestDomainObjectFactory {
         }
         return flightDetails;
     }
+
+    public static User getUser() {
+        User user = new User();
+        user.setSid(SidUtils.generate());
+        user.setLogin(RandomStringUtils.randomAlphabetic(10));
+        user.setName(RandomStringUtils.randomAlphabetic(10));
+        user.setSurname(RandomStringUtils.randomAlphabetic(10));
+        return user;
+    }
+
+    public static List<User> findUsers(int count) {
+        List<User> users = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            users.add(getUser());
+        }
+        return users;
+    }
+
+    public static Password getPassword(User user) {
+        return new Password(RandomStringUtils.randomAlphabetic(10), user);
+    }
+
+    public static List<Password> findPasswords(List<User> users) {
+        List<Password> passwords = new ArrayList<>();
+        for (User user: users) {
+            passwords.add(getPassword(user));
+        }
+        return passwords;
+    }
+
 }
