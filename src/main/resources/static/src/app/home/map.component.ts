@@ -108,9 +108,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.markers[planeSid]) {
                 var marker = this.markers[planeSid];
                 marker.setPosition(latlng);
-                marker["velocity"] = value.velocity;
-                marker["flightTime"]=value.flightTime;
-                marker["averageFuelConsumption"] = value.averageFuelConsumption;
+                // marker["velocity"] = value.velocity;
+                // marker["flightTime"]=value.flightTime;
+                // marker["averageFuelConsumption"] = value.averageFuelConsumption;
                 marker.setIcon(this.icon);
                 tmpMarkers[planeSid] = marker;
                 this.markers[planeSid] = undefined;

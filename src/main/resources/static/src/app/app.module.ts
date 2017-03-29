@@ -10,7 +10,7 @@ import { HomeComponent }  from './home/home.component';
 import { MapComponent }  from './home/map.component';
 import { FlightRoutesComponent } from "./flight_routes/flightroutes.component";
 
-mport { SidebarComponent }  from './home/sidebar.component';
+import { SidebarComponent }  from './home/sidebar.component';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
