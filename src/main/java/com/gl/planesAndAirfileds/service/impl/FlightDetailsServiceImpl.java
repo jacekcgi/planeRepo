@@ -10,7 +10,6 @@ import com.gl.planesAndAirfileds.domain.simulator.PostFlightDetailsDto;
 import com.gl.planesAndAirfileds.exceptions.InsertFlightDetailsException;
 import com.gl.planesAndAirfileds.repository.AbstractEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
-import com.gl.planesAndAirfileds.service.FlightDetailsFactoryService;
 import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.FlightRouteService;
 import com.gl.planesAndAirfileds.service.PlaneService;
@@ -48,15 +47,6 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         this.flightRouteService = flightRouteService;
     }
 
-    public FlightDetailsFactoryService getFlightDetailsFactoryService() {
-        return flightDetailsFactoryService;
-    }
-
-    @Autowired
-    public void setFlightDetailsFactoryService(FlightDetailsFactoryService flightDetailsFactoryService) {
-        this.flightDetailsFactoryService = flightDetailsFactoryService;
-    }
-
     @Override
     protected AbstractEntityRepository<FlightDetails> getRepository() {
         return flightDetailsRepository;
@@ -86,7 +76,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 
         if (latestFlightDetailForPlane.isEmpty()) {
 
-            return flightDetailsFactoryService.getEmptyFlightDetailsObject();
+            return null;
         }
 
         return latestFlightDetailForPlane.get(0);

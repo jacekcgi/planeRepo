@@ -3,6 +3,8 @@ package com.gl.planesAndAirfileds.domain;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -166,21 +168,20 @@ public class Airport extends AbstractIdentifiableEntity {
 
     @Override
     public String toString() {
-        return "Airport{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                ", iataCode='" + iataCode + '\'' +
-                ", icaoCode='" + icaoCode + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", altitude='" + altitude + '\'' +
-                ", timezone='" + timezone + '\'' +
-                ", daylightSavingTime='" + daylightSavingTime + '\'' +
-                ", tzDatabaseTimeZone='" + tzDatabaseTimeZone + '\'' +
-                ", type='" + type + '\'' +
-                ", source='" + source + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("name", name)
+                .append("city", city)
+                .append("country", country)
+                .append("iataCode", iataCode)
+                .append("icaoCode", icaoCode)
+                .append("latitude", latitude)
+                .append("longitude", longitude)
+                .append("altitude", altitude)
+                .append("timezone", timezone)
+                .append("daylightSavingTime", daylightSavingTime)
+                .append("tzDatabaseTimeZone", tzDatabaseTimeZone)
+                .append("type", type)
+                .append("source", source)
+                .toString();
     }
 }
