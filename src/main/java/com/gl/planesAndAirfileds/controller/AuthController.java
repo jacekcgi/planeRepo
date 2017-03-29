@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 
 /**
  * Created by marek.sobieraj on 2017-03-29.
@@ -54,6 +55,7 @@ public class AuthController extends AbstractController {
                 AuthDto authDto = new AuthDto();
                 authDto.setName(jwtAuthentication.getName());
                 authDto.setToken(token);
+                authDto.setLoginDate(LocalDateTime.now());
                 return authDto;
             }
             else {

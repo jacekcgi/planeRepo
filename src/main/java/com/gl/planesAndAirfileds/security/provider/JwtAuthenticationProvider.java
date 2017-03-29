@@ -75,6 +75,7 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
     }
 
+    @Override
     protected Authentication createSuccessAuthentication(Object principal, Authentication authentication,
                                                          UserDetails user) {
         JwtAuthenticationToken result;
