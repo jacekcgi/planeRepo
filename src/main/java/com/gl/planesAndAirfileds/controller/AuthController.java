@@ -2,7 +2,7 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.domain.dto.AuthDto;
-import com.gl.planesAndAirfileds.security.JwtAuthenticationToken;
+import com.gl.planesAndAirfileds.security.authentication.JwtAuthenticationToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

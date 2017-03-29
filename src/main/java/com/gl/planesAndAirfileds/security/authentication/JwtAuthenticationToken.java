@@ -1,4 +1,4 @@
-package com.gl.planesAndAirfileds.security;
+package com.gl.planesAndAirfileds.security.authentication;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +12,7 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
 
     private final String token;
 
-    private final int tokenExpiryTimeInSeconds;
+    private final long tokenExpiryTimeInSeconds;
 
     public JwtAuthenticationToken(Object principal, String token) {
         super(principal, null);
@@ -20,7 +20,7 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
         this.tokenExpiryTimeInSeconds = -1;
     }
 
-    public JwtAuthenticationToken(Object principal, String token, int tokenExpiryTimeInSeconds,
+    public JwtAuthenticationToken(Object principal, String token, long tokenExpiryTimeInSeconds,
                                   Collection<? extends GrantedAuthority> authorities)
     {
         super(principal, null, authorities);
@@ -32,7 +32,7 @@ public class JwtAuthenticationToken extends UsernamePasswordAuthenticationToken 
         return token;
     }
 
-    public int getTokenExpiryTimeInSeconds() {
+    public long getTokenExpiryTimeInSeconds() {
         return tokenExpiryTimeInSeconds;
     }
 

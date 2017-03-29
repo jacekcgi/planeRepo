@@ -1,7 +1,11 @@
 package com.gl.planesAndAirfileds.security;
 
-import com.gl.planesAndAirfileds.security.filter.JWTAuthenticationFilter;
+import com.gl.planesAndAirfileds.security.authentication.JwtAuthenticationFilter;
+import com.gl.planesAndAirfileds.security.authentication.JwtAuthenticationService;
+import com.gl.planesAndAirfileds.security.authentication.JwtAuthenticationServiceImpl;
+import com.gl.planesAndAirfileds.security.provider.AirplaneUserDetailsService;
 import com.gl.planesAndAirfileds.security.provider.JwtAuthenticationProvider;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -44,7 +48,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationProvider jwtAuthenticationProvider() {
-        return new JwtAuthenticationProvider(passwordEncoder(), airplaneUserDetailsService());
+        return new JwtAuthenticationProvider(passwordEncoder(), airplaneUserDetailsService(),
+                jwtAuthenticationService());
+    }
+
+    @Bean
+    @ConfigurationProperties("airplane.security")
+    public JwtAuthenticationService jwtAuthenticationService() {
+        return new JwtAuthenticationServiceImpl();
     }
 
     @Override
@@ -54,7 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 // filter for another requests to check that user is authentificated by jwt in header
-                .addFilterBefore(new JWTAuthenticationFilter(authenticationManager()),
+                .addFilterBefore(new JwtAuthenticationFilter(authenticationManager(), jwtAuthenticationService()),
                         UsernamePasswordAuthenticationFilter.class);
     }
 

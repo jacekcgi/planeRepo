@@ -1,7 +1,7 @@
 package com.gl.planesAndAirfileds.security.provider;
 
-import com.gl.planesAndAirfileds.security.JwtAuthenticationToken;
-import com.gl.planesAndAirfileds.security.TokenAuthenticationService;
+import com.gl.planesAndAirfileds.security.authentication.JwtAuthenticationService;
+import com.gl.planesAndAirfileds.security.authentication.JwtAuthenticationToken;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,9 +23,13 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
 
     private UserDetailsService userDetailsService;
 
-    public JwtAuthenticationProvider(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService) {
+    private JwtAuthenticationService jwtAuthenticationService;
+
+    public JwtAuthenticationProvider(PasswordEncoder passwordEncoder, UserDetailsService userDetailsService,
+                                     JwtAuthenticationService jwtAuthenticationService) {
         this.passwordEncoder = passwordEncoder;
         this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationService = jwtAuthenticationService;
     }
 
     @Override
@@ -76,12 +80,12 @@ public class JwtAuthenticationProvider extends AbstractUserDetailsAuthentication
         JwtAuthenticationToken result;
         if (!(authentication instanceof JwtAuthenticationToken)) {
 
-            String token = TokenAuthenticationService.createJwtToken(authentication.getName());
+            String token = jwtAuthenticationService.createJwtToken(authentication.getName());
             result = new JwtAuthenticationToken(
                     principal,
                     token,
-                    5000,
-                    null);
+                    jwtAuthenticationService.getExpirationTokenTime(),
+                    null); // TODO: IF you createing authorities, remember to pass them here
         }
         else {
             JwtAuthenticationToken jwtAuthentication = (JwtAuthenticationToken) authentication;

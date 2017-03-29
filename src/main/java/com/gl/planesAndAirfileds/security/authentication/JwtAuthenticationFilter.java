@@ -1,7 +1,6 @@
-package com.gl.planesAndAirfileds.security.filter;
+package com.gl.planesAndAirfileds.security.authentication;
 
 import com.gl.planesAndAirfileds.controller.AuthController;
-import com.gl.planesAndAirfileds.security.TokenAuthenticationService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +18,7 @@ import java.io.IOException;
 /**
  * Created by marek.sobieraj on 2017-03-29.
  */
-public class JWTAuthenticationFilter extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
@@ -27,8 +26,12 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
 
     private AuthenticationManager authenticationManager;
 
-    public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+    private JwtAuthenticationService jwtAuthenticationService;
+
+    public JwtAuthenticationFilter(AuthenticationManager authenticationManager,
+                                   JwtAuthenticationService jwtAuthenticationService) {
         this.authenticationManager = authenticationManager;
+        this.jwtAuthenticationService = jwtAuthenticationService;
     }
 
     @Override
@@ -36,13 +39,14 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = getToken(request);
         if (token != null) {
-            Authentication authentication = TokenAuthenticationService.parseJwtToken(request, token);
+            Authentication authentication = jwtAuthenticationService.parseJwtToken(request, token);
             Authentication authResult = authenticationManager.authenticate(authentication);
             if (authResult != null) {
                 LOGGER.debug("Authentication success: " + authResult.toString());
             }
             SecurityContextHolder.getContext().setAuthentication(authResult);
         }
+        SecurityContextHolder.clearContext();
         filterChain.doFilter(request, response);
     }
 

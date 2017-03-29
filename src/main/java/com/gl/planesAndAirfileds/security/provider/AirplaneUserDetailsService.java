@@ -1,4 +1,4 @@
-package com.gl.planesAndAirfileds.security;
+package com.gl.planesAndAirfileds.security.provider;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
