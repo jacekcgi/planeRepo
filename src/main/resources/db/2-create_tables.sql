@@ -52,9 +52,9 @@ CREATE TABLE `flight_route` (
   plane_id bigint not null,
   start_date DATETIME not NULL,
   incoming_date DATETIME not NULL,
- landed_date DATETIME,
- flight_phase VARCHAR(32) NOT NULL,
- flight_distance DOUBLE NOT NULL,
+  landed_date DATETIME,
+  flight_phase VARCHAR(32) NOT NULL,
+  flight_distance DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY flight_route_sid_key_unique(sid),
   FOREIGN KEY (source_id)
