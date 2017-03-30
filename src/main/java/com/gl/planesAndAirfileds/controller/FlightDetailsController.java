@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class FlightDetailsController {
+public class FlightDetailsController extends AbstractController {
 
     private FlightDetailsService flightDetailsService;
 

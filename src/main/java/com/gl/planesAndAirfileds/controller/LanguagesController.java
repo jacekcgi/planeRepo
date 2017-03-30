@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by krzysztof.gonia on 3/21/2017.
  */
 @RestController
-public class LanguagesController {
+public class LanguagesController extends AbstractController {
 
     @RequestMapping(value = Mappings.FIND_LANGUAGES, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
