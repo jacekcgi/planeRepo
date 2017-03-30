@@ -32,7 +32,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             LOGIN_PATH, // login page
             "/built/**",
             "/css/**",
-            "public/**"
+            "/public/**",
+            "/error401",
+            "/error403",
+            "/error404",
+            "/error500",
     };
 
     @Bean
