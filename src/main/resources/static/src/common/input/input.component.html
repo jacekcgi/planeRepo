@@ -1,6 +1,6 @@
 <div ngClass="form-group col-sm-{{size}}">
     <label [for]="property">{{ label | translate }}</label>
-    <input [ngClass]="{'invalid': !control.valid && control.touched}" type="text" (input)="onInputChange($event.target.value)" [value]="value"
+    <input [ngClass]="{'invalid': !control.valid && control.touched}" [type]="type" (input)="onInputChange($event.target.value)" [value]="value"
         class="form-control" [name]="property" [placeholder]="getPlaceholder()">
     <error-messages [control]="control"></error-messages>
 </div>

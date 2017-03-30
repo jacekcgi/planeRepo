@@ -14,8 +14,6 @@ export const SERVER_ERROR = 'serverError';
 })
 export class ErrorMessagesComponent {
 
-  // given property to form control
-  @Input() property: string;
   // prefix to find translations
   @Input() prefix: string = 'validations';
   // given form control object

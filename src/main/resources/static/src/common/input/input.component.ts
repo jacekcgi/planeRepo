@@ -21,6 +21,7 @@ export class InputComponent implements ControlValueAccessor, OnInit {
     @Input('value') _value: string = "";
     @Input('formControlName') property: string;
     @Input() placeholder: string;
+    @Input() type: string = "text";
 
     onChange: any = () => { };
     onTouched: any = () => { };

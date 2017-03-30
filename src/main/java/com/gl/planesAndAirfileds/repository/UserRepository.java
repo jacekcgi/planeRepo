@@ -7,4 +7,5 @@ import com.gl.planesAndAirfileds.domain.User;
  */
 public interface UserRepository extends AbstractStatefulEntityRepository<User>
 {
+   long countByLogin(String login, String ignoreSid);
 }

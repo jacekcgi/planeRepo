@@ -42,4 +42,11 @@ public class UserServiceImpl extends AbstractStatefulEntityServiceImpl<User> imp
       passwordService.save(password, saved);
       return saved;
    }
+
+   @Override
+   @Transactional(readOnly = true)
+   public boolean existUser(String login, String ignoreSid)
+   {
+      return userRepository.countByLogin(login, ignoreSid) > 0;
+   }
 }

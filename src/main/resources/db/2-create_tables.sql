@@ -2,13 +2,14 @@ BEGIN;
 SET SQL_SAFE_UPDATES = 0;
 
 CREATE TABLE `user` (
-	id bigint(20) PRIMARY KEY,
+	id bigint(20) NOT NULL AUTO_INCREMENT,
 	sid varchar(32) NOT NULL,
     active boolean NOT NULL,
     login varchar(32) NOT NULL,
     `name` varchar(32) NOT NULL,
     surname varchar(64) NOT NULL,
-    UNIQUE KEY UK_user_sid (sid)
+    UNIQUE KEY UK_user_sid (sid),
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE INDEX user_sid_index ON `user` (sid) USING BTREE;
 CREATE INDEX user_active_index ON `user` (active) USING BTREE; #WHERE active IS FALSE
@@ -16,10 +17,11 @@ CREATE INDEX user_name_index ON `user` (`name`) USING BTREE;
 CREATE INDEX user_surname_index ON `user` (surname) USING BTREE;
 
 CREATE TABLE `password` (
-	id bigint(20) PRIMARY KEY,
+	id bigint(20) NOT NULL AUTO_INCREMENT,
 	`password` varchar(256) NOT NULL,
     user_id bigint(20) NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE plane (

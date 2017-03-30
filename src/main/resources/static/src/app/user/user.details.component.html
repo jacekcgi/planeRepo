@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>{{ 'user.create' | translate}}</h1>
+
+    <div>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            <div formGroupName="user">
+                <input type="hidden" formControlName="sid" [value]="sid">
+                <ap-input formControlName="login" label="user.login" [formGroup]="userForm.get('user')" size=12></ap-input>
+                <ap-input formControlName="name" label="user.name" [formGroup]="userForm.get('user')" size=12></ap-input>
+                <ap-input formControlName="surname" label="user.surname" [formGroup]="userForm.get('user')" size=12></ap-input>
+            </div>
+            <div *ngIf="sid == null">
+                <ap-input formControlName="password" label="user.password" [formGroup]="userForm" size=12 type="password"></ap-input>
+                <ap-input formControlName="repeatedPassword" label="user.repeatedPassword" [formGroup]="userForm" size=12 type="password"></ap-input>
+            </div>
+            <error-messages [control]="userForm"></error-messages>
+            <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
+        </form>
+        
+    </div>
+
+</div>

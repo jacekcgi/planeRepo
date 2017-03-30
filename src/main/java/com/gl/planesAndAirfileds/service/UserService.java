@@ -9,4 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserService extends AbstractStatefulEntityService<User>
 {
    User save(User user, String password);
+
+   boolean existUser(String login, String sid);
 }

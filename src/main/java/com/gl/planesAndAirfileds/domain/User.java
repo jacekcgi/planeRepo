@@ -20,6 +20,8 @@ public class User extends AbstractStatefulEntity
 
    public static final String FIELD_SURNAME = "surname";
 
+   public static final int FIELD_LOGIN_MIN_LENGTH = 4;
+
    public static final int FIELD_LOGIN_LENGTH = 32;
 
    public static final int FIELD_NAME_LENGTH = 32;
@@ -27,7 +29,7 @@ public class User extends AbstractStatefulEntity
    public static final int FIELD_SURNAME_LENGTH = 64;
 
    @Column(nullable = false, length = FIELD_LOGIN_LENGTH, unique = true)
-   @Length(max = FIELD_LOGIN_LENGTH)
+   @Length(min = FIELD_LOGIN_MIN_LENGTH ,max = FIELD_LOGIN_LENGTH)
    @NotBlank
    private String login;
 

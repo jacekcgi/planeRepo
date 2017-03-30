@@ -47,4 +47,11 @@ public interface Mappings {
 
     // authentication
     String AUTHENTICATION_API = "/login";
+
+    //users
+    String FIND_USERS = "/find/users";
+
+    String SAVE_USER = "/save/user";
+
+    String GET_USER = "/get/user/{sid}";
 }

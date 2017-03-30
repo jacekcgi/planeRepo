@@ -12,7 +12,7 @@ import { FlightRoutesComponent } from "./flight_routes/flightroutes.component";
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ActionService, PlaneService, LanguageService, FlightRoutesService } from './services';
+import { ActionService, PlaneService, LanguageService, FlightRoutesService, UserService } from './services';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
@@ -22,6 +22,8 @@ import { CommonComponentsModule } from 'common/common.components.module'
 import { PlanesComponent } from './planes/planes.component';
 import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
+import { UsersComponent } from './user/users.component';
+import { UserDetailsComponent } from './user/user.details.component';
 
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
@@ -54,11 +56,14 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
     FlightRouteDetailsComponent,
     // root components
     PlanesComponent,
+    UsersComponent,
+    UserDetailsComponent,
     MapComponent,
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService,
+      UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

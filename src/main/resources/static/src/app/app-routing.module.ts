@@ -7,7 +7,8 @@ import { PlanesComponent }      from './planes/planes.component';
 import { PlaneDetailsComponent }      from './planes/plane.details.component';
 import { FlightRoutesComponent } from "app/flight_routes/flightroutes.component";
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
-
+import { UsersComponent } from "app/user/users.component";
+import { UserDetailsComponent } from "app/user/user.details.component";
 
 const routes: Routes = [
   { path: '', redirectTo: 'menu/home', pathMatch: 'full' },
@@ -16,7 +17,9 @@ const routes: Routes = [
   { path: 'menu/planes', component: PlanesComponent },
   { path: 'menu/plane', component: PlaneDetailsComponent },
   { path: 'menu/flights', component: FlightRoutesComponent },
-  { path: 'menu/flight', component: FlightRouteDetailsComponent}
+  { path: 'menu/flight', component: FlightRouteDetailsComponent},
+  { path: 'menu/users', component: UsersComponent},
+  { path: 'menu/user', component: UserDetailsComponent}
 ];
 
 @NgModule({
