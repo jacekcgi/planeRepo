@@ -32,8 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             LOGIN_PATH, // login page
             "/built/**",
             "/css/**",
-            "public/**",
-            "**" //TODO: REMOVE AFTER IMPLEMENT FUNCTIONALITIES
+            "public/**"
     };
 
     @Bean
