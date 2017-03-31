@@ -57,7 +57,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.loadAndUpdatePlanes();
             }
             else {
-                this.updatePositions()
+                this.updatePositions(false)
             }
         });
     }
@@ -80,7 +80,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     loadAndUpdatePlanes() {
         this.planeService.findAllPlanesLocation().then((data: Array<FlightDetailsDto>) => {
             this.updateData(data);
-            this.updatePositions();
+            this.updatePositions(true);
         })
     }
 
@@ -89,31 +89,41 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.lastUpdate = new Date();
     }
 
-    updatePositions() {
-        var data: Array<FlightDetailsDto> = this.storedLocationData;
-        var tmpMarkers = {};
+    updatePositions(oryginal: boolean) {
+        let data: Array<FlightDetailsDto> = this.storedLocationData;
+        let tmpMarkers = {};
 
         for (let value of data) {
-            var distance = this.planeService.calculateDistance(this.lastUpdate, value.velocity, value.timeElapsed);
-            var destPoint = this.planeService.calculateDestinationPoint(value, distance);
-            var planeSid = value.flightRouteSid;
-            var latlng = destPoint.latlng;
-            this.icon["rotation"] = destPoint.course;
+            let distance = this.planeService.calculateDistance(this.lastUpdate, value.velocity, value.timeElapsed);
+            let toTravel = value.flightDistance - (value.distanceTraveled + (distance / 1000));           
+            let destPoint;
+            if (toTravel > 0) {   
+                // console.log(value.flightDistance + " >= " + value.distanceTraveled + " + " + (distance / 1000));    
+                destPoint = this.planeService.calculateDestinationPoint(value, distance);
+            } else {
+                //set airport latlng
+                destPoint = { latlng: {lat: value.destinationLatitude, lng: value.destinationLongitude}, course: null};
+            }
+            let planeSid = value.flightRouteSid;
+            let latlng = destPoint.latlng;
+            if (destPoint.course) this.icon["rotation"] = destPoint.course;
 
             if (this.markers[planeSid]) {
                 var marker = this.markers[planeSid];
                 marker.setPosition(latlng);
                 marker.setIcon(this.icon);
                 tmpMarkers[planeSid] = marker;
+
                 this.markers[planeSid] = undefined;
                 delete this.markers[planeSid];
-
             } else {
-                tmpMarkers[planeSid] = this.createMarker(latlng, value, planeSid);
+                if (oryginal) {
+                    tmpMarkers[planeSid] = this.createMarker(latlng, value, planeSid);
+                }
             }
         }
 
-        for (var m in this.markers) {
+        for (let m in this.markers) {
             if (this.markers.hasOwnProperty(m)) {
                 this.markers[m].setMap(null);
             }
