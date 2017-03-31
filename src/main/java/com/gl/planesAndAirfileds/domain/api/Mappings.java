@@ -54,4 +54,6 @@ public interface Mappings {
     String SAVE_USER = "/save/user";
 
     String GET_USER = "/get/user/{sid}";
+
+    String UPDATE_USER = "/update/user";
 }

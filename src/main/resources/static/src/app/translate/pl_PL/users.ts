@@ -8,6 +8,7 @@ export const user = {
   create: 'Dodaj użytkownika',
   update: 'Aktualizuj użytkownika',
   successCreated: 'Użytkownik został dodany',
+  successUpdated: 'Użytkownik został zakutalizowany',
   password: 'Hasło',
   repeatedPassword: 'Powtórz hasło'
 }

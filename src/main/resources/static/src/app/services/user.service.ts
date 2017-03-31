@@ -20,4 +20,8 @@ export class UserService {
     save(userForm :FormGroup) {
         return this.actions.postForm("/save/user", userForm.value, userForm);
     }
+
+    update(userForm :FormGroup) {
+        return this.actions.postForm("/update/user", userForm.value, userForm);
+    }
 }

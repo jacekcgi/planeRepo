@@ -54,13 +54,14 @@ public class UserController extends AbstractController
    public User save(@RequestBody @Validated(Default.class) UserDto userDto) {
       User user = userDto.getUser();
       String password = userDto.getPassword();
+      return userService.save(user, password);
+   }
 
-      if (StringUtils.isEmpty(user.getSid())) {
-         return userService.save(user, password);
-      }
-      else {
-         return userService.update(user);
-      }
+   @RequestMapping(value = Mappings.UPDATE_USER, method = RequestMethod.POST)
+   @ResponseStatus(value = HttpStatus.OK)
+   public User update(@RequestBody @Validated(Default.class) UserDto userDto) {
+      User user = userDto.getUser();
+      return userService.update(user);
    }
 
    @RequestMapping(value = Mappings.GET_USER, method = RequestMethod.GET)

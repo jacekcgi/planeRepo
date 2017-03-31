@@ -8,6 +8,7 @@ export const user = {
   create: 'Create User',
   update: 'Update User',
   successCreated: 'User has been created successful',
+  successUpdated: 'User has been updated successful',
   password: 'Password',
   repeatedPassword: 'Repeat password'
 }

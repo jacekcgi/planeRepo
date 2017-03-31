@@ -56,7 +56,6 @@ export class CheckboxComponent implements ControlValueAccessor, OnInit {
         this.value = val;
         this.onChange(val);
         this.onTouched();
-        console.log(this.value);
     }
 
     // mutators for value

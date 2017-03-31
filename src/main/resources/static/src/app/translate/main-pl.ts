@@ -20,5 +20,6 @@ export const LANG_PL_TRANS = {
     searchButton: 'Szukaj',
     closeButton: 'Zamknij',
     acceptButton: 'Akceptuj',
+    updateButton: 'Aktualizuj',
     actions: 'Akcje',
 };

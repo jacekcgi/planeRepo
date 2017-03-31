@@ -1,5 +1,5 @@
 <div class="container">
-    <h1>{{ 'user.create' | translate}}</h1>
+    <h1>{{sid ? ('user.update' | translate) : ('user.create' | translate)}}</h1>
 
     <div>
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
@@ -15,7 +15,7 @@
                 <ap-input formControlName="repeatedPassword" label="user.repeatedPassword" [formGroup]="userForm" size=12 type="password"></ap-input>
             </div>
             <error-messages [control]="userForm"></error-messages>
-            <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
+            <button type="submit" [disabled]="!userForm.valid" class="btn btn-primary">{{sid ? ('updateButton' | translate) : ('saveButton' | translate)}}</button>
         </form>
         
     </div>

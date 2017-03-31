@@ -20,12 +20,12 @@ export class UserDetailsComponent {
    }
 
   ngOnInit() {
+    this.createForm();
     if (this.sid) {
       this.userService.getUser(this.sid).then((user) => {
         this.userForm.get('user').patchValue(user);
       });
-    }
-    this.createForm();
+    }     
   }
 
   createForm() {
@@ -42,13 +42,22 @@ export class UserDetailsComponent {
     },
     {validator: AppValidators.password('password', 'repeatedPassword')});
   }
+  
 
   onSubmit() {
-    this.userService.save(this.userForm).then((response) => {
-      this.ns.success('user.successCreated');
-      this.sid = response["sid"];
-      this.userForm.patchValue(response);
-    });
+    if (this.sid) {
+      this.userService.update(this.userForm).then((response) => {
+        this.ns.success('user.successUpdated');
+        this.sid = response["sid"];
+        this.userForm.get('user').patchValue(response);
+      });
+    } else {
+       this.userService.save(this.userForm).then((response) => {
+        this.ns.success('user.successCreated');
+        this.sid = response["sid"];
+        this.userForm.get('user').patchValue(response);
+      });
+    }
   }
 
 }
