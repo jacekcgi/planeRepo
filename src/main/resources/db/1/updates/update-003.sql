@@ -1,7 +1,7 @@
 BEGIN;
 
 ALTER TABLE flight_route
-ADD COLUMN landed_date TIMESTAMP,
+ADD COLUMN landed_date DATETIME,
 ADD COLUMN flight_phase VARCHAR(32) NOT NULL,
 ADD COLUMN flight_distance DOUBLE NOT NULL;
 

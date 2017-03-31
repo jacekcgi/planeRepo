@@ -1,19 +1,15 @@
 package com.gl.planesAndAirfileds.service.impl;
 
 import com.gl.planesAndAirfileds.domain.Plane;
-import com.gl.planesAndAirfileds.domain.exceptions.DataNotFoundException;
 import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AbstractIdentifiableEntityRepository;
 import com.gl.planesAndAirfileds.repository.PlaneRepository;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service("planeService")
@@ -48,18 +44,6 @@ public class PlaneServiceImpl extends AbstractIdentifiableEntityServiceImpl<Plan
     @Override
     public long countBySearchParams(Filter filter) {
         return planeRepository.countBySearchParams(filter);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Plane getPlane(Long id) {
-        return planeRepository.getById(id);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<String> findPlanesSid() {
-        return planeRepository.findPlanesSid();
     }
 
     @Override

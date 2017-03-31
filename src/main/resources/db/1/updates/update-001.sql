@@ -6,9 +6,6 @@ SET foreign_key_checks = 0;
 
 DELETE FROM `plane`;
 
-ALTER table plane modify create_date timestamp not null;
-ALTER table plane modify update_date timestamp not null;
-
 delete from flight_details;
 
 drop table if exists flight_route;
@@ -18,8 +15,8 @@ CREATE TABLE `flight_route` (
   source_id bigint not null,
   destination_id bigint not null,
   plane_id bigint not null,
-  start_date timestamp not null,
-  incoming_date timestamp not null,
+  start_date DATETIME not null,
+  incoming_date DATETIME not null,
   PRIMARY KEY (`id`),
   FOREIGN KEY (source_id)
         REFERENCES airport(id)
@@ -45,7 +42,7 @@ CREATE TABLE `flight_details` (
   `remaining_fuel` double DEFAULT NULL,
   `velocity` float not NULL,
   `flight_route_id` bigint(20) NOT NULL,
-  `created_date` timestamp NOT NULL,
+  `created_date` DATETIME NOT NULL,
   `actual_position` boolean NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (flight_route_id)
@@ -54,5 +51,6 @@ CREATE TABLE `flight_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 SET foreign_key_checks = 1;
+
 COMMIT;
 

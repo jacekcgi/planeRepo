@@ -68,8 +68,11 @@ CREATE TABLE `flight_route` (
   source_id bigint not null,
   destination_id bigint not null,
   plane_id bigint not null,
-  start_date timestamp not null,
-  incoming_date timestamp not null,
+  start_date DATETIME not NULL,
+  incoming_date DATETIME not NULL,
+  landed_date DATETIME,
+  flight_phase VARCHAR(32) NOT NULL,
+  flight_distance DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY UK_flight_route_sid (sid),
   FOREIGN KEY (source_id)
@@ -95,7 +98,7 @@ CREATE TABLE `flight_details` (
   `remaining_fuel` double not NULL,
   `velocity` double not NULL,
   `flight_route_id` bigint(20) NOT NULL,
-  `created_date` timestamp NOT NULL,
+  `created_date` DATETIME NOT NULL,
   `actual_position` boolean NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (flight_route_id)
