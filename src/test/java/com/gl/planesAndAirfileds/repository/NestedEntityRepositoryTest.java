@@ -42,7 +42,8 @@ public class NestedEntityRepositoryTest extends AbstractEntityRepositoryImplTest
 
         result = nestedEntityRepository.findBySearchParams(null,
                 new PageRequest(0, Integer.MAX_VALUE, new Sort(
-                        new Sort.Order(Sort.Direction.DESC, NestedEntity.FIELD_NESTED_ENTITY + "." + NestedEntity.FIELD_TEST_STRING))));
+                        new Sort.Order(Sort.Direction.DESC,
+                                NestedEntity.FIELD_NESTED_ENTITY + "." + NestedEntity.FIELD_TEST_STRING))));
 
         Assert.assertEquals(2, result.size());
         Assert.assertEquals(nestedEntity2, result.get(0));

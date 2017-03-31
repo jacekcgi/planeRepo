@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.core.Is.is;
 
-public class PlaneRepositoryTest extends AbstractIdentifiableEntityRepositoryImplTest<Plane> {
+public class PlaneRepositoryImplTest extends AbstractIdentifiableEntityRepositoryImplTest<Plane> {
 
     @Autowired
     private PlaneRepository planeRepository;

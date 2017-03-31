@@ -1,14 +1,11 @@
 package com.gl.planesAndAirfileds.service.impl;
 
-import com.gl.planesAndAirfileds.domain.Password;
 import com.gl.planesAndAirfileds.domain.User;
 import com.gl.planesAndAirfileds.repository.AbstractStatefulEntityRepository;
-import com.gl.planesAndAirfileds.repository.PasswordRepository;
 import com.gl.planesAndAirfileds.repository.UserRepository;
 import com.gl.planesAndAirfileds.service.PasswordService;
 import com.gl.planesAndAirfileds.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,5 +45,11 @@ public class UserServiceImpl extends AbstractStatefulEntityServiceImpl<User> imp
    public boolean existUser(String login, String ignoreSid)
    {
       return userRepository.countByLogin(login, ignoreSid) > 0;
+   }
+
+   @Override
+   @Transactional(readOnly = true)
+   public User getByLogin(String login) {
+      return userRepository.getByLogin(login);
    }
 }

@@ -160,7 +160,8 @@ public class FlightDetailsRepositoryImplTest extends AbstractEntityRepositoryImp
         flightDetailss.forEach(fd -> fd.setActualPosition(true));
         persist(flightDetailss);
         // todo finish test ...
-        List<GetFlightDetailsDto> result = flightDetailsRepository.findLatestForSimulator(Collections.singletonList(firstFlightRoute));
+        List<GetFlightDetailsDto> result = flightDetailsRepository
+                .findLatestForSimulator(Collections.singletonList(firstFlightRoute));
         TestCase.assertNotNull(result);
         TestCase.assertEquals(flightDetailss.size(), result.size());
 
