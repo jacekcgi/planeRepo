@@ -34,7 +34,8 @@ export class UserDetailsComponent {
         sid: [''],
         login: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(32)]],
         name: ['', [Validators.required, Validators.maxLength(32)]],
-        surname: ['', [Validators.required, Validators.maxLength(64)]]
+        surname: ['', [Validators.required, Validators.maxLength(64)]],
+        active: [true]
       }),
       password: ['', Validators.required],
       repeatedPassword: ['', Validators.required]

@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ErrorMessagesComponent } from 'common/validations';
 import { TranslateService } from 'ng2-translate';
 
 @Component({

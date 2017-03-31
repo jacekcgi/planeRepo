@@ -3,6 +3,7 @@ export const user = {
   name: 'Imię',
   surname: 'Nazwisko',
   login: 'Login',
+  active: 'Aktywność',
   actions: 'Akcje',
   create: 'Dodaj użytkownika',
   update: 'Aktualizuj użytkownika',

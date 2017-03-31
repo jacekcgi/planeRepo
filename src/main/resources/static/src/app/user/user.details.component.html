@@ -8,6 +8,7 @@
                 <ap-input formControlName="login" label="user.login" [formGroup]="userForm.get('user')" size=12></ap-input>
                 <ap-input formControlName="name" label="user.name" [formGroup]="userForm.get('user')" size=12></ap-input>
                 <ap-input formControlName="surname" label="user.surname" [formGroup]="userForm.get('user')" size=12></ap-input>
+                <ap-checkbox formControlName="active" label="user.active" [formGroup]="userForm.get('user')"></ap-checkbox>
             </div>
             <div *ngIf="sid == null">
                 <ap-input formControlName="password" label="user.password" [formGroup]="userForm" size=12 type="password"></ap-input>
