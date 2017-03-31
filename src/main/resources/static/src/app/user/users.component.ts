@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder} from '@angular/forms';
 import { Column, PageRequest, SearchRequest, Sort } from 'common/table'
 import { NotificationService, UserService} from 'app/services';
-//import { ActionsColumnComponent } from './actions.column.component';
+import { UserActionsColumnComponent } from './user.actions.column.component';
 
 @Component({
   selector: 'page-users',
@@ -13,21 +13,26 @@ export class UsersComponent {
     { title: "user.login", property: "login", sortable: true },
     { title: "user.name", property: "name", sortable: true },
     { title: "user.surname", property: "surname", sortable: true  },
-    //{ title: "actions", cell: ActionsColumnComponent }
+    { title: "actions", cell: UserActionsColumnComponent }
   ];
   data: [{}];
   searchRequest: SearchRequest = {
-    pageRequest: { sort: { orders: [{ field: "name", ascending: true }] }, page: 0, size: 25 },
-    filter: {}
+    pageRequest: { sort: { orders: [{ field: "login", ascending: true }] }, page: 0, size: 25 },
+    filter: {login: '', name: ''}
   };
   rows: number;
 
-  // filterForm: FormGroup;
+  filterForm: FormGroup;
 
   constructor(private fb: FormBuilder, private ns: NotificationService, private userService: UserService) { }
 
   ngOnInit() {
     this.fetchData();
+
+    this.filterForm = this.fb.group({
+      login: [''],
+      name: ['']
+    });
   }
 
 
@@ -47,12 +52,5 @@ export class UsersComponent {
   onFilter(filter: any) {
     this.searchRequest.filter = filter;
     this.fetchData();
-  }
-
-  onSubmit(event: any) {
-    // this.planeService.save(event, event.value).then((response) => {
-    //   this.ns.success('airplane.successCreated');
-    //   this.modal.dismiss();
-    // })
   }
 }

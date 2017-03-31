@@ -24,6 +24,7 @@ import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 import { UsersComponent } from './user/users.component';
 import { UserDetailsComponent } from './user/user.details.component';
+import { UserActionsColumnComponent } from './user/user.actions.column.component';
 
 import { NotificationService, TranslationService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
@@ -59,9 +60,10 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
     UsersComponent,
     UserDetailsComponent,
     MapComponent,
-    ActionsColumnComponent
+    ActionsColumnComponent,
+    UserActionsColumnComponent
   ],
-  entryComponents: [ActionsColumnComponent],
+  entryComponents: [ActionsColumnComponent, UserActionsColumnComponent],
   providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService,
       UserService],
   bootstrap: [AppComponent]

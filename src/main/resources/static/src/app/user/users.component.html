@@ -8,9 +8,10 @@
             </div>
         </div>
         <div>
-            <!--<ap-filtertoolbar [formGroup]="filterForm" (onFilter)="onFilter($event)">-->
-                <!--<ap-input formControlName="name" [formGroup]="filterForm" size=2 placeholder="airplane.name"></ap-input>-->
-            <!--</ap-filtertoolbar>-->
+            <ap-filtertoolbar [formGroup]="filterForm" (onFilter)="onFilter($event)">
+                <ap-input formControlName="login" [formGroup]="filterForm" size=2 placeholder="user.login"></ap-input>
+                <ap-input formControlName="name" [formGroup]="filterForm" size=2 placeholder="user.name"></ap-input>
+            </ap-filtertoolbar>
             <ap-pageabletable [columns]="columns" [data]="data" [pageRequest]="searchRequest.pageRequest" [rows]="rows" (onChange)="onChange($event)"></ap-pageabletable>
         </div>
     </div>

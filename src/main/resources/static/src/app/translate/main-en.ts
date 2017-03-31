@@ -16,6 +16,7 @@ export const LANG_EN_TRANS = {
     saveButton: 'Save',
     searchButton: 'Search',
     closeButton: 'Close',
+    acceptButton: 'Accept',
     // notification titles
     successTitle: 'Success',
     infoTitle: 'Info',
