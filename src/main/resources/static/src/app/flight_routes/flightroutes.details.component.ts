@@ -63,12 +63,15 @@ export class FlightRouteDetailsComponent implements OnInit {
             sid: [''],
             plane: ['', Validators.required],
             source: ['', Validators.required],
-            destination: ['', Validators.required],
-            startDate: "",
-            incomingDate: "",
-            dups: ""
+            destination: ['', Validators.required]
             // destination: ""
         });
+        // this.flightRouteForm.patchValue({
+        //     plane: {
+        //         sid: "8f9572ad984046b489f90589f1580925",
+        //         name: "Fajny samolot"
+        //     }
+        // });
     }
 
     autocompleListFormatter = (data: any): SafeHtml => {
@@ -77,17 +80,19 @@ export class FlightRouteDetailsComponent implements OnInit {
     }
 
     autocompleValueListFormatter = (data: any): SafeHtml => {
+        console.log("data",data);
         let html = `<span>${data.name} - ${data.registration}</span>`;
         return this._sanitizer.bypassSecurityTrustHtml(html);
     }
 
     onSubmit() {
-        this.flightRouteService.save(this.flightRouteForm, this.flightRouteForm.value).then((response) => {
-            this.ns.success('airplane.successCreated');
-            this.sid = response["sid"];
+        console.log("submit", this.flightRouteForm.value);
+        // this.flightRouteService.save(this.flightRouteForm, this.flightRouteForm.value).then((response) => {
+            // this.ns.success('airplane.successCreated');
+            // this.sid = response["sid"];
             // this.planeForm.patchValue(response);
             // this.planeForm.reset(); now no need
-        });
+        // });
     }
 
 }

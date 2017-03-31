@@ -19,7 +19,7 @@ import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
     ]
 })
 export class AutocompleteComponent implements ControlValueAccessor, OnInit {
-    
+
     defaultListFormatter = (data: any): string => {
         return `<span>${data.name}</span>`;
     }
@@ -27,8 +27,9 @@ export class AutocompleteComponent implements ControlValueAccessor, OnInit {
     @Input() size: number = 12;
     @Input() label: string;
     @Input() formGroup: FormGroup;
-    @Input('value') _value: string = "";
+    value: string = "";
     @Input('formControlName') property: string;
+    @Input() modelProperty: string;
     @Input() placeholder: string;
     // autocomplete props
     @Input("source") source: any;
@@ -52,23 +53,25 @@ export class AutocompleteComponent implements ControlValueAccessor, OnInit {
         this.onTouched = fn;
     }
 
-    writeValue(value: any) {
-        this._value = value;
+    writeValue(val: any) {
+        console.log("write value");
+        this.value = _.get(val, this.displayPropertyName, null)
     }
 
-    // execute if our input field has been changed
-    onInputChange(val: string) {
-        this.value = val;
-    }
 
-    // mutators for value
-    get value() {
-        return this._value;
-    }
-
-    set value(val) {
-        this._value = val;
-        this.onChange(val);
+    /**
+     * autocomplete component has own control, to manage value and display properly,
+     * and our form has seperated model to manage what has been choosen by user
+     */
+    onAutcompleteChange(val: any) {
+        console.log("selected", val);
+        if (val == null || val == undefined || val.length === 0) {
+            console.log("nulluje");
+            this.onChange(null);
+        } else if (typeof val === 'object') {
+            console.log("settuje");
+            this.onChange(_.get(val, this.modelProperty, val));
+        }
         this.onTouched();
     }
 

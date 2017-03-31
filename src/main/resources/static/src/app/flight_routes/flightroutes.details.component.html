@@ -4,15 +4,15 @@
     <div>
         <form [formGroup]="flightRouteForm" (ngSubmit)="onSubmit()">
             <input type="hidden" formControlName="sid" [value]="sid">
-            <ap-autocomplete formControlName="plane" label="airplane.description" [formGroup]="flightRouteForm" size=12 [source]="getPlanes.bind(this)"
-                [min-chars]="3" [list-formatter]="autocompleListFormatter" display-property-name="name"></ap-autocomplete>
-            <ap-autocomplete formControlName="source" label="airplane.description" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
-                [min-chars]="3" display-property-name="name"></ap-autocomplete>
-            <ap-autocomplete formControlName="destination" label="airplane.description" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
-                [min-chars]="3" display-property-name="name"></ap-autocomplete>
-            <ap-datetimepicker formControlName="startDate" [formGroup]="flightRouteForm"></ap-datetimepicker>
+            <ap-autocomplete modelProperty="sid" formControlName="plane" label="airplane.plane" [formGroup]="flightRouteForm" size=12 [source]="getPlanes.bind(this)"
+                [min-chars]="1" [list-formatter]="autocompleListFormatter" display-property-name="name"></ap-autocomplete>
+            <!--<ap-autocomplete formControlName="source" label="airplane.source" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
+                [min-chars]="1" display-property-name="name"></ap-autocomplete>
+            <ap-autocomplete formControlName="destination" label="airplane.destination" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
+                [min-chars]="1" display-property-name="name"></ap-autocomplete>-->
+            <!--<ap-datetimepicker formControlName="startDate" [formGroup]="flightRouteForm"></ap-datetimepicker>
             <ap-datetimepicker formControlName="incomingDate" [formGroup]="flightRouteForm"></ap-datetimepicker>
-            <input formControlName="dups" ngui-datetime-picker [close-on-select]="false" parse-format="YYYY-MM-DD HH:mm:ss">
+            <input formControlName="dups" ngui-datetime-picker [close-on-select]="false" parse-format="YYYY-MM-DD HH:mm:ss">-->
             <button type="submit" [disabled]="!flightRouteForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
         </form>
     </div>
