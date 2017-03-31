@@ -23,10 +23,12 @@ import { PlanesComponent } from './planes/planes.component';
 import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
-import { NotificationService, TranslationService } from 'app/services'; // app notifications
+import { NotificationService, TranslationService, AiportService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
 
- import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { NguiDatetimePickerModule } from '@ngui/datetime-picker';
+import { DatePipe } from "@angular/common";
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
+    Ng2AutoCompleteModule,
+    NguiDatetimePickerModule,
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
@@ -42,8 +46,7 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
       useClass: CustomLoader
     }),
     SimpleNotificationsModule.forRoot(),
-    CommonComponentsModule,
-    Ng2AutoCompleteModule
+    CommonComponentsModule
   ],
   declarations: [
     AppComponent,
@@ -58,7 +61,7 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService, AiportService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

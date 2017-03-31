@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services';
-import { NotificationService } from 'app/services';
+import { NotificationService, AiportService, FlightRoutesService } from 'app/services';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable";
@@ -16,21 +16,36 @@ export class FlightRouteDetailsComponent implements OnInit {
     sid: string = null;
     flightRouteForm: FormGroup;
 
-    searchRequest: SearchRequest = {
+    planesSearchRequest: SearchRequest = {
         pageRequest: { sort: { orders: [] }, page: 0, size: 25 },
         filter: { name: "" }
     };
 
-    getData(keyword: string) {
-        let tmp : any = this.planeService.findPlanes(this.searchRequest).then((response) => { 
+    airportsSearchRequest: SearchRequest = {
+        pageRequest: { sort: { orders: [] }, page: 0, size: 25 },
+        filter: { name: "" }
+    };
+
+    getPlanes(keyword: string) {
+        this.planesSearchRequest.filter = { name: keyword };
+        let tmp: any = this.planeService.findPlanes(this.planesSearchRequest).then((response) => {
             return response.entities
         });
 
         return Observable.fromPromise(tmp);
     }
 
+    getAirports(keyword: string) {
+        this.airportsSearchRequest.filter = { name: keyword };
+        let tmp: any = this.airportService.findAiports(this.planesSearchRequest).then((response) => {
+            return response.entities
+        });
 
-    constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService, private route: ActivatedRoute, private _sanitizer: DomSanitizer) {
+        return Observable.fromPromise(tmp);
+    }
+
+    constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService, private route: ActivatedRoute, private _sanitizer: DomSanitizer,
+        private airportService: AiportService, private flightRouteService: FlightRoutesService) {
         route.queryParams.subscribe((params: Params) => {
             this.sid = params['sid'];
         });
@@ -46,7 +61,12 @@ export class FlightRouteDetailsComponent implements OnInit {
     createForm() {
         this.flightRouteForm = this.fb.group({
             sid: [''],
-            plane: ""
+            plane: ['', Validators.required],
+            source: ['', Validators.required],
+            destination: ['', Validators.required],
+            startDate: "",
+            incomingDate: "",
+            dups: ""
             // destination: ""
         });
     }
@@ -56,8 +76,18 @@ export class FlightRouteDetailsComponent implements OnInit {
         return this._sanitizer.bypassSecurityTrustHtml(html);
     }
 
+    autocompleValueListFormatter = (data: any): SafeHtml => {
+        let html = `<span>${data.name} - ${data.registration}</span>`;
+        return this._sanitizer.bypassSecurityTrustHtml(html);
+    }
+
     onSubmit() {
-        alert('dojpa')
+        this.flightRouteService.save(this.flightRouteForm, this.flightRouteForm.value).then((response) => {
+            this.ns.success('airplane.successCreated');
+            this.sid = response["sid"];
+            // this.planeForm.patchValue(response);
+            // this.planeForm.reset(); now no need
+        });
     }
 
 }

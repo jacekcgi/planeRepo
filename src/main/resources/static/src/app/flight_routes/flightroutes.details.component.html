@@ -4,10 +4,16 @@
     <div>
         <form [formGroup]="flightRouteForm" (ngSubmit)="onSubmit()">
             <input type="hidden" formControlName="sid" [value]="sid">
-            <input ng2-auto-complete formControlName="plane" [source]="getData.bind(this)" [list-formatter]="autocompleListFormatter"
-                value-property-name="sid" display-property-name="name" placeholder="Contients" class="form-control" [min-chars]="3">
-            <!--<input ng2-auto-complete formControlName="destination" [source]="getData.bind(this)" [list-formatter]="autocompleListFormatter"
-                value-property-name="sid" display-property-name="name" placeholder="Contients" class="form-control" [min-chars]="3">-->
+            <ap-autocomplete formControlName="plane" label="airplane.description" [formGroup]="flightRouteForm" size=12 [source]="getPlanes.bind(this)"
+                [min-chars]="3" [list-formatter]="autocompleListFormatter" display-property-name="name"></ap-autocomplete>
+            <ap-autocomplete formControlName="source" label="airplane.description" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
+                [min-chars]="3" display-property-name="name"></ap-autocomplete>
+            <ap-autocomplete formControlName="destination" label="airplane.description" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
+                [min-chars]="3" display-property-name="name"></ap-autocomplete>
+            <ap-datetimepicker formControlName="startDate" [formGroup]="flightRouteForm"></ap-datetimepicker>
+            <ap-datetimepicker formControlName="incomingDate" [formGroup]="flightRouteForm"></ap-datetimepicker>
+            <input formControlName="dups" ngui-datetime-picker [close-on-select]="false" parse-format="YYYY-MM-DD HH:mm:ss">
+            <button type="submit" [disabled]="!flightRouteForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
         </form>
     </div>
 

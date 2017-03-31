@@ -2,15 +2,16 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
+import com.gl.planesAndAirfileds.domain.dto.SearchResult;
+import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
+import com.gl.planesAndAirfileds.domain.filter.SearchRequest;
 import com.gl.planesAndAirfileds.service.AirportsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class AirportsController {
+public class AirportsController extends AbstractController {
 
     private AirportsService airportsService;
 
@@ -27,6 +28,12 @@ public class AirportsController {
     @RequestMapping(value = Mappings.GET_AIRPORT, method = RequestMethod.GET)
     public Airport getAirport(@PathVariable(value = "airport_id") Long airportId) {
         return airportsService.getById(airportId);
+    }
+
+    @RequestMapping(value = Mappings.FIND_AIRPORTS_BY, method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public SearchResult<Airport> findAirportsBy(@RequestBody SearchRequest<PlaneFilter> searchRequest) {
+        return findBySearchParams(searchRequest, airportsService);
     }
 
 }

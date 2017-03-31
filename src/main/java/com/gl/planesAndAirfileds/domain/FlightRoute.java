@@ -51,11 +51,11 @@ public class FlightRoute extends AbstractIdentifiableEntity {
 
     @Column(name = "flight_phase", nullable = false)
     @Enumerated(EnumType.STRING)
-    @NotNull
+    @NotNull(groups = Validation.NotDefault.class)
     private FlightPhase flightPhase;
 
     @Column(name = "flight_distance", nullable = false)
-    @NotNull
+    @NotNull(groups = Validation.NotDefault.class)
     private double flightDistance;
 
     public LocalDateTime getLandedDate() {

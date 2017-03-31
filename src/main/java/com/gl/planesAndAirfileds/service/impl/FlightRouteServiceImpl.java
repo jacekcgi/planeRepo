@@ -1,5 +1,6 @@
 package com.gl.planesAndAirfileds.service.impl;
 
+import com.gl.planesAndAirfileds.domain.FlightPhase;
 import com.gl.planesAndAirfileds.domain.FlightRoute;
 import com.gl.planesAndAirfileds.repository.AbstractIdentifiableEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightRouteRepository;
@@ -29,5 +30,13 @@ public class FlightRouteServiceImpl extends AbstractIdentifiableEntityServiceImp
     @Transactional(readOnly = true)
     public List<FlightRoute> findCurrentFlights() {
         return flightRouteRepository.findCurrentFlights();
+    }
+
+    @Override
+    @Transactional
+    public FlightRoute save(FlightRoute entity) {
+        entity.setFlightPhase(FlightPhase.READY);
+        entity.setFlightDistance(1000);
+        return super.save(entity);
     }
 }

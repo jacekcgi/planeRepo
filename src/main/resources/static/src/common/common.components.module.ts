@@ -9,12 +9,19 @@ import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, Default
 import { ErrorMessagesComponent } from 'common/validations';
 import { LanguageComponent } from 'common/languages'
 
-import { NotificationService } from 'app/services';
+import { NotificationService, FlightRoutesService, PlaneService } from 'app/services';
+import { AutocompleteComponent } from "common/autocomplete";
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { NguiDatetimePickerModule } from '@ngui/datetime-picker';
+import { DateTimepickerComponent } from "common/datetimepicker";
+import { DateTimePickerModule } from 'ng2-date-time-picker';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
+        Ng2AutoCompleteModule,
+        NguiDatetimePickerModule,
         ReactiveFormsModule,
         TranslateModule.forRoot({
             provide: TranslateLoader,
@@ -23,6 +30,9 @@ import { NotificationService } from 'app/services';
     ],
     declarations: [
         InputComponent,
+        AutocompleteComponent,
+        DateTimepickerComponent,
+        DateTimePickerModule,
         ErrorMessagesComponent,
         Table,
         PageableTable,
@@ -39,6 +49,8 @@ import { NotificationService } from 'app/services';
     ],
     exports: [
         InputComponent,
+        AutocompleteComponent,
+        DateTimepickerComponent,
         ErrorMessagesComponent,
         Table,
         PageableTable,

@@ -9,7 +9,10 @@ import com.gl.planesAndAirfileds.domain.filter.SearchRequest;
 import com.gl.planesAndAirfileds.service.FlightRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.groups.Default;
 
 /**
  * Created by krzysztof.gonia on 3/27/2017.
@@ -33,4 +36,9 @@ public class FlightRouteController extends AbstractController {
         return findBySearchParams(flightRouteFilter, pagingRequest, flightRouteService);
     }
 
+    @RequestMapping(value = Mappings.CREATE_FLIGHT_ROUTES, method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public FlightRoute save(@RequestBody @Validated(Default.class) FlightRoute flightRoute) {
+            return flightRouteService.save(flightRoute);
+    }
 }

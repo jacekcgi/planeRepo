@@ -10,4 +10,8 @@ public interface Validation {
     interface PlaneValidate {
 
     }
+
+    interface NotDefault{
+
+    }
 }
