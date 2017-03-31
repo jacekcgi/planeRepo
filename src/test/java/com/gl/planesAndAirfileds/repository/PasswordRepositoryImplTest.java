@@ -3,7 +3,9 @@ package com.gl.planesAndAirfileds.repository;
 import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Password;
 import com.gl.planesAndAirfileds.domain.User;
+import junit.framework.TestCase;
 import org.junit.Before;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -36,5 +38,19 @@ public class PasswordRepositoryImplTest extends AbstractEntityRepositoryImplTest
     @Override
     protected List<Password> getEntities() {
         return TestDomainObjectFactory.findPasswords(users);
+    }
+
+    @Test
+    public void getByUser() {
+        User user = TestDomainObjectFactory.getUser();
+        persist(user);
+        Password password = TestDomainObjectFactory.getPassword(user);
+        persist(password);
+
+        List<Password> otherPasswords = TestDomainObjectFactory.findPasswords(users);
+        persist(otherPasswords);
+
+        Password result = passwordRepository.getByUser(user);
+        TestCase.assertEquals(password, result);
     }
 }

@@ -35,4 +35,10 @@ public class PasswordServiceImpl extends AbstractEntityServiceImpl<Password> imp
       String encoded = passwordEncoder.encode(password);
       return super.save(new Password(encoded, user));
    }
+
+   @Override
+   @Transactional(readOnly = true)
+   public Password getByUser(User user) {
+      return passwordRepository.getByUser(user);
+   }
 }
