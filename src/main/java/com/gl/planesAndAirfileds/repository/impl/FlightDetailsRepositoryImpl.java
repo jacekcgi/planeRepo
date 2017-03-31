@@ -53,6 +53,7 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
 
         Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE); //default inner join
+        Path<Plane> planeRoot = flightRouteRoot.get(FlightRoute.FIELD_PLANE);
         Path<Airport> airportRoot = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
 
         LocalDateTime now = LocalDateTime.now();
@@ -73,7 +74,9 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
                 root.get(FlightDetails.FIELD_DISTANCE_TRAVELED),
                 flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_DISTANCE),
                 flightRouteRoot.get(FlightRoute.FIELD_SID).alias(FlightDetailsDto.FIELD_FLIGHT_ROUTE_SID),
-                root.get(FlightDetails.FIELD_CREATED_DATE).alias(FlightDetailsDto.FIELD_CREATED_DATE)
+                root.get(FlightDetails.FIELD_CREATED_DATE).alias(FlightDetailsDto.FIELD_CREATED_DATE),
+                planeRoot.get(Plane.FIELD_NAME).alias(FlightDetailsDto.FIELD_PLANE_NAME),
+                planeRoot.get(Plane.FIELD_REGISTRATION).alias(FlightDetailsDto.FIELD_PLANE_REGISTRATION)
         );
         return getEntityManager().createQuery(criteriaQuery).getResultList();
     }
