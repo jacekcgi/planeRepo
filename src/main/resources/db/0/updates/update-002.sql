@@ -2,7 +2,6 @@ BEGIN;
 
 CREATE TABLE `airport` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `zoomlvl` int(2) NOT NULL DEFAULT '8',
   `altitude` varchar(255) DEFAULT NULL,
   `city` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,

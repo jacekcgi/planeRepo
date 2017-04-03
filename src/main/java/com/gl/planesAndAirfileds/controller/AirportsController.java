@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class AirportsController {
+public class AirportsController extends AbstractController{
 
     private AirportsService airportsService;
 
@@ -31,7 +31,7 @@ public class AirportsController {
         return airportsService.getById(airportId);
     }
 
-    @RequestMapping(value = Mappings.GET_AIRPORT_ONZOOM_LVL, method = RequestMethod.GET)
+    @RequestMapping(value = Mappings.FIND_AIRPORTS_ONZOOM_LVL, method = RequestMethod.GET)
     public List<Airport> getAirport(@PathVariable(value = "airport_zoomlevel") int zoomlvl) {
         return airportsService.getAirportOnZoomLvl(zoomlvl);
     }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -24,11 +23,9 @@ public class AirportRepositoryImpl extends AbstractIdentifiableEntityRepositoryI
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Airport> criteria = builder.createQuery(Airport.class);
         Root<Airport> root = JpaUtils.findOrCreateRoot(criteria, Airport.class);
-        Predicate where = builder.conjunction();
-        where = builder.and(where, builder.equal(
-                        builder.lower(root.get(Airport.FIELD_ZOOMLEVEL)),
-                        zoomlvl));
-            criteria.where(where);
+        criteria.where(builder.equal(
+                    builder.lower(root.get(Airport.FIELD_ZOOMLEVEL)),
+                    zoomlvl));
 
         return getEntityManager().createQuery(criteria).getResultList();
     }

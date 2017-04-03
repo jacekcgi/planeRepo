@@ -14,7 +14,7 @@ export class AirportService {
     }
 
     findAirportsOnZoomLvl(zoom: number) {
-        return this.actions.get("/getAirports/"+zoom);
+        return this.actions.get("/findAirportsOnCurrZoom/"+zoom);
     }
 
 }
