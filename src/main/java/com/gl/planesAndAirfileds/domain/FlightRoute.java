@@ -54,6 +54,7 @@ public class FlightRoute extends AbstractIdentifiableEntity {
     @NotNull
     private FlightPhase flightPhase;
 
+    //in km
     @Column(name = "flight_distance", nullable = false)
     @NotNull
     private double flightDistance;

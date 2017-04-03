@@ -58,7 +58,7 @@ public class FlightRouteServiceImpl extends AbstractIdentifiableEntityServiceImp
         GlobalPosition pointA = new GlobalPosition(source.getLatitude(), source.getLongitude(), 0.0);
         GlobalPosition userPos = new GlobalPosition(destination.getLatitude(), destination.getLongitude(), 0.0);
 
-        double distance = geoCalc.calculateGeodeticCurve(reference, userPos, pointA).getEllipsoidalDistance();
+        double distance = geoCalc.calculateGeodeticCurve(reference, userPos, pointA).getEllipsoidalDistance() / 1000;
 
         FlightRoute flightRoute = new FlightRoute();
         flightRoute.setFlightDistance(distance);
