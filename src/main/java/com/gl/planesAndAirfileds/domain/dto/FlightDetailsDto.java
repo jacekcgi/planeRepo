@@ -40,13 +40,13 @@ public class FlightDetailsDto implements Serializable {
                             double destinationLatitude, double destinationLongitude,
                             double velocity, double distanceTraveled, double flightDistance, String flightRouteSid) {
         this(currentLatitude, currentLongitude, destinationLatitude, destinationLongitude, velocity, distanceTraveled,
-                flightDistance, flightRouteSid, null, null, null, 0d, null, null);
+                flightDistance, flightRouteSid, null);
     }
 
     public FlightDetailsDto(double currentLatitude, double currentLongitude,
                             double destinationLatitude, double destinationLongitude,
                             double velocity, double distanceTraveled, double flightDistance, String flightRouteSid,
-                            LocalDateTime created, String planeName, String planeRegistration, double averageFuelConsumption, String sourceCity, String destinationCity) {
+                            LocalDateTime created) {
         this.currentLatitude = currentLatitude;
         this.currentLongitude = currentLongitude;
         this.destinationLatitude = destinationLatitude;
@@ -56,11 +56,6 @@ public class FlightDetailsDto implements Serializable {
         this.velocity = velocity;
         this.flightRouteSid = flightRouteSid;
         this.created = created;
-        this.planeName = planeName;
-        this.planeRegistration = planeRegistration;
-        this.averageFuelConsumption = averageFuelConsumption;
-        this.sourceCity = sourceCity;
-        this.destinationCity = destinationCity;
     }
 
     private double currentLatitude;
@@ -84,17 +79,7 @@ public class FlightDetailsDto implements Serializable {
 
     private LocalDateTime created;
 
-    private String planeName;
-
-    private String planeRegistration;
-
-    private double averageFuelConsumption;
-
-    private String sourceCity;
-
-    private String destinationCity;
-
-    public double getFlightDistance() {
+   public double getFlightDistance() {
         return flightDistance;
     }
 
@@ -174,43 +159,4 @@ public class FlightDetailsDto implements Serializable {
         this.timeElapsed = timeElapsed;
     }
 
-    public String getPlaneName() {
-        return planeName;
-    }
-
-    public void setPlaneName(String planeName) {
-        this.planeName = planeName;
-    }
-
-    public String getPlaneRegistration() {
-        return planeRegistration;
-    }
-
-    public void setPlaneRegistration(String planeRegistration) {
-        this.planeRegistration = planeRegistration;
-    }
-
-    public double getAverageFuelConsumption() {
-        return averageFuelConsumption;
-    }
-
-    public void setAverageFuelConsumption(double averageFuelConsumption) {
-        this.averageFuelConsumption = averageFuelConsumption;
-    }
-
-    public String getSourceCity() {
-        return sourceCity;
-    }
-
-    public void setSourceCity(String sourceCity) {
-        this.sourceCity = sourceCity;
-    }
-
-    public String getDestinationCity() {
-        return destinationCity;
-    }
-
-    public void setDestinationCity(String destinationCity) {
-        this.destinationCity = destinationCity;
-    }
 }

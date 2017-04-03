@@ -18,6 +18,10 @@ export interface FlightDetailsDto {
 
     flightDistance: number;
 
+   
+}
+
+export interface FlightDetails extends FlightDetailsDto {
     planeName: string,
 
     planeRegistration:string,

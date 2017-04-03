@@ -43,7 +43,8 @@ public class MaxDistanceController extends AbstractController {
         double reamingFuel = 0;
         double averageFuelConsumption = 0;
 
-        FlightDetails flightDetails = flightDetailsService.getLatestFlightDetailsForPlane(planeSid, true);
+        //TO DO
+        FlightDetails flightDetails = null;//flightDetailsService.getLatestFlightDetailsForPlane(planeSid, true);
         if (flightDetails != null) {
 
             reamingFuel = primitiveConverterHelperService

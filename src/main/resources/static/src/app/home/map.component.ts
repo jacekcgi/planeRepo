@@ -1,6 +1,6 @@
 import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
 import { PlaneService } from "app/services";
-import { FlightDetailsDto } from "app/domain";
+import { FlightDetailsDto,FlightDetails } from "app/domain";
 import { Observable, Subscription } from 'rxjs/Rx';
 declare var google: any;
 
@@ -19,7 +19,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     toggled:string="";
 
-    selectedFlightDetailsDto: FlightDetailsDto;
+    flightDetails: FlightDetails;
 
     @ViewChild('map') mapDiv: any;
 
@@ -116,15 +116,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             if (this.markers[flightRouteSid]) {
                 var marker = this.markers[flightRouteSid];
                 marker.setPosition(latlng);
-                marker.velocity = value.velocity;
-                marker.timeElapsed=value.timeElapsed;
-                marker.averageFuelConsumption = value.averageFuelConsumption;
-                marker.flightDistance = value.flightDistance;
-                marker.distanceTraveled = value.distanceTraveled;
-                marker.destinationCity = value.destinationCity,
                 marker.setIcon(this.icon);
                 tmpMarkers[flightRouteSid] = marker;
-
+                marker.timeElapsed = value.timeElapsed,
                 this.markers[flightRouteSid] = undefined;
                 delete this.markers[flightRouteSid];
             } else {
@@ -149,54 +143,51 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             icon: this.icon,
             map: this.map,
             flightRouteSid:flightRouteSid,
-            planeName:value.planeName,
-            planeRegistration:value.planeRegistration,
-            velocity:value.velocity,
-            averageFuelConsumption:value.averageFuelConsumption,
             timeElapsed:value.timeElapsed,
-            sourceCity:value.sourceCity,
-            destinationCity:value.destinationCity,
-            flightDistance:value.flightDistance,
-            distanceTraveled:value.distanceTraveled
         });
         marker.set('mapComponent', this)
         marker.addListener('click', function() {
             var that = this.get('mapComponent');
 
 
-            if(!that.selectedFlightDetailsDto) {
-                that.selectedFlightDetailsDto = {flightRouteSid:""};
+            if(!that.flightDetails) {
+                that.flightDetails = {flightRouteSid:""};
             }
            if(that.toggled === "toggled") {
-                if(that.selectedFlightDetailsDto.flightRouteSid === flightRouteSid) {
+                if(that.flightDetails.flightRouteSid === flightRouteSid) {
                     that.toggled = "";
-                    that.selectedFlightDetailsDto = {flightRouteSid:""};
+                    that.flightDetails = {flightRouteSid:""};
                 } else {
-                    that.createFligtDetails(that.selectedFlightDetailsDto,this);
+                    that.createFligtDetails(that,flightRouteSid,this);
                 }
            } else {
                 that.toggled = "toggled";
-                that.createFligtDetails(that.selectedFlightDetailsDto,this);
+                that.createFligtDetails(that,flightRouteSid,this);
            }
 
         });
         return marker;
     }
 
-    createFligtDetails (flightDetailsDto:any,marker:any) {
-        flightDetailsDto['flightRouteSid']=marker.flightRouteSid;
-        flightDetailsDto['planeName']=marker.planeName;
-        flightDetailsDto['planeRegistration']=marker.planeRegistration;
-        flightDetailsDto['latitude']=marker.position.lat();
-        flightDetailsDto['longitude']=marker.position.lng();
-        flightDetailsDto['velocity']=marker.velocity;
-        flightDetailsDto['timeElapsed']=marker.timeElapsed;
-        flightDetailsDto['averageFuelConsumption']=marker.averageFuelConsumption;
-        flightDetailsDto['course']=(marker.icon.rotation+360)%360;
-        flightDetailsDto['sourceCity']=marker.sourceCity;
-        flightDetailsDto['destinationCity']=marker.destinationCity;
-        flightDetailsDto['flightDistance']=marker.flightDistance;
-        flightDetailsDto['distanceTraveled']=marker.distanceTraveled;
+    createFligtDetails (that:any,flightRouteSid:string,marker:any) {
+        that.planeService.getFlightDetails(flightRouteSid).then((data: any) => {
+
+        that.flightDetails.flightRouteSid = data.flightRoute.sid;
+        that.flightDetails.planeName = data.flightRoute.plane.name;
+        that.flightDetails.planeRegistration = data.flightRoute.plane.registration;
+        that.flightDetails.latitude = marker.position.lat();
+        that.flightDetails.longitude = marker.position.lng();
+        that.flightDetails.velocity = data.velocity;
+        that.flightDetails.timeElapsed = marker.timeElapsed;
+        that.flightDetails.averageFuelConsumption = data.averageFuelConsumption;
+        that.flightDetails.course = (marker.icon.rotation+360)%360;
+        that.flightDetails.sourceCity = data.flightRoute.source.city;
+        that.flightDetails.destinationCity = data.flightRoute.destination.city;
+        that.flightDetails.flightDistance = data.flightRoute.flightDistance;
+        that.flightDetails.distanceTraveled = data.distanceTraveled;
+     })
+
+        
     }
 
 }

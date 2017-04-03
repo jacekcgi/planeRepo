@@ -41,6 +41,11 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         this.flightRouteService = flightRouteService;
     }
 
+
+    public FlightDetails getFlightDetailsByFlightRoute(String flightRouteSid) {
+        return flightDetailsRepository.getLatestFlightDetails(flightRouteSid);
+    }
+
     @Override
     protected AbstractEntityRepository<FlightDetails> getRepository() {
         return flightDetailsRepository;
@@ -54,27 +59,6 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
     @Override
     public long countBySearchParams(Filter filter) {
         return flightDetailsRepository.countBySearchParams(filter);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<FlightDetails> getLatestFlightDetailsForPlanes(String planeSid, boolean returnPlaneLanded) {
-        return flightDetailsRepository.getLatestFlightDetails(planeSid, returnPlaneLanded);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public FlightDetails getLatestFlightDetailsForPlane(String planeSid, boolean returnPlaneLanded) {
-        List<FlightDetails> latestFlightDetailForPlane = flightDetailsRepository
-                .getLatestFlightDetails(planeSid, returnPlaneLanded);
-
-        if (latestFlightDetailForPlane.isEmpty()) {
-
-            return null;
-        }
-
-        return latestFlightDetailForPlane.get(0);
-
     }
 
     @Override

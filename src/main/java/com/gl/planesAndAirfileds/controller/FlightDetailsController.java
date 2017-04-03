@@ -32,9 +32,10 @@ public class FlightDetailsController extends AbstractController {
         return flightDetailsService.findLatestFlightDetails();
     }
 
-    @RequestMapping(value = Mappings.GET_FLIGHT_DETAILS, method = RequestMethod.GET)
-    public FlightDetails latestFightDetailsForPlane(@PathVariable(value = "plane_sid") String planeSid) {
-        return flightDetailsService.getLatestFlightDetailsForPlane(planeSid,true);
+    @RequestMapping(value = {Mappings.GET_FLIGHT_DETAILS}, method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.OK)
+    public FlightDetails getFlightDetailsByFlightRoute(@PathVariable(value = "flightRoute_sid") String sid) {
+        return flightDetailsService.getFlightDetailsByFlightRoute(sid);
     }
 
     @RequestMapping(value = Mappings.POST_FLIGHT_DETAILS, method = RequestMethod.POST)

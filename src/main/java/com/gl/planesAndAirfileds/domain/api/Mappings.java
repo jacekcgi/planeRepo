@@ -25,7 +25,7 @@ public interface Mappings {
 
     String GET_CURRENT_POSITION = "/onePlaneLocation/{sid}";
 
-    String GET_FLIGHT_DETAILS = "/flightDetails/{plane_sid}";
+    String GET_FLIGHT_DETAILS = "/get/flightDetails/{flightRoute_sid}";
 
     //Airports controller
 

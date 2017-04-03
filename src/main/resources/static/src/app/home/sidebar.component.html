@@ -5,55 +5,55 @@
           <div class="card-header">
             <strong>{{'flightDetails.title' | translate}}</strong>
         </div>
-       <table class="table table-bordered table-striped table-sm" *ngIf="flightDetailsDto">
+       <table class="table table-bordered table-striped table-sm" *ngIf="flightDetails">
          <tbody>
              <tr>
                  <th>{{'flightroute.planeName' | translate}}</th>
-                 <td>{{flightDetailsDto.planeName}}</td>
+                 <td>{{flightDetails.planeName}}</td>
             </tr>
             <tr>    
                 <th>{{'flightroute.registration' | translate}}</th>
-                <td>{{flightDetailsDto.planeRegistration}}</td>
+                <td>{{flightDetails.planeRegistration}}</td>
             </tr>
             <tr>    
                 <th>{{'flightroute.sourceName' | translate}}</th>
-                <td>{{flightDetailsDto.sourceCity}}</td>
+                <td>{{flightDetails.sourceCity}}</td>
             </tr>
             <tr>    
                 <th>{{'flightroute.destinationName' | translate}}</th>
-                <td>{{flightDetailsDto.destinationCity}}</td>
+                <td>{{flightDetails.destinationCity}}</td>
             </tr>   
              <tr>    
                 <th>{{'flightDetails.course' | translate}}</th>
-                <td>{{flightDetailsDto.course | number:'1.0-0'}}&#x00B0;</td>
+                <td>{{flightDetails.course | number:'1.0-0'}}&#x00B0;</td>
             </tr>
              <tr>    
                 <th>{{'flightDetails.latitude' | translate}}</th>
-                <td>{{flightDetailsDto.latitude | number:'1.4-4'}}</td>
+                <td>{{flightDetails.latitude | number:'1.4-4'}}</td>
             </tr>
              <tr>    
                 <th>{{'flightDetails.longitude' | translate}}</th>
-                <td>{{flightDetailsDto.longitude | number:'1.4-4'}}</td>
+                <td>{{flightDetails.longitude | number:'1.4-4'}}</td>
             </tr>
              <tr>    
                 <th>{{'flightDetails.velocityKmH' | translate}}</th>
-                <td>{{flightDetailsDto.velocity | number:'1.0-0'}}</td>
+                <td>{{flightDetails.velocity | number:'1.0-0'}}</td>
             </tr>
              <tr>    
                 <th>{{'flightDetails.averageFuelConsumptionLKm' | translate}}</th>
-                <td>{{flightDetailsDto.averageFuelConsumption | number:'1.4-4'}}</td>
+                <td>{{flightDetails.averageFuelConsumption | number:'1.4-4'}}</td>
             </tr>
              <tr>    
                 <th>{{'flightDetails.flightTime' | translate}}</th>
-                <td>{{flightDetailsDto.timeElapsed | formatTime}}</td>
+                <td>{{flightDetails.timeElapsed | formatTime}}</td>
             </tr>
               <tr>    
                 <th>{{'flightroute.flightDistance' | translate}}</th>
-                <td>{{flightDetailsDto.flightDistance}}</td>
+                <td>{{flightDetails.flightDistance}}</td>
             </tr>
             <tr>    
                 <th>{{'flightroute.distanceTraveled' | translate}}</th>
-                <td>{{flightDetailsDto.distanceTraveled | number:'1.4-4' }}</td>
+                <td>{{flightDetails.distanceTraveled | number:'1.4-4' }}</td>
             </tr>
         </tbody>
     </table>
