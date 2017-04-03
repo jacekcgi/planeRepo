@@ -1,5 +1,5 @@
 import { Component, Input } from "@angular/core";
-import { FlightDetails } from "app/domain";
+import { FlightDetailsDto } from "app/domain";
 import { Column, PageRequest, SearchRequest, Sort } from 'common/table';
 import { AbstractControl, FormGroup, FormBuilder } from '@angular/forms';
 import { AirportService } from 'app/services'
@@ -11,7 +11,7 @@ import { AirportService } from 'app/services'
 })
 export class SidebarComponent {
    @Input() toggled: string;   
-   @Input() flightDetails: FlightDetails;
+   @Input() flightDetailsDto: FlightDetailsDto;
   
     columns: [Column] = [
     { title: "airport.name", property: "name", sortable: true },

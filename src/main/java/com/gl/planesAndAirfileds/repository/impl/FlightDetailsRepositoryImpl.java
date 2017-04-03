@@ -54,7 +54,8 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
 
         Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE); //default inner join
         Path<Plane> planeRoot = flightRouteRoot.get(FlightRoute.FIELD_PLANE);
-        Path<Airport> airportRoot = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
+        Path<Airport> airportRootSource = flightRouteRoot.get(FlightRoute.FIELD_SOURCE);
+        Path<Airport> airportRootDestination = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
 
         LocalDateTime now = LocalDateTime.now();
 
@@ -68,15 +69,19 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         //alis change nothing but you know what binds to what
         criteriaQuery.multiselect(root.get(FlightDetails.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LATITUDE),
                 root.get(FlightDetails.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LONGITUDE),
-                airportRoot.get(Airport.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LATITUDE),
-                airportRoot.get(Airport.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LONGITUDE),
+                airportRootDestination.get(Airport.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LATITUDE),
+                airportRootDestination.get(Airport.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LONGITUDE),
                 root.get(FlightDetails.FIELD_VELOCITY).alias(FlightDetailsDto.FIELD_VELOCITY),
                 root.get(FlightDetails.FIELD_DISTANCE_TRAVELED),
                 flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_DISTANCE),
                 flightRouteRoot.get(FlightRoute.FIELD_SID).alias(FlightDetailsDto.FIELD_FLIGHT_ROUTE_SID),
                 root.get(FlightDetails.FIELD_CREATED_DATE).alias(FlightDetailsDto.FIELD_CREATED_DATE),
                 planeRoot.get(Plane.FIELD_NAME).alias(FlightDetailsDto.FIELD_PLANE_NAME),
-                planeRoot.get(Plane.FIELD_REGISTRATION).alias(FlightDetailsDto.FIELD_PLANE_REGISTRATION)
+                planeRoot.get(Plane.FIELD_REGISTRATION).alias(FlightDetailsDto.FIELD_PLANE_REGISTRATION),
+                root.get(FlightDetails.FIELD_AVERAGE_FUEL_CONSUMPTION).alias(FlightDetailsDto.FIELD_AVERAGE_FUEL_CONSUMPTION),
+                airportRootSource.get(Airport.FIELD_CITY).alias(FlightDetailsDto.FIELD_SOURCE_CITY),
+                airportRootDestination.get(Airport.FIELD_CITY).alias(FlightDetailsDto.FIELD_DESTINATION_CITY)
+
         );
         return getEntityManager().createQuery(criteriaQuery).getResultList();
     }

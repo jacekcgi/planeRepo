@@ -23,6 +23,8 @@ public class FlightRoute extends AbstractIdentifiableEntity {
 
     public static final String FIELD_SOURCE = "source";
 
+    public static final String FIELD_PLANE = "plane";
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "source_id", nullable = false)
     @NotNull
