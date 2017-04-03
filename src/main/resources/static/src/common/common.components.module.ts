@@ -5,16 +5,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CustomLoader } from 'app/translate/translate.loader';
 
 import { InputComponent } from 'common/input';
-import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, DefaultCellComponent } from 'common/table';
+import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, DefaultCellComponent, DateCellComponent } from 'common/table';
 import { ErrorMessagesComponent } from 'common/validations';
-import { LanguageComponent } from 'common/languages'
+import { LanguageComponent } from 'common/languages';
+import { Modal } from 'common/modal/modal.window.component';
 
-import { NotificationService } from 'app/services';
+import { NotificationService, FlightRoutesService, PlaneService } from 'app/services';
+import { AutocompleteComponent } from "common/autocomplete";
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { DateTimepickerComponent, MomentPipe } from "common/datetimepicker";
+import { DatepickerModule, TimepickerModule  } from 'ng2-bootstrap';
+
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
+        Ng2AutoCompleteModule,
+        DatepickerModule.forRoot(),
+        TimepickerModule.forRoot(),
         ReactiveFormsModule,
         TranslateModule.forRoot({
             provide: TranslateLoader,
@@ -23,6 +32,8 @@ import { NotificationService } from 'app/services';
     ],
     declarations: [
         InputComponent,
+        AutocompleteComponent,
+        DateTimepickerComponent,
         ErrorMessagesComponent,
         Table,
         PageableTable,
@@ -30,14 +41,19 @@ import { NotificationService } from 'app/services';
         FilterToolbar,
         CellComponent,
         DefaultCellComponent,
-        LanguageComponent
+        DateCellComponent,
+        LanguageComponent,
+        MomentPipe,
+        Modal
     ],
-    entryComponents: [DefaultCellComponent],
+    entryComponents: [DefaultCellComponent, DateCellComponent],
     providers: [
 
     ],
     exports: [
         InputComponent,
+        AutocompleteComponent,
+        DateTimepickerComponent,
         ErrorMessagesComponent,
         Table,
         PageableTable,
@@ -45,7 +61,10 @@ import { NotificationService } from 'app/services';
         FilterToolbar,
         CellComponent,
         DefaultCellComponent,
-        LanguageComponent
+        DateCellComponent,
+        LanguageComponent,
+        MomentPipe,
+        Modal
     ]
 })
 export class CommonComponentsModule {

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Ignore
 public abstract class AbstractEntityRepositoryImplTest<T extends AbstractEntity>
-        extends AbstractRepositoryTest<T> {
+        extends AbstractRepositoryTest {
 
     protected abstract AbstractEntityRepository<T> getRepository();
 

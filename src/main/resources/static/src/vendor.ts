@@ -12,6 +12,7 @@ import "lodash";
 import "jquery";
 import "tether";
 import "bootstrap";
+import "moment";
 
 // import 'angular2-fontawesome';
 // import 'angular2-fontawesome/**/*.+(js|js.map)';

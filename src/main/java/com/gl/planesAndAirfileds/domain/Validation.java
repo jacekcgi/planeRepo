@@ -6,4 +6,9 @@ package com.gl.planesAndAirfileds.domain;
 public interface Validation {
     interface SidValidate {
     }
+
+    interface PlaneValidate {
+
+    }
+
 }

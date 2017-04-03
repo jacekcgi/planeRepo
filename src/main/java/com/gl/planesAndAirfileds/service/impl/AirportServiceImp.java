@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,14 +28,6 @@ public class AirportServiceImp extends AbstractIdentifiableEntityServiceImpl<Air
         this.airportRepository = airportRepository;
     }
 
-    @Override
-    @Transactional
-    public void saveAirports(List<Airport> airportsList) {
-
-        logger.info("Saving list of airports");
-        airportRepository.saveList(airportsList);
-        logger.info("List of Airport saved");
-    }
 
     @Override
     public List<Airport> getAirportOnZoomLvl(int zoomLvl) {

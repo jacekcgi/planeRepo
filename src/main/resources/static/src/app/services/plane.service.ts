@@ -2,11 +2,19 @@ import { ActionService } from 'app/services/action.service';
 import { Injectable, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AxiosResponse } from "axios";
-import { SearchRequest } from "common/table";
+import { FlightDetailsDto } from "app/domain";
+
+declare var google: any;
+
+const MILISECONDS_IN_ONE_HOUR = 3600000;
 
 @Injectable()
 export class PlaneService {
     constructor( @Inject(ActionService) private actions: ActionService) {
+    }
+
+    getPlane(sid: string) {
+        return this.actions.get("/get/plane/" + sid);
     }
 
     findPlanes(request: any) {
@@ -17,51 +25,29 @@ export class PlaneService {
         return this.actions.get("/planeIdList");
     }
 
-    findAllPlanesLocation(lastUpdate: string) {
-        return this.actions.get(_.filter(["/allPlanesLocation/", lastUpdate]).join(""));
+    findAllPlanesLocation() {
+        return this.actions.get("/allPlanesLocation/");
     }
 
     save(form: FormGroup, data: object) {
         return this.actions.postForm("/plane", data, form);
     }
 
-    calculateDistance(actualTime: number, incomingTime: number, velocity: number) {
-        var flightTime = (actualTime - incomingTime) / 3600000
-        return velocity * flightTime;
+    calculateDistance(lastUpdate: Date, velocity: number, timeElapsed: number) {
+        var elapsedTime = ((lastUpdate ? (new Date().getTime() - lastUpdate.getTime()) : 0) + timeElapsed) / MILISECONDS_IN_ONE_HOUR; // in hours
+        return velocity * elapsedTime * 1000; //im meters
     }
 
-    calculateDestinationPoint(latitude: number, longitude: number, bearing: number, distance: number) {
-        var earthRadius = 6371;
-        latitude = this.toRadians(latitude);
-        longitude = this.toRadians(longitude);
-        bearing = this.toRadians(bearing);
-        var angularDistance = distance / earthRadius;
-        var latitudeEnd = Math.asin(Math.sin(latitude) * Math.cos(angularDistance) +
+    calculateDestinationPoint(flightData: FlightDetailsDto, distance: number) {
 
-            Math.cos(latitude) * Math.sin(angularDistance) * Math.cos(bearing));
-        var longitudeEnd = longitude + Math.atan2(Math.sin(bearing) * Math.sin(angularDistance) * Math.cos(latitude),
-            Math.cos(angularDistance) - Math.sin(latitude) * Math.sin(latitudeEnd));
+        var from = new google.maps.LatLng(flightData.currentLatitude, flightData.currentLongitude);
+        var dest = new google.maps.LatLng(flightData.destinationLatitude, flightData.destinationLongitude);
 
-        var finalBearing = this.getFinalBearing(latitudeEnd, longitudeEnd, latitude, longitude);
-        var point = { latitude: this.toDegrees(latitudeEnd), longitude: this.toDegrees(longitudeEnd), course: finalBearing };
+        var finalBearing = google.maps.geometry.spherical.computeHeading(from, dest);
+        var latlng = google.maps.geometry.spherical.computeOffset(from, distance, finalBearing);
+        var point = { latlng: latlng, course: finalBearing };
 
         return point;
-    }
-
-
-    getFinalBearing(srcLat: number, srcLon: number, destLat: number, destLon: number) {
-        var longDiff = destLon - srcLon;
-        var y = Math.sin(longDiff) * Math.cos(destLat);
-        var x = Math.cos(srcLat) * Math.sin(destLat) - Math.sin(srcLat) * Math.cos(destLat) * Math.cos(longDiff);
-        var bearing = (this.toDegrees(Math.atan2(y, x)) + 360) % 360;
-        return (bearing + 180) % 360;
-    }
-    toRadians(degree: number) {
-        return degree * (Math.PI / 180);
-    }
-
-    toDegrees(radian: number) {
-        return radian * (180 / Math.PI);
     }
 
 }

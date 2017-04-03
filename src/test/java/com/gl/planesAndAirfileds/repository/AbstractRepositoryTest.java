@@ -25,7 +25,7 @@ import java.util.Random;
 @ComponentScan(basePackages = {"com.gl.planesAndAirfileds.repository"})
 @Rollback
 @Transactional
-public abstract class AbstractRepositoryTest<T extends AbstractEntity> {
+public abstract class AbstractRepositoryTest {
 
     protected static final Random RANDOM = new Random();
 
@@ -39,7 +39,7 @@ public abstract class AbstractRepositoryTest<T extends AbstractEntity> {
         }
     }
 
-    protected void persist(List<T> entries) {
+    protected <T extends AbstractEntity> void persist(List<T> entries) {
         for (T entry : entries) {
             entityManager.persist(entry);
             entityManager.flush();

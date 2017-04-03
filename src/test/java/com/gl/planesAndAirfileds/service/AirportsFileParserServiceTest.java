@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.Airport;
+import com.gl.planesAndAirfileds.domain.util.SidUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,36 +25,53 @@ public class AirportsFileParserServiceTest {
     @Test
     public void checkIfFileIsParseCorrectly() {
 
-        List<Airport> expectedAirportList = getTesData();
+        Airport airportExpected = getExpectedAirport();
+
         List<Airport> actualAirportList = airportsFileParserService.getListOfAirports();
+        Airport airportActual = actualAirportList.get(0);
 
-        assertThat(actualAirportList, is(expectedAirportList));
+        checkIfFieldValueAreTheSame(airportActual,airportExpected);
 
     }
 
-    private List<Airport> getTesData() {
+    private void checkIfFieldValueAreTheSame(Airport airportActual, Airport airportExpected) {
 
-        List<Airport> flightDetailsTestList = new ArrayList<>();
+        assertThat(airportActual.getName(), is(airportExpected.getName()));
+        assertThat(airportActual.getCity(), is(airportExpected.getCity()));
+        assertThat(airportActual.getCountry(), is(airportExpected.getCountry()));
+        assertThat(airportActual.getIataCode(), is(airportExpected.getIataCode()));
+        assertThat(airportActual.getIcaoCode(), is(airportExpected.getIcaoCode()));
+        assertThat(airportActual.getLatitude(), is(airportExpected.getLatitude()));
+        assertThat(airportActual.getLongitude(), is(airportExpected.getLongitude()));
+        assertThat(airportActual.getAltitude(), is(airportExpected.getAltitude()));
+        assertThat(airportActual.getTimezone(), is(airportExpected.getTimezone()));
+        assertThat(airportActual.getDaylightSavingTime(), is(airportExpected.getDaylightSavingTime()));
+        assertThat(airportActual.getTzDatabaseTimeZone(), is(airportExpected.getTzDatabaseTimeZone()));
+        assertThat(airportActual.getType(), is(airportExpected.getType()));
+        assertThat(airportActual.getSource(), is(airportExpected.getSource()));
 
-        Airport airportOne = new Airport();
-        airportOne.setId(1l);
-        airportOne.setName("Goroka Airport");
-        airportOne.setCity("Goroka");
-        airportOne.setCountry("Papua New Guinea");
-        airportOne.setIataCode("GKA");
-        airportOne.setIcaoCode("AYGA");
-        airportOne.setLatitude("-6.081689834590001");
-        airportOne.setLongitude("145.391998291");
-        airportOne.setAltitude("5282");
-        airportOne.setTimezone("\\N");
-        airportOne.setDaylightSavingTime("U");
-        airportOne.setTzDatabaseTimeZone("Pacific/Port_Moresby");
-        airportOne.setType("airport");
-        airportOne.setSource("OurAirports");
-
-        flightDetailsTestList.add(airportOne);
-
-        return flightDetailsTestList;
     }
+
+    private Airport getExpectedAirport() {
+
+        Airport airportExpected = new Airport();
+        airportExpected.setSid(SidUtils.generate());
+        airportExpected.setName("Goroka Airport");
+        airportExpected.setCity("Goroka");
+        airportExpected.setCountry("Papua New Guinea");
+        airportExpected.setIataCode("GKA");
+        airportExpected.setIcaoCode("AYGA");
+        airportExpected.setLatitude(-6.081689834590001);
+        airportExpected.setLongitude(145.391998291);
+        airportExpected.setAltitude(5282);
+        airportExpected.setTimezone("\\N");
+        airportExpected.setDaylightSavingTime("U");
+        airportExpected.setTzDatabaseTimeZone("Pacific/Port_Moresby");
+        airportExpected.setType("airport");
+        airportExpected.setSource("OurAirports");
+
+        return airportExpected;
+    }
+
 
 }

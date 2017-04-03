@@ -1,0 +1,12 @@
+<div ngClass="form-group col-sm-{{size}}">
+    <label [for]="property">{{ label | translate }}</label>
+    <input [ngClass]="{'invalid': !control.valid && control.touched}" type="text"
+        class="form-control" [name]="property" [placeholder]="getPlaceholder()" ng2-auto-complete
+        [accept-user-input]="false" [source]="source" [min-chars]="minChars" 
+        [list-formatter]="listFormatter"
+        (valueChanged)="onAutcompleteChange($event)"
+        [display-property-name]="displayPropertyName"
+        autocomplete="off"
+        [value]="value">
+    <error-messages [control]="control"></error-messages>
+</div>

@@ -1,15 +1,15 @@
 package com.gl.planesAndAirfileds.repository.impl;
 
-import com.gl.planesAndAirfileds.domain.FlightDetails;
-import com.gl.planesAndAirfileds.domain.Plane;
+import com.gl.planesAndAirfileds.domain.*;
+import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
+import com.gl.planesAndAirfileds.domain.simulator.GetFlightDetailsDto;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.Query;
+import javax.persistence.criteria.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -21,24 +21,100 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
 
     /**
      * Returns flight details where field isActualPosition = true
-     * @param planeSid can be null, if null flight details of all planes are returned
+     *
+     * @param planeSid          can be null, if null flight details of all planes are returned
      * @param returnPlaneLanded if true also the planes the landed are returned, if false - planes that landed are not returned
      * @return
      */
+    // TODO TO POSZLO SIE PIERDOLIC ?
     @Override
     public List<FlightDetails> getLatestFlightDetails(String planeSid, boolean returnPlaneLanded) {
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<FlightDetails> criteriaQuery = builder.createQuery(FlightDetails.class);
         Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
 
-        Predicate where = builder.equal(root.get(FlightDetails.FIELD_IS_ACTUAL_POSITION), true);
+        Predicate where = builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true);
         if (!StringUtils.isBlank(planeSid)) {
-            where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_PLANE).get(Plane.FIELD_SID), planeSid));
+            where = builder
+                    .and(where, builder.equal(root.get(FlightDetails.FIELD_PLANE).get(Plane.FIELD_SID), planeSid));
         }
         if (!returnPlaneLanded) {
             where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_IS_LANDED), false));
         }
         criteriaQuery.where(where);
         return getEntityManager().createQuery(criteriaQuery).getResultList();
+    }
+
+    @Override
+    public List<FlightDetailsDto> findLatest() {
+
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<FlightDetailsDto> criteriaQuery = builder.createQuery(FlightDetailsDto.class);
+        Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
+
+        Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE); //default inner join
+        Path<Airport> airportRoot = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
+
+        LocalDateTime now = LocalDateTime.now();
+
+        Predicate where = builder.lessThan(flightRouteRoot.get(FlightRoute.FIELD_START_DATE), now);
+        where = builder
+                .and(where, builder.notEqual(flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_PHASE), FlightPhase.LANDED));
+        where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true));
+
+        criteriaQuery.where(where);
+
+        //alis change nothing but you know what binds to what
+        criteriaQuery.multiselect(root.get(FlightDetails.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LATITUDE),
+                root.get(FlightDetails.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LONGITUDE),
+                airportRoot.get(Airport.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LATITUDE),
+                airportRoot.get(Airport.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LONGITUDE),
+                root.get(FlightDetails.FIELD_VELOCITY).alias(FlightDetailsDto.FIELD_VELOCITY),
+                root.get(FlightDetails.FIELD_DISTANCE_TRAVELED),
+                flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_DISTANCE),
+                flightRouteRoot.get(FlightRoute.FIELD_SID).alias(FlightDetailsDto.FIELD_FLIGHT_ROUTE_SID),
+                root.get(FlightDetails.FIELD_CREATED_DATE).alias(FlightDetailsDto.FIELD_CREATED_DATE)
+        );
+        return getEntityManager().createQuery(criteriaQuery).getResultList();
+    }
+
+    @Override
+    public List<GetFlightDetailsDto> findLatestForSimulator(List<FlightRoute> currentFlightRoutes) {
+
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<GetFlightDetailsDto> criteriaQuery = builder.createQuery(GetFlightDetailsDto.class);
+        Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
+
+        Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE); //default inner join
+        Path<Airport> destinationRoot = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
+        Path<Airport> sourceRoot = flightRouteRoot.get(FlightRoute.FIELD_SOURCE);
+
+        Predicate where = builder.in(root.get(FlightDetails.FIELD_FLIGHT_ROUTE)).value(currentFlightRoutes);
+        where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true));
+        criteriaQuery.where(where);
+
+        criteriaQuery
+                .multiselect(root.get(FlightDetails.FIELD_LATITUDE),
+                        root.get(FlightDetails.FIELD_LONGITUDE),
+                        destinationRoot.get(Airport.FIELD_LATITUDE),
+                        destinationRoot.get(Airport.FIELD_LONGITUDE),
+                        sourceRoot.get(Airport.FIELD_LATITUDE),
+                        sourceRoot.get(Airport.FIELD_LONGITUDE),
+                        flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_PHASE),
+                        root.get(FlightDetails.FIELD_CREATED_DATE),
+                        flightRouteRoot.get(FlightRoute.FIELD_START_DATE),
+                        root.get(FlightDetails.FIELD_VELOCITY),
+                        root.get(FlightDetails.FIELD_DISTANCE_TRAVELED),
+                        flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_DISTANCE),
+                        flightRouteRoot.get(FlightRoute.FIELD_SID)
+                );
+        return getEntityManager().createQuery(criteriaQuery).getResultList();
+    }
+
+    @Override
+    public int updateActualPosition(List<Long> flightRouteIds) {
+        Query query = getEntityManager().createNamedQuery(FlightDetails.UPDATE_ACTUAL_POSITION);
+        query.setParameter("ids", flightRouteIds);
+        return query.executeUpdate();
     }
 }

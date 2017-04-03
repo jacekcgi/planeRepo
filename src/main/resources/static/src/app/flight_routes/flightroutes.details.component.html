@@ -1,0 +1,19 @@
+<div class="container">
+    <!--<h1>{{ 'airplane.formHeader' | translate}}</h1>-->
+
+    <div>
+        <form [formGroup]="flightRouteForm" (ngSubmit)="onSubmit()">
+            <input type="hidden" formControlName="sid" [value]="sid">
+            <ap-autocomplete modelProperty="sid" formControlName="plane" label="flightroute.plane" [formGroup]="flightRouteForm" size=12 [source]="getPlanes.bind(this)"
+                [min-chars]="3" [list-formatter]="autocompleListFormatter" display-property-name="name"></ap-autocomplete>
+            <ap-autocomplete modelProperty="sid" formControlName="source" label="flightroute.sourceName" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
+                [min-chars]="3" display-property-name="name"></ap-autocomplete>
+            <ap-autocomplete modelProperty="sid" formControlName="destination" label="flightroute.destinationName" [formGroup]="flightRouteForm" size=12 [source]="getAirports.bind(this)"
+                [min-chars]="3" display-property-name="name"></ap-autocomplete>
+            <ap-datetimepicker formControlName="startDate" label="flightroute.startDate" [formGroup]="flightRouteForm"></ap-datetimepicker>
+            <ap-datetimepicker formControlName="incomingDate" label="flightroute.incomingDate" [formGroup]="flightRouteForm"></ap-datetimepicker>
+            <button type="submit" [disabled]="!flightRouteForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
+        </form>
+    </div>
+
+</div>

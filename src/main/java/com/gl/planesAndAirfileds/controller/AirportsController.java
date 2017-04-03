@@ -2,17 +2,18 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
+import com.gl.planesAndAirfileds.domain.dto.SearchResult;
+import com.gl.planesAndAirfileds.domain.filter.AirportFilter;
+import com.gl.planesAndAirfileds.domain.filter.SearchRequest;
 import com.gl.planesAndAirfileds.service.AirportsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-public class AirportsController extends AbstractController{
+public class AirportsController extends AbstractController {
 
     private AirportsService airportsService;
 
@@ -34,6 +35,12 @@ public class AirportsController extends AbstractController{
     @RequestMapping(value = Mappings.FIND_AIRPORTS_ONZOOM_LVL, method = RequestMethod.GET)
     public List<Airport> getAirport(@PathVariable(value = "airport_zoomlevel") int zoomlvl) {
         return airportsService.getAirportOnZoomLvl(zoomlvl);
+    }
+
+    @RequestMapping(value = Mappings.FIND_AIRPORTS_BY, method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public SearchResult<Airport> findAirportsBy(@RequestBody SearchRequest<AirportFilter> searchRequest) {
+        return findBySearchParams(searchRequest, airportsService);
     }
 
 }

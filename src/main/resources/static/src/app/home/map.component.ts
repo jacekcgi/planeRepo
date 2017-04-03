@@ -1,8 +1,13 @@
 import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
-import { PlaneService } from "app/services";
-import { AirportService } from "app/services";
-import { Observable } from "rxjs/Observable";
+import { PlaneService, AiportService} from "app/services";
+import { FlightDetailsDto } from "app/domain";
+import { Observable, Subscription } from 'rxjs/Rx';
+
 declare var google: any;
+
+var PLANES_REFRESH_INTERVAL : number = 1000; // 1s
+
+var SERVER_POST_FOR_PLANES_INTERVAL: number = 31; //call every N execution of planes refresh
 
 let $ = require('jquery');
 
@@ -11,9 +16,13 @@ let $ = require('jquery');
     templateUrl: './map.component.html'
 })
 
-export class MapComponent implements AfterViewInit {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('map') mapDiv: any;
+
+    private timer: Observable<number>;
+
+    private sub: Subscription;
 
     private map: any;
 
@@ -34,12 +43,27 @@ export class MapComponent implements AfterViewInit {
         anchor: new google.maps.Point(256, 256)
     }
 
-    constructor(private planeService: PlaneService, private airportService: AirportService) {
+    constructor(private planeService: PlaneService, private airportService: AiportService) {
+        this.timer = Observable.interval(PLANES_REFRESH_INTERVAL);
+    }
 
+    ngOnInit() {
+        this.initMap();
     }
 
     ngAfterViewInit(): void {
-        this.initMap();
+        this.sub = this.timer.subscribe((i) => {
+            if (i % SERVER_POST_FOR_PLANES_INTERVAL == 0) {
+                this.loadAndUpdatePlanes();
+            }
+            else {
+                this.updatePositions(false)
+            }
+        });
+    }
+
+    ngOnDestroy() {
+        this.sub.unsubscribe();
     }
 
     initMap() {
@@ -51,47 +75,56 @@ export class MapComponent implements AfterViewInit {
         this.map = map;
 
         this.loadAndUpdatePlanes();
-        setInterval(() => { this.loadAndUpdatePlanes() }, 5000);
         this.loadAirports(map);
     }
 
     loadAndUpdatePlanes() {
-        this.planeService.findAllPlanesLocation(this.lastUpdate).then((data) => {
-            this.updatePositions(data.updateTime, data.flightDetails)
+        this.planeService.findAllPlanesLocation().then((data: Array<FlightDetailsDto>) => {
+            this.updateData(data);
+            this.updatePositions(true);
         })
     }
 
-    updatePositions(serverTime: any, data: any) {
-        if (data) {
-            this.lastUpdate = serverTime
-            this.storedLocationData = data;
-        } else {
-            data = this.storedLocationData;
-        }
+    updateData(data: Array<FlightDetailsDto>) {
+        this.storedLocationData = data;
+        this.lastUpdate = new Date();
+    }
 
-        var tmpMarkers = {};
+    updatePositions(oryginal: boolean) {
+        let data: Array<FlightDetailsDto> = this.storedLocationData;
+        let tmpMarkers = {};
 
         for (let value of data) {
-            var distance = this.planeService.calculateDistance(serverTime, value.incomingTime, value.velocity);
-            var destPoint = this.planeService.calculateDestinationPoint(value.gpsLatitude, value.gpsLongitude, value.course, distance);
-            var planeSid = value.plane.sid;
-            var latlng = new google.maps.LatLng(destPoint.latitude.toString(), destPoint.longitude.toString());
-            this.icon["rotation"] = destPoint.course;
-            
+            let distance = this.planeService.calculateDistance(this.lastUpdate, value.velocity, value.timeElapsed);
+            let toTravel = value.flightDistance - (value.distanceTraveled + (distance / 1000));
+            let destPoint;
+            if (toTravel > 0) {
+                // console.log(value.flightDistance + " >= " + value.distanceTraveled + " + " + (distance / 1000));
+                destPoint = this.planeService.calculateDestinationPoint(value, distance);
+            } else {
+                //set airport latlng
+                destPoint = { latlng: {lat: value.destinationLatitude, lng: value.destinationLongitude}, course: null};
+            }
+            let planeSid = value.flightRouteSid;
+            let latlng = destPoint.latlng;
+            if (destPoint.course) this.icon["rotation"] = destPoint.course;
+
             if (this.markers[planeSid]) {
                 var marker = this.markers[planeSid];
                 marker.setPosition(latlng);
                 marker.setIcon(this.icon);
                 tmpMarkers[planeSid] = marker;
+
                 this.markers[planeSid] = undefined;
                 delete this.markers[planeSid];
-
             } else {
-                tmpMarkers[planeSid] = this.createMarker(latlng, value, planeSid);
+                if (oryginal) {
+                    tmpMarkers[planeSid] = this.createMarker(latlng, value, planeSid);
+                }
             }
         }
 
-        for (var m in this.markers) {
+        for (let m in this.markers) {
             if (this.markers.hasOwnProperty(m)) {
                 this.markers[m].setMap(null);
             }
@@ -102,7 +135,7 @@ export class MapComponent implements AfterViewInit {
     createMarker(latlng: any, value: any, planeSid: string) {
         var marker = new google.maps.Marker({
             position: latlng,
-            title: value.course.toString(),
+            title: value.course,
             icon: this.icon,
             map: this.map
         });
@@ -132,7 +165,7 @@ export class MapComponent implements AfterViewInit {
             title: value.name
             });
               markers[i++] = marker;
-                if ( z >= marker.zoomlvl) { 
+                if ( z >= marker.zoomlvl) {
                 marker.setMap(map);
             }
            }
@@ -140,13 +173,13 @@ export class MapComponent implements AfterViewInit {
             var z = map.getZoom();
             console.log(z);
             for (let mkr of markers) {
-                  if ( z >= mkr.zoomlvl) { 
+                  if ( z >= mkr.zoomlvl) {
                 mkr.setMap(map);
             }
             else if (!map.getBounds().contains(marker.getPosition()) || z < mkr.zoomlvl){
-               
+
                 mkr.setMap(null);
-            } 
+            }
             }
             });
             google.maps.event.addListener(map, 'dragend', function() {
@@ -154,7 +187,7 @@ export class MapComponent implements AfterViewInit {
             for (let mkr of markers) {
             if (map.getBounds().contains(mkr.getPosition())&& z>=mkr.zoomlvl ){
                 mkr.setMap(map);
-            } 
+            }
             else{
                 mkr.setMap(null);
             }
@@ -166,7 +199,7 @@ export class MapComponent implements AfterViewInit {
          this.airportService.findAirports().then((data) => {
             this.loadAirportsOnMap(map, data);
         })
-      
+
     }
 
 }

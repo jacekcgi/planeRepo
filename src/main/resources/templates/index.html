@@ -13,12 +13,15 @@
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/built/vendor.css}"/>
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/flag-icon.min.css}"/>
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/glyphicons.css}"/>
 </head>
 <body>
 
 <app-root>Loading Angular...</app-root>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMM5SVaQN_uhe5GVZj41g5s0db1OBNtFE"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMM5SVaQN_uhe5GVZj41g5s0db1OBNtFE&amp;libraries=geometry"></script>
+<script th:src="@{/js/moment/moment-with-locales.min.js}"></script>
+
 
 <th:block th:if="${@environment.getProperty('server.production')}">
     <script th:src="@{/built/polyfills.js}"></script>

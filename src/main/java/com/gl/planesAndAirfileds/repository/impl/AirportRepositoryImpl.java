@@ -1,12 +1,16 @@
 package com.gl.planesAndAirfileds.repository.impl;
 
 import com.gl.planesAndAirfileds.domain.Airport;
+import com.gl.planesAndAirfileds.domain.filter.AirportFilter;
+import com.gl.planesAndAirfileds.domain.filter.Filter;
 import com.gl.planesAndAirfileds.repository.AirportRepository;
 import com.gl.planesAndAirfileds.repository.util.JpaUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -18,14 +22,38 @@ public class AirportRepositoryImpl extends AbstractIdentifiableEntityRepositoryI
         AirportRepository {
 
     @Override
+    public CriteriaQuery<Airport> createCriteriaFromSearchParams(Filter filter) {
+
+        CriteriaQuery<Airport> criteria = super.createCriteriaFromSearchParams(filter);
+        Root<Airport> root = JpaUtils.findOrCreateRoot(criteria, Airport.class);
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+
+        Predicate where = builder.conjunction();
+
+        if (filter != null && AirportFilter.class.isAssignableFrom(filter.getClass())) {
+            AirportFilter airportFilter = (AirportFilter) filter;
+
+            if (StringUtils.isNotBlank(airportFilter.getName())) {
+                where = builder.and(where, builder.like(
+                        builder.lower(root.get(Airport.FIELD_NAME)),
+                        "%" + airportFilter.getName().toLowerCase() + "%"));
+            }
+
+            criteria.where(where);
+        }
+
+        return criteria;
+    }
+
+    @Override
     public List<Airport> getAirportBasedOnZoomLvl(int zoomlvl) {
 
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<Airport> criteria = builder.createQuery(Airport.class);
         Root<Airport> root = JpaUtils.findOrCreateRoot(criteria, Airport.class);
         criteria.where(builder.equal(
-                    builder.lower(root.get(Airport.FIELD_ZOOMLEVEL)),
-                    zoomlvl));
+                builder.lower(root.get(Airport.FIELD_ZOOMLEVEL)),
+                zoomlvl));
 
         return getEntityManager().createQuery(criteria).getResultList();
     }

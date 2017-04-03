@@ -63,3 +63,7 @@ html{
 .form-group .invalid {
   border-color: red !important
 }
+
+.ngui-datetime-picker .days {
+    width: 240px !important;
+}

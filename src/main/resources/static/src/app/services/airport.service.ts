@@ -2,19 +2,19 @@ import { ActionService } from 'app/services/action.service';
 import { Injectable, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { AxiosResponse } from "axios";
-import { SearchRequest } from "common/table";
+
+declare var google: any;
 
 @Injectable()
-export class AirportService {
+export class AiportService {
     constructor( @Inject(ActionService) private actions: ActionService) {
     }
 
-    findAirports() {
-        return this.actions.get("/findAirports");
+    findAiports(request: any) {
+        return this.actions.post("/find/airports", request);
     }
 
     findAirportsOnZoomLvl(zoom: number) {
         return this.actions.get("/findAirportsOnCurrZoom/"+zoom);
     }
-
 }
