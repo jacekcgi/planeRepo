@@ -1,5 +1,5 @@
 import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
-import { PlaneService } from "app/services";
+import { PlaneService,AirportService } from "app/services";
 import { FlightDetailsDto,FlightDetails } from "app/domain";
 import { Observable, Subscription } from 'rxjs/Rx';
 declare var google: any;
@@ -46,13 +46,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         anchor: new google.maps.Point(256, 256)
     }
 
-    constructor(private planeService: PlaneService) {
+    constructor(private planeService: PlaneService, private airportService: AiportService) {
         this.timer = Observable.interval(PLANES_REFRESH_INTERVAL);
     }
 
     ngOnInit() {
         this.initMap();
-        
+
     }
 
     ngAfterViewInit(): void {
@@ -79,6 +79,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.map = map;
 
         this.loadAndUpdatePlanes();
+        this.loadAirports(map);
     }
 
     loadAndUpdatePlanes() {
@@ -110,7 +111,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             }
             let flightRouteSid = value.flightRouteSid;
             let latlng = destPoint.latlng;
-           
+
             if (destPoint.course) this.icon["rotation"] = destPoint.course;
 
             if (this.markers[flightRouteSid]) {
@@ -187,7 +188,58 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         that.flightDetails.distanceTraveled = data.distanceTraveled;
      })
 
-        
+
+    }
+
+}
+
+    loadAirportsOnMap(map: any, data: any) {
+           var markers = new Array;
+           let i = 0;
+            var z = map.getZoom();
+           for(let value of data) {
+           var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(value.latitude, value.longitude),
+            map: null,
+            zoomlvl: value.zoomlvl,
+            title: value.name
+            });
+              markers[i++] = marker;
+                if ( z >= marker.zoomlvl) {
+                marker.setMap(map);
+            }
+           }
+            google.maps.event.addListener(map, 'zoom_changed', function() {
+            var z = map.getZoom();
+            console.log(z);
+            for (let mkr of markers) {
+                  if ( z >= mkr.zoomlvl) {
+                mkr.setMap(map);
+            }
+            else if (!map.getBounds().contains(marker.getPosition()) || z < mkr.zoomlvl){
+
+                mkr.setMap(null);
+            }
+            }
+            });
+            google.maps.event.addListener(map, 'dragend', function() {
+            var z = map.getZoom();
+            for (let mkr of markers) {
+            if (map.getBounds().contains(mkr.getPosition())&& z>=mkr.zoomlvl ){
+                mkr.setMap(map);
+            }
+            else{
+                mkr.setMap(null);
+            }
+            }
+            });
+    }
+
+    loadAirports(map: any) {
+         this.airportService.findAllAirports().then((data) => {
+            this.loadAirportsOnMap(map, data);
+        })
+
     }
 
 }

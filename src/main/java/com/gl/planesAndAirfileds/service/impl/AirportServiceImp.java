@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service("airportService")
@@ -27,6 +26,11 @@ public class AirportServiceImp extends AbstractIdentifiableEntityServiceImpl<Air
     @Override
     protected AbstractIdentifiableEntityRepository<Airport> getRepository() {
         return airportRepository;
+    }
+
+    @Override
+    public List<Airport> getAirportOnZoomLvl(int zoomLvl) {
+        return airportRepository.getAirportBasedOnZoomLvl(zoomLvl);
     }
 
 }

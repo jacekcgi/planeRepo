@@ -8,7 +8,6 @@ import { CustomLoader } from './translate/translate.loader';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { HomeComponent }  from './home/home.component';
 import { MapComponent }  from './home/map.component';
-import { FlightRoutesComponent } from "./flight_routes/flightroutes.component";
 
 import { SidebarComponent }  from './home/sidebar.component';
 
@@ -27,6 +26,7 @@ import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
 import { NotificationService, TranslationService, AirportService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
+import { FlightRoutesComponent } from "app/flight_routes/flightroutes.component";
 
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { DatePipe } from "@angular/common";

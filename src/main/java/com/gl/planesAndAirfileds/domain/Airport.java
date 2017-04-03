@@ -8,12 +8,15 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "airport")
 public class Airport extends AbstractIdentifiableEntity {
 
     public static final int FIELD_NAME_LENGTH = 255;
+
+    public static final String FIELD_ZOOMLEVEL = "zoomlvl";
 
     public static final String FIELD_NAME = "name";
 
@@ -70,8 +73,19 @@ public class Airport extends AbstractIdentifiableEntity {
     @Column(name = "source")
     private String source;
 
+    @Column(name = "zoomlvl")
+    private int zoomlvl;
+
     public String getName() {
         return name;
+    }
+
+    public int getZoomlvl() {
+        return zoomlvl;
+    }
+
+    public void setZoomlvl(int zoomlvl) {
+        this.zoomlvl = zoomlvl;
     }
 
     public void setName(String name) {

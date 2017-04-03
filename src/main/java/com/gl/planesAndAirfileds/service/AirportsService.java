@@ -8,5 +8,5 @@ import java.util.List;
  * Created by jacekcygi on 13.03.17.
  */
 public interface AirportsService extends AbstractIdentifiableEntityService<Airport> {
-
+    List<Airport> getAirportOnZoomLvl(int zoomLvl);
 }
