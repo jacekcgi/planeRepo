@@ -1,6 +1,7 @@
 package com.gl.planesAndAirfileds.service;
 
 import com.gl.planesAndAirfileds.domain.FlightRoute;
+import com.gl.planesAndAirfileds.domain.dto.FlightRouteDto;
 
 import java.util.List;
 
@@ -10,4 +11,6 @@ import java.util.List;
 public interface FlightRouteService extends AbstractIdentifiableEntityService<FlightRoute> {
 
     List<FlightRoute> findCurrentFlights();
+
+    FlightRoute save(FlightRouteDto flightRouteDto);
 }

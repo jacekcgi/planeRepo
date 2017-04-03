@@ -37,7 +37,7 @@ export class FlightRouteDetailsComponent implements OnInit {
 
     getAirports(keyword: string) {
         this.airportsSearchRequest.filter = { name: keyword };
-        let tmp: any = this.airportService.findAiports(this.planesSearchRequest).then((response) => {
+        let tmp: any = this.airportService.findAiports(this.airportsSearchRequest).then((response) => {
             return response.entities
         });
 
@@ -63,7 +63,10 @@ export class FlightRouteDetailsComponent implements OnInit {
             sid: [''],
             plane: ['', Validators.required],
             source: ['', Validators.required],
-            destination: ['', Validators.required]
+            destination: ['', Validators.required],
+            startDate: '',
+            incomingDate: ''
+            // incomingDate: ['', Validators.required]
             // destination: ""
         });
         // this.flightRouteForm.patchValue({
@@ -86,13 +89,12 @@ export class FlightRouteDetailsComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log("submit", this.flightRouteForm.value);
-        // this.flightRouteService.save(this.flightRouteForm, this.flightRouteForm.value).then((response) => {
-            // this.ns.success('airplane.successCreated');
-            // this.sid = response["sid"];
-            // this.planeForm.patchValue(response);
+        this.flightRouteService.save(this.flightRouteForm, this.flightRouteForm.value).then((response) => {
+            this.ns.success('airplane.successCreated');
+            this.sid = response["sid"];
+            this.flightRouteForm.patchValue(response);
             // this.planeForm.reset(); now no need
-        // });
+        });
     }
 
 }

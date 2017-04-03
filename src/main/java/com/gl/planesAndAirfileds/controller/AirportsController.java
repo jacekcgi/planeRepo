@@ -3,7 +3,7 @@ package com.gl.planesAndAirfileds.controller;
 import com.gl.planesAndAirfileds.domain.Airport;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.domain.dto.SearchResult;
-import com.gl.planesAndAirfileds.domain.filter.PlaneFilter;
+import com.gl.planesAndAirfileds.domain.filter.AirportFilter;
 import com.gl.planesAndAirfileds.domain.filter.SearchRequest;
 import com.gl.planesAndAirfileds.service.AirportsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +32,7 @@ public class AirportsController extends AbstractController {
 
     @RequestMapping(value = Mappings.FIND_AIRPORTS_BY, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    public SearchResult<Airport> findAirportsBy(@RequestBody SearchRequest<PlaneFilter> searchRequest) {
+    public SearchResult<Airport> findAirportsBy(@RequestBody SearchRequest<AirportFilter> searchRequest) {
         return findBySearchParams(searchRequest, airportsService);
     }
 

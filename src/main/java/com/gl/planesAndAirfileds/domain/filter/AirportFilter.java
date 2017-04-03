@@ -3,7 +3,7 @@ package com.gl.planesAndAirfileds.domain.filter;
 /**
  * Created by krzysztof.gonia on 3/29/2017.
  */
-public class AirportFilter {
+public class AirportFilter implements Filter {
 
     private String name;
 

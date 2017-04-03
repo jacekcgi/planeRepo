@@ -27,8 +27,9 @@ import { NotificationService, TranslationService, AiportService } from 'app/serv
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
 
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-import { NguiDatetimePickerModule } from '@ngui/datetime-picker';
 import { DatePipe } from "@angular/common";
+import { DatepickerModule, TimepickerModule } from 'ng2-bootstrap';
+import { MomentPipe } from "common/datetimepicker";
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { DatePipe } from "@angular/common";
     BrowserModule,
     FormsModule,
     Ng2AutoCompleteModule,
-    NguiDatetimePickerModule,
+    DatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,

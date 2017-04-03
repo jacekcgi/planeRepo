@@ -11,7 +11,4 @@ public interface Validation {
 
     }
 
-    interface NotDefault{
-
-    }
 }

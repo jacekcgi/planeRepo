@@ -13,16 +13,17 @@ import { Modal } from 'common/modal/modal.window.component';
 import { NotificationService, FlightRoutesService, PlaneService } from 'app/services';
 import { AutocompleteComponent } from "common/autocomplete";
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
-import { NguiDatetimePickerModule } from '@ngui/datetime-picker';
-import { DateTimepickerComponent } from "common/datetimepicker";
-import { DateTimePickerModule } from 'ng2-date-time-picker';
+import { DateTimepickerComponent, MomentPipe } from "common/datetimepicker";
+import { DatepickerModule, TimepickerModule  } from 'ng2-bootstrap';
+
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         Ng2AutoCompleteModule,
-        NguiDatetimePickerModule,
+        DatepickerModule.forRoot(),
+        TimepickerModule.forRoot(),
         ReactiveFormsModule,
         TranslateModule.forRoot({
             provide: TranslateLoader,
@@ -33,7 +34,6 @@ import { DateTimePickerModule } from 'ng2-date-time-picker';
         InputComponent,
         AutocompleteComponent,
         DateTimepickerComponent,
-        DateTimePickerModule,
         ErrorMessagesComponent,
         Table,
         PageableTable,
@@ -43,6 +43,7 @@ import { DateTimePickerModule } from 'ng2-date-time-picker';
         DefaultCellComponent,
         DateCellComponent,
         LanguageComponent,
+        MomentPipe,
         Modal
     ],
     entryComponents: [DefaultCellComponent, DateCellComponent],
@@ -62,6 +63,7 @@ import { DateTimePickerModule } from 'ng2-date-time-picker';
         DefaultCellComponent,
         DateCellComponent,
         LanguageComponent,
+        MomentPipe,
         Modal
     ]
 })
