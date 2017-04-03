@@ -1,4 +1,4 @@
-import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit } from "@angular/core";
+import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit, OnDestroy} from "@angular/core";
 import { PlaneService, AiportService} from "app/services";
 import { FlightDetailsDto } from "app/domain";
 import { Observable, Subscription } from 'rxjs/Rx';
@@ -196,7 +196,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     loadAirports(map: any) {
-         this.airportService.findAirports().then((data) => {
+         this.airportService.findAllAirports().then((data) => {
             this.loadAirportsOnMap(map, data);
         })
 

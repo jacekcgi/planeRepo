@@ -24,6 +24,7 @@ import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
 import { NotificationService, TranslationService, AiportService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
+import { FlightRoutesComponent } from "app/flight_routes/flightroutes.component";
 
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
 import { DatePipe } from "@angular/common";

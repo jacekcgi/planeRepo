@@ -14,6 +14,10 @@ export class AiportService {
         return this.actions.post("/find/airports", request);
     }
 
+    findAllAirports() {
+        return this.actions.get("/findAirports");
+    }
+
     findAirportsOnZoomLvl(zoom: number) {
         return this.actions.get("/findAirportsOnCurrZoom/"+zoom);
     }
