@@ -14,7 +14,7 @@ import { SidebarComponent }  from './home/sidebar.component';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ActionService, PlaneService, LanguageService, FlightRoutesService,AirportService } from './services';
+import { ActionService, PlaneService, LanguageService, FlightRoutesService } from './services';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
@@ -25,10 +25,13 @@ import { PlanesComponent } from './planes/planes.component';
 import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
-import { NotificationService, TranslationService } from 'app/services'; // app notifications
+import { NotificationService, TranslationService, AiportService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
 
- import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
+import { DatePipe } from "@angular/common";
+import { DatepickerModule, TimepickerModule } from 'ng2-bootstrap';
+import { MomentPipe } from "common/datetimepicker";
 
 
 @NgModule({
@@ -36,6 +39,9 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
     NgbModule.forRoot(),
     BrowserModule,
     FormsModule,
+    Ng2AutoCompleteModule,
+    DatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
@@ -44,8 +50,7 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
       useClass: CustomLoader
     }),
     SimpleNotificationsModule.forRoot(),
-    CommonComponentsModule,
-    Ng2AutoCompleteModule
+    CommonComponentsModule
   ],
   declarations: [
     AppComponent,
@@ -61,7 +66,7 @@ import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.deta
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService,AirportService],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService, AiportService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

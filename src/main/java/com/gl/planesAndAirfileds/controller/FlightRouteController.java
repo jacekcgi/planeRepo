@@ -2,6 +2,7 @@ package com.gl.planesAndAirfileds.controller;
 
 import com.gl.planesAndAirfileds.domain.FlightRoute;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
+import com.gl.planesAndAirfileds.domain.dto.FlightRouteDto;
 import com.gl.planesAndAirfileds.domain.dto.SearchResult;
 import com.gl.planesAndAirfileds.domain.filter.FlightRouteFilter;
 import com.gl.planesAndAirfileds.domain.filter.PagingRequest;
@@ -33,4 +34,9 @@ public class FlightRouteController extends AbstractController {
         return findBySearchParams(flightRouteFilter, pagingRequest, flightRouteService);
     }
 
+    @RequestMapping(value = Mappings.CREATE_FLIGHT_ROUTES, method = RequestMethod.POST)
+    @ResponseStatus(value = HttpStatus.OK)
+    public FlightRoute save(@RequestBody FlightRouteDto flightRouteDto) {
+            return flightRouteService.save(flightRouteDto);
+    }
 }

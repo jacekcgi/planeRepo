@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Column, Sort, Order } from 'common/table';
 
+const SHIFT_KEY_CODE = 16;
+
 @Component({
   selector: 'ap-table',
   template: `
@@ -21,8 +23,8 @@ import { Column, Sort, Order } from 'common/table';
     </table>
   `,
   host: {
-    '(document:keydown)': 'onDocumentKeyDown($event)',
-    '(document:keyup)': 'onDocumentKeyUp($event)'
+    '(document:keydown)': 'onDocumentKey($event, true)',
+    '(document:keyup)': 'onDocumentKey($event, false)'
   }
 })
 export class Table {
@@ -34,19 +36,11 @@ export class Table {
 
     multiOrder: boolean = false;
 
-    onDocumentKeyDown(event: KeyboardEvent) {
+    onDocumentKey(event: KeyboardEvent, keydown: boolean) {
       let key = event.which || event.keyCode;
-      if (key == 16) { //shift key
+      if (key == SHIFT_KEY_CODE) {
         event.preventDefault();
-        this.multiOrder = true;
-      }
-    }
-
-    onDocumentKeyUp(event: KeyboardEvent){
-      let key = event.which || event.keyCode;
-      if (key == 16) { //shift key
-        event.preventDefault();
-        this.multiOrder = false;
+        this.multiOrder = keydown;
       }
     }
 

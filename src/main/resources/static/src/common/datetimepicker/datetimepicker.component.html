@@ -1,0 +1,16 @@
+<div ngClass="form-group col-sm-{{size}}" [formGroup]="formGroup">
+    <label [for]="property">{{ label | translate }}</label>
+    <input [ngClass]="{'invalid': !control.valid && control.touched}" type="text" (input)="onInputChange($event.target.value)"
+        [value]="value" class="form-control" [name]="property" [placeholder]="getPlaceholder()" [formControlName]="property" 
+        [(ngModel)]="internalDateTime"
+        (click)="toggleDP()">
+    <div class="row" [hidden]="!clicked">
+        <div class="col-xs-6">
+            <datepicker [(ngModel)]="date" [ngModelOptions]="{standalone: true}" [minDate]="minDate" [showWeeks]="false"></datepicker>
+        </div>
+        <div class="col-xs-6">
+            <timepicker [(ngModel)]="time" [ngModelOptions]="{standalone: true}" [hourStep]="1" [minuteStep]="15" [showMeridian]="false"></timepicker>
+        </div>
+    </div>
+    <error-messages [control]="control"></error-messages>
+</div>

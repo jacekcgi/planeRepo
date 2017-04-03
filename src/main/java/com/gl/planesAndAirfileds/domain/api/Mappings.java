@@ -31,6 +31,8 @@ public interface Mappings {
 
     String FIND_AIRPORTS = "/find/airports";
 
+    String FIND_AIRPORTS_BY = "/find/airports";
+
     String GET_AIRPORT = "/getAirport/{airport_id}";
 
     //MaxDistanceController
@@ -44,4 +46,6 @@ public interface Mappings {
     //flight routes
 
     String FIND_FLIGHT_ROUTES = "/find/flightRoutes";
+
+    String CREATE_FLIGHT_ROUTES = "/flightRoute/create";
 }
