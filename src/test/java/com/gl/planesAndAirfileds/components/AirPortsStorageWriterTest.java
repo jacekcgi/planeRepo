@@ -53,7 +53,7 @@ public class AirPortsStorageWriterTest {
 
         airPortsStorageWriter.run(applicationArguments);
 
-        verify(airportsService).saveAirports(airportsList);
+        verify(airportsService).saveList(airportsList);
 
     }
 
@@ -65,7 +65,7 @@ public class AirPortsStorageWriterTest {
 
         airPortsStorageWriter.run(applicationArguments);
 
-        verify(airportsService, times(0)).saveAirports(anyListOf(Airport.class));
+        verify(airportsService, times(0)).saveList(anyListOf(Airport.class));
 
     }
 }

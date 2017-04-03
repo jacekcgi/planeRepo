@@ -5,75 +5,62 @@ import org.springframework.data.domain.Sort;
 
 import java.io.Serializable;
 
-public class PagingRequest implements Serializable
-{
-   public static final int DEFAULT_RESULTS_PER_PAGE = 25;
+public class PagingRequest implements Serializable {
+    public static final int DEFAULT_RESULTS_PER_PAGE = 25;
 
-   private int page;
+    private int page;
 
-   private int size;
+    private int size;
 
-   private SortRequest sort;
+    private SortRequest sort;
 
-   public PagingRequest()
-   {
-   }
+    public PagingRequest() {
+    }
 
-   public PagingRequest(int page, int size, SortRequest sort)
-   {
-      this.page = page;
-      this.size = size;
-      this.sort = sort;
-   }
+    public PagingRequest(int page, int size, SortRequest sort) {
+        this.page = page;
+        this.size = size;
+        this.sort = sort;
+    }
 
-   public PagingRequest(int page)
-   {
-      this(page, DEFAULT_RESULTS_PER_PAGE, null);
-   }
+    public PagingRequest(int page) {
+        this(page, DEFAULT_RESULTS_PER_PAGE, null);
+    }
 
-   public PagingRequest(int page, int size)
-   {
-      this(page, size, null);
-   }
+    public PagingRequest(int page, int size) {
+        this(page, size, null);
+    }
 
-   public PagingRequest(int offset, SortRequest sort)
-   {
-      this(offset, DEFAULT_RESULTS_PER_PAGE, sort);
-   }
+    public PagingRequest(int offset, SortRequest sort) {
+        this(offset, DEFAULT_RESULTS_PER_PAGE, sort);
+    }
 
-   public int getPage()
-   {
-      return page;
-   }
+    public int getPage() {
+        return page;
+    }
 
-   public void setPage(int page)
-   {
-      this.page = page;
-   }
+    public void setPage(int page) {
+        this.page = page;
+    }
 
-   public int getSize()
-   {
-      return size;
-   }
+    public int getSize() {
+        return size;
+    }
 
-   public void setSize(int size)
-   {
-      this.size = size;
-   }
+    public void setSize(int size) {
+        this.size = size;
+    }
 
-   public SortRequest getSort()
-   {
-      return sort;
-   }
+    public SortRequest getSort() {
+        return sort;
+    }
 
-   public void setSort(SortRequest sort)
-   {
-      this.sort = sort;
-   }
+    public void setSort(SortRequest sort) {
+        this.sort = sort;
+    }
 
-   public PageRequest toPageRequest()
-   {
-      Sort sort = this.sort.toSort();
-      return new PageRequest(this.page, this.size, sort);
-   }
+    public PageRequest toPageRequest() {
+        Sort sort = this.sort.toSort();
+        return new PageRequest(this.page, this.size, sort);
+    }
 }

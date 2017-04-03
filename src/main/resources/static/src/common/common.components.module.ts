@@ -7,7 +7,8 @@ import { CustomLoader } from 'app/translate/translate.loader';
 import { InputComponent } from 'common/input';
 import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, DefaultCellComponent, DateCellComponent } from 'common/table';
 import { ErrorMessagesComponent } from 'common/validations';
-import { LanguageComponent } from 'common/languages'
+import { LanguageComponent } from 'common/languages';
+import { Modal } from 'common/modal/modal.window.component';
 
 import { NotificationService, FlightRoutesService, PlaneService } from 'app/services';
 import { AutocompleteComponent } from "common/autocomplete";
@@ -41,7 +42,8 @@ import { DateTimePickerModule } from 'ng2-date-time-picker';
         CellComponent,
         DefaultCellComponent,
         DateCellComponent,
-        LanguageComponent
+        LanguageComponent,
+        Modal
     ],
     entryComponents: [DefaultCellComponent, DateCellComponent],
     providers: [
@@ -59,7 +61,8 @@ import { DateTimePickerModule } from 'ng2-date-time-picker';
         CellComponent,
         DefaultCellComponent,
         DateCellComponent,
-        LanguageComponent
+        LanguageComponent,
+        Modal
     ]
 })
 export class CommonComponentsModule {

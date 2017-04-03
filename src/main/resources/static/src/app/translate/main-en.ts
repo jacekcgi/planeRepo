@@ -13,6 +13,7 @@ export const LANG_EN_TRANS = {
     // main keys
     saveButton: 'Save',
     searchButton: 'Search',
+    closeButton: 'Close',
     // notification titles
     successTitle: 'Success',
     infoTitle: 'Info',
