@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Service("airportService")
 public class AirportServiceImp extends AbstractIdentifiableEntityServiceImpl<Airport> implements AirportsService {
 
@@ -26,17 +29,5 @@ public class AirportServiceImp extends AbstractIdentifiableEntityServiceImpl<Air
         return airportRepository;
     }
 
-    @Autowired
-    public void setAirportRepository(AirportRepository airportRepository) {
-        this.airportRepository = airportRepository;
-    }
-
-    @Override
-    @Transactional
-    public void saveAirports(List<Airport> airportsList) {
-
-        logger.info("Saving list of airports");
-        airportRepository.saveList(airportsList);
-        logger.info("List of Airport saved");
-    }
 }
+

@@ -46,8 +46,7 @@ import { FormatTimePipe } from 'common/pipe';
         DateCellComponent,
         LanguageComponent,
         MomentPipe,
-        Modal
-        LanguageComponent,
+        Modal,
         FormatTimePipe
     ],
     entryComponents: [DefaultCellComponent, DateCellComponent],
@@ -67,8 +66,7 @@ import { FormatTimePipe } from 'common/pipe';
         DefaultCellComponent,
         DateCellComponent,
         LanguageComponent,
-        FormatTimePipe
-        LanguageComponent,
+        FormatTimePipe,
         MomentPipe,
         Modal
     ]

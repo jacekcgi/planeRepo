@@ -25,7 +25,7 @@ import { PlanesComponent } from './planes/planes.component';
 import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
-import { NotificationService, TranslationService, AiportService } from 'app/services'; // app notifications
+import { NotificationService, TranslationService, AirportService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
 
 import { Ng2AutoCompleteModule } from 'ng2-auto-complete';
@@ -66,7 +66,7 @@ import { MomentPipe } from "common/datetimepicker";
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService, AiportService, DatePipe],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService, AirportService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

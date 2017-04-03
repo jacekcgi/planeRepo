@@ -6,7 +6,7 @@ export const flightroute = {
   destinationName: 'To',
   planeName: 'Plane',
   plane: 'Plane',
-  registration: 'Plane registration'
+  registration: 'Plane registration',
   flightDistance: 'Flight distance',
   distanceTraveled: 'Distance traveled'
 }
