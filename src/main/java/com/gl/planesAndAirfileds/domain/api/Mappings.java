@@ -3,7 +3,7 @@ package com.gl.planesAndAirfileds.domain.api;
 /**
  * Created by marek.sroga on 2017-03-06.
  */
-public interface Mappings {
+public interface Mappings extends ErrorApiMappings {
 
     String SIMULATOR_PREFIX = "/simulator";
 
