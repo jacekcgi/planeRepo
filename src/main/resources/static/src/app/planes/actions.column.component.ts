@@ -16,5 +16,5 @@ export class ActionsColumnComponent extends DefaultCellComponent {
     ngOnInit() {  
       this.params = { sid: this.item["sid"] }; 
     }
-
+    
 }

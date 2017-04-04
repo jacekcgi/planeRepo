@@ -1,13 +1,13 @@
 package com.gl.planesAndAirfileds.service.impl;
 
-import com.gl.planesAndAirfileds.domain.Airport;
-import com.gl.planesAndAirfileds.domain.FlightPhase;
-import com.gl.planesAndAirfileds.domain.FlightRoute;
-import com.gl.planesAndAirfileds.domain.Plane;
+import com.gl.planesAndAirfileds.domain.*;
 import com.gl.planesAndAirfileds.domain.dto.FlightRouteDto;
+import com.gl.planesAndAirfileds.domain.dto.FlightRouteUpdateDto;
+import com.gl.planesAndAirfileds.domain.util.GeodeticUtil;
 import com.gl.planesAndAirfileds.repository.AbstractIdentifiableEntityRepository;
 import com.gl.planesAndAirfileds.repository.FlightRouteRepository;
 import com.gl.planesAndAirfileds.service.AirportsService;
+import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.FlightRouteService;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import org.gavaghan.geodesy.Ellipsoid;
@@ -53,12 +53,7 @@ public class FlightRouteServiceImpl extends AbstractIdentifiableEntityServiceImp
         Airport source = airportsService.getBySid(flightRouteDto.getSource());
         Airport destination = airportsService.getBySid(flightRouteDto.getDestination());
 
-        GeodeticCalculator geoCalc = new GeodeticCalculator();
-        Ellipsoid reference = Ellipsoid.WGS84;
-        GlobalPosition pointA = new GlobalPosition(source.getLatitude(), source.getLongitude(), 0.0);
-        GlobalPosition userPos = new GlobalPosition(destination.getLatitude(), destination.getLongitude(), 0.0);
-
-        double distance = geoCalc.calculateGeodeticCurve(reference, userPos, pointA).getEllipsoidalDistance() / 1000;
+        double distance = GeodeticUtil.calculateDistanceBetweenPoints(source.getLatitude(), source.getLongitude(), destination.getLatitude(), destination.getLongitude());
 
         FlightRoute flightRoute = new FlightRoute();
         flightRoute.setFlightDistance(distance);
@@ -71,4 +66,15 @@ public class FlightRouteServiceImpl extends AbstractIdentifiableEntityServiceImp
         return save(flightRoute);
     }
 
+    @Override
+    @Transactional
+    public FlightRoute updateDestination(FlightRoute flightRoute, Airport destination, FlightDetails flightDetails) {
+        if(flightRoute != null && destination != null && flightDetails != null) {
+            double distance = GeodeticUtil.calculateDistanceBetweenPoints(flightDetails.getGpsLatitude(), flightDetails.getGpsLongitude(), destination.getLatitude(), destination.getLongitude());
+            flightRoute.setDestination(destination);
+            flightRoute.setFlightDistance(flightRoute.getFlightDistance() + distance);
+            return update(flightRoute);
+        }
+        return null;
+    }
 }

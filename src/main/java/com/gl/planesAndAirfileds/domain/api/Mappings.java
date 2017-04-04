@@ -49,5 +49,7 @@ public interface Mappings {
 
     String CREATE_FLIGHT_ROUTES = "/flightRoute/create";
 
+    String UPDATE_FLIGHT_ROUTES_DESTINATION = "/update/flightRoute/destination";
+
     String FIND_AIRPORTS_ONZOOM_LVL = "/findAirportsOnCurrZoom/{airport_zoomlevel}";
 }

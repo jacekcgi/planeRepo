@@ -2,7 +2,9 @@ import { Component, Input } from "@angular/core";
 import { FlightDetails } from "app/domain";
 import { Column, PageRequest, SearchRequest, Sort } from 'common/table';
 import { AbstractControl, FormGroup, FormBuilder } from '@angular/forms';
-import { AirportService } from 'app/services'
+import { AirportService,FlightRoutesService } from 'app/services'
+import { SidebarActionsColumnComponent } from './sidebar.actions.column.component';
+import { Subscription } from "rxjs/Rx";
 
 @Component({
     selector: 'ap-sidebar',
@@ -16,7 +18,9 @@ export class SidebarComponent {
     columns: [Column] = [
     { title: "airport.name", property: "name", sortable: true },
     { title: "airport.country", property: "country", sortable: true },
-    { title: "airport.city", property: "city", sortable: true }
+    { title: "airport.city", property: "city", sortable: true },
+    { title: "actions", property: "name", cell: SidebarActionsColumnComponent }
+
    ];
 
     data: [{}];
@@ -30,10 +34,21 @@ export class SidebarComponent {
   
    rows: number;
   
+  subscription: Subscription;
   
 
-   constructor(private fb: FormBuilder,private airportService: AirportService) {
+   constructor(private fb: FormBuilder,private airportService: AirportService,private flightRoutesService: FlightRoutesService) {
            this.toggled="toggled"; 
+           this.subscription = airportService.destinationChange$.subscribe(airportSid => {
+           let flightRoute:any = {"sid" :this.flightDetails.flightRouteSid, "destination": airportSid}
+           flightRoutesService.updateDestination(flightRoute).then((response) => {
+             if(response) {
+                this.flightDetails.destinationCity = response.destination.city;
+                this.flightDetails.flightDistance = response.flightDistance;
+             }
+            
+           });;
+        })
            
     }
 
@@ -66,4 +81,5 @@ export class SidebarComponent {
     this.searchRequest.pageRequest = pageRequest;
     this.fetchData()
   }
+
 }

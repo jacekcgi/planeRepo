@@ -17,4 +17,8 @@ export class FlightRoutesService {
         return this.actions.postForm("/flightRoute/create", data, form);
     }
 
+    updateDestination(data: object) {
+        return this.actions.post("/update/flightRoute/destination", data);
+    }
+
 }

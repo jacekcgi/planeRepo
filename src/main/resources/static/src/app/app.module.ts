@@ -23,6 +23,7 @@ import { CommonComponentsModule } from 'common/common.components.module'
 import { PlanesComponent } from './planes/planes.component';
 import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
+import { SidebarActionsColumnComponent } from 'app/home/sidebar.actions.column.component';
 
 import { NotificationService, TranslationService, AirportService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
@@ -63,9 +64,10 @@ import { MomentPipe } from "common/datetimepicker";
     PlanesComponent,
     MapComponent,
     SidebarComponent,
-    ActionsColumnComponent
+    ActionsColumnComponent,
+    SidebarActionsColumnComponent
   ],
-  entryComponents: [ActionsColumnComponent],
+  entryComponents: [ActionsColumnComponent,SidebarActionsColumnComponent],
   providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService, AirportService, DatePipe],
   bootstrap: [AppComponent]
 })
