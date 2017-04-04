@@ -71,9 +71,4 @@ public class FlightRouteServiceImpl extends AbstractIdentifiableEntityServiceImp
         return save(flightRoute);
     }
 
-    @Override
-    @Transactional
-    public FlightRoute save(FlightRoute entity) {
-        return super.save(entity);
-    }
 }
