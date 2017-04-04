@@ -6,5 +6,8 @@ export const flightroute = {
   destinationName: 'Lotnisko docelowe',
   planeName: 'Nazwa samolotu',
   plane: 'Samolot',
-  registration: 'Rejestracja samolotu'
+  registration: 'Rejestracja samolotu',
+  flightDistance: 'Długość lotu',
+  distanceTraveled: 'Przebyty dystans',
+  maxDistance: 'Maksymalny dystans'
 }

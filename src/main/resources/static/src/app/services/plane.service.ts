@@ -54,4 +54,8 @@ export class PlaneService {
         return point;
     }
 
+     calculateMaxDistance(remainingFuel:number,averageFuelConsumption:number) {
+          return  remainingFuel/averageFuelConsumption*0.9;
+    }
+
 }

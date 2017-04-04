@@ -8,5 +8,6 @@ export const flightroute = {
   plane: 'Plane',
   registration: 'Plane registration',
   flightDistance: 'Flight distance',
-  distanceTraveled: 'Distance traveled'
+  distanceTraveled: 'Distance traveled',
+  maxDistance: 'Max distance'
 }

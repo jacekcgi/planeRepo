@@ -186,6 +186,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         that.flightDetails.destinationCity = data.flightRoute.destination.city;
         that.flightDetails.flightDistance = data.flightRoute.flightDistance;
         that.flightDetails.distanceTraveled = data.distanceTraveled;
+        that.flightDetails.maxDistance = that.planeService.calculateMaxDistance(data.remainingFuel,data.averageFuelConsumption);
+        data.remainingFuel
      })
 
 

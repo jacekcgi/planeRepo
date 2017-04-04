@@ -30,5 +30,7 @@ export interface FlightDetails extends FlightDetailsDto {
 
     sourceCity: string,
 
-    destinationCity:string
+    destinationCity:string,
+
+    maxDistance: number
 }
