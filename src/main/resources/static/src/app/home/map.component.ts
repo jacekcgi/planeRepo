@@ -46,7 +46,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         anchor: new google.maps.Point(256, 256)
     }
 
-    constructor(private planeService: PlaneService, private airportService: AiportService) {
+    constructor(private planeService: PlaneService, private airportService: AirportService) {
         this.timer = Observable.interval(PLANES_REFRESH_INTERVAL);
     }
 
@@ -191,7 +191,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     }
 
-}
+
 
     loadAirportsOnMap(map: any, data: any) {
            var markers = new Array;
@@ -211,7 +211,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
            }
             google.maps.event.addListener(map, 'zoom_changed', function() {
             var z = map.getZoom();
-            console.log(z);
             for (let mkr of markers) {
                   if ( z >= mkr.zoomlvl) {
                 mkr.setMap(map);
@@ -236,7 +235,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     loadAirports(map: any) {
-         this.airportService.findAllAirports().then((data) => {
+         this.airportService.findAllAirports().then((data:any) => {
             this.loadAirportsOnMap(map, data);
         })
 

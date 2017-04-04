@@ -1,6 +1,5 @@
 import { ActionService } from 'app/services/action.service';
 import { Injectable, Inject } from '@angular/core';
-import { ActionService } from 'app/services/action.service';
 
 
 declare var google: any;
@@ -15,7 +14,7 @@ export class AirportService {
     }
 
     findAllAirports() {
-        return this.actions.get("/findAirports");
+        return this.actions.get("/find/airports");
     }
 
     findAirportsOnZoomLvl(zoom: number) {
