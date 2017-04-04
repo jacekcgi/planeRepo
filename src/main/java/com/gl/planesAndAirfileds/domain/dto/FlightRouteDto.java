@@ -1,5 +1,8 @@
 package com.gl.planesAndAirfileds.domain.dto;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 /**
@@ -7,14 +10,19 @@ import java.time.LocalDateTime;
  */
 public class FlightRouteDto {
 
+    @NotBlank
     private String plane;
 
+    @NotBlank
     private String source;
 
+    @NotBlank
     private String destination;
 
+    @NotNull
     private LocalDateTime startDate;
 
+    @NotNull
     private LocalDateTime incomingDate;
 
     public String getPlane() {

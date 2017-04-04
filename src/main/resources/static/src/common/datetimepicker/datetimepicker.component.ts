@@ -1,10 +1,12 @@
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, forwardRef, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, AbstractControl, ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ErrorMessagesComponent } from 'common/validations';
 import { TranslateService } from 'ng2-translate';
 import { DatePipe } from "@angular/common";
 
 import * as moment from "moment";
+import { LanguageService } from "app/services";
+import { Subscription } from "rxjs/Rx";
 
 @Component({
     selector: 'ap-datetimepicker',
@@ -17,7 +19,7 @@ import * as moment from "moment";
         }
     ]
 })
-export class DateTimepickerComponent implements ControlValueAccessor, OnInit {
+export class DateTimepickerComponent implements ControlValueAccessor, OnInit, OnDestroy {
     @Input() size: number = 12;
     @Input() label: string;
     @Input() formGroup: FormGroup;
@@ -36,17 +38,21 @@ export class DateTimepickerComponent implements ControlValueAccessor, OnInit {
 
     control: AbstractControl;
 
-    constructor(private translateService: TranslateService, private datePipe: DatePipe) {
-        moment.locale("pl")
+    subscription: Subscription;
+
+    constructor(private translateService: TranslateService, private datePipe: DatePipe, private languageService: LanguageService) {
+        this.subscription = languageService.languageChanged$.subscribe(language => {
+            moment.locale(language)
+        })
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 
     public toggleDP(): boolean {
         this.clicked = !this.clicked;
-        return !this.clicked;
-    }
-
-    ngModelChange(event: any) {
-        console.log("model change", event)
+        return this.clicked;
     }
 
     registerOnChange(fn: any) {
@@ -59,13 +65,16 @@ export class DateTimepickerComponent implements ControlValueAccessor, OnInit {
 
     writeValue(obj: any): void {
 
-        if (obj === this.internalDateTime) {
-            return;
-        }
         if (obj && obj instanceof Date) {
+            if (obj.getTime() === this.internalDateTime.getTime()) {
+                console.log('one')
+                return;
+            }
             this.internalDateTime = obj;
+            console.log('two')
             return;
         }
+        console.log('three')
         this.internalDateTime = obj ? new Date(obj) : void 0;
     }
 
@@ -141,5 +150,4 @@ export class DateTimepickerComponent implements ControlValueAccessor, OnInit {
         this.updateDateTime();
     }
 
-    
 }

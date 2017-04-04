@@ -11,7 +11,7 @@ import { AppConfig } from "config";
 export class LanguageComponent {
     languages: any[];
 
-    constructor(private translate: TranslateService, private languageService: LanguageService){
+    constructor(private translate: TranslateService, private languageService: LanguageService) {
         this.languageService.findLanguages().then((value: any) => {
             this.languages = value;
         });
@@ -20,5 +20,6 @@ export class LanguageComponent {
     onLanguageChange(language: any) {
         this.translate.use(language.locale);
         Cookie.set(AppConfig.languageCookieName, language.locale, null, "/");
+        this.languageService.onLanguageSet(language.locale);
     }
 }

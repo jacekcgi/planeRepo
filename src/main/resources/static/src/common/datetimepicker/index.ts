@@ -1,2 +1,2 @@
 export * from './datetimepicker.component';
-export * from './moment.pipe'
+export * from './moment.pipe';
