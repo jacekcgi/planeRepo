@@ -27,6 +27,8 @@ export class DateTimepickerComponent implements ControlValueAccessor, OnInit, On
     @Input('formControlName') property: string;
     @Input() placeholder: string;
 
+    @Input('dateFormat') dateFormat: string = 'LLLL';
+
     public clicked: boolean = false;
 
     internalDate: Date;

@@ -1,7 +1,7 @@
 <div ngClass="form-group col-sm-{{size}}" [formGroup]="formGroup">
     <label [for]="property">{{ label | translate }}</label>
     <input [ngClass]="{'invalid': !control.valid && control.touched}" type="text" (input)="onInputChange($event.target.value)"
-        [value]="internalDateTime | momentPipe " class="form-control" [name]="property" [placeholder]="getPlaceholder()" [formControlName]="property"
+        [value]="internalDateTime | momentPipe : dateFormat " class="form-control" [name]="property" [placeholder]="getPlaceholder()" [formControlName]="property"
         [(ngModel)]="internalDateTime"
         (click)="toggleDP()">
     <div class="row" [hidden]="!clicked">

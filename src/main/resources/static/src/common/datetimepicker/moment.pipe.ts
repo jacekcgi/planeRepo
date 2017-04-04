@@ -9,6 +9,6 @@ import * as moment from "moment";
 export class MomentPipe implements PipeTransform {
     transform(value: Date|moment.Moment, ...args: any[]): any {
         let [format] = args;
-        return moment(value).format('LLLL');
+        return moment(value).format(format);
     }
 }
