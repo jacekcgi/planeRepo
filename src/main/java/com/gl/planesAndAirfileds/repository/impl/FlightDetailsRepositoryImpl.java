@@ -19,30 +19,21 @@ import java.util.List;
 public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<FlightDetails>
         implements FlightDetailsRepository {
 
-    /**
-     * Returns flight details where field isActualPosition = true
-     *
-     * @param planeSid          can be null, if null flight details of all planes are returned
-     * @param returnPlaneLanded if true also the planes the landed are returned, if false - planes that landed are not returned
-     * @return
-     */
-    // TODO TO POSZLO SIE PIERDOLIC ?
+
+
     @Override
-    public List<FlightDetails> getLatestFlightDetails(String planeSid, boolean returnPlaneLanded) {
+    public FlightDetails getLatestFlightDetails(String flightRouteSid) {
+
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<FlightDetails> criteriaQuery = builder.createQuery(FlightDetails.class);
         Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
+        Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE);
 
-        Predicate where = builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true);
-        if (!StringUtils.isBlank(planeSid)) {
-            where = builder
-                    .and(where, builder.equal(root.get(FlightDetails.FIELD_PLANE).get(Plane.FIELD_SID), planeSid));
-        }
-        if (!returnPlaneLanded) {
-            where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_IS_LANDED), false));
-        }
+        Predicate where = builder.equal(flightRouteRoot.get(FlightRoute.FIELD_SID),flightRouteSid);
+        where = builder.and(where, builder.equal(root.get(FlightDetails.FIELD_ACTUAL_POSITION), true));
         criteriaQuery.where(where);
-        return getEntityManager().createQuery(criteriaQuery).getResultList();
+
+        return getEntityManager().createQuery(criteriaQuery).getSingleResult();
     }
 
     @Override
@@ -53,7 +44,8 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
 
         Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE); //default inner join
-        Path<Airport> airportRoot = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
+        Path<Plane> planeRoot = flightRouteRoot.get(FlightRoute.FIELD_PLANE);
+        Path<Airport> airportRootDestination = flightRouteRoot.get(FlightRoute.FIELD_DESTINATION);
 
         LocalDateTime now = LocalDateTime.now();
 
@@ -67,8 +59,8 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         //alis change nothing but you know what binds to what
         criteriaQuery.multiselect(root.get(FlightDetails.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LATITUDE),
                 root.get(FlightDetails.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_CURRENT_LONGITUDE),
-                airportRoot.get(Airport.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LATITUDE),
-                airportRoot.get(Airport.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LONGITUDE),
+                airportRootDestination.get(Airport.FIELD_LATITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LATITUDE),
+                airportRootDestination.get(Airport.FIELD_LONGITUDE).alias(FlightDetailsDto.FIELD_DESTINATION_LONGITUDE),
                 root.get(FlightDetails.FIELD_VELOCITY).alias(FlightDetailsDto.FIELD_VELOCITY),
                 root.get(FlightDetails.FIELD_DISTANCE_TRAVELED),
                 flightRouteRoot.get(FlightRoute.FIELD_FLIGHT_DISTANCE),

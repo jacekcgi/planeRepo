@@ -18,19 +18,20 @@ public class AirportServiceImp extends AbstractIdentifiableEntityServiceImpl<Air
 
     private AirportRepository airportRepository;
 
+    @Autowired
+    public AirportServiceImp(AirportRepository airportRepository) {
+        this.airportRepository = airportRepository;
+    }
+
     @Override
     protected AbstractIdentifiableEntityRepository<Airport> getRepository() {
         return airportRepository;
     }
 
-    @Autowired
-    public void setAirportRepository(AirportRepository airportRepository) {
-        this.airportRepository = airportRepository;
-    }
-
-
     @Override
     public List<Airport> getAirportOnZoomLvl(int zoomLvl) {
         return airportRepository.getAirportBasedOnZoomLvl(zoomLvl);
     }
+
 }
+

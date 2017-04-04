@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface FlightDetailsRepository extends AbstractEntityRepository<FlightDetails> {
 
-    List<FlightDetails> getLatestFlightDetails(String planeSid, boolean returnPlaneLanded);
-
     List<FlightDetailsDto> findLatest();
 
     List<GetFlightDetailsDto> findLatestForSimulator(List<FlightRoute> currentFlightRoutes);
 
     int updateActualPosition(List<Long> flightRouteIds);
+
+    FlightDetails getLatestFlightDetails(String flightRouteSid);
 }

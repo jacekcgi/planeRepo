@@ -17,6 +17,8 @@ import { DateTimepickerComponent, MomentPipe } from "common/datetimepicker";
 import { DatepickerModule, TimepickerModule  } from 'ng2-bootstrap';
 
 
+import { FormatTimePipe } from 'common/pipe';
+
 @NgModule({
     imports: [
         CommonModule,
@@ -44,7 +46,8 @@ import { DatepickerModule, TimepickerModule  } from 'ng2-bootstrap';
         DateCellComponent,
         LanguageComponent,
         MomentPipe,
-        Modal
+        Modal,
+        FormatTimePipe
     ],
     entryComponents: [DefaultCellComponent, DateCellComponent],
     providers: [
@@ -63,6 +66,7 @@ import { DatepickerModule, TimepickerModule  } from 'ng2-bootstrap';
         DefaultCellComponent,
         DateCellComponent,
         LanguageComponent,
+        FormatTimePipe,
         MomentPipe,
         Modal
     ]

@@ -9,6 +9,8 @@ import { DashboardComponent }   from './dashboard/dashboard.component';
 import { HomeComponent }  from './home/home.component';
 import { MapComponent }  from './home/map.component';
 
+import { SidebarComponent }  from './home/sidebar.component';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ActionService, PlaneService, LanguageService, FlightRoutesService } from './services';
@@ -22,7 +24,7 @@ import { PlanesComponent } from './planes/planes.component';
 import { PlaneDetailsComponent} from './planes/plane.details.component';
 import { ActionsColumnComponent } from 'app/planes/actions.column.component';
 
-import { NotificationService, TranslationService, AiportService } from 'app/services'; // app notifications
+import { NotificationService, TranslationService, AirportService } from 'app/services'; // app notifications
 import { FlightRouteDetailsComponent } from "app/flight_routes/flightroutes.details.component";
 import { FlightRoutesComponent } from "app/flight_routes/flightroutes.component";
 
@@ -60,10 +62,11 @@ import { MomentPipe } from "common/datetimepicker";
     // root components
     PlanesComponent,
     MapComponent,
+    SidebarComponent,
     ActionsColumnComponent
   ],
   entryComponents: [ActionsColumnComponent],
-  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService, AiportService, DatePipe],
+  providers: [ActionService, PlaneService, NotificationsService, NotificationService, TranslationService, LanguageService, FlightRoutesService, AirportService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

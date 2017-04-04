@@ -1,5 +1,6 @@
 package com.gl.planesAndAirfileds.controller;
 
+import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import org.junit.Test;
@@ -25,6 +26,9 @@ public class DuplicatePlaneRegistrationTest {
 
     @MockBean
     private RestTemplateBuilder builder;
+
+    @MockBean
+    FlightDetailsService flightDetailsService;
 
     private MockMvc mockMvc;
 

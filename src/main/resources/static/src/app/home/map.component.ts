@@ -1,8 +1,7 @@
-import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit, OnDestroy} from "@angular/core";
-import { PlaneService, AiportService} from "app/services";
-import { FlightDetailsDto } from "app/domain";
+import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
+import { PlaneService,AirportService } from "app/services";
+import { FlightDetailsDto,FlightDetails } from "app/domain";
 import { Observable, Subscription } from 'rxjs/Rx';
-
 declare var google: any;
 
 var PLANES_REFRESH_INTERVAL : number = 1000; // 1s
@@ -17,6 +16,10 @@ let $ = require('jquery');
 })
 
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+
+    toggled:string="";
+
+    flightDetails: FlightDetails;
 
     @ViewChild('map') mapDiv: any;
 
@@ -43,12 +46,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         anchor: new google.maps.Point(256, 256)
     }
 
-    constructor(private planeService: PlaneService, private airportService: AiportService) {
+    constructor(private planeService: PlaneService, private airportService: AirportService) {
         this.timer = Observable.interval(PLANES_REFRESH_INTERVAL);
     }
 
     ngOnInit() {
         this.initMap();
+
     }
 
     ngAfterViewInit(): void {
@@ -105,21 +109,22 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                 //set airport latlng
                 destPoint = { latlng: {lat: value.destinationLatitude, lng: value.destinationLongitude}, course: null};
             }
-            let planeSid = value.flightRouteSid;
+            let flightRouteSid = value.flightRouteSid;
             let latlng = destPoint.latlng;
+
             if (destPoint.course) this.icon["rotation"] = destPoint.course;
 
-            if (this.markers[planeSid]) {
-                var marker = this.markers[planeSid];
+            if (this.markers[flightRouteSid]) {
+                var marker = this.markers[flightRouteSid];
                 marker.setPosition(latlng);
                 marker.setIcon(this.icon);
-                tmpMarkers[planeSid] = marker;
-
-                this.markers[planeSid] = undefined;
-                delete this.markers[planeSid];
+                tmpMarkers[flightRouteSid] = marker;
+                marker.timeElapsed = value.timeElapsed,
+                this.markers[flightRouteSid] = undefined;
+                delete this.markers[flightRouteSid];
             } else {
                 if (oryginal) {
-                    tmpMarkers[planeSid] = this.createMarker(latlng, value, planeSid);
+                    tmpMarkers[flightRouteSid] = this.createMarker(latlng, value, flightRouteSid);
                 }
             }
         }
@@ -132,26 +137,61 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.markers = tmpMarkers;
     }
 
-    createMarker(latlng: any, value: any, planeSid: string) {
+    createMarker(latlng: any, value: any, flightRouteSid: string) {
         var marker = new google.maps.Marker({
             position: latlng,
             title: value.course,
             icon: this.icon,
-            map: this.map
+            map: this.map,
+            flightRouteSid:flightRouteSid,
+            timeElapsed:value.timeElapsed,
         });
-        marker.set('planeSid', planeSid)
         marker.set('mapComponent', this)
-        marker.addListener('click', function () {
-            //this in here is marker
-            this.get('mapComponent').onMarkerClick(this.get('planeSid'))
+        marker.addListener('click', function() {
+            var that = this.get('mapComponent');
+
+
+            if(!that.flightDetails) {
+                that.flightDetails = {flightRouteSid:""};
+            }
+           if(that.toggled === "toggled") {
+                if(that.flightDetails.flightRouteSid === flightRouteSid) {
+                    that.toggled = "";
+                    that.flightDetails = {flightRouteSid:""};
+                } else {
+                    that.createFligtDetails(that,flightRouteSid,this);
+                }
+           } else {
+                that.toggled = "toggled";
+                that.createFligtDetails(that,flightRouteSid,this);
+           }
+
         });
         return marker;
     }
 
-    onMarkerClick(planeSid: any) {
-        console.log('clicked!')
-        console.log(planeSid)
+    createFligtDetails (that:any,flightRouteSid:string,marker:any) {
+        that.planeService.getFlightDetails(flightRouteSid).then((data: any) => {
+
+        that.flightDetails.flightRouteSid = data.flightRoute.sid;
+        that.flightDetails.planeName = data.flightRoute.plane.name;
+        that.flightDetails.planeRegistration = data.flightRoute.plane.registration;
+        that.flightDetails.latitude = marker.position.lat();
+        that.flightDetails.longitude = marker.position.lng();
+        that.flightDetails.velocity = data.velocity;
+        that.flightDetails.timeElapsed = marker.timeElapsed;
+        that.flightDetails.averageFuelConsumption = data.averageFuelConsumption;
+        that.flightDetails.course = (marker.icon.rotation+360)%360;
+        that.flightDetails.sourceCity = data.flightRoute.source.city;
+        that.flightDetails.destinationCity = data.flightRoute.destination.city;
+        that.flightDetails.flightDistance = data.flightRoute.flightDistance;
+        that.flightDetails.distanceTraveled = data.distanceTraveled;
+     })
+
+
     }
+
+
 
     loadAirportsOnMap(map: any, data: any) {
            var markers = new Array;
@@ -171,7 +211,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
            }
             google.maps.event.addListener(map, 'zoom_changed', function() {
             var z = map.getZoom();
-            console.log(z);
             for (let mkr of markers) {
                   if ( z >= mkr.zoomlvl) {
                 mkr.setMap(map);
@@ -196,7 +235,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     loadAirports(map: any) {
-         this.airportService.findAllAirports().then((data) => {
+         this.airportService.findAllAirports().then((data:any) => {
             this.loadAirportsOnMap(map, data);
         })
 

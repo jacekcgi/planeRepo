@@ -31,54 +31,11 @@ public class FlightDetailsControllerTest {
     FlightDetailsService flightDetailsService;
 
     @Test
-    public void getCurrentTimeTest() throws Exception {
-
-        mockMvc.perform(get("/getCurrentTime"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-    }
-
-    @Test
     public void getCurrentPositionOfAllPlanesSuccessCaseThenStatusOkTest() throws Exception {
 
         mockMvc.perform(get(Mappings.FIND_CURRENT_POSITIONS))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
-
-    }
-
-    @Test
-    public void getCurrentPositionOfAllPlanesServiceUnavailableErrorReturnTest() throws Exception {
-
-        when(flightDetailsService.getLatestFlightDetailsForPlanes(anyString(),anyBoolean()))
-                .thenThrow(new ObjectNotFoundException("id", "FD"));
-
-        mockMvc.perform(get(Mappings.FIND_CURRENT_POSITIONS))
-                .andExpect(status().isInternalServerError());
-
-    }
-
-    @Test
-    public void getLatestFlightDetailsForPlaneSuccessCaseStatusOkTest() throws Exception {
-
-        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString(),anyBoolean()))
-                .thenReturn(new FlightDetails());
-
-        mockMvc.perform(get("/onePlaneLocation/2"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType((MediaType.APPLICATION_JSON_UTF8)));
-
-    }
-
-    @Test
-    public void latestFightDetailsForPlaneTest() throws Exception {
-
-        when(flightDetailsService.getLatestFlightDetailsForPlane(anyString(),anyBoolean()))
-                .thenReturn(new FlightDetails());
-
-        mockMvc.perform(get("/flightDetails/2"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType((MediaType.APPLICATION_JSON_UTF8)));
 
     }
 

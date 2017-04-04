@@ -27,29 +27,10 @@ public class FlightDetailsServiceTest {
     @MockBean
     private PlaneService planeService;
 
+    @MockBean
+    private FlightRouteService flightRouteService;
+
     @Autowired
     private FlightDetailsService flightDetailsService;
-
-    @Test
-    public void shouldInvokeGetLatestFlightDetailForPlane() {
-
-        List<FlightDetails> flightDetailsTestList = new ArrayList<>();
-        flightDetailsTestList.add(new FlightDetails());
-
-        when(flightDetailsRepository.getLatestFlightDetails(anyString(),anyBoolean()))
-                .thenReturn(flightDetailsTestList);
-
-        flightDetailsService.getLatestFlightDetailsForPlanes(anyString(),anyBoolean());
-
-        verify(flightDetailsRepository).getLatestFlightDetails(anyString(),anyBoolean());
-
-    }
-
-    @Test
-    public void ifMethodGetNullAsParameterThenFlightDetailsForAllPlanesIsReturn() {
-        flightDetailsService.getLatestFlightDetailsForPlanes(null,false);
-        verify(flightDetailsRepository).getLatestFlightDetails(null,false);
-
-    }
 
 }

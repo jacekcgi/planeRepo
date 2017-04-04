@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PlaneService } from 'app/services';
-import { NotificationService, AiportService, FlightRoutesService } from 'app/services';
+import { NotificationService, AirportService, FlightRoutesService } from 'app/services';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SafeHtml, DomSanitizer } from "@angular/platform-browser";
 import { Observable } from "rxjs/Observable";
@@ -37,7 +37,7 @@ export class FlightRouteDetailsComponent implements OnInit {
 
     getAirports(keyword: string) {
         this.airportsSearchRequest.filter = { name: keyword };
-        let tmp: any = this.airportService.findAiports(this.airportsSearchRequest).then((response) => {
+        let tmp: any = this.airportService.findAirports(this.airportsSearchRequest).then((response) => {
             return response.entities
         });
 
@@ -45,7 +45,7 @@ export class FlightRouteDetailsComponent implements OnInit {
     }
 
     constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService, private route: ActivatedRoute, private _sanitizer: DomSanitizer,
-        private airportService: AiportService, private flightRouteService: FlightRoutesService) {
+        private airportService: AirportService, private flightRouteService: FlightRoutesService) {
         route.queryParams.subscribe((params: Params) => {
             this.sid = params['sid'];
         });

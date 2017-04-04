@@ -29,6 +29,10 @@ export class PlaneService {
         return this.actions.get("/allPlanesLocation/");
     }
 
+    getFlightDetails(sid:string) {
+         return this.actions.get("/get/flightDetails/" + sid);
+    }
+
     save(form: FormGroup, data: object) {
         return this.actions.postForm("/plane", data, form);
     }

@@ -26,6 +26,16 @@ public class FlightDetailsDto implements Serializable {
 
     public static final String FIELD_CREATED_DATE = "created";
 
+    public static final String FIELD_PLANE_NAME = "planeName";
+
+    public static final String FIELD_PLANE_REGISTRATION = "planeRegistration";
+
+    public static final String FIELD_AVERAGE_FUEL_CONSUMPTION = "averageFuelConsumption";
+
+    public static final String FIELD_SOURCE_CITY = "sourceCity";
+
+    public static final String FIELD_DESTINATION_CITY = "destinationCity";
+
     public FlightDetailsDto(double currentLatitude, double currentLongitude,
                             double destinationLatitude, double destinationLongitude,
                             double velocity, double distanceTraveled, double flightDistance, String flightRouteSid) {
@@ -69,7 +79,7 @@ public class FlightDetailsDto implements Serializable {
 
     private LocalDateTime created;
 
-    public double getFlightDistance() {
+   public double getFlightDistance() {
         return flightDistance;
     }
 
@@ -148,4 +158,5 @@ public class FlightDetailsDto implements Serializable {
     public void setTimeElapsed(double timeElapsed) {
         this.timeElapsed = timeElapsed;
     }
+
 }

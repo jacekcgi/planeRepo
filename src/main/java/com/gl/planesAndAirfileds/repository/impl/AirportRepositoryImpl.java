@@ -39,6 +39,30 @@ public class AirportRepositoryImpl extends AbstractIdentifiableEntityRepositoryI
                         "%" + airportFilter.getName().toLowerCase() + "%"));
             }
 
+            if (StringUtils.isNotBlank(airportFilter.getCity())) {
+                where = builder.and(where, builder.like(
+                        builder.lower(root.get(Airport.FIELD_CITY)),
+                        "%" + airportFilter.getCity().toLowerCase() + "%"));
+            }
+
+            if (StringUtils.isNotBlank(airportFilter.getCountry())) {
+                where = builder.and(where, builder.like(
+                        builder.lower(root.get(Airport.FIELD_COUNTRY)),
+                        "%" + airportFilter.getCountry().toLowerCase() + "%"));
+            }
+
+            if (StringUtils.isNotBlank(airportFilter.getIataCode())) {
+                where = builder.and(where, builder.like(
+                        builder.lower(root.get(Airport.FIELD_IATA_CODE)),
+                        "%" + airportFilter.getIataCode().toLowerCase() + "%"));
+            }
+
+            if (StringUtils.isNotBlank(airportFilter.getIcaoCode())) {
+                where = builder.and(where, builder.like(
+                        builder.lower(root.get(Airport.FIELD_ICAO_CODE)),
+                        "%" + airportFilter.getIcaoCode().toLowerCase() + "%"));
+            }
+
             criteria.where(where);
         }
 

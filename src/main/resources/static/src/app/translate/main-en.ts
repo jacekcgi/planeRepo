@@ -1,4 +1,6 @@
-import { airplane } from './en_EN/airplane';
+import { airplane } from './en_EN/airplane'
+import { airport } from './en_EN/airport'
+import { flightDetails } from './en_EN/flightDetails'
 import { validations } from './en_EN/validations'
 import { flightroute } from "./en_EN/flightroute";
 
@@ -9,6 +11,8 @@ export const LANG_EN_TRANS = {
     airplane,
     flightroute,
     validations,
+    airport,
+    flightDetails,
 
     // main keys
     saveButton: 'Save',

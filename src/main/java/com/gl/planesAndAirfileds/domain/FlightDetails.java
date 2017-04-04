@@ -32,6 +32,8 @@ public class FlightDetails extends AbstractEntity {
 
     public static final String FIELD_DISTANCE_TRAVELED = "distanceTraveled";
 
+    public static final String FIELD_AVERAGE_FUEL_CONSUMPTION = "averageFuelConsumption";
+
     @Column(name = "gps_latitude", nullable = false)
     @NotNull
     private double gpsLatitude;

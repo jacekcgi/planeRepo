@@ -4,6 +4,7 @@ import com.gl.planesAndAirfileds.TestDomainObjectFactory;
 import com.gl.planesAndAirfileds.domain.Plane;
 import com.gl.planesAndAirfileds.domain.api.Mappings;
 import com.gl.planesAndAirfileds.domain.filter.*;
+import com.gl.planesAndAirfileds.service.FlightDetailsService;
 import com.gl.planesAndAirfileds.service.PlaneService;
 import com.gl.planesAndAirfileds.validators.PlaneValidator;
 import com.google.gson.Gson;
@@ -45,6 +46,9 @@ public class PlanesControllerTest {
 
     @MockBean
     private RestTemplateBuilder builder;
+
+    @MockBean
+    FlightDetailsService flightDetailsService;
 
     @Autowired
     private MockMvc mvc;

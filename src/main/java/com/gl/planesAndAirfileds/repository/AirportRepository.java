@@ -8,3 +8,5 @@ public interface AirportRepository extends AbstractIdentifiableEntityRepository<
 
     List<Airport> getAirportBasedOnZoomLvl(int zoomlvl);
 }
+
+

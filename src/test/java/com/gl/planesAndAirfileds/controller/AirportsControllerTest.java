@@ -34,12 +34,12 @@ public class AirportsControllerTest {
     AirportsService airportsService;
 
     @Test
-    public void getCurrentTimeTest() throws Exception {
+    public void findAirportsTest() throws Exception {
 
         when(airportsService.findAll())
                 .thenReturn(new ArrayList<Airport>());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/findAirports"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/find/airports"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
 

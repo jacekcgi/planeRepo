@@ -17,4 +17,18 @@ export interface FlightDetailsDto {
     distanceTraveled: number;
 
     flightDistance: number;
+
+   
+}
+
+export interface FlightDetails extends FlightDetailsDto {
+    planeName: string,
+
+    planeRegistration:string,
+
+    averageFuelConsumption:number,
+
+    sourceCity: string,
+
+    destinationCity:string
 }
