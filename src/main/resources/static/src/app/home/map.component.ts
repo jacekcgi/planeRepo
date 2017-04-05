@@ -119,7 +119,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                 marker.setPosition(latlng);
                 marker.setIcon(this.icon);
                 tmpMarkers[flightRouteSid] = marker;
-                marker.timeElapsed = value.timeElapsed,
                 this.markers[flightRouteSid] = undefined;
                 delete this.markers[flightRouteSid];
             } else {
@@ -144,7 +143,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             icon: this.icon,
             map: this.map,
             flightRouteSid:flightRouteSid,
-            timeElapsed:value.timeElapsed,
         });
         marker.set('mapComponent', this)
         marker.addListener('click', function() {
@@ -179,7 +177,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         that.flightDetails.latitude = marker.position.lat();
         that.flightDetails.longitude = marker.position.lng();
         that.flightDetails.velocity = data.velocity;
-        that.flightDetails.timeElapsed = marker.timeElapsed;
         that.flightDetails.averageFuelConsumption = data.averageFuelConsumption;
         that.flightDetails.course = (marker.icon.rotation+360)%360;
         that.flightDetails.sourceCity = data.flightRoute.source.city;
@@ -187,7 +184,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         that.flightDetails.flightDistance = data.flightRoute.flightDistance;
         that.flightDetails.distanceTraveled = data.distanceTraveled;
         that.flightDetails.maxDistance = that.planeService.calculateMaxDistance(data.remainingFuel,data.averageFuelConsumption);
-        data.remainingFuel
+        let createdDate:any = new Date(data.createdDate);
+        let startDate:any = new Date(data.flightRoute.startDate);
+        that.flightDetails.timeElapsed = createdDate.getTime()-startDate.getTime();
+   
      })
 
 
