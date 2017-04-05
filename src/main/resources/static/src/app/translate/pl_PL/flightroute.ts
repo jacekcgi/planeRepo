@@ -1,10 +1,12 @@
 export const flightroute = {
   title: 'Loty',
-  startDate: 'Depatrure Date',
-  incomingDate: 'Incoming Date',
+  startDate: 'Data odlotu',
+  incomingDate: 'Data przylotu',
   sourceName: 'Lotnisko startowe',
   destinationName: 'Lotnisko docelowe',
   planeName: 'Nazwa samolotu',
   plane: 'Samolot',
-  registration: 'Rejestracja samolotu'
+  registration: 'Rejestracja samolotu',
+  flightDistance: 'Dystans',
+  distanceTraveled: 'Przebyta droga'
 }

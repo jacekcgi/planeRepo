@@ -35,8 +35,7 @@ export class PlaneDetailsComponent {
       sid: [''],
       name: ['', Validators.required],
       registration: ['', Validators.required],
-      description: [''],
-      datetime: [null, Validators.required]
+      description: ['']
     });
   }
 

@@ -1,7 +1,7 @@
 export const flightroute = {
-  title: 'Flight ROutes',
-  startDate: 'Data odlotu',
-  incomingDate: 'Data przylotu',
+  title: 'Flight Routes',
+  startDate: 'Depatrure Date',
+  incomingDate: 'Incoming Date',
   sourceName: 'From',
   destinationName: 'To',
   planeName: 'Plane',

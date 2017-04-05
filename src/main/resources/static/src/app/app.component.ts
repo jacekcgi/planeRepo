@@ -16,7 +16,8 @@ export class AppComponent {
         ns: NotificationService) {
         // this language will be used as a fallback when a translation isn't found in the current language
         let language = Cookie.get(AppConfig.languageCookieName);
-        translate.setDefaultLang(language ? language : AppConfig.deafultLanguage);
+        translate.setDefaultLang(AppConfig.deafultLanguage);
+        translate.use(language ? language : AppConfig.deafultLanguage)
 
         this.notificationOptions = ns.getOptions();
     }
