@@ -3,6 +3,7 @@ import { airport } from './en_EN/airport'
 import { flightDetails } from './en_EN/flightDetails'
 import { validations } from './en_EN/validations'
 import { flightroute } from "./en_EN/flightroute";
+import { datepicker } from "./en_EN/datepicker";
 
 export const LANG_EN_NAME = 'en_EN';
 
@@ -13,6 +14,7 @@ export const LANG_EN_TRANS = {
     validations,
     airport,
     flightDetails,
+    datepicker,
 
     // main keys
     saveButton: 'Save',

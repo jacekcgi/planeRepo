@@ -3,6 +3,7 @@ import { AbstractControl, FormGroup, Validators, FormBuilder } from '@angular/fo
 import { PlaneService } from 'app/services';
 import { NotificationService } from 'app/services';
 import { ActivatedRoute, Params } from '@angular/router';
+import * as moment from "moment";
 
 @Component({
   selector: 'page-plane-details',
@@ -11,6 +12,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class PlaneDetailsComponent {
   sid: string = null;
   planeForm: FormGroup;
+
+  momentValue: any = moment();
 
   constructor(private fb: FormBuilder, private planeService: PlaneService, private ns: NotificationService, private route: ActivatedRoute) {
     route.queryParams.subscribe((params: Params) => {
@@ -32,9 +35,15 @@ export class PlaneDetailsComponent {
       sid: [''],
       name: ['', Validators.required],
       registration: ['', Validators.required],
-      description: ['']
+      description: [''],
+      datetime: [null, Validators.required]
     });
   }
+
+  public setMoment(moment: any): any {
+    this.momentValue = moment;
+    // Do whatever you want to the return object 'moment'
+}
 
   onSubmit() {
     this.planeService.save(this.planeForm, this.planeForm.value).then((response) => {

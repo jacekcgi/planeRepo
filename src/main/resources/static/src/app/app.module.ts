@@ -33,7 +33,6 @@ import { DatePipe } from "@angular/common";
 import { DatepickerModule, TimepickerModule } from 'ng2-bootstrap';
 import { MomentPipe } from "common/datetimepicker";
 
-
 @NgModule({
   imports: [
     NgbModule.forRoot(),
