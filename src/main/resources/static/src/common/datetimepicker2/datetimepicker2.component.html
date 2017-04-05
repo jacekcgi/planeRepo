@@ -1,0 +1,9 @@
+<div ngClass="form-group col-sm-{{size}}">
+    <label [for]="property">{{ label | translate }}</label>
+    <div class="form-inline">
+        <input [ngClass]="{'invalid': !control.valid && control.touched, 'col-sm-10': true}" type="text" class="form-control" [placeholder]="getPlaceholder()"
+        [(ngModel)]="dateModel" ngbDatepicker #dp="ngbDatepicker" (click)="onClick()">
+    <ngb-timepicker [spinners]="false" [class.has-danger]="!control.valid && control.touched" class="col-sm-2" [(ngModel)]="timeModel"></ngb-timepicker>
+    </div>
+    <error-messages [control]="control"></error-messages>
+</div>
