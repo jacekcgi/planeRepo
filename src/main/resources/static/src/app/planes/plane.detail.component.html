@@ -8,7 +8,7 @@
             <ap-input formControlName="registration" label="airplane.registration" [formGroup]="planeForm" size=12></ap-input>
             <ap-input formControlName="description" label="airplane.description" [formGroup]="planeForm" size=12></ap-input>
 
-            <ap-datetimepicker2 formControlName="datetime" label="airplane.description" [formGroup]="planeForm"></ap-datetimepicker2>
+            <!--<ap-datetimepicker2 formControlName="datetime" label="airplane.description" [formGroup]="planeForm"></ap-datetimepicker2>-->
 
             <button type="submit" [disabled]="!planeForm.valid" class="btn btn-primary">{{ 'saveButton' | translate }}</button>
         </form>
