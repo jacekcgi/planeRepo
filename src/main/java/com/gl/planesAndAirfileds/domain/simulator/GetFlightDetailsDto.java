@@ -4,6 +4,7 @@ import com.gl.planesAndAirfileds.domain.FlightPhase;
 import com.gl.planesAndAirfileds.domain.FlightRoute;
 import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 
 /**
@@ -52,7 +53,7 @@ public class GetFlightDetailsDto extends FlightDetailsDto {
         this(flightRoute.getSource().getLatitude(), flightRoute.getSource().getLongitude(),
                 flightRoute.getDestination().getLatitude(), flightRoute.getDestination().getLongitude(),
                 flightRoute.getSource().getLatitude(), flightRoute.getSource().getLongitude(),
-                flightRoute.getFlightPhase(), LocalDateTime.now(), flightRoute.getStartDate(), 0d, 0d,
+                flightRoute.getFlightPhase(), LocalDateTime.now(Clock.systemUTC()), flightRoute.getStartDate(), 0d, 0d,
                 flightRoute.getFlightDistance(), flightRoute.getSid());
     }
 

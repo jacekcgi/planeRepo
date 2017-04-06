@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
     @Transactional(readOnly = true)
     public List<FlightDetailsDto> findLatestFlightDetails() {
         List<FlightDetailsDto> flightDetailsDtos = flightDetailsRepository.findLatest();
-        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now(Clock.systemUTC());
         flightDetailsDtos.forEach(flightDetailsDto ->
         {
             flightDetailsDto.setTimeElapsed(ChronoUnit.MILLIS.between(flightDetailsDto.getCreated(), now));
@@ -83,8 +84,8 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         for (FlightRoute fr : currentFlightRoutes) {
             if (fr.getFlightPhase() == FlightPhase.READY) {
                 getFlightDetailsDtos.add(new GetFlightDetailsDto(fr));
-            }
-            else {
+
+            } else {
                 planesInAir.add(fr);
             }
         }
@@ -112,7 +113,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
                 BeanUtils.copyProperties(dto, flightDetails, PostFlightDetailsDto.FIELD_FLIGHT_PHASE,
                         PostFlightDetailsDto.FIELD_FLIGHT_ROUTE_SID);
                 flightDetails.setActualPosition(true);
-                flightDetails.setCreatedDate(LocalDateTime.now());
+                flightDetails.setCreatedDate(LocalDateTime.now(Clock.systemUTC()));
                 FlightRoute flightRoute = flightRoutes.stream()
                         .filter(fr -> fr.getSid().equals(dto.getFlightRouteSid())).findFirst()
                         .orElseThrow(() -> new InsertFlightDetailsException(
@@ -123,7 +124,7 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
 //                update if flight phase has been changed
                 if (dto.getFlightPhase() != flightRoute.getFlightPhase()) {
                     if (dto.getFlightPhase() == FlightPhase.LANDED) {
-                        flightRoute.setLandedDate(LocalDateTime.now());
+                        flightRoute.setLandedDate(LocalDateTime.now(Clock.systemUTC()));
                     }
                     flightRoute.setFlightPhase(dto.getFlightPhase());
                     flightRouteService.update(flightRoute);
