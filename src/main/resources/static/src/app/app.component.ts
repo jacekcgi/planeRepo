@@ -11,6 +11,7 @@ import { AppConfig } from "config";
 })
 export class AppComponent {
     notificationOptions = {};
+    title: string = 'AirPlanes';
 
     constructor(translate: TranslateService,
         ns: NotificationService) {
