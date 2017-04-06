@@ -1,12 +1,12 @@
-// TODO: do sprawdzenia czy to sie nam przyda, czy konfiguracja jest OK
-
 var webpack = require('webpack');
 var helpers = require('./helpers');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
 
   resolve: {
+    modules: [helpers.root('src'), helpers.root("node_modules")],
     extensions: ['.ts', '.js']
   },
 
@@ -44,11 +44,17 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      Tether: 'tether'
+    }),
     new webpack.ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
       /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
       helpers.root('./src'), // location of your src
       {} // a map of your routes
-    )
+    ),
+    new ExtractTextPlugin('[name].css')
   ]
 }

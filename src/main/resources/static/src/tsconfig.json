@@ -11,7 +11,7 @@
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
     "types": [
-      ["node"]
+      ["node", "jasmine"]
     ],
     "files": [
       "./typings/declarations.d.ts"
