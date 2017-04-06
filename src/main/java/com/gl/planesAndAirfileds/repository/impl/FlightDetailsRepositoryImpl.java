@@ -4,7 +4,7 @@ import com.gl.planesAndAirfileds.domain.*;
 import com.gl.planesAndAirfileds.domain.dto.FlightDetailsDto;
 import com.gl.planesAndAirfileds.domain.simulator.GetFlightDetailsDto;
 import com.gl.planesAndAirfileds.repository.FlightDetailsRepository;
-import org.apache.commons.lang3.StringUtils;
+import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -108,5 +108,19 @@ public class FlightDetailsRepositoryImpl extends AbstractEntityRepositoryImpl<Fl
         Query query = getEntityManager().createNamedQuery(FlightDetails.UPDATE_ACTUAL_POSITION);
         query.setParameter("ids", flightRouteIds);
         return query.executeUpdate();
+    }
+
+    @Override
+    public List<FlightDetails> findFlightGpsTrail(String flightRouteSid) {
+
+        CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
+        CriteriaQuery<FlightDetails> criteriaQuery = builder.createQuery(FlightDetails.class);
+        Root<FlightDetails> root = criteriaQuery.from(FlightDetails.class);
+        Path<FlightRoute> flightRouteRoot = root.get(FlightDetails.FIELD_FLIGHT_ROUTE);
+        Predicate where = builder.equal(flightRouteRoot.get(FlightRoute.FIELD_SID),flightRouteSid);
+        criteriaQuery.where(where);
+        Order order = new OrderImpl(root.get(FlightDetails.FIELD_CREATED_DATE), true);
+        criteriaQuery.orderBy(order);
+        return getEntityManager().createQuery(criteriaQuery).getResultList();
     }
 }

@@ -27,6 +27,8 @@ public interface Mappings {
 
     String GET_FLIGHT_DETAILS = "/get/flightDetails/{flightRoute_sid}";
 
+    String FIND_FLIGHT_TRAIL = "/find/flightTrail/{flightRoute_sid}";
+
     //Airports controller
 
     String FIND_AIRPORTS = "/find/airports";

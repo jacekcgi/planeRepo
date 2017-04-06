@@ -16,4 +16,6 @@ public interface FlightDetailsRepository extends AbstractEntityRepository<Flight
     int updateActualPosition(List<Long> flightRouteIds);
 
     FlightDetails getLatestFlightDetails(String flightRouteSid);
+
+    List<FlightDetails> findFlightGpsTrail(String flightSid);
 }
