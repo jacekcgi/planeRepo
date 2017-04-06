@@ -134,4 +134,8 @@ public class FlightDetailsServiceImpl extends AbstractEntityServiceImpl<FlightDe
         }
     }
 
+    @Override
+    public List<FlightDetails> findFlightTrail(String flightRouteSid) {
+        return flightDetailsRepository.findFlightGpsTrail(flightRouteSid);
+    }
 }

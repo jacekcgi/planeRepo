@@ -1,6 +1,6 @@
 import { OnInit, OnChanges, SimpleChanges, Component, ElementRef, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
 import { PlaneService,AirportService } from "app/services";
-import { FlightDetailsDto,FlightDetails } from "app/domain";
+import { FlightDetailsDto, FlightDetails} from "app/domain";
 import { Observable, Subscription } from 'rxjs/Rx';
 declare var google: any;
 
@@ -32,6 +32,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     lastUpdate: any = null;
 
     storedLocationData: any;
+
+    trail: any;
 
     markers = {};
 
@@ -126,6 +128,9 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                     tmpMarkers[flightRouteSid] = this.createMarker(latlng, value, flightRouteSid);
                 }
             }
+            if(this.trail!=null && flightRouteSid === this.trail.flightRouteSid) {
+                this.updateTrail(latlng);
+            }
         }
 
         for (let m in this.markers) {
@@ -134,6 +139,13 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         }
         this.markers = tmpMarkers;
+        
+    }
+
+    updateTrail(latlng: any){
+        var path = this.trail.getPath();
+        path.push(latlng);
+        this.trail.setPath(path);
     }
 
     createMarker(latlng: any, value: any, flightRouteSid: string) {
@@ -158,14 +170,43 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                     that.flightDetails = {flightRouteSid:""};
                 } else {
                     that.createFligtDetails(that,flightRouteSid,this);
-                }
+                } 
+              that.deleteTrail(); 
+              if(that.trail!=null && that.trail.flightRouteSid != flightRouteSid){
+                that.createFlightTrail(that,flightRouteSid,this);
+              }
            } else {
                 that.toggled = "toggled";
                 that.createFligtDetails(that,flightRouteSid,this);
+                that.createFlightTrail(that,flightRouteSid,this);
            }
 
         });
         return marker;
+    }
+
+    createFlightTrail(that:any,flightRouteSid:string,marker:any){
+    that.planeService.findFlightTrail(flightRouteSid).then((data: any) =>{
+         var flightPlanCoordinates = new Array;
+         for(let value of data) {
+        flightPlanCoordinates.push({lat: value.gpsLatitude, lng: value.gpsLongitude});
+         }
+          var flightPath = new google.maps.Polyline({
+          path: flightPlanCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 2,
+          strokeWeight: 2,
+          flightRouteSid: flightRouteSid
+        });
+
+        flightPath.setMap(marker.map);
+        this.trail = flightPath;
+    })
+    }
+
+    deleteTrail(){
+        this.trail.setMap(null);
     }
 
     createFligtDetails (that:any,flightRouteSid:string,marker:any) {

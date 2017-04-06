@@ -19,4 +19,6 @@ public interface FlightDetailsService extends AbstractEntityService<FlightDetail
     List<GetFlightDetailsDto> findLatestForSimulator();
 
     FlightDetails getFlightDetailsByFlightRoute(String flightRouteSid);
+
+    List<FlightDetails> findFlightTrail(String flightRouteSid);
 }

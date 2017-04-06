@@ -43,4 +43,10 @@ public class FlightDetailsController extends AbstractController {
     public void gatherFlightDetails(@RequestBody List<PostFlightDetailsDto> postFlightDetailsDtos) {
         flightDetailsService.insertNewFlightDetails(postFlightDetailsDtos);
     }
+
+    @RequestMapping(value = {Mappings.FIND_FLIGHT_TRAIL}, method = RequestMethod.GET)
+    @ResponseStatus(code = HttpStatus.OK)
+    public List<FlightDetails> findFlightTrailById(@PathVariable(value = "flightRoute_sid") String sid) {
+        return flightDetailsService.findFlightTrail(sid);
+    }
 }
