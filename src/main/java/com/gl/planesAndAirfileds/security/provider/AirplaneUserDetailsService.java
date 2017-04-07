@@ -29,7 +29,6 @@ public class AirplaneUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-
         User user = null;
         try {
             user = userService.getByLogin(login);
@@ -38,7 +37,7 @@ public class AirplaneUserDetailsService implements UserDetailsService {
             LOGGER.error("user '" + login + "' not found", e);
         }
         if (user == null || !user.isActive()) {
-            throw new UsernameNotFoundException("user '" + login + "' not found!");
+            throw new UsernameNotFoundException("user '" + login + "' not found or is inactive!");
         }
         Password password = passwordService.getByUser(user);
         if (password == null || StringUtils.isBlank(password.getPassword())) {

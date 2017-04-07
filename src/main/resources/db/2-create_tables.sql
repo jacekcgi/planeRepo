@@ -2,7 +2,7 @@ BEGIN;
 SET SQL_SAFE_UPDATES = 0;
 
 CREATE TABLE `user` (
-	id bigint(20) PRIMARY KEY,
+	id bigint(20) AUTO_INCREMENT PRIMARY KEY,
 	sid varchar(32) NOT NULL,
     active boolean NOT NULL,
     login varchar(32) NOT NULL,
@@ -16,7 +16,7 @@ CREATE INDEX user_name_index ON `user` (`name`) USING BTREE;
 CREATE INDEX user_surname_index ON `user` (surname) USING BTREE;
 
 CREATE TABLE `password` (
-	id bigint(20) PRIMARY KEY,
+	id bigint(20) AUTO_INCREMENT PRIMARY KEY,
 	`password` varchar(256) NOT NULL,
     user_id bigint(20) NOT NULL,
     FOREIGN KEY (user_id) REFERENCES `user`(id) ON DELETE CASCADE ON UPDATE CASCADE
