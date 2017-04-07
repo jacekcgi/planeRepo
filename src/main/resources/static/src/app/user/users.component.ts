@@ -24,7 +24,11 @@ export class UsersComponent {
 
   filterForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private ns: NotificationService, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private ns: NotificationService, private userService: UserService) {
+      this.userService.refreshTableData$.subscribe(() => {
+        this.fetchData();
+      })
+   }
 
   ngOnInit() {
     this.fetchData();
@@ -33,11 +37,6 @@ export class UsersComponent {
       login: [''],
       name: ['']
     });
-  }
-
-  onRefreshTable() {
-    console.log("fetching data?");
-    this.fetchData();
   }
 
   fetchData() {

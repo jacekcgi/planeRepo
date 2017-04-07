@@ -35,7 +35,6 @@ export class BoxComponent{
 
     prompt(message:string, accept?:string, close?: string) {
         this.message = this.translationService.get(message);
-        console.log(this.message);
         this.acceptButton = accept ? accept : this.acceptButton;
         this.closeButton = close ? close : this.closeButton;
 

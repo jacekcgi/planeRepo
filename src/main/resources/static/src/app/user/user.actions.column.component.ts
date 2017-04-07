@@ -29,10 +29,8 @@ export class UserActionsColumnComponent extends DefaultCellComponent {
                 this.userService.delete(sid).then((response) => {
                     this.ns.success('user.deleteSuccess');
                 });
+                this.userService.refreshTable();
             }
-            console.log("before emit event");
-            this.onRefreshTable.emit(true);
-            console.log("after emit");
         });
     }
 
