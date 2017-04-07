@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { BoxService } from 'common/modal/box.service';
+import { TranslationService } from 'app/services';
 
 @Component({
   selector: 'ap-box',
@@ -28,12 +29,13 @@ export class BoxComponent{
     @ViewChild('_closeBtn') 
     private _closeBtn:any;
 
-    constructor(confirmService:BoxService) {
+    constructor(confirmService:BoxService, private translationService: TranslationService) {
         confirmService.prompt = this.prompt.bind(this);
     }
 
     prompt(message:string, accept?:string, close?: string) {
-        this.message = message;
+        this.message = this.translationService.get(message);
+        console.log(this.message);
         this.acceptButton = accept ? accept : this.acceptButton;
         this.closeButton = close ? close : this.closeButton;
 

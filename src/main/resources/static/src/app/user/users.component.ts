@@ -35,6 +35,10 @@ export class UsersComponent {
     });
   }
 
+  onRefreshTable() {
+    console.log("fetching data?");
+    this.fetchData();
+  }
 
   fetchData() {
     this.userService.findUsers(this.searchRequest).then((response) => {

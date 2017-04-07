@@ -29,9 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] PUBLIC_ANT_PATHS = new String[]{
             "/", // main page
+            "/**",
             LOGIN_PATH, // login page
             "/built/**",
-            "/css/**",
             "/public/**",
             "/error401",
             "/error403",

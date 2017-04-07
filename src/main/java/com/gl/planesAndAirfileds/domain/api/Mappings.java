@@ -56,4 +56,6 @@ public interface Mappings extends ErrorApiMappings {
     String GET_USER = "/get/user/{sid}";
 
     String UPDATE_USER = "/update/user";
+
+    String DELETE_USER = "/delete/user/{sid}";
 }

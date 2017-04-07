@@ -33,7 +33,7 @@ export class ActionService {
                 return response;
             },
             error => {
-                this.processErrors(error.response.data)
+                this.processErrors(error)
                 console.error('Response error', error.stack || error);
                 return Promise.reject(error);
             }
@@ -77,7 +77,7 @@ export class ActionService {
         });
     }
 
-    post(link: string, data: any, config: AxiosRequestConfig = this.defaultConfig) {
+    post(link: string, data?: any, config: AxiosRequestConfig = this.defaultConfig) {
         return axios.post(link, data, config).then((response) => {
             return Promise.resolve(response.data);
         });

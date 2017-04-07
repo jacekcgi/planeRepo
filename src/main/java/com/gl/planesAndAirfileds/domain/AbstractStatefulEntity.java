@@ -1,8 +1,6 @@
 package com.gl.planesAndAirfileds.domain;
 
 import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 
@@ -18,13 +16,11 @@ public class AbstractStatefulEntity extends AbstractIdentifiableEntity {
     @NotNull
     private boolean active = true;
 
-    public boolean isActive()
-    {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(boolean active)
-    {
+    public void setActive(boolean active) {
         this.active = active;
     }
 }

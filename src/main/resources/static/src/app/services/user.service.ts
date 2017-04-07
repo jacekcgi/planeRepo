@@ -24,4 +24,8 @@ export class UserService {
     update(userForm :FormGroup) {
         return this.actions.postForm("/update/user", userForm.value, userForm);
     }
+
+    delete(sid: string) {
+        return this.actions.delete("/delete/user/" + sid);
+    }
 }

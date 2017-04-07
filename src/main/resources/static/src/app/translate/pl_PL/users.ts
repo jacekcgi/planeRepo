@@ -10,5 +10,7 @@ export const user = {
   successCreated: 'Użytkownik został dodany',
   successUpdated: 'Użytkownik został zakutalizowany',
   password: 'Hasło',
-  repeatedPassword: 'Powtórz hasło'
+  repeatedPassword: 'Powtórz hasło',
+  deletePrompt: "Czy na pewno chcesz usunąć użytkownika?",
+  deleteSuccess: "Użytkownik zosta usunięty."
 }
