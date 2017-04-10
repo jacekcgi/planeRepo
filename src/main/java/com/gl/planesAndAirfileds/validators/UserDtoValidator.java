@@ -26,8 +26,6 @@ public class UserDtoValidator implements Validator {
     public void validate(Object target, Errors errors) {
         UserDto userDto = (UserDto) target;
         User user = userDto.getUser();
-        String password = userDto.getPassword();
-        String repeatedPassword = userDto.getRepeatedPassword();
 
         boolean create = StringUtils.isEmpty(user.getSid());
         if (create) {
