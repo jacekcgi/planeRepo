@@ -10,4 +10,6 @@ public interface PasswordService extends AbstractEntityService<Password> {
     Password save(String password, User user);
 
     Password getByUser(User user);
+
+    void changePassword(User user, String newPassword);
 }

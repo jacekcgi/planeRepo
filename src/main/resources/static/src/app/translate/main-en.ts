@@ -15,8 +15,8 @@ export const LANG_EN_TRANS = {
     // main keys
     saveButton: 'Save',
     searchButton: 'Search',
-    closeButton: 'Close',
-    acceptButton: 'Accept',
+    closeButton: 'Nie',
+    acceptButton: 'Tak',
     updateButton: 'Update',
     // notification titles
     successTitle: 'Success',
@@ -26,5 +26,6 @@ export const LANG_EN_TRANS = {
     actions: 'Actions',
     languages: 'Languages',
     en_EN: 'English',
-    pl_PL: 'Polish'
+    pl_PL: 'Polish',
+    entityDeactivated: 'Entity cannot be deleted and was inactivated'
 };

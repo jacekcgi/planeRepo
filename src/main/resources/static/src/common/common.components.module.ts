@@ -9,6 +9,7 @@ import { Table, PageableTable, Pagination, FilterToolbar, CellComponent, Default
 import { ErrorMessagesComponent } from 'common/validations';
 import { LanguageComponent } from 'common/languages';
 import { Modal } from 'common/modal/modal.window.component';
+import {TranslationService } from 'app/services';
 import { BoxComponent } from 'common/modal/box.component';
 import { BoxService } from 'common/modal/box.service'
 
@@ -41,7 +42,7 @@ import { NotificationService } from 'app/services';
     ],
     entryComponents: [DefaultCellComponent, DateCellComponent],
     providers: [
-        BoxService
+        BoxService, TranslationService 
     ],
     exports: [
         InputComponent,

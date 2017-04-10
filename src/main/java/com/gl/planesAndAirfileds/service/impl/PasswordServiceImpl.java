@@ -14,31 +14,36 @@ import org.springframework.transaction.annotation.Transactional;
  * Created by marek.sroga on 2017-03-29.
  */
 @Service("passwordService")
-public class PasswordServiceImpl extends AbstractEntityServiceImpl<Password> implements PasswordService
-{
-   @Autowired
-   private PasswordRepository passwordRepository;
+public class PasswordServiceImpl extends AbstractEntityServiceImpl<Password> implements PasswordService {
+    @Autowired
+    private PasswordRepository passwordRepository;
 
-   @Autowired
-   private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-   @Override
-   protected AbstractEntityRepository<Password> getRepository()
-   {
-      return passwordRepository;
-   }
+    @Override
+    protected AbstractEntityRepository<Password> getRepository() {
+        return passwordRepository;
+    }
 
-   @Override
-   @Transactional
-   public Password save(String password, User user)
-   {
-      String encoded = passwordEncoder.encode(password);
-      return super.save(new Password(encoded, user));
-   }
+    @Override
+    @Transactional
+    public Password save(String password, User user) {
+        String encoded = passwordEncoder.encode(password);
+        return super.save(new Password(encoded, user));
+    }
 
-   @Override
-   @Transactional(readOnly = true)
-   public Password getByUser(User user) {
-      return passwordRepository.getByUser(user);
-   }
+    @Override
+    @Transactional(readOnly = true)
+    public Password getByUser(User user) {
+        return passwordRepository.getByUser(user);
+    }
+
+    @Override
+    @Transactional
+    public void changePassword(User user, String newPassword) {
+        Password password = getByUser(user);
+        password.setPassword(passwordEncoder.encode(newPassword));
+        update(password);
+    }
 }

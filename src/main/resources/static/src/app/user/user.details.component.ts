@@ -37,8 +37,8 @@ export class UserDetailsComponent {
         surname: ['', [Validators.required, Validators.maxLength(64)]],
         active: [true]
       }),
-      password: ['', Validators.required],
-      repeatedPassword: ['', Validators.required]
+      password: [null, [Validators.minLength(4), Validators.maxLength(32)]],
+      repeatedPassword: [null, [Validators.minLength(4), Validators.maxLength(32)]]
     },
     {validator: AppValidators.password('password', 'repeatedPassword')});
   }
@@ -46,16 +46,21 @@ export class UserDetailsComponent {
 
   onSubmit() {
     if (this.sid) {
-      this.userService.update(this.userForm).then((response) => {
+      this.userService.update(this.userForm).then((data) => {
         this.ns.success('user.successUpdated');
-        this.sid = response["sid"];
-        this.userForm.get('user').patchValue(response);
+        this.sid = data['sid'];
+        // clean password after update - do not show dots in gui
+        this.userForm.get('password').reset();
+        this.userForm.get('repeatedPassword').reset();
+        this.userForm.get('user').patchValue(data);
       });
     } else {
-       this.userService.save(this.userForm).then((response) => {
+       this.userService.save(this.userForm).then((data) => {
         this.ns.success('user.successCreated');
-        this.sid = response["sid"];
-        this.userForm.get('user').patchValue(response);
+        this.sid = data['sid'];
+        this.userForm.get('password').reset();
+        this.userForm.get('repeatedPassword').reset();
+        this.userForm.get('user').patchValue(data);
       });
     }
   }

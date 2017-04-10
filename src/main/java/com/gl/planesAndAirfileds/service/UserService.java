@@ -11,4 +11,6 @@ public interface UserService extends AbstractStatefulEntityService<User> {
     boolean existUser(String login, String sid);
 
     User getByLogin(String login);
+
+    User update(User user, String password);
 }

@@ -5,6 +5,7 @@ import com.gl.planesAndAirfileds.repository.AbstractStatefulEntityRepository;
 import com.gl.planesAndAirfileds.repository.UserRepository;
 import com.gl.planesAndAirfileds.service.PasswordService;
 import com.gl.planesAndAirfileds.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,6 +39,17 @@ public class UserServiceImpl extends AbstractStatefulEntityServiceImpl<User> imp
       User saved = super.save(user);
       passwordService.save(password, saved);
       return saved;
+   }
+
+   @Override
+   @Transactional
+   public User update(User user, String password) {
+      User result = update(user);
+      if (StringUtils.isNotBlank(password))
+      {
+         passwordService.changePassword(result, password);
+      }
+      return result;
    }
 
    @Override

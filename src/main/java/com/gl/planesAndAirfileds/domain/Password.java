@@ -11,49 +11,48 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 @Table(name = "password")
-public class Password extends AbstractEntity
-{
-   public static final String FIELD_PASSWORD = "password";
+public class Password extends AbstractEntity {
+    public static final String FIELD_PASSWORD = "password";
 
-   public static final String FIELD_USER = "user";
+    public static final String FIELD_USER = "user";
 
-   public static final int FIELD_PASSWORD_LENGTH = 256;
+    public static final int FIELD_PASSWORD_LENGTH = 256;
 
-   public static final int FIELD_GUI_PASSWORD_LENGTH = 32;
+    public static final int FIELD_GUI_PASSWORD_LENGTH = 32;
 
-   @OneToOne(optional = false)
-   @JoinColumn(name = "user_id", unique = true)
-   @NotNull
-   private User user;
+    public static final int FIELD_PASSWORD_MIN_LENGTH = 4;
 
-   @Column(nullable = false, length = FIELD_PASSWORD_LENGTH)
-   @Length(max = FIELD_PASSWORD_LENGTH)
-   @NotBlank
-   private String password;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "user_id", unique = true)
+    @NotNull
+    private User user;
 
-   public Password(String encoded, User user)
-   {
-      this.password = encoded;
-      this.user = user;
-   }
+    @Column(nullable = false, length = FIELD_PASSWORD_LENGTH)
+    @Length(min = FIELD_PASSWORD_MIN_LENGTH, max = FIELD_PASSWORD_LENGTH)
+    @NotBlank
+    private String password;
 
-   public User getUser()
-   {
-      return user;
-   }
+    public Password() {
+    }
 
-   public void setUser(User user)
-   {
-      this.user = user;
-   }
+    public Password(String encoded, User user) {
+        this.password = encoded;
+        this.user = user;
+    }
 
-   public String getPassword()
-   {
-      return password;
-   }
+    public User getUser() {
+        return user;
+    }
 
-   public void setPassword(String password)
-   {
-      this.password = password;
-   }
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

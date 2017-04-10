@@ -1,7 +1,11 @@
 package com.gl.planesAndAirfileds.domain.dto;
 
+import com.gl.planesAndAirfileds.domain.Password;
 import com.gl.planesAndAirfileds.domain.User;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -15,10 +19,14 @@ public class UserDto implements Serializable
 
    public static final String FIELD_REPEATED_PASSWORD = "repeatedPassword";
 
+   @Valid
+   @NotNull
    private User user;
 
+   @Length(min = Password.FIELD_PASSWORD_MIN_LENGTH, max = Password.FIELD_GUI_PASSWORD_LENGTH)
    private String password;
 
+   @Length(min = Password.FIELD_PASSWORD_MIN_LENGTH, max = Password.FIELD_GUI_PASSWORD_LENGTH)
    private String repeatedPassword;
 
    public User getUser()

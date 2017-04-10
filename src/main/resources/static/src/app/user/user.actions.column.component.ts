@@ -15,8 +15,6 @@ import { NotificationService, UserService } from 'app/services';
 export class UserActionsColumnComponent extends DefaultCellComponent {
     params: any;
 
-    @Output() onRefreshTable = new EventEmitter<boolean>();
-
     constructor(private boxService: BoxService, private userService: UserService, private ns: NotificationService) {
         super();
     }

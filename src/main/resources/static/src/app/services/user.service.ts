@@ -11,7 +11,7 @@ export class UserService {
 
     refreshTableData$ = this.refreshTableData.asObservable();
 
-    constructor( @Inject(ActionService) private actions: ActionService) {
+    constructor(private actions: ActionService) {
     }
 
 // sever communication
@@ -28,7 +28,7 @@ export class UserService {
     }
 
     update(userForm: FormGroup) {
-        return this.actions.postForm("/update/user", userForm.value, userForm);
+        return this.actions.putForm("/update/user", userForm.value, userForm);
     }
 
     delete(sid: string) {

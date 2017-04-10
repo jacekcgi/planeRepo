@@ -75,7 +75,7 @@ public class UserRepositoryImpl extends AbstractStatefulEntityRepositoryImpl<Use
         CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = builder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
-        criteriaQuery.where(builder.equal(root.get(User.FIELD_NAME), login));
+        criteriaQuery.where(builder.equal(root.get(User.FIELD_LOGIN), login));
         return getEntityManager().createQuery(criteriaQuery).getSingleResult();
     }
 }

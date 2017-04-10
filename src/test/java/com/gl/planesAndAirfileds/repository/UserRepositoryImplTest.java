@@ -35,7 +35,7 @@ public class UserRepositoryImplTest extends AbstractStatefulEntityRepositoryImpl
     public void getByLogin() {
         String login = SidUtils.generate();
         User user = TestDomainObjectFactory.getUser();
-        user.setName(login);
+        user.setLogin(login);
         persist(user);
 
         List<User> otherUsers = TestDomainObjectFactory.findUsers(randomCount(10));

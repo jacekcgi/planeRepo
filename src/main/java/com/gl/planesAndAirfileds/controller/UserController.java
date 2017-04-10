@@ -54,11 +54,11 @@ public class UserController extends AbstractController {
         return userService.save(user, password);
     }
 
-    @RequestMapping(value = Mappings.UPDATE_USER, method = RequestMethod.POST)
+    @RequestMapping(value = Mappings.UPDATE_USER, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public User update(@RequestBody @Validated(Default.class) UserDto userDto) {
         User user = userDto.getUser();
-        return userService.update(user);
+        return userService.update(user, userDto.getPassword());
     }
 
     @RequestMapping(value = Mappings.GET_USER, method = RequestMethod.GET)

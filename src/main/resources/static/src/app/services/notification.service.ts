@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { AppConfig } from 'config';
 import { TranslateService } from 'ng2-translate';
 import { NotificationsService } from 'angular2-notifications';
 import { defaultIcons } from 'angular2-notifications/src/icons';
 
-@Injectable()
 export class NotificationService {
 
     private notificationOptions = {
@@ -22,7 +21,7 @@ export class NotificationService {
         position: ['right', 'top']
     }
 
-    constructor(private translateService: TranslateService, private ans: NotificationsService) {
+    constructor(@Inject(TranslateService) private translateService: TranslateService, @Inject(NotificationsService) private ans: NotificationsService) {
 
     }
 

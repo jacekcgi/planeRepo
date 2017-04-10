@@ -10,8 +10,8 @@ import { TranslationService } from 'app/services';
             <div class="card card-inverse text-center" style="background-color: #333; border-color: #333;">
                 <div class="card-block">
                     <p>{{message}}</p>
-                    <button #_acceptBtn type="button" class="btn btn-sm btn-secondary pull-right">{{acceptButton | translate}}</button>
-                    <button #_closeBtn type="button" class="btn btn-sm btn-secondary pull-left">{{closeButton | translate}}</button>
+                    <button #_acceptBtn type="button" class="btn btn-sm btn-secondary pull-left">{{acceptButton | translate}}</button>
+                    <button #_closeBtn type="button" class="btn btn-sm btn-secondary pull-right">{{closeButton | translate}}</button>
                 </div>       
             </div>
         </div>

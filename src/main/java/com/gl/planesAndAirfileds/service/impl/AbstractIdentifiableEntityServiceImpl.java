@@ -33,13 +33,13 @@ public abstract class AbstractIdentifiableEntityServiceImpl<T extends AbstractId
 
     @Override
     @Transactional
-    public T update(T entity) throws DataNotFoundException
+    public T update(T entity)
     {
         return update(entity, null);
     }
 
     @Transactional
-    public T update(T entity, LockModeType lockModeType) throws DataNotFoundException
+    public T update(T entity, LockModeType lockModeType)
     {
         if (getUpdateIgnoreFields() != null)
         {

@@ -18,8 +18,9 @@ export const LANG_PL_TRANS = {
 
     saveButton: 'Zapisz',
     searchButton: 'Szukaj',
-    closeButton: 'Zamknij',
-    acceptButton: 'Akceptuj',
+    closeButton: 'Nie',
+    acceptButton: 'Tak',
     updateButton: 'Aktualizuj',
     actions: 'Akcje',
+    entityDeactivated: 'Obiekt został dezaktywowany, ponieważ powiązany jest z innym'
 };
